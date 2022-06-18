@@ -804,23 +804,25 @@ function draw() {
 }
 
 function addItem(ntype, ammount) {
+    for (let i = 0; i < 8; i++) {
+        if (player.inv[i].type == ntype) {
+            player.inv[i].ammount += ammount;
+            return;
+        }
+    }
     if (player.inv[player.hand].type == 'air') {
         player.inv[player.hand].type = ntype;
         player.inv[player.hand].ammount = ammount;
+        return;
     }
-    else {
+        
         for (let i = 0; i < 8; i++) {
-            if (player.inv[i].type == ntype) {
-                player.inv[i].ammount += ammount;
-                return;
-            }
-            else if (player.inv[i].type == 'air') {
+            if (player.inv[i].type == 'air') {
                 player.inv[i].type = ntype;
                 player.inv[i].ammount = ammount;
                 return;
             }
         }
-    }
 }
 
 
@@ -923,7 +925,7 @@ function takeInput() {
                 if (player.inv[player.hand].ammount == 0) {
                     player.inv[player.hand].type = 'air';
                 }
-                addItem('corn_seed', 1);
+                addItem('corn_seed', round(random(1,2)));
                 if (player.hunger < maxHunger) {
                     player.hunger += 2;
                     if (player.hunger > maxHunger) {
@@ -936,7 +938,7 @@ function takeInput() {
                 if (player.inv[player.hand].ammount == 0) {
                     player.inv[player.hand].type = 'air';
                 }
-                addItem('sweet_potato_seed', 1);
+                addItem('sweet_potato_seed',  round(random(1,2)));
                 if (player.hunger < maxHunger) {
                     player.hunger += 2;
                     if (player.hunger > maxHunger) {
@@ -949,7 +951,7 @@ function takeInput() {
                 if (player.inv[player.hand].ammount == 0) {
                     player.inv[player.hand].type = 'air';
                 }
-                addItem('strawberry_seed', 1);
+                addItem('strawberry_seed',  round(random(1,2)));
                 if (player.hunger < maxHunger) {
                     player.hunger += 1;
                     if (player.hunger > maxHunger) {
@@ -988,7 +990,7 @@ function takeInput() {
                     }
                 }
                 else if (player.inv[player.hand].type == 'strawberry_seed') {
-                    levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(17, touching.pos.x, touching.pos.y);
+                    levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(18, touching.pos.x, touching.pos.y);
                     player.inv[player.hand].ammount -= 1;
                     if (player.inv[player.hand].ammount == 0) {
                         player.inv[player.hand].type = 'air';
@@ -1000,7 +1002,7 @@ function takeInput() {
                 levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(2, touching.pos.x, touching.pos.y);
                 addItem('corn', 1);
             }
-            else if (touching.type == 'sweet_potato' && touching.age <= 4) {
+            else if (touching.type == 'sweet_potato' && touching.age == 3) {
                 levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(2, touching.pos.x, touching.pos.y);
                 addItem('sweet_potato', 1);
             }
