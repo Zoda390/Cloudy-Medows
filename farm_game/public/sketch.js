@@ -6,6 +6,24 @@
 var cloudCount = 8;
 var clouds = [];
 
+class Sound {
+
+    constructor(src) {
+        this.sound = document.createElement("audio");
+        this.sound.src = src;
+        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("controls", "none");
+        this.sound.style.display = "none";
+        document.body.appendChild(this.sound);
+    }
+    play(){
+      this.sound.play();
+    }
+    stop(){
+      this.sound.pause();
+    }
+}
+
 class Circle {
     constructor() {
         this.size = random(50, 100)
@@ -412,6 +430,7 @@ class Player {
             this.hp = 100;
             this.deaths += 1;
             this.dead = false;
+            onDeathSound.play();
         }
     }
 
@@ -514,6 +533,7 @@ var days = 0;
 var title_button_exist = false;
 var title_screen = false;
 
+
 function preload() {
     //Items
     corn_img = loadImage('Corn_item.png');
@@ -592,6 +612,14 @@ function preload() {
     sweet_potato_tile_5_img = loadImage('beets_5.png');
     sweet_potato_tile_imgs = [sweet_potato_tile_img, sweet_potato_tile_2_img, sweet_potato_tile_3_img, sweet_potato_tile_4_img, sweet_potato_tile_5_img];
 
+
+    //sounds
+    hoe_sound = new Sound('Hoe.wav');
+    onDeathSound = new Sound('Death.wav');
+    newDayChime = new Sound('NewDay.mp3');
+    main_theme = new Sound('Main_theme.wav');
+
+    main_theme.play(); //needs to loop
 }
 
 function setup() {
@@ -698,6 +726,7 @@ function draw() {
                 timephase = 1;
                 days += 1;
                 player.hunger -= 1;
+                newDayChime.play();
             }
             if (time <= 0) {
                 timephase = 0;
@@ -861,6 +890,9 @@ function takeInput() {
     }
     if (keyIsDown(eat_button)) {
         if (millis() - lastMili > 100) {
+
+
+
             if (player.inv[player.hand].type == 'corn') {
                 player.inv[player.hand].ammount -= 1;
                 if (player.inv[player.hand].ammount == 0) {
@@ -894,6 +926,7 @@ function takeInput() {
         if (millis() - lastMili > 100) {
             if (touching.type == 'grass') {
                 if (player.inv[player.hand].type == 'hoe') {
+                    hoe_sound.play();
                     levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(2, touching.pos.x, touching.pos.y);
                 }
                 
