@@ -273,6 +273,42 @@ class Tile {
                 this.border = true;
                 this.colide = false;
                 return;
+            case 21:
+                this.type = 'flower';
+                this.age = 0;
+                this.border = true;
+                this.colide = false;
+                return;
+            case 22:
+                this.type = 'deb'
+                this.age = -2;
+                this.phrase = 'hi, im Deb, Christans a fag';
+                this.phraseWidth = 200;
+                this.phraseHeight = 100;
+                this.border = true;
+                this.colide = true;
+                return;
+            case 23:
+                this.type = 'cowboy rick'
+                this.age = -2;
+                this.phrase = 'hi, im Rick hafdsj kfhjkasd hfkjasdhf kjsadhfjkah sfjkahdjkfsd jfsjfhjsd fhjkds';
+                this.phraseWidth = 200;
+                this.phraseHeight = 150;
+                this.border = true;
+                this.colide = true;
+                return;
+          case 24:
+                this.type = 'ladybug'
+                this.age = -1;
+                this.border = true;
+                this.colide = false;
+                return;
+          case 25:
+                this.type = 'bee'
+                this.age = -1;
+                this.border = true;
+                this.colide = false;
+                return;
 
 
             default:
@@ -367,11 +403,19 @@ class Tile {
         }
         if (this.type == 'sweet_potato') {
             image(plot_tile_img, this.pos.x, this.pos.y);
-            image(sweet_potato_tile_imgs[this.age], this.pos.x + (tileSize / 4), this.pos.y);
+            image(sweet_potato_tile_imgs[this.age], this.pos.x, this.pos.y);
         }
         if (this.type == 'strawberry') {
             image(plot_tile_img, this.pos.x, this.pos.y);
             image(strawberry_tile_imgs[this.age], this.pos.x + (tileSize / 4), this.pos.y);
+        }
+        if (this.type == 'flower') {
+            image(plot_tile_img, this.pos.x, this.pos.y);
+            image(flower_tile_imgs[this.age], this.pos.x + (tileSize / 4), this.pos.y);
+        }
+        if (this.type == 'ladybug') {
+            image(plot_tile_img, this.pos.x, this.pos.y);
+            image(ladybug_img, this.pos.x + (tileSize / 4), this.pos.y);
         }
         if (this.type == 'sprinkler') {
             image(grass_tile_img, this.pos.x, this.pos.y);
@@ -381,8 +425,14 @@ class Tile {
             image(concrete_tile_img, this.pos.x, this.pos.y);
             image(lamppost_tile_img, this.pos.x, this.pos.y);
         }
-
-
+        if (this.type == 'deb') {
+            image(concrete_tile_img, this.pos.x, this.pos.y);
+            image(deb_tile_img, this.pos.x, this.pos.y);
+        }
+        if (this.type == 'cowboy rick') {
+            image(concrete_tile_img, this.pos.x, this.pos.y);
+            image(rick_tile_img, this.pos.x, this.pos.y);
+        }
         pop();
     }
 
@@ -417,7 +467,7 @@ class Player {
         this.dead = false;
         this.deaths = 0;
         this.op = 255;
-        this.inv = [new Item('hoe', 1), new Item('corn_seed', 3), new Item('junk', 1), new Item('corn',1), new Item('compost',1), new Item('sweet_potato',1), new Item('strawberry_seed',1), new Item('air')];
+        this.inv = [new Item('hoe', 1), new Item('corn_seed', 3), new Item('junk', 1), new Item('corn',1), new Item('compost',1), new Item('sweet_potato',1), new Item('air'), new Item('air')];
         this.hand = 0;
         this.facing = 3;
         this.anim = 0;
@@ -450,6 +500,7 @@ class Player {
         imageMode(CENTER);
         image(player_imgs[this.facing][this.anim], this.pos.x, this.pos.y);
         if (this.hunger <= 0 && millis() - lastHungerMili > 400) {
+            hit_sound.play();
             this.hp -= 5;
             fill(255, 0, 0, 100);
             circle(this.pos.x, this.pos.y, tileSize);
@@ -501,17 +552,26 @@ class Item {
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
                 return;
-
-                case 'strawberry_seed':
-                    image(strawberry_seed_bag_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
-                    fill(255);
-                    text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
-                    return;
-                case 'strawberry':
-                    image(straw_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
-                    fill(255);
-                    text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
-                    return;
+            case 'strawberry_seed':
+                image(strawberry_seed_bag_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
+                fill(255);
+                text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                return;
+            case 'strawberry':
+                image(straw_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
+                fill(255);
+                text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                return;
+            case 'flower_seed':
+                image(flower_bag_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
+                fill(255);
+                text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                return;
+            case 'ladybug':
+                image(ladybug_bag_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
+                fill(255);
+                text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                return;
             case 'sprinkler':
                 image(sprinkler_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
@@ -589,6 +649,8 @@ function preload() {
     compost_tile_img = loadImage('compost_tile.png');       //16
     sprinkler_tile_img = loadImage('Sprinkler.gif');        //18
     lamppost_tile_img = loadImage('Light.png');             //19
+    deb_tile_img = loadImage('Deb.gif');                    //22
+    rick_tile_img = loadImage('CowBoy_Rick.gif');           //23
 
     //Ui
     player_2 = loadFont('pixelFont.ttf');
@@ -638,7 +700,7 @@ function preload() {
     sweet_potato_tile_5_img = loadImage('beets_5.png');
     sweet_potato_tile_imgs = [sweet_potato_tile_img, sweet_potato_tile_2_img, sweet_potato_tile_3_img, sweet_potato_tile_4_img, sweet_potato_tile_5_img];
 
-    //Strawberry
+    //Strawberry 20
     strawberry_tile_img = loadImage('strawberry_1.png');
     strawberry_tile_2_img = loadImage('strawberry_2.png');
     strawberry_tile_3_img = loadImage('strawberry_3.png');
@@ -646,12 +708,25 @@ function preload() {
     strawberry_tile_5_img = loadImage('strawberry_5.png');
     strawberry_tile_6_img = loadImage('strawberry_6.png');
     strawberry_tile_imgs = [strawberry_tile_img, strawberry_tile_2_img, strawberry_tile_3_img, strawberry_tile_4_img, strawberry_tile_5_img, strawberry_tile_6_img];
+    //flower  21
+    flower_bag_img = loadImage("SeedBagFlower.png");
+    flower_tile_img = loadImage("FlowerStage_1.png");
+    flower_tile_img2 = loadImage("FlowerStage_2.png");
+    flower_tile_imgs = [flower_tile_img, flower_tile_img2, flower_tile_img2];
+
+    // ladybugs
+    ladybug_bag_img = loadImage("Lady_Bug_bag.png");
+    ladybug_img = loadImage("LadyBugs.gif");
+
+    //bees
+    bee_img = loadImage("Bees.gif");
 
     //sounds
     hoe_sound = new Sound('Hoe.wav');
     onDeathSound = new Sound('Death.wav');
     newDayChime = new Sound('NewDay.mp3');
     main_theme = new Sound('Main_theme.wav');
+    hit_sound = new Sound('hit2.wav');
 
     main_theme.play(); //needs to loop
 }
@@ -666,7 +741,7 @@ function setup() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-    [0, 0, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 12, 5, 5, 5, 13, 5, 0, 0, 0],
+    [0, 0, 5, 4, 4, 4, 4, 5, 23, 5, 5, 5, 5, 5, 12, 5, 5, 5, 13, 5, 0, 0, 0],
     [0, 0, 5, 4, 7, 5, 4, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
     [0, 0, 5, 4, 5, 5, 4, 5, 5, 12, 5, 1, 1, 1, 17, 18, 1, 5, 5, 5, 0, 0, 0],
     [0, 0, 5, 4, 4, 5, 4, 19, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
@@ -687,7 +762,7 @@ function setup() {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-    [0, 0, 5, 13, 5, 5, 5, 5, 5, 5, 15, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+    [0, 0, 5, 13, 5, 5, 5, 5, 5, 5, 15, 22, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
     [0, 0, 5, 5, 1, 1, 1, 1, 1, 5, 5, 5, 6, 6, 6, 6, 6, 6, 5, 5, 0, 0, 0],
     [0, 0, 5, 5, 1, 1, 1, 1, 1, 5, 5, 5, 6, 6, 6, 6, 6, 6, 12, 5, 0, 0, 0],
     [0, 0, 5, 5, 1, 1, 1, 1, 1, 5, 5, 5, 6, 6, 6, 6, 6, 6, 5, 5, 0, 0, 0],
@@ -739,10 +814,10 @@ function draw() {
         player.update();
         background(0, 0, 0, time);
         render_ui();
-        if (millis() - lastTimeMili > 10) { //300 for normal time
+        if (millis() - lastTimeMili > 300) { //300 for normal time
             if (timephase == 0) {
                 if (touching.type == 'bed') {
-                    time += 3;
+                    time += 4;
                 }
                 else {
                     time += 1;
@@ -801,6 +876,24 @@ function draw() {
                                             if (levels[y][x].map[i][j].age > 4 && levels[y][x].map[i][j].dead_counter <= 0) {
                                                 levels[y][x].map[i][j].age = 4;
                                                 levels[y][x].map[i][j] = new Tile(11, (j * tileSize), (i * tileSize));
+                                            }
+                                        }
+                                        if (levels[y][x].map[i][j].type == 'flower') {
+                                            levels[y][x].map[i][j].age += 1;
+                                            if (levels[y][x].map[i][j].age == 1) {
+                                                //Spawn a bee
+                                            }
+                                            if (levels[y][x].map[i][j].age > 2) {
+                                                levels[y][x].map[i][j].age = 2;
+                                            }
+                                        }
+                                        if (levels[y][x].map[i][j].type == 'ladybug') {
+                                            levels[y][x].map[i][j].age += 1;
+                                            if (levels[y][x].map[i][j].age == 1) {
+                                                //Spawn a bee
+                                            }
+                                            if (levels[y][x].map[i][j].age > 2) {
+                                                levels[y][x].map[i][j].age = 2;
                                             }
                                         }
                                         if (levels[y][x].map[i][j].type == 'compost') {
@@ -937,47 +1030,41 @@ function takeInput() {
     }
     if (keyIsDown(eat_button)) {
         if (millis() - lastMili > 100) {
-            if(player.hunger_counter > 0){  // player only eats when hungry
-            if (player.inv[player.hand].type == 'corn') {
-                player.inv[player.hand].ammount -= 1;
-                if (player.inv[player.hand].ammount == 0) {
-                    player.inv[player.hand].type = 'air';
-                }
-                addItem('corn_seed', round(random(1,2)));
-                if (player.hunger < maxHunger) {
+            if(player.hunger < maxHunger){  // player only eats when hungry
+                if (player.inv[player.hand].type == 'corn') {
+                    player.inv[player.hand].ammount -= 1;
+                    if (player.inv[player.hand].ammount == 0) {
+                        player.inv[player.hand].type = 'air';
+                    }
+                    addItem('corn_seed', round(random(1,2)));
                     player.hunger += 2;
                     if (player.hunger > maxHunger) {
                         player.hunger = maxHunger;
                     }
                 }
-            }
-            else if (player.inv[player.hand].type == 'sweet_potato') {
-                player.inv[player.hand].ammount -= 1;
-                if (player.inv[player.hand].ammount == 0) {
-                    player.inv[player.hand].type = 'air';
-                }
-                addItem('sweet_potato_seed',  round(random(1,2)));
-                if (player.hunger < maxHunger) {
+                else if (player.inv[player.hand].type == 'sweet_potato') {
+                    player.inv[player.hand].ammount -= 1;
+                    if (player.inv[player.hand].ammount == 0) {
+                        player.inv[player.hand].type = 'air';
+                    }
+                    addItem('sweet_potato_seed',  round(random(1,2)));
                     player.hunger += 2;
                     if (player.hunger > maxHunger) {
                         player.hunger = maxHunger;
                     }
                 }
-            }
-            else if (player.inv[player.hand].type == 'strawberry') {
-                player.inv[player.hand].ammount -= 1;
-                if (player.inv[player.hand].ammount == 0) {
-                    player.inv[player.hand].type = 'air';
-                }
-                addItem('strawberry_seed',  round(random(1,2)));
-                if (player.hunger < maxHunger) {
+                else if (player.inv[player.hand].type == 'strawberry') {
+                    player.inv[player.hand].ammount -= 1;
+                    if (player.inv[player.hand].ammount == 0) {
+                        player.inv[player.hand].type = 'air';
+                    }
+                    addItem('strawberry_seed',  round(random(1,2)));
                     player.hunger += 1;
                     if (player.hunger > maxHunger) {
                         player.hunger = maxHunger;
                     }
                 }
             }
-        }
         }
         lastMili = millis();
     }
@@ -1009,6 +1096,20 @@ function takeInput() {
                 }
                 else if (player.inv[player.hand].type == 'strawberry_seed') {
                     levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(20, touching.pos.x, touching.pos.y);
+                    player.inv[player.hand].ammount -= 1;
+                    if (player.inv[player.hand].ammount == 0) {
+                        player.inv[player.hand].type = 'air';
+                    }
+                } 
+                else if (player.inv[player.hand].type == 'flower_seed') {
+                    levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(21, touching.pos.x, touching.pos.y);
+                    player.inv[player.hand].ammount -= 1;
+                    if (player.inv[player.hand].ammount == 0) {
+                        player.inv[player.hand].type = 'air';
+                    }
+                }
+                else if (player.inv[player.hand].type == 'ladybug') {
+                    levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(24, touching.pos.x, touching.pos.y);
                     player.inv[player.hand].ammount -= 1;
                     if (player.inv[player.hand].ammount == 0) {
                         player.inv[player.hand].type = 'air';
@@ -1186,7 +1287,62 @@ function render_ui() {
     text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 97.5));
 
     //draw line for clock, happens 1/12
-
+    if (player.facing == 0) {
+        if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].age == -2) {
+            push()
+            stroke(0);
+            fill(255);
+            rectMode(CENTER);
+            rect(touching.pos.x, touching.pos.y - (tileSize * 2), levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].phraseHeight);
+            textAlign(CENTER, CENTER);
+            textSize(15);
+            fill(0);
+            text(levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].phrase, touching.pos.x, touching.pos.y - (tileSize * 2), levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].phraseHeight);
+            pop()
+        }
+    }
+    if (player.facing == 1) {
+        if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize)+1].age == -2) {
+            push()
+            stroke(0);
+            fill(255);
+            rectMode(CENTER);
+            rect(touching.pos.x + (tileSize), touching.pos.y - (tileSize), levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize)+1].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize)+1].phraseHeight);
+            textAlign(CENTER, CENTER);
+            textSize(15);
+            fill(0);
+            text(levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize)+1].phrase, touching.pos.x + tileSize, touching.pos.y-(tileSize), levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize)+1].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize)+1].phraseHeight);
+            pop()
+        }
+    }
+    if (player.facing == 2) {
+        if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].age == -2) {
+            push()
+            stroke(0);
+            fill(255);
+            rectMode(CENTER);
+            rect(touching.pos.x, touching.pos.y, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].phraseHeight);
+            textAlign(CENTER, CENTER);
+            textSize(15);
+            fill(0);
+            text(levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].phrase, touching.pos.x, touching.pos.y, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].phraseHeight);
+            pop()
+        }
+    }
+    if (player.facing == 3) {
+        if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].age == -2) {
+            push()
+            stroke(0);
+            fill(255);
+            rectMode(CENTER);
+            rect(touching.pos.x - (tileSize), touching.pos.y - (tileSize), levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].phraseHeight);
+            textAlign(CENTER, CENTER);
+            textSize(15);
+            fill(0);
+            -text(levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].phrase, touching.pos.x - tileSize, touching.pos.y - (tileSize), levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].phraseHeight);
+            pop()
+        }
+    }
 }
 
 //Patrick's title-screen functions
