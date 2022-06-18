@@ -266,6 +266,13 @@ class Tile {
                 this.border = true;
                 this.colide = true;
                 return;
+            case 20:
+                this.type = 'strawberry';
+                this.age = 0;
+                this.dead_counter = 4;
+                this.border = true;
+                this.colide = false;
+                return;
 
 
             default:
@@ -410,7 +417,7 @@ class Player {
         this.dead = false;
         this.deaths = 0;
         this.op = 255;
-        this.inv = [new Item('hoe', 1), new Item('corn_seed', 3), new Item('junk', 1), new Item('corn',1), new Item('compost',1), new Item('sweet_potato',1), new Item('air'), new Item('air')];
+        this.inv = [new Item('hoe', 1), new Item('corn_seed', 3), new Item('junk', 1), new Item('corn',1), new Item('compost',1), new Item('sweet_potato',1), new Item('strawberry_seed',1), new Item('air')];
         this.hand = 0;
         this.facing = 3;
         this.anim = 0;
@@ -494,6 +501,17 @@ class Item {
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
                 return;
+
+                case 'strawberry_seed':
+                    image(strawberry_seed_bag_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
+                    fill(255);
+                    text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                    return;
+                case 'strawberry':
+                    image(straw_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
+                    fill(255);
+                    text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                    return;
             case 'sprinkler':
                 image(sprinkler_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
@@ -990,7 +1008,7 @@ function takeInput() {
                     }
                 }
                 else if (player.inv[player.hand].type == 'strawberry_seed') {
-                    levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(18, touching.pos.x, touching.pos.y);
+                    levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(20, touching.pos.x, touching.pos.y);
                     player.inv[player.hand].ammount -= 1;
                     if (player.inv[player.hand].ammount == 0) {
                         player.inv[player.hand].type = 'air';
@@ -1005,6 +1023,10 @@ function takeInput() {
             else if (touching.type == 'sweet_potato' && touching.age == 3) {
                 levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(2, touching.pos.x, touching.pos.y);
                 addItem('sweet_potato', 1);
+            }
+            else if (touching.type == 'strawberry' && touching.age == 4) {
+                levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(2, touching.pos.x, touching.pos.y);
+                addItem('strawberry', 1);
             }
             else if (touching.type == 'cart_s') {
                 if (player.inv[player.hand].type == 'corn') {
