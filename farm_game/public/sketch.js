@@ -362,6 +362,10 @@ class Tile {
             image(plot_tile_img, this.pos.x, this.pos.y);
             image(sweet_potato_tile_imgs[this.age], this.pos.x + (tileSize / 4), this.pos.y);
         }
+        if (this.type == 'strawberry') {
+            image(plot_tile_img, this.pos.x, this.pos.y);
+            image(strawberry_tile_imgs[this.age], this.pos.x + (tileSize / 4), this.pos.y);
+        }
         if (this.type == 'sprinkler') {
             image(grass_tile_img, this.pos.x, this.pos.y);
             image(sprinkler_tile_img, this.pos.x + (tileSize / 4), this.pos.y + (tileSize / 6));
@@ -540,6 +544,10 @@ function preload() {
     corn_seed_bag_img = loadImage('Corn_Seed_bag.png');
     sweet_potato_seed_bag_img = loadImage('seedbag_sp.png');
     sweet_potato_img = loadImage('SweetPotato.png');
+
+    straw_img = loadImage('Stawberry.png');
+    strawberry_seed_bag_img = loadImage('SeedBag_Stawberry.png');
+
     hoe_img = loadImage('Hoe.png');
     junk_img = loadImage('junk.png');
     compost_img = loadImage('compost.png');
@@ -612,6 +620,14 @@ function preload() {
     sweet_potato_tile_5_img = loadImage('beets_5.png');
     sweet_potato_tile_imgs = [sweet_potato_tile_img, sweet_potato_tile_2_img, sweet_potato_tile_3_img, sweet_potato_tile_4_img, sweet_potato_tile_5_img];
 
+    //Strawberry
+    strawberry_tile_img = loadImage('strawberry_1.png');
+    strawberry_tile_2_img = loadImage('strawberry_2.png');
+    strawberry_tile_3_img = loadImage('strawberry_3.png');
+    strawberry_tile_4_img = loadImage('strawberry_4.png');
+    strawberry_tile_5_img = loadImage('strawberry_5.png');
+    strawberry_tile_6_img = loadImage('strawberry_6.png');
+    strawberry_tile_imgs = [strawberry_tile_img, strawberry_tile_2_img, strawberry_tile_3_img, strawberry_tile_4_img, strawberry_tile_5_img, strawberry_tile_6_img];
 
     //sounds
     hoe_sound = new Sound('Hoe.wav');
@@ -758,6 +774,17 @@ function draw() {
                                                 levels[y][x].map[i][j] = new Tile(11, (j * tileSize), (i * tileSize));
                                             }
                                         }
+                                        if (levels[y][x].map[i][j].type == 'strawberry') {
+                                            levels[y][x].map[i][j].age += 1;
+                                            if (levels[y][x].map[i][j].age > 4 && levels[y][x].map[i][j].dead_counter > 0) {
+                                                levels[y][x].map[i][j].age = 4;
+                                                levels[y][x].map[i][j].dead_counter -= 1
+                                            }
+                                            if (levels[y][x].map[i][j].age > 4 && levels[y][x].map[i][j].dead_counter <= 0) {
+                                                levels[y][x].map[i][j].age = 4;
+                                                levels[y][x].map[i][j] = new Tile(11, (j * tileSize), (i * tileSize));
+                                            }
+                                        }
                                         if (levels[y][x].map[i][j].type == 'compost') {
                                             levels[y][x].map[i][j].age += 1;
                                             if (levels[y][x].map[i][j].age > 2) {
@@ -890,9 +917,7 @@ function takeInput() {
     }
     if (keyIsDown(eat_button)) {
         if (millis() - lastMili > 100) {
-
-
-
+            if(player.hunger_counter > 0){  // player only eats when hungry
             if (player.inv[player.hand].type == 'corn') {
                 player.inv[player.hand].ammount -= 1;
                 if (player.inv[player.hand].ammount == 0) {
@@ -919,12 +944,28 @@ function takeInput() {
                     }
                 }
             }
+            else if (player.inv[player.hand].type == 'strawberry') {
+                player.inv[player.hand].ammount -= 1;
+                if (player.inv[player.hand].ammount == 0) {
+                    player.inv[player.hand].type = 'air';
+                }
+                addItem('strawberry_seed', 1);
+                if (player.hunger < maxHunger) {
+                    player.hunger += 1;
+                    if (player.hunger > maxHunger) {
+                        player.hunger = maxHunger;
+                    }
+                }
+            }
+        }
         }
         lastMili = millis();
     }
     if (keyIsDown(interact_button)) {
         if (millis() - lastMili > 100) {
             if (touching.type == 'grass') {
+
+                // need interactable class to make this work more efficently 
                 if (player.inv[player.hand].type == 'hoe') {
                     hoe_sound.play();
                     levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(2, touching.pos.x, touching.pos.y);
@@ -946,11 +987,22 @@ function takeInput() {
                         player.inv[player.hand].type = 'air';
                     }
                 }
+                else if (player.inv[player.hand].type == 'strawberry_seed') {
+                    levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(17, touching.pos.x, touching.pos.y);
+                    player.inv[player.hand].ammount -= 1;
+                    if (player.inv[player.hand].ammount == 0) {
+                        player.inv[player.hand].type = 'air';
+                    }
+                }
                 
             }
             else if (touching.type == 'corn' && touching.age == 6) {
                 levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(2, touching.pos.x, touching.pos.y);
                 addItem('corn', 1);
+            }
+            else if (touching.type == 'sweet_potato' && touching.age <= 4) {
+                levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(2, touching.pos.x, touching.pos.y);
+                addItem('sweet_potato', 1);
             }
             else if (touching.type == 'cart_s') {
                 if (player.inv[player.hand].type == 'corn') {
@@ -991,6 +1043,13 @@ function takeInput() {
                     addItem('compost', 1);
                 }
                 else if (player.inv[player.hand].type == 'sweet_potato_seed') {
+                    player.inv[player.hand].ammount -= 1;
+                    if (player.inv[player.hand].ammount == 0) {
+                        player.inv[player.hand].type = 'air';
+                    }
+                    addItem('compost', 1);
+                }
+                else if (player.inv[player.hand].type == 'strawberry_seed') {
                     player.inv[player.hand].ammount -= 1;
                     if (player.inv[player.hand].ammount == 0) {
                         player.inv[player.hand].type = 'air';
@@ -1047,6 +1106,7 @@ function takeInput() {
     if (keyIsDown(56)) {
         player.hand = 7;
     }
+    
     /*
     if(keyIsDown(57)){
       player.hand = 8;
