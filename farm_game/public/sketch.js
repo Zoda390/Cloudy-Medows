@@ -1,5 +1,5 @@
 /*
-@authors: Whole
+@authors: Whole team
 @brief: Outputs to canvas
 */
 
@@ -48,11 +48,6 @@ Matrix/Tile Key:
 40 = james
 
 */
-
-
-
-
-
 
 var cloudCount = 8;
 var clouds = [];
@@ -351,7 +346,7 @@ class Tile {
                 this.age = -2;
                 this.htype = 'strawberry';
                 //! Magic # DO NOT CHANGE!!!!!
-                this.ammount = 2;
+                this.ammount = 0;
                 this.phrase = 'hi, im Rick and I like StrawBerries, Strawberries need water from sprinklers';
                 this.phraseWidth = 350;
                 this.phraseHeight = 80;
@@ -776,7 +771,7 @@ class Player {
         this.dead = false;
         this.deaths = 0;
         this.op = 255;
-        this.inv = [new Item('hoe', 1), new Item('corn_seed', 3), new Item('junk', 1), new Item('corn', 1), new Item('compost', 1), new Item('sweet_potato', 1), new Item('sweet_potato_seed'), new Item('air')];
+        this.inv = [new Item('hoe', 1), new Item('corn_seed', 3), new Item('junk', 1), new Item('corn', 1), new Item('compost', 1), new Item('sweet_potato', 1), new Item('sweet_potato_seed',3), new Item('air')];
         this.hand = 0;
         this.facing = 3;
         this.anim = 0;
@@ -975,6 +970,7 @@ function preload() {
     brandon_tile_img = loadImage('Brandon.png');
     james_tile_img = loadImage('james.png');
     brent_tile_img = loadImage('Brent.png');
+    ladybug_tile_img = loadImage('LadyBugs.gif');
 
     //Ui
     player_2 = loadFont('pixelFont.ttf');
