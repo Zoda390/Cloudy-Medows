@@ -1030,7 +1030,7 @@ function preload() {
     //flower  21
     flower_bag_img = loadImage("seedbagflower.png");
     flower_tile_img = loadImage("flowerstage_1.png");
-    flower_tile_img2 = loadImage('flowerstage_2.png");
+    flower_tile_img2 = loadImage('flowerstage_2.png');
     flower_tile_imgs = [flower_tile_img, flower_tile_img2, flower_tile_img2];
 
     // ladybugs
