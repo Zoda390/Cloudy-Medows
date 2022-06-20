@@ -706,7 +706,7 @@ class Tile {
         if (this.type == 'bridge2') {
             image(bridge_tile_2_img, this.pos.x, this.pos.y);
         }
-        if (this.type == 'old_man_j'){ 
+        if (this.type == 'old_man_j') {
             image(concrete_tile_2_img, this.pos.x, this.pos.y);
             image(old_man_j_tile_img, this.pos.x, this.pos.y);
         }
@@ -776,7 +776,7 @@ class Player {
         this.dead = false;
         this.deaths = 0;
         this.op = 255;
-        this.inv = [new Item('hoe', 1), new Item('corn_seed', 3), new Item('junk', 1), new Item('corn', 1), new Item('compost', 1), new Item('sweet_potato', 1), new Item('sweet_potato_seed'), new Item('air')];
+        this.inv = [new Item('hoe', 1), new Item('corn_seed', 3), new Item('junk', 1), new Item('corn', 1), new Item('compost', 1), new Item('sweet_potato', 1), new Item('sweet_potato_seed', 1), new Item('air')];
         this.hand = 0;
         this.facing = 3;
         this.anim = 0;
@@ -821,7 +821,25 @@ class Player {
         }
         pop();
     }
-};
+
+    looking() {
+        if ((touching.pos.y / tileSize == 0 && this.facing == 0) || (touching.pos.y / tileSize == 18 && this.facing == 2)) {
+            return undefined;
+        }
+        switch (this.facing) {
+            case 0:
+                return levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize];
+            case 1:
+                return levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) + 1];
+            case 2:
+                return levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize];
+            case 3:
+                return levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1];
+            default:
+                console.log("facing not understood");
+        }
+    }
+}
 
 class Item {
     constructor(type, ammount) {
@@ -1061,34 +1079,34 @@ function setup() {
     //5- concrete
     //7- bed
     //19- lamp
-    
+
     createCanvas(canvasWidth, canvasHeight);
     for (let i = 0; i < cloudCount; i++) {
         clouds[i] = new Cloud()
     }
     player = new Player((6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2));
     level1 = new Level([
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-            [10, 10, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 12, 5, 5, 5, 13, 5, 0, 0, 0],
-            [0, 0, 5, 4, 7, 5, 4, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
-            [0, 0, 5, 4, 5, 5, 4, 5, 5, 12, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
-            [0, 0, 5, 4, 4, 5, 4, 19, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
-            [0, 0, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-            [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 12, 5, 10, 10, 10],
-            [0, 0, 5, 5, 1, 1, 1, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
-            [0, 0, 5, 5, 1, 1, 1, 5, 12, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
-            [0, 0, 5, 5, 1, 1, 1, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
-            [0, 0, 5, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 14, 14, 0, 0, 0],
-            [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 14, 14, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        ], (6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2)
-        );
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+        [10, 10, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 12, 5, 5, 5, 13, 5, 0, 0, 0],
+        [0, 0, 5, 4, 7, 5, 4, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 4, 5, 5, 4, 5, 5, 12, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 4, 4, 5, 4, 19, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 12, 5, 10, 10, 10],
+        [0, 0, 5, 5, 1, 1, 1, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 1, 1, 1, 5, 12, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 1, 1, 1, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 14, 14, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19, 14, 14, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    ], (6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2)
+    );
     level2 = new Level
         ([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -1116,17 +1134,17 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 10, 10, 10],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19, 0, 0, 0],
+        [0, 0, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 10, 10, 10],
         [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 23, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 0, 0, 0],
+        [0, 0, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 19, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 0, 0, 0],
         [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 0, 0, 0],
+        [0, 0, 5, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 0, 0, 0],
         [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -1203,7 +1221,7 @@ function setup() {
     );
     level7 = new Level([
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 5, 0, 32, 0, 39, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 5, 0, 32, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 5, 5, 32, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 13, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 10, 10, 10],
@@ -1216,8 +1234,8 @@ function setup() {
         [0, 0, 5, 5, 6, 6, 6, 6, 6, 5, 12, 5, 6, 6, 6, 6, 6, 6, 5, 5, 0, 0, 0],
         [0, 0, 5, 5, 6, 6, 6, 6, 6, 5, 5, 5, 6, 6, 6, 6, 6, 6, 5, 5, 0, 0, 0],
         [0, 0, 5, 12, 5, 5, 5, 5, 5, 5, 5, 5, 19, 5, 5, 12, 5, 5, 5, 5, 10, 10, 10],
-        [0, 0, 5, 5, 5, 5, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 5, 12, 0, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 39, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
@@ -1226,8 +1244,8 @@ function setup() {
     level8 = new Level([
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 5, 1, 1, 1, 5, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0],
+        [0, 0, 19, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 5, 1, 1, 1, 5, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 19, 0, 0],
         [10, 10, 5, 1, 1, 1, 5, 0, 0, 0, 0, 0, 0, 5, 1, 1, 1, 1, 1, 1, 5, 0, 0],
         [0, 0, 5, 1, 1, 1, 5, 10, 10, 10, 10, 10, 10, 5, 1, 1, 1, 1, 1, 1, 5, 0, 0],
         [0, 0, 5, 5, 5, 5, 5, 0, 0, 32, 0, 0, 0, 5, 1, 1, 1, 1, 1, 1, 5, 0, 0],
@@ -1265,8 +1283,8 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        ], (6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2)
-        );
+    ], (6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2)
+    );
     levels = [[level5, level4, level6],
     [level3, level1, level2],
     [level7, level8, level9]
@@ -1289,8 +1307,8 @@ function draw() {
         fill('black');
         textAlign(CENTER, CENTER);
         textSize(13);
-        text('Press E to start.', canvasWidth/2, (canvasHeight*4)/5);
-        
+        text('Press E to start.', canvasWidth / 2, (canvasHeight * 4) / 5);
+
         pop();
     }
     else {
@@ -1312,7 +1330,7 @@ function draw() {
         if (millis() - lastTimeMili > 150) { //300 for normal time
             if (timephase == 0) {
                 if (touching.type == 'bed') {
-                    time += 4;
+                    time += 3;
                 }
                 else {
                     time += 1;
@@ -1451,81 +1469,73 @@ function takeInput() {
         if (keyIsDown(move_right_button)) {
             if (millis() - lastMili > 100) {
                 player.facing = 1;
-
-                if (levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][(touching.pos.x / tileSize) + 1] != 0 &&
-                    levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][(touching.pos.x / tileSize) + 1].colide != true) {
+                if (player.pos.x + (tileSize / 2) >= canvasWidth) {
+                    currentLevel_x += 1;
+                    player.pos.x = tileSize / 2;
+                }
+                else if (player.looking() != undefined && player.looking() != 0 && player.looking().colide != true) {
                     player.pos.x += tileSize;
                     player.hunger_counter += round(random(0, 1));
                     player.anim += 1;
                     if (player.anim > 1) {
                         player.anim = 0;
                     }
-                    lastMili = millis();
                 }
-                if (player.pos.x + tileSize > canvasWidth) {
-                    currentLevel_x += 1;
-                    player.pos.x = tileSize / 2;
-                }
+                lastMili = millis();
             }
         }
         if (keyIsDown(move_left_button)) {
             if (millis() - lastMili > 100) {
                 player.facing = 3;
-
-                if (levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][(touching.pos.x / tileSize) - 1] != 0 &&
-                    levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][(touching.pos.x / tileSize) - 1].colide != true) {
+                if (player.pos.x - (tileSize / 2) <= 0) {
+                    currentLevel_x -= 1;
+                    player.pos.x = canvasWidth - (tileSize / 2);
+                }
+                else if (player.looking() != undefined && player.looking() != 0 && player.looking().colide != true) {
                     player.pos.x -= tileSize;
                     player.hunger_counter += round(random(0, 1));
                     player.anim += 1;
                     if (player.anim > 1) {
                         player.anim = 0;
                     }
-                    lastMili = millis();
                 }
-                if (player.pos.x - tileSize < 0) {
-                    currentLevel_x -= 1;
-                    player.pos.x = canvasWidth - (tileSize / 2);
-                }
+                lastMili = millis();
             }
         }
         if (keyIsDown(move_up_button)) {
             if (millis() - lastMili > 100) {
                 player.facing = 0;
-
-                if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize] != 0 &&
-                    levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].colide != true) {
+                if (player.pos.y - (tileSize / 2) <= 0) {
+                    currentLevel_y -= 1;
+                    player.pos.y = canvasHeight - (tileSize / 2);
+                }
+                else if (player.looking() != undefined && player.looking() != 0 && player.looking().colide != true) {
                     player.pos.y -= tileSize;
                     player.hunger_counter += round(random(0, 1));
                     player.anim += 1;
                     if (player.anim > 1) {
                         player.anim = 0;
                     }
-                    lastMili = millis();
                 }
-                if (player.pos.y - tileSize < 0) {
-                    currentLevel_y -= 1;
-                    player.pos.y = canvasHeight - (tileSize / 2);
-                }
+                lastMili = millis();
             }
         }
         if (keyIsDown(move_down_button)) {
             if (millis() - lastMili > 100) {
                 player.facing = 2;
-
-                if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize] != 0 &&
-                    levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].colide != true) {
+                if (player.pos.y + (tileSize / 2) >= canvasHeight) {
+                    currentLevel_y += 1;
+                    player.pos.y = tileSize / 2;
+                }
+                else if (player.looking() != undefined && player.looking() != 0 && player.looking().colide != true) {
                     player.pos.y += tileSize;
                     player.hunger_counter += round(random(0, 1));;
                     player.anim += 1;
                     if (player.anim > 1) {
                         player.anim = 0;
                     }
-                    lastMili = millis();
                 }
-                if (player.pos.y + tileSize > canvasHeight) {
-                    currentLevel_y += 1;
-                    player.pos.y = tileSize / 2;
-                }
+                lastMili = millis();
             }
         }
         if (keyIsDown(eat_button)) {
@@ -1748,131 +1758,131 @@ function takeInput() {
     }
 }
 
-    //Christian's function to make UI more readible, positioning + math stuff
-    function render_ui() {
-        image(inv_img, (canvasWidth / 2) - (512 / 2), canvasHeight - 64);
-        image(inv_hand_img, (canvasWidth / 2) - (512 / 2) + (64 * player.hand), canvasHeight - 64);
-        image(calendar_img, canvasWidth - 70, 6);
+//Christian's function to make UI more readible, positioning + math stuff
+function render_ui() {
+    image(inv_img, (canvasWidth / 2) - (512 / 2), canvasHeight - 64);
+    image(inv_hand_img, (canvasWidth / 2) - (512 / 2) + (64 * player.hand), canvasHeight - 64);
+    image(calendar_img, canvasWidth - 70, 6);
 
-        //calendar text
-        textFont(player_2);
-        fill(255, 0, 0);
-        textAlign(CENTER, CENTER);
-        textSize(13);
-        text('days', canvasWidth - 39, 30);
-        textSize(15);
-        text(days, canvasWidth - 40, 50);
+    //calendar text
+    textFont(player_2);
+    fill(255, 0, 0);
+    textAlign(CENTER, CENTER);
+    textSize(13);
+    text('days', canvasWidth - 39, 30);
+    textSize(15);
+    text(days, canvasWidth - 40, 50);
 
-        for (let i = 0; i < 8; i++) {
-            if (player.inv[i].type != 'air') {
-                player.inv[i].render(i);
-                if (i == player.hand) {
-                    push();
-                    fill(255)
-                    textSize(13);
-                    textAlign(CENTER, CENTER);
-                    text(player.inv[i].type, (9 * canvasWidth / 16), (canvasHeight - 80));
-                    pop()
-                }
+    for (let i = 0; i < 8; i++) {
+        if (player.inv[i].type != 'air') {
+            player.inv[i].render(i);
+            if (i == player.hand) {
+                push();
+                fill(255)
+                textSize(13);
+                textAlign(CENTER, CENTER);
+                text(player.inv[i].type, (9 * canvasWidth / 16), (canvasHeight - 80));
+                pop()
             }
         }
-        for (let i = 0; i < maxHunger; i++) {
-            image(hunger_e, (canvasWidth / 2) - (512 / 2) + (30 * i), (canvasHeight - 100));
-        }
-        for (let i = 0; i < player.hunger; i++) {
-            image(hunger_f, (canvasWidth / 2) - (512 / 2) + (30 * i), (canvasHeight - 100));
-        }
-        textSize(32.5);
-        fill(0);
-        textAlign(LEFT, TOP);
-        image(coin_img, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 95));
-        text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
+    }
+    for (let i = 0; i < maxHunger; i++) {
+        image(hunger_e, (canvasWidth / 2) - (512 / 2) + (30 * i), (canvasHeight - 100));
+    }
+    for (let i = 0; i < player.hunger; i++) {
+        image(hunger_f, (canvasWidth / 2) - (512 / 2) + (30 * i), (canvasHeight - 100));
+    }
+    textSize(32.5);
+    fill(0);
+    textAlign(LEFT, TOP);
+    image(coin_img, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 95));
+    text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
 
-        //draw line for clock, happens 1/12
-        if (player.facing == 0) {
-            if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].age == -2) {
+    //draw line for clock, happens 1/12
+    if (player.looking() != undefined && player.facing == 0) {
+            if (player.looking().age == -2) {
                 push()
                 stroke(0);
                 fill(255);
                 rectMode(CENTER);
-                rect(touching.pos.x, touching.pos.y - (tileSize * 2), levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].phraseHeight);
+                rect(touching.pos.x, touching.pos.y - (tileSize * 2), player.looking().phraseWidth, player.looking().phraseHeight);
                 textAlign(CENTER, CENTER);
                 textSize(15);
                 fill(0);
-                text(levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].phrase, touching.pos.x, touching.pos.y - (tileSize * 2), levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].phraseHeight);
-                pop()
-                if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].htype != 'air' && levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].ammount > 0) {
-                    addItem(levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].htype, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].ammount);
-                    levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) - 1][touching.pos.x / tileSize].ammount = 0;
-                }
-            }
-        }
-        if (player.facing == 1) {
-            if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) + 1].age == -2) {
-                push()
-                stroke(0);
-                fill(255);
-                rectMode(CENTER);
-                rect(touching.pos.x + (tileSize), touching.pos.y - (tileSize), levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) + 1].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) + 1].phraseHeight);
-                textAlign(CENTER, CENTER);
-                textSize(15);
-                fill(0);
-                text(levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) + 1].phrase, touching.pos.x + tileSize, touching.pos.y - (tileSize), levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) + 1].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) + 1].phraseHeight);
+                text(player.looking().phrase, touching.pos.x, touching.pos.y - (tileSize * 2), player.looking().phraseWidth, player.looking().phraseHeight);
                 pop()
             }
-            if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) + 1].htype != 'air' && levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) + 1].ammount > 0) {
-                addItem(levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) + 1].htype, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) + 1].ammount);
-                levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) + 1].ammount = 0;
+            if (player.looking().htype != 'air' && player.looking().ammount > 0) {
+                addItem(player.looking().htype, player.looking().ammount);
+                player.looking().ammount = 0;
             }
-        }
-        if (player.facing == 2) {
-            if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].age == -2) {
-                push()
-                stroke(0);
-                fill(255);
-                rectMode(CENTER);
-                rect(touching.pos.x, touching.pos.y, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].phraseHeight);
-                textAlign(CENTER, CENTER);
-                textSize(15);
-                fill(0);
-                text(levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].phrase, touching.pos.x, touching.pos.y, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].phraseHeight);
-                pop()
-            }
-            if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].htype != 'air' && levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].ammount > 0) {
-                addItem(levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].htype, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].ammount);
-                levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize) + 1][touching.pos.x / tileSize].ammount = 0;
-            }
-        }
-        if (player.facing == 3) {
-            if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].age == -2) {
-                push()
-                stroke(0);
-                fill(255);
-                rectMode(CENTER);
-                rect(touching.pos.x - (tileSize), touching.pos.y - (tileSize), levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].phraseHeight);
-                textAlign(CENTER, CENTER);
-                textSize(15);
-                fill(0);
-                text(levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].phrase, touching.pos.x - tileSize, touching.pos.y - (tileSize), levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].phraseWidth, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].phraseHeight);
-                pop()
-            }
-            if (levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].htype != 'air' && levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].ammount > 0) {
-                addItem(levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].htype, levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].ammount);
-                levels[currentLevel_y][currentLevel_x].map[(touching.pos.y / tileSize)][(touching.pos.x / tileSize) - 1].ammonut = 0;
-            }
-        }
-        if (touching.age == -3) {
+    }
+    if (player.looking() != undefined && player.facing == 1) {
+        if (player.looking().age == -2) {
             push()
-            stroke(0)
-            fill(255)
-            rectMode(CENTER)
-            rect(touching.pos.x + (tileSize / 2), touching.pos.y - tileSize, touching.phraseWidth, touching.phraseHeight);
+            stroke(0);
+            fill(255);
+            rectMode(CENTER);
+            rect(touching.pos.x + (tileSize), touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
             textAlign(CENTER, CENTER);
             textSize(15);
             fill(0);
-            text(touching.price, touching.pos.x + (tileSize), touching.pos.y - tileSize, touching.phraseWidth, touching.phraseHeight);
-            image(coin_img, touching.pos.x - (tileSize / 2), touching.pos.y - (tileSize * 1.5))
-
+            text(player.looking().phrase, touching.pos.x + tileSize, touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
             pop()
         }
+        if (player.looking().htype != 'air' && player.looking().ammount > 0) {
+            addItem(player.looking().htype, player.looking().ammount);
+            player.looking().ammount = 0;
+        }
     }
+    if (player.looking() != undefined && player.facing == 2) {
+        if (player.looking().age == -2) {
+            push()
+            stroke(0);
+            fill(255);
+            rectMode(CENTER);
+            rect(touching.pos.x, touching.pos.y, player.looking().phraseWidth, player.looking().phraseHeight);
+            textAlign(CENTER, CENTER);
+            textSize(15);
+            fill(0);
+            text(player.looking().phrase, touching.pos.x, touching.pos.y, player.looking().phraseWidth, player.looking().phraseHeight);
+            pop()
+        }
+        if (player.looking().htype != 'air' && player.looking().ammount > 0) {
+            addItem(player.looking().htype, player.looking().ammount);
+            player.looking().ammount = 0;
+        }
+    }
+    if (player.looking() != undefined && player.facing == 3) {
+        if (player.looking().age == -2) {
+            push()
+            stroke(0);
+            fill(255);
+            rectMode(CENTER);
+            rect(touching.pos.x - (tileSize), touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
+            textAlign(CENTER, CENTER);
+            textSize(15);
+            fill(0);
+            text(player.looking().phrase, touching.pos.x - tileSize, touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
+            pop()
+        }
+        if (player.looking().htype != 'air' && player.looking().ammount > 0) {
+            addItem(player.looking().htype, player.looking().ammount);
+            player.looking().ammount = 0;
+        }
+    }
+    if (touching.age == -3) {
+        push()
+        stroke(0)
+        fill(255)
+        rectMode(CENTER)
+        rect(touching.pos.x + (tileSize / 2), touching.pos.y - tileSize, touching.phraseWidth, touching.phraseHeight);
+        textAlign(CENTER, CENTER);
+        textSize(15);
+        fill(0);
+        text(touching.price, touching.pos.x + (tileSize), touching.pos.y - tileSize, touching.phraseWidth, touching.phraseHeight);
+        image(coin_img, touching.pos.x - (tileSize / 2), touching.pos.y - (tileSize * 1.5))
+
+        pop()
+    }
+}
