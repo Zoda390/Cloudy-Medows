@@ -248,6 +248,9 @@ class Tile {
             case 8:
                 this.type = 'cart_s';
                 this.age = -1;
+                this.phrase = 'sell';
+                this.phraseWidth = 70;
+                this.phraseHeight = 70;
                 this.border = true;
                 this.colide = false;
                 return;
@@ -845,7 +848,7 @@ class Item {
     constructor(type, ammount) {
         this.type = type;
         this.ammount = ammount;
-
+        this.price = 0;
     }
 
     render(i) {
@@ -853,66 +856,79 @@ class Item {
         textAlign(LEFT, TOP);
         switch (this.type) {
             case 'air':
+                this.price = 0;
                 return;
             case 'hoe':
                 image(hoe_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                this.price = 0;
                 return;
             case 'corn_seed':
                 image(corn_seed_bag_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                this.price = 1;
                 return;
             case 'corn':
                 image(corn_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                this.price = 2;
                 return;
             case 'sweet_potato_seed':
                 image(sweet_potato_seed_bag_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                this.price = 1;
                 return;
             case 'sweet_potato':
                 image(sweet_potato_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                this.price = 2;
                 return;
             case 'strawberry_seed':
                 image(strawberry_seed_bag_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                this.price = 1;
                 return;
             case 'strawberry':
                 image(straw_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                this.price = 2;
                 return;
             case 'flower_seed':
                 image(flower_bag_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                this.price = 2;
                 return;
             case 'ladybug':
                 image(ladybug_bag_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                this.price = 0;
                 return;
             case 'sprinkler':
                 image(sprinkler_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                this.price = 0;
                 return;
             case 'junk':
                 image(junk_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                this.price = 1;
                 return;
             case 'compost':
                 image(compost_img, (canvasWidth / 2) - (512 / 2) + (64 * i), canvasHeight - 64, 64, 64);
                 fill(255);
                 text(this.ammount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
+                this.price = 2;
                 return;
 
             default:
@@ -1330,7 +1346,7 @@ function draw() {
         if (millis() - lastTimeMili > 150) { //300 for normal time
             if (timephase == 0) {
                 if (touching.type == 'bed') {
-                    time += 3;
+                    time += 5;
                 }
                 else {
                     time += 1;
@@ -1338,7 +1354,7 @@ function draw() {
             }
             if (timephase == 1) {
                 if (touching.type == 'bed') {
-                    time -= 3;
+                    time -= 5;
                 }
                 else {
                     time -= 1;
@@ -1375,8 +1391,8 @@ function draw() {
                                                 levels[y][x].map[i][j].age = 4;
                                                 levels[y][x].map[i][j].dead_counter -= 1
                                             }
-                                            if (levels[y][x].map[i][j].age > 4 && levels[y][x].map[i][j].dead_counter <= 0) {
-                                                levels[y][x].map[i][j].age = 4;
+                                            if (levels[y][x].map[i][j].age > 5 && levels[y][x].map[i][j].dead_counter <= 0) {
+                                                levels[y][x].map[i][j].age = 5;
                                                 levels[y][x].map[i][j] = new Tile(11, (j * tileSize), (i * tileSize));
                                             }
                                         }
@@ -1557,7 +1573,7 @@ function takeInput() {
                         if (player.inv[player.hand].ammount == 0) {
                             player.inv[player.hand].type = 'air';
                         }
-                        addItem('sweet_potato_seed', round(random(1, 2)));
+                        addItem('sweet_potato_seed', round(random(1, 3)));
                         player.hunger += 2;
                         if (player.hunger > maxHunger) {
                             player.hunger = maxHunger;
@@ -1640,19 +1656,13 @@ function takeInput() {
                     addItem('strawberry', 1);
                 }
                 else if (touching.type == 'cart_s') {
-                    if (player.inv[player.hand].type == 'corn') {
+                    if (player.inv[player.hand].price != 0) {
                         player.inv[player.hand].ammount -= 1;
                         if (player.inv[player.hand].ammount == 0) {
                             player.inv[player.hand].type = 'air';
                         }
-                        player.coins += round(random(1, 2));
-                    }
-                    else if (player.inv[player.hand].type == 'sweet_potato') {
-                        player.inv[player.hand].ammount -= 1;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                        player.coins += round(random(1, 2));
+                        player.coins += player.inv[player.hand].price;
+                        moneySound.play();
                     }
                 }
                 else if (touching.age == -3) {
@@ -1660,6 +1670,7 @@ function takeInput() {
                         moneySound.play();
                         addItem(touching.btype, 1);
                         player.coins -= touching.price;
+                        moneySound.play();
                     }
 
                 }
@@ -1881,8 +1892,29 @@ function render_ui() {
         textSize(15);
         fill(0);
         text(touching.price, touching.pos.x + (tileSize), touching.pos.y - tileSize, touching.phraseWidth, touching.phraseHeight);
-        image(coin_img, touching.pos.x - (tileSize / 2), touching.pos.y - (tileSize * 1.5))
-
+        image(coin_img, touching.pos.x - (tileSize / 2), touching.pos.y - (tileSize * 1.5));
         pop()
+    }
+    if (touching.type == "cart_s") {
+        push()
+        stroke(0)
+        fill(255)
+        rectMode(CENTER)
+        rect(touching.pos.x + (tileSize / 2), touching.pos.y - tileSize, touching.phraseWidth, touching.phraseHeight);
+        textAlign(CENTER, CENTER);
+        textSize(15);
+        fill(0);
+        text(touching.phrase, touching.pos.x + (tileSize / 2), touching.pos.y - (tileSize * 1.5), touching.phraseWidth, touching.phraseHeight);
+        image(coin_img, touching.pos.x - (tileSize / 2), touching.pos.y - (tileSize * 1));
+        if (player.inv[player.hand].price == 0) {
+            fill(255, 0, 0);
+            text("No", touching.pos.x + (tileSize), touching.pos.y - (tileSize / 2));
+        }
+        if (player.inv[player.hand].price > 0) {
+            fill(0);
+            text(player.inv[player.hand].price, touching.pos.x + (tileSize), touching.pos.y - (tileSize /2));
+        }
+        pop()
+        
     }
 }
