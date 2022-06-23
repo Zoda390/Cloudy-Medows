@@ -353,7 +353,6 @@ class Tile {
                 this.type = 'cowboy rick'
                 this.age = -2;
                 this.htype = 'strawberry';
-                //! Magic # DO NOT CHANGE!!!!!
                 this.ammount = 2;
                 this.phrase = 'hi, im Rick and I like StrawBerries, Strawberries need water from sprinklers';
                 this.phraseWidth = 350;
@@ -779,12 +778,12 @@ class Player {
         this.dead = false;
         this.deaths = 0;
         this.op = 255;
-        this.inv = [new Item('hoe', 1), new Item('corn', 5), new Item('junk', 1), new Item('corn_seed', 1), new Item('air'), new Item('air', 1), new Item('air', 1), new Item('air')];
+        this.inv = [new Item('hoe', 1), new Item('corn', 6), new Item('junk', 1), new Item('corn_seed', 1), new Item('air',0), new Item('air', 0), new Item('air', 0), new Item('air', 0)];
         this.hand = 0;
-        this.facing = 3;
+        this.facing = 2;
         this.anim = 0;
         this.hunger = maxHunger;
-        this.lastFoodtype = 'sweet_potato';
+        this.lastFoodtype = 'corn';
         this.hunger_counter = 0;
     }
 
