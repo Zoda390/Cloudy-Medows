@@ -1889,15 +1889,15 @@ function takeInput() {
                     addItem('strawberry', 1);
                 }
                 else if (touching.type == 'cart_s') {
-                    if (player.inv[player.hand].price != 0 || player.inv[player.hand].price != "air") {
+                    if (player.inv[player.hand].price != 0 || player.inv[player.hand].type != "air") {
+                        player.coins += player.inv[player.hand].price;
+                        moneySound.play();
                         player.inv[player.hand].ammount -= 1;
                         if (player.inv[player.hand].ammount == 0) {
                             player.inv[player.hand].type = 'air';
                             player.inv[player.hand].ammount = 0;
                             player.inv[player.hand].price = 0;
                         }
-                        player.coins += player.inv[player.hand].price;
-                        moneySound.play();
                     }
                 }
                 else if (touching.age == -3) {
