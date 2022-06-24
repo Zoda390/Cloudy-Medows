@@ -935,79 +935,77 @@ var title_screen = true;
 function preload() {
     //Items
     
-    corn_img = loadImage('images/Corn_item.png');
-    corn_seed_bag_img = loadImage('images/Corn_Seed_bag.png');
-    sweet_potato_seed_bag_img = loadImage('images/seedbag_sp.png');
-    sweet_potato_img = loadImage('images/SweetPotato.png');
+    corn_img = loadImage('images/items/Corn_item.png');
+    corn_seed_bag_img = loadImage('images/items/Corn_Seed_bag.png');
+    sweet_potato_seed_bag_img = loadImage('images/items/seedbag_sp.png');
+    sweet_potato_img = loadImage('images/items/SweetPotato.png');
 
-    straw_img = loadImage('images/Stawberry.png');
-    strawberry_seed_bag_img = loadImage('images/SeedBag_Stawberry.png');
+    straw_img = loadImage('images/items/Stawberry.png');
+    strawberry_seed_bag_img = loadImage('images/items/SeedBag_Stawberry.png');
 
-    hoe_img = loadImage('images/Hoe.png');
-    junk_img = loadImage('images/junk.png');
-    compost_img = loadImage('images/compost.png');
-    sprinkler_img = loadImage('images/Sprinkler.png');
+    hoe_img = loadImage('images/items/Hoe.png');
+    junk_img = loadImage('images/items/junk.png');
+    compost_img = loadImage('images/items/Compost.png');
+    sprinkler_img = loadImage('images/items/Sprinkler.png');
 
     //Tile                                                  Tile Num.
-    grass_tile_img = loadImage('images/Grass.png');                //1
-    plot_tile_img = loadImage('images/Plot.png');                  //2
-    wall_tile_img = loadImage('images/Wood.png');                  //4
-    concrete_tile_img = loadImage('images/Concrete_1.png');        //5
-    dirt_tile_img = loadImage('images/dirt.png');                  //6
-    bed_tile_img = loadImage('images/Bed.png');                    //7
-    cart_s_tile_img = loadImage('images/Cart_s.png');              //8
-    cart_tile_img = loadImage('images/Cart.png');                  //9
-    bridge_tile_img = loadImage('images/Bridge.png');              //10
-    junk_tile_img = loadImage('images/junk_tile.png');             //11
-    concrete_tile_2_img = loadImage('images/Concrete2.png');       //12
-    satilite_tile_img = loadImage('images/Satilite.png');          //13
-    solarpanel_tile_img = loadImage('images/SolarPanel.png');      //14
-    compost_bucket_tile_img = loadImage('images/Worm_Bucket.png'); //15
-    compost_tile_img = loadImage('images/compost_tile.png');       //16
-    sprinkler_tile_img = loadImage('images/Sprinkler.gif');        //18
-    lamppost_tile_img = loadImage('images/Light.png');             //19
-    deb_tile_img = loadImage('images/Deb.gif');                    //22
-    rick_tile_img = loadImage('images/CowBoy_Rick.gif');           //23
-    meb_tile_img = loadImage('images/meb.png');                    //26
-    cart_sp_tile_img = loadImage('images/sp_cart.png');
-    cart_straw_tile_img = loadImage('images/StrawCart.png');
-    cart_flower_tile_img = loadImage('images/flowershop.png');
-    cart_ladybug_tile_img = loadImage('images/ladybug_cart.png');
-    cart_sprinkler_tile_img = loadImage('images/sprinkler_cart.png');
-    bridge_tile_2_img = loadImage('images/BridgeFlip.png');
-    old_man_j_tile_img = loadImage('images/old_man_Jay.gif');
-    mira_tile_img = loadImage('images/mira.png');
-    mario_tile_img = loadImage('images/mario.png');
-    liam_tile_img = loadImage('images/liam.png');
-    garry_tile_img = loadImage('images/Garry.png');
-    blind_pette_tile_img = loadImage('images/Blind_pete.png');
-    brandon_tile_img = loadImage('images/Brandon.png');
-    james_tile_img = loadImage('images/james.png');
-    brent_tile_img = loadImage('images/Brent.png');
+    grass_tile_img = loadImage('images/tiles/Grass.png');                //1
+    plot_tile_img = loadImage('images/tiles/Plot.png');                  //2
+    wall_tile_img = loadImage('images/tiles/Wood.png');                  //4
+    concrete_tile_img = loadImage('images/tiles/Concrete_1.png');        //5
+    dirt_tile_img = loadImage('images/tiles/dirt.png');                  //6
+    bed_tile_img = loadImage('images/tiles/Bed.png');                    //7
+    cart_s_tile_img = loadImage('images/tiles/Cart_s.png');              //8
+    cart_tile_img = loadImage('images/tiles/Cart.png');                  //9
+    bridge_tile_img = loadImage('images/tiles/Bridge.png');              //10
+    junk_tile_img = loadImage('images/tiles/junk_tile.png');             //11
+    concrete_tile_2_img = loadImage('images/tiles/Concrete2.png');       //12
+    satilite_tile_img = loadImage('images/tiles/Satilite.png');          //13
+    solarpanel_tile_img = loadImage('images/tiles/SolarPanel.png');      //14
+    compost_bucket_tile_img = loadImage('images/tiles/Worm_Bucket.png'); //15
+    compost_tile_img = loadImage('images/tiles/Compost_tile.png');       //16
+    sprinkler_tile_img = loadImage('images/tiles/Sprinkler.gif');        //18
+    lamppost_tile_img = loadImage('images/tiles/Light.png');             //19
+    deb_tile_img = loadImage('images/npc/Deb.gif');                    //22
+    rick_tile_img = loadImage('images/npc/CowBoy_Rick.gif');           //23
+    meb_tile_img = loadImage('images/npc/meb.png');                    //26
+    cart_sp_tile_img = loadImage('images/tiles/sp_cart.png');
+    cart_straw_tile_img = loadImage('images/tiles/StrawCart.png');
+    cart_flower_tile_img = loadImage('images/tiles/flowerShop.png');
+    cart_ladybug_tile_img = loadImage('images/tiles/ladybug_cart.png');
+    cart_sprinkler_tile_img = loadImage('images/tiles/sprinkler_cart.png');
+    bridge_tile_2_img = loadImage('images/tiles/BridgeFlip.png');
+    old_man_j_tile_img = loadImage('images/npc/old_man_Jay.gif');
+    mira_tile_img = loadImage('images/npc/Mira.png');
+    mario_tile_img = loadImage('images/npc/Mario.png');
+    liam_tile_img = loadImage('images/npc/liam.png');
+    garry_tile_img = loadImage('images/npc/Garry.png');
+    blind_pette_tile_img = loadImage('images/npc/Blind_pete.png');
+    brandon_tile_img = loadImage('images/npc/Brandon.png');
+    james_tile_img = loadImage('images/npc/james.png');
+    brent_tile_img = loadImage('images/npc/Brent.png');
 
     //Ui
     player_2 = loadFont('pixelFont.ttf');
-    inv_img = loadImage('images/Inventory.png');
-    inv_hand_img = loadImage('images/Inventory_Frame.png');
-    hunger_e = loadImage('images/Corn_empty.png');
-    hunger_f = loadImage('images/Corn_Filled.png');
-    calendar_img = loadImage('images/Calender.png');
-    background_img = loadImage('images/Skyline.gif');
-    foreground_img = loadImage('images/Fore6.png');
-    coin_img = loadImage('images/coin.png');
-    title_screen_img = loadImage('images/Title_Screen.gif');
-    button_img = loadImage('images/Button.png');
-    button_selected_img = loadImage('images/ButtonSelected.png');
+    inv_img = loadImage('images/ui/Inventory.png');
+    inv_hand_img = loadImage('images/ui/Inventory_Frame.png');
+    hunger_e = loadImage('images/ui/Corn_empty.png');
+    hunger_f = loadImage('images/ui/Corn_Filled.png');
+    calendar_img = loadImage('images/ui/Calender.png');
+    coin_img = loadImage('images/ui/coin.png');
+    title_screen_img = loadImage('images/ui/Title_Screen.gif');
+    button_img = loadImage('images/ui/Button.png');
+    button_selected_img = loadImage('images/ui/ButtonSelected.png');
 
     //Player
-    up_move_img_1 = loadImage('images/Back_Move.png');
-    up_move_img_2 = loadImage('images/BackMove_2.png');
-    down_move_img_1 = loadImage('images/Front_moving.png');
-    down_move_img_2 = loadImage('images/Front_Move2.png');
-    left_move_img_1 = loadImage('images/Side_Move.png');
-    left_move_img_2 = loadImage('images/SideMove2.png');
-    right_move_img_1 = loadImage('images/Right_Move.png');
-    right_move_img_2 = loadImage('images/RightMove2.png');
+    up_move_img_1 = loadImage('images/player/Back_Move.png');
+    up_move_img_2 = loadImage('images/player/BackMove_2.png');
+    down_move_img_1 = loadImage('images/player/Front_moving.png');
+    down_move_img_2 = loadImage('images/player/front_Move2.png');
+    left_move_img_1 = loadImage('images/player/Side_Move.png');
+    left_move_img_2 = loadImage('images/player/SideMove2.png');
+    right_move_img_1 = loadImage('images/player/Right_Move.png');
+    right_move_img_2 = loadImage('images/player/RightMove2.png');
     player_imgs = [[up_move_img_1, up_move_img_2],
     [right_move_img_1, right_move_img_2],
     [down_move_img_1, down_move_img_2],
@@ -1015,53 +1013,56 @@ function preload() {
     ];
 
     //Plants
-    done_dot = loadImage('images/plant_done_icon.png');
+    done_dot = loadImage('images/ui/plant_done_icon.png');
     //  Corn 3
-    corn_tile_img = loadImage('images/CornStage_1.png');
-    corn_tile_2_img = loadImage('images/CornStage_2.png');
-    corn_tile_3_img = loadImage('images/CornStage_4.png');
-    corn_tile_4_img = loadImage('images/CornStage5.png');
-    corn_tile_5_img = loadImage('images/CornStage6_1.png');
-    corn_tile_6_img = loadImage('images/CornStage7.png');
-    corn_tile_7_img = loadImage('images/CornStage8.png');
-    corn_tile_8_img = loadImage('images/CornDead.png');
+    corn_tile_img = loadImage('images/tiles/CornStage_1.png');
+    corn_tile_2_img = loadImage('images/tiles/CornStage_2.png');
+    corn_tile_3_img = loadImage('images/tiles/CornStage_4.png');
+    corn_tile_4_img = loadImage('images/tiles/CornStage5.png');
+    corn_tile_5_img = loadImage('images/tiles/CornStage6_1.png');
+    corn_tile_6_img = loadImage('images/tiles/Cornstage7.png');
+    corn_tile_7_img = loadImage('images/tiles/CornStage8.png');
+    corn_tile_8_img = loadImage('images/tiles/CornDead.png');
     corn_tile_imgs = [corn_tile_img, corn_tile_2_img, corn_tile_3_img, corn_tile_4_img, corn_tile_5_img, corn_tile_6_img, corn_tile_7_img, corn_tile_8_img];
     //  Sweet Potato 17
-    sweet_potato_tile_img = loadImage('images/beets_1.png');
-    sweet_potato_tile_2_img = loadImage('images/beets_2.png');
-    sweet_potato_tile_3_img = loadImage('images/beets_3.png');
-    sweet_potato_tile_4_img = loadImage('images/beets_4.png');
-    sweet_potato_tile_5_img = loadImage('images/beets_5.png');
+    sweet_potato_tile_img = loadImage('images/tiles/beets_1.png');
+    sweet_potato_tile_2_img = loadImage('images/tiles/beets_2.png');
+    sweet_potato_tile_3_img = loadImage('images/tiles/beets_3.png');
+    sweet_potato_tile_4_img = loadImage('images/tiles/beets_4.png');
+    sweet_potato_tile_5_img = loadImage('images/tiles/beets_5.png');
     sweet_potato_tile_imgs = [sweet_potato_tile_img, sweet_potato_tile_2_img, sweet_potato_tile_3_img, sweet_potato_tile_4_img, sweet_potato_tile_5_img];
 
     //Strawberry 20
-    strawberry_tile_img = loadImage('images/strawberry_1.png');
-    strawberry_tile_2_img = loadImage('images/strawberry_2.png');
-    strawberry_tile_3_img = loadImage('images/strawberry_3.png');
-    strawberry_tile_4_img = loadImage('images/strawberry_4.png');
-    strawberry_tile_5_img = loadImage('images/strawberry_5.png');
-    strawberry_tile_6_img = loadImage('images/strawberry_6.png');
+    strawberry_tile_img = loadImage('images/tiles/strawberry_1.png');
+    strawberry_tile_2_img = loadImage('images/tiles/strawberry_2.png');
+    strawberry_tile_3_img = loadImage('images/tiles/strawberry_3.png');
+    strawberry_tile_4_img = loadImage('images/tiles/strawberry_4.png');
+    strawberry_tile_5_img = loadImage('images/tiles/strawberry_5.png');
+    strawberry_tile_6_img = loadImage('images/tiles/strawberry_6.png');
     strawberry_tile_imgs = [strawberry_tile_img, strawberry_tile_2_img, strawberry_tile_3_img, strawberry_tile_4_img, strawberry_tile_5_img, strawberry_tile_6_img];
     //flower  21
-    flower_bag_img = loadImage("images/SeedBagFlower.png");
-    flower_tile_img = loadImage("images/FlowerStage_1.png");
-    flower_tile_img2 = loadImage("images/FlowerStage_2.png");
+    flower_bag_img = loadImage("images/items/SeedBagFlower.png");
+    flower_tile_img = loadImage("images/tiles/FlowerStage_1.png");
+    flower_tile_img2 = loadImage("images/tiles/FlowerStage_2.png");
     flower_tile_imgs = [flower_tile_img, flower_tile_img2, flower_tile_img2];
 
     // ladybugs
-    ladybug_bag_img = loadImage("images/Lady_Bug_bag.png");
-    ladybug_img = loadImage("images/LadyBugs.gif");
+    ladybug_bag_img = loadImage("images/items/Lady_Bug_bag.png");
+    ladybug_img = loadImage("images/tiles/LadyBugs.gif");
 
     //bees
-    bee_img = loadImage("images/Bees.gif");
+    bee_img = loadImage("images/tiles/Bees.gif");
 
     //sounds
-    hoe_sound = new Sound('images/Hoe.wav');
-    onDeathSound = new Sound('images/Death.wav');
-    newDayChime = new Sound('images/NewDay.mp3');
-    main_theme = new Sound('images/Main_theme.wav');
-    hit_sound = new Sound('images/hit2.wav');
-    moneySound = new Sound('images/money.wav');
+    hoe_sound = new Sound('audio/Hoe.wav');
+    onDeathSound = new Sound('audio/Death.wav');
+    newDayChime = new Sound('audio/NewDay.mp3');
+    main_theme = new Sound('audio/Main_theme.wav');
+    hit_sound = new Sound('audio/hit2.wav');
+    moneySound = new Sound('audio/money.wav');
+
+    background_img = loadImage('images/Skyline.gif');
+    foreground_img = loadImage('images/Fore6.png');
 
     main_theme.play(); //needs to loop
 }
