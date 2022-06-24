@@ -635,6 +635,9 @@ class Tile {
         if (this.type == 'corn') {
             image(plot_tile_img, this.pos.x, this.pos.y);
             image(corn_tile_imgs[this.age], this.pos.x + (tileSize / 4), this.pos.y);
+            if (this.age == 6) {
+                image(done_dot, this.pos.x + (tileSize / 4), this.pos.y - (tileSize / 2));
+            }
         }
         if (this.type == 'wall') {
             image(wall_tile_img, this.pos.x, this.pos.y);
@@ -683,10 +686,16 @@ class Tile {
         if (this.type == 'sweet_potato') {
             image(plot_tile_img, this.pos.x, this.pos.y);
             image(sweet_potato_tile_imgs[this.age], this.pos.x, this.pos.y);
+            if (this.age == 3) {
+                image(done_dot, this.pos.x + (tileSize / 4), this.pos.y - (tileSize / 2));
+            }
         }
         if (this.type == 'strawberry') {
             image(plot_tile_img, this.pos.x, this.pos.y);
-            image(strawberry_tile_imgs[this.age], this.pos.x + (tileSize / 4), this.pos.y);
+            image(strawberry_tile_imgs[this.age], this.pos.x + (tileSize / 4), this.pos.y + (tileSize / 8));
+            if (this.age == 4) {
+                image(done_dot, this.pos.x + (tileSize / 4), this.pos.y - (tileSize / 2));
+            }
         }
         if (this.type == 'flower') {
             image(plot_tile_img, this.pos.x, this.pos.y);
@@ -819,7 +828,7 @@ class Player {
     }
 
     update() {
-        if (this.hunger_counter >= 30) {
+        if (this.hunger_counter >= 45) {
             this.hunger -= 1;
             this.hunger_counter = 0;
         }
@@ -1070,6 +1079,7 @@ function preload() {
     ];
 
     //Plants
+    done_dot = loadImage('plant_done_icon.png');
     //  Corn 3
     corn_tile_img = loadImage('CornStage_1.png');
     corn_tile_2_img = loadImage('CornStage_2.png');
@@ -1778,6 +1788,7 @@ function takeInput() {
                 if (player.hunger < maxHunger) {  // player only eats when hungry
                     if (player.inv[player.hand].type == 'corn') {
                         player.inv[player.hand].ammount -= 1;
+                        player.hunger_counter = 0;
                         if (player.inv[player.hand].ammount == 0) {
                             player.inv[player.hand].type = 'air';
                         }
@@ -1789,6 +1800,7 @@ function takeInput() {
                     }
                     else if (player.inv[player.hand].type == 'sweet_potato') {
                         player.inv[player.hand].ammount -= 1;
+                        player.hunger_counter = 0;
                         if (player.inv[player.hand].ammount == 0) {
                             player.inv[player.hand].type = 'air';
                         }
@@ -1800,6 +1812,7 @@ function takeInput() {
                     }
                     else if (player.inv[player.hand].type == 'strawberry') {
                         player.inv[player.hand].ammount -= 1;
+                        player.hunger_counter = 0;
                         if (player.inv[player.hand].ammount == 0) {
                             player.inv[player.hand].type = 'air';
                         }
