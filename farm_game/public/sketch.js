@@ -57,73 +57,7 @@ Matrix/Tile Key:
 var cloudCount = 8;
 var clouds = [];
 
-class Sound {
 
-    constructor(src) {
-        this.sound = document.createElement("audio");
-        this.sound.src = src;
-        this.sound.setAttribute("preload", "auto");
-        this.sound.setAttribute("controls", "none");
-        this.sound.style.display = "none";
-        document.body.appendChild(this.sound);
-    }
-    play() {
-        this.sound.play();
-    }
-    stop() {
-        this.sound.pause();
-    }
-}
-
-class Circle {
-    constructor() {
-        this.size = random(50, 100)
-        this.xOfset = random(-this.size / 2, this.size / 2)
-        this.yOfset = random(-this.size / 2, this.size / 2)
-        this.color = random(200, 255);
-    }
-
-    update(vel) {
-        this.pos.x += vel.x;
-    }
-
-    render(cloudPos) {
-        noStroke();
-        fill(this.color)
-        circle(cloudPos.x + this.xOfset, cloudPos.y + this.yOfset, this.size)
-    }
-}
-class Cloud {
-    constructor() {
-        this.pos = createVector(random(0, canvasWidth), random(0, canvasHeight))
-        this.vel = createVector(random(-3, 3), 0)
-        this.circleCount = random(3, 20)
-        this.circles = []
-        for (let i = 0; i < this.circleCount; i++) {
-            this.circles[i] = new Circle()
-        }
-    }
-
-    update(vel) {
-        this.pos.x += this.vel.x
-        if (this.pos.x > canvasWidth + 210) {
-            this.vel.x = random(-3, 3)
-            this.pos.x = -200;
-        }
-        if (this.pos.x < -210) {
-            this.vel.x = random(-3, 3)
-            this.pos.x = canvasWidth + 200
-        }
-    }
-
-    render() {
-        push()
-        for (let i = 0; i < this.circles.length; i++) {
-            this.circles[i].render(this.pos)
-        }
-        pop()
-    }
-}
 
 class Light {
     constructor(x, y, size, r, g, b) {
@@ -142,9 +76,9 @@ class Light {
 }
 
 class Level {
-    constructor(map, x, y) {
-        this.startingpos = createVector(x, y);
+    constructor(map, fore) {
         this.lights = [];
+        this.fore = fore;
         this.map = map;
         for (let i = 0; i < map.length; i++) {
             for (let j = 0; j < map[i].length; j++) {
@@ -159,6 +93,37 @@ class Level {
                         append(this.lights, new Light(this.map[i][j].pos.x, this.map[i][j].pos.y, (tileSize * 1), 255, 255, 0));
                     }
                 }
+            }
+        }
+    }
+
+    fore_render() {
+        let last = 0;
+        for (let i = 0; i < this.fore.length; i++) {
+            for (let j = 0; j < this.fore[i].length; j++) {
+                if (this.fore[i][j] == 1) {
+                    image(foreground_img, j * tileSize, i * tileSize);
+                }
+            }
+        }
+        for (let i = 0; i < this.fore.length; i++) {
+            for (let j = 0; j < this.fore[i].length; j++) {
+                if (last == 1 && this.fore[i][j] == 0) {
+                    push();
+                    stroke(0);
+                    strokeWeight(3);
+                    line(j * tileSize, i * tileSize, j * tileSize, canvasHeight);
+                    pop();
+                }
+                if (last == 0 && this.fore[i][j] == 1) {
+                    push();
+                    stroke(0);
+                    strokeWeight(3);
+                    line(j * tileSize, i * tileSize, j * tileSize, canvasHeight);
+                    pop();
+                }
+                last = this.fore[i][j];
+                console.log(last);
             }
         }
     }
@@ -210,7 +175,7 @@ class Tile {
                 return;
             case 2:
                 this.type = 'plot';
-                this.age = -1;
+                this.age = 0;
                 this.border = true;
                 this.colide = false;
                 return;
@@ -604,6 +569,9 @@ class Tile {
         if (this.type == 'corn') {
             image(plot_tile_img, this.pos.x, this.pos.y);
             image(corn_tile_imgs[this.age], this.pos.x + (tileSize / 4), this.pos.y);
+            if (this.age == 6) {
+                image(done_dot, this.pos.x + (tileSize / 4), this.pos.y - (tileSize / 2));
+            }
         }
         if (this.type == 'wall') {
             image(wall_tile_img, this.pos.x, this.pos.y);
@@ -652,10 +620,16 @@ class Tile {
         if (this.type == 'sweet_potato') {
             image(plot_tile_img, this.pos.x, this.pos.y);
             image(sweet_potato_tile_imgs[this.age], this.pos.x, this.pos.y);
+            if (this.age == 3) {
+                image(done_dot, this.pos.x + (tileSize / 4), this.pos.y - (tileSize / 2));
+            }
         }
         if (this.type == 'strawberry') {
             image(plot_tile_img, this.pos.x, this.pos.y);
-            image(strawberry_tile_imgs[this.age], this.pos.x + (tileSize / 4), this.pos.y);
+            image(strawberry_tile_imgs[this.age], this.pos.x + (tileSize / 4), this.pos.y + (tileSize / 8));
+            if (this.age == 4) {
+                image(done_dot, this.pos.x + (tileSize / 4), this.pos.y - (tileSize / 2));
+            }
         }
         if (this.type == 'flower') {
             image(plot_tile_img, this.pos.x, this.pos.y);
@@ -788,7 +762,7 @@ class Player {
     }
 
     update() {
-        if (this.hunger_counter >= 30) {
+        if (this.hunger_counter >= 45) {
             this.hunger -= 1;
             this.hunger_counter = 0;
         }
@@ -804,6 +778,7 @@ class Player {
             this.dead = false;
             onDeathSound.play();
         }
+
     }
 
     render() {
@@ -959,79 +934,78 @@ var title_screen = true;
 
 function preload() {
     //Items
-    corn_img = loadImage('Corn_item.png');
-    corn_seed_bag_img = loadImage('Corn_Seed_bag.png');
-    sweet_potato_seed_bag_img = loadImage('seedbag_sp.png');
-    sweet_potato_img = loadImage('SweetPotato.png');
+    
+    corn_img = loadImage('images/items/Corn_item.png');
+    corn_seed_bag_img = loadImage('images/items/Corn_Seed_bag.png');
+    sweet_potato_seed_bag_img = loadImage('images/items/seedbag_sp.png');
+    sweet_potato_img = loadImage('images/items/SweetPotato.png');
 
-    straw_img = loadImage('Stawberry.png');
-    strawberry_seed_bag_img = loadImage('SeedBag_Stawberry.png');
+    straw_img = loadImage('images/items/Stawberry.png');
+    strawberry_seed_bag_img = loadImage('images/items/SeedBag_Stawberry.png');
 
-    hoe_img = loadImage('Hoe.png');
-    junk_img = loadImage('junk.png');
-    compost_img = loadImage('compost.png');
-    sprinkler_img = loadImage('Sprinkler.png');
+    hoe_img = loadImage('images/items/Hoe.png');
+    junk_img = loadImage('images/items/junk.png');
+    compost_img = loadImage('images/items/Compost.png');
+    sprinkler_img = loadImage('images/items/Sprinkler.png');
 
     //Tile                                                  Tile Num.
-    grass_tile_img = loadImage('Grass.png');                //1
-    plot_tile_img = loadImage('Plot.png');                  //2
-    wall_tile_img = loadImage('Wood.png');                  //4
-    concrete_tile_img = loadImage('Concrete_1.png');        //5
-    dirt_tile_img = loadImage('dirt.png');                  //6
-    bed_tile_img = loadImage('Bed.png');                    //7
-    cart_s_tile_img = loadImage('Cart_s.png');              //8
-    cart_tile_img = loadImage('Cart.png');                  //9
-    bridge_tile_img = loadImage('Bridge.png');              //10
-    junk_tile_img = loadImage('junk_tile.png');             //11
-    concrete_tile_2_img = loadImage('Concrete2.png');       //12
-    satilite_tile_img = loadImage('Satilite.png');          //13
-    solarpanel_tile_img = loadImage('SolarPanel.png');      //14
-    compost_bucket_tile_img = loadImage('Worm_Bucket.png'); //15
-    compost_tile_img = loadImage('compost_tile.png');       //16
-    sprinkler_tile_img = loadImage('Sprinkler.gif');        //18
-    lamppost_tile_img = loadImage('Light.png');             //19
-    deb_tile_img = loadImage('Deb.gif');                    //22
-    rick_tile_img = loadImage('CowBoy_Rick.gif');           //23
-    meb_tile_img = loadImage('meb.png');                    //26
-    cart_sp_tile_img = loadImage('sp_cart.png');
-    cart_straw_tile_img = loadImage('StrawCart.png');
-    cart_flower_tile_img = loadImage('flowershop.png');
-    cart_ladybug_tile_img = loadImage('ladybug_cart.png');
-    cart_sprinkler_tile_img = loadImage('sprinkler_cart.png');
-    bridge_tile_2_img = loadImage('BridgeFlip.png');
-    old_man_j_tile_img = loadImage('old_man_Jay.gif');
-    mira_tile_img = loadImage('mira.png');
-    mario_tile_img = loadImage('mario.png');
-    liam_tile_img = loadImage('liam.png');
-    garry_tile_img = loadImage('Garry.png');
-    blind_pette_tile_img = loadImage('Blind_pete.png');
-    brandon_tile_img = loadImage('Brandon.png');
-    james_tile_img = loadImage('james.png');
-    brent_tile_img = loadImage('Brent.png');
+    grass_tile_img = loadImage('images/tiles/Grass.png');                //1
+    plot_tile_img = loadImage('images/tiles/Plot.png');                  //2
+    wall_tile_img = loadImage('images/tiles/Wood.png');                  //4
+    concrete_tile_img = loadImage('images/tiles/Concrete_1.png');        //5
+    dirt_tile_img = loadImage('images/tiles/dirt.png');                  //6
+    bed_tile_img = loadImage('images/tiles/Bed.png');                    //7
+    cart_s_tile_img = loadImage('images/tiles/Cart_s.png');              //8
+    cart_tile_img = loadImage('images/tiles/Cart.png');                  //9
+    bridge_tile_img = loadImage('images/tiles/Bridge.png');              //10
+    junk_tile_img = loadImage('images/tiles/junk_tile.png');             //11
+    concrete_tile_2_img = loadImage('images/tiles/Concrete2.png');       //12
+    satilite_tile_img = loadImage('images/tiles/Satilite.png');          //13
+    solarpanel_tile_img = loadImage('images/tiles/SolarPanel.png');      //14
+    compost_bucket_tile_img = loadImage('images/tiles/Worm_Bucket.png'); //15
+    compost_tile_img = loadImage('images/tiles/Compost_tile.png');       //16
+    sprinkler_tile_img = loadImage('images/tiles/Sprinkler.gif');        //18
+    lamppost_tile_img = loadImage('images/tiles/Light.png');             //19
+    deb_tile_img = loadImage('images/npc/Deb.gif');                    //22
+    rick_tile_img = loadImage('images/npc/CowBoy_Rick.gif');           //23
+    meb_tile_img = loadImage('images/npc/meb.png');                    //26
+    cart_sp_tile_img = loadImage('images/tiles/sp_cart.png');
+    cart_straw_tile_img = loadImage('images/tiles/StrawCart.png');
+    cart_flower_tile_img = loadImage('images/tiles/flowerShop.png');
+    cart_ladybug_tile_img = loadImage('images/tiles/ladybug_cart.png');
+    cart_sprinkler_tile_img = loadImage('images/tiles/sprinkler_cart.png');
+    bridge_tile_2_img = loadImage('images/tiles/BridgeFlip.png');
+    old_man_j_tile_img = loadImage('images/npc/old_man_Jay.gif');
+    mira_tile_img = loadImage('images/npc/Mira.png');
+    mario_tile_img = loadImage('images/npc/Mario.png');
+    liam_tile_img = loadImage('images/npc/liam.png');
+    garry_tile_img = loadImage('images/npc/Garry.png');
+    blind_pette_tile_img = loadImage('images/npc/Blind_pete.png');
+    brandon_tile_img = loadImage('images/npc/Brandon.png');
+    james_tile_img = loadImage('images/npc/james.png');
+    brent_tile_img = loadImage('images/npc/Brent.png');
 
     //Ui
     player_2 = loadFont('pixelFont.ttf');
-    inv_img = loadImage('Inventory.png');
-    inv_hand_img = loadImage('Inventory_Frame.png');
-    hunger_e = loadImage('Corn_empty.png');
-    hunger_f = loadImage('Corn_Filled.png');
-    calendar_img = loadImage('Calender.png');
-    background_img = loadImage('Skyline.gif');
-    foreground_img = loadImage('Fore.png');
-    coin_img = loadImage('coin.png');
-    title_screen_img = loadImage('Title_Screen.gif');
-    button_img = loadImage('Button.png');
-    button_selected_img = loadImage('ButtonSelected.png');
+    inv_img = loadImage('images/ui/Inventory.png');
+    inv_hand_img = loadImage('images/ui/Inventory_Frame.png');
+    hunger_e = loadImage('images/ui/Corn_empty.png');
+    hunger_f = loadImage('images/ui/Corn_Filled.png');
+    calendar_img = loadImage('images/ui/Calender.png');
+    coin_img = loadImage('images/ui/coin.png');
+    title_screen_img = loadImage('images/ui/Title_Screen.gif');
+    button_img = loadImage('images/ui/Button.png');
+    button_selected_img = loadImage('images/ui/ButtonSelected.png');
 
     //Player
-    up_move_img_1 = loadImage('Back_Move.png');
-    up_move_img_2 = loadImage('BackMove_2.png');
-    down_move_img_1 = loadImage('Front_moving.png');
-    down_move_img_2 = loadImage('Front_Move2.png');
-    left_move_img_1 = loadImage('Side_Move.png');
-    left_move_img_2 = loadImage('SideMove2.png');
-    right_move_img_1 = loadImage('Right_Move.png');
-    right_move_img_2 = loadImage('RightMove2.png');
+    up_move_img_1 = loadImage('images/player/Back_Move.png');
+    up_move_img_2 = loadImage('images/player/BackMove_2.png');
+    down_move_img_1 = loadImage('images/player/Front_moving.png');
+    down_move_img_2 = loadImage('images/player/front_Move2.png');
+    left_move_img_1 = loadImage('images/player/Side_Move.png');
+    left_move_img_2 = loadImage('images/player/SideMove2.png');
+    right_move_img_1 = loadImage('images/player/Right_Move.png');
+    right_move_img_2 = loadImage('images/player/RightMove2.png');
     player_imgs = [[up_move_img_1, up_move_img_2],
     [right_move_img_1, right_move_img_2],
     [down_move_img_1, down_move_img_2],
@@ -1039,52 +1013,56 @@ function preload() {
     ];
 
     //Plants
+    done_dot = loadImage('images/ui/plant_done_icon.png');
     //  Corn 3
-    corn_tile_img = loadImage('CornStage_1.png');
-    corn_tile_2_img = loadImage('CornStage_2.png');
-    corn_tile_3_img = loadImage('CornStage_4.png');
-    corn_tile_4_img = loadImage('CornStage5.png');
-    corn_tile_5_img = loadImage('CornStage6_1.png');
-    corn_tile_6_img = loadImage('CornStage7.png');
-    corn_tile_7_img = loadImage('CornStage8.png');
-    corn_tile_8_img = loadImage('CornDead.png');
+    corn_tile_img = loadImage('images/tiles/CornStage_1.png');
+    corn_tile_2_img = loadImage('images/tiles/CornStage_2.png');
+    corn_tile_3_img = loadImage('images/tiles/CornStage_4.png');
+    corn_tile_4_img = loadImage('images/tiles/CornStage5.png');
+    corn_tile_5_img = loadImage('images/tiles/CornStage6_1.png');
+    corn_tile_6_img = loadImage('images/tiles/Cornstage7.png');
+    corn_tile_7_img = loadImage('images/tiles/CornStage8.png');
+    corn_tile_8_img = loadImage('images/tiles/CornDead.png');
     corn_tile_imgs = [corn_tile_img, corn_tile_2_img, corn_tile_3_img, corn_tile_4_img, corn_tile_5_img, corn_tile_6_img, corn_tile_7_img, corn_tile_8_img];
     //  Sweet Potato 17
-    sweet_potato_tile_img = loadImage('beets_1.png');
-    sweet_potato_tile_2_img = loadImage('beets_2.png');
-    sweet_potato_tile_3_img = loadImage('beets_3.png');
-    sweet_potato_tile_4_img = loadImage('beets_4.png');
-    sweet_potato_tile_5_img = loadImage('beets_5.png');
+    sweet_potato_tile_img = loadImage('images/tiles/beets_1.png');
+    sweet_potato_tile_2_img = loadImage('images/tiles/beets_2.png');
+    sweet_potato_tile_3_img = loadImage('images/tiles/beets_3.png');
+    sweet_potato_tile_4_img = loadImage('images/tiles/beets_4.png');
+    sweet_potato_tile_5_img = loadImage('images/tiles/beets_5.png');
     sweet_potato_tile_imgs = [sweet_potato_tile_img, sweet_potato_tile_2_img, sweet_potato_tile_3_img, sweet_potato_tile_4_img, sweet_potato_tile_5_img];
 
     //Strawberry 20
-    strawberry_tile_img = loadImage('strawberry_1.png');
-    strawberry_tile_2_img = loadImage('strawberry_2.png');
-    strawberry_tile_3_img = loadImage('strawberry_3.png');
-    strawberry_tile_4_img = loadImage('strawberry_4.png');
-    strawberry_tile_5_img = loadImage('strawberry_5.png');
-    strawberry_tile_6_img = loadImage('strawberry_6.png');
+    strawberry_tile_img = loadImage('images/tiles/strawberry_1.png');
+    strawberry_tile_2_img = loadImage('images/tiles/strawberry_2.png');
+    strawberry_tile_3_img = loadImage('images/tiles/strawberry_3.png');
+    strawberry_tile_4_img = loadImage('images/tiles/strawberry_4.png');
+    strawberry_tile_5_img = loadImage('images/tiles/strawberry_5.png');
+    strawberry_tile_6_img = loadImage('images/tiles/strawberry_6.png');
     strawberry_tile_imgs = [strawberry_tile_img, strawberry_tile_2_img, strawberry_tile_3_img, strawberry_tile_4_img, strawberry_tile_5_img, strawberry_tile_6_img];
     //flower  21
-    flower_bag_img = loadImage("SeedBagFlower.png");
-    flower_tile_img = loadImage("FlowerStage_1.png");
-    flower_tile_img2 = loadImage("FlowerStage_2.png");
+    flower_bag_img = loadImage("images/items/SeedBagFlower.png");
+    flower_tile_img = loadImage("images/tiles/FlowerStage_1.png");
+    flower_tile_img2 = loadImage("images/tiles/FlowerStage_2.png");
     flower_tile_imgs = [flower_tile_img, flower_tile_img2, flower_tile_img2];
 
     // ladybugs
-    ladybug_bag_img = loadImage("Lady_Bug_bag.png");
-    ladybug_img = loadImage("LadyBugs.gif");
+    ladybug_bag_img = loadImage("images/items/Lady_Bug_bag.png");
+    ladybug_img = loadImage("images/tiles/LadyBugs.gif");
 
     //bees
-    bee_img = loadImage("Bees.gif");
+    bee_img = loadImage("images/tiles/Bees.gif");
 
     //sounds
-    hoe_sound = new Sound('Hoe.wav');
-    onDeathSound = new Sound('Death.wav');
-    newDayChime = new Sound('NewDay.mp3');
-    main_theme = new Sound('Main_theme.wav');
-    hit_sound = new Sound('hit2.wav');
-    moneySound = new Sound('money.wav');
+    hoe_sound = new Sound('audio/Hoe.wav');
+    onDeathSound = new Sound('audio/Death.wav');
+    newDayChime = new Sound('audio/NewDay.mp3');
+    main_theme = new Sound('audio/Main_theme.wav');
+    hit_sound = new Sound('audio/hit2.wav');
+    moneySound = new Sound('audio/money.wav');
+
+    background_img = loadImage('images/Skyline.gif');
+    foreground_img = loadImage('images/Fore6.png');
 
     main_theme.play(); //needs to loop
 }
@@ -1121,7 +1099,27 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ], (6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2)
+    ], [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+        ]
     );
     //Compost
     level2 = new Level
@@ -1144,7 +1142,27 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-        ], (6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2)
+        ], [
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+            [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+            [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+            [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+        ]
         );
     //Strawberry farm
     level3 = new Level([
@@ -1167,30 +1185,70 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ], (6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2)
+    ], [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+    ]
     );
     //village
     level4 = new Level([
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19, 0, 0, 0],
+        [0, 0, 19, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19,0,0, 0],
         [0, 0, 5, 4, 4, 4, 4, 5, 5, 4, 4, 4, 4, 5, 5, 4, 4, 4, 4, 5, 0, 0, 0],
-        [0, 0, 5, 4, 7, 34, 4, 5, 5, 4, 7, 5, 4, 5, 5, 4, 7, 5, 4, 5, 0, 0, 0],
+        [0, 0, 5, 4, 7, 34, 4, 5, 5, 4, 7, 5, 4, 5, 5, 4, 7, 5, 4, 5, 0, 0,0],
         [0, 0, 5, 4, 5, 5, 4, 5, 5, 4, 5, 5, 4, 5, 5, 4, 4, 5, 4, 5, 0, 0, 0],
-        [0, 0, 5, 4, 4, 5, 4, 5, 19, 4, 4, 5, 4, 19, 4, 5, 4, 4, 5, 5, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19, 5, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 4, 5, 4, 4, 5, 5, 5, 5, 5, 5, 5, 10, 10, 10],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 4, 5, 4, 4, 0, 0, 0],
-        [10, 10, 5, 5, 5, 5, 5, 5, 5, 4, 7, 5, 4, 5, 5, 5, 4, 5, 5, 4, 0, 0, 0],
-        [0, 0, 5, 5, 5, 4, 5, 4, 4, 4, 4, 4, 4, 5, 5, 5, 4, 7, 5, 4, 0, 0, 0],
+        [0, 0, 5, 4, 4, 5, 4, 5, 19, 4, 4, 5, 4, 19, 5, 5, 4, 5, 5, 5, 0, 0,0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 10, 10, 10],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 4, 4, 0, 0, 0],
+        [10, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 0, 0, 0],
+        [0, 0, 5, 5, 5, 4, 5, 4, 4, 5, 5, 5, 5, 5, 5, 5, 4, 7, 5, 4, 0, 0, 0],
         [0, 0, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 19, 5, 4, 4, 4, 4, 0, 0, 0],
-        [0, 0, 5, 5, 19, 4, 7, 5, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 5, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19, 0, 0, 0],
+        [0, 0, 5, 5, 5, 4, 7, 5, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+        [0, 0, 19, 5, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ], (6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2)
+    ], [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+    ]
     );
     //abandened plot
     level5 = new Level([
@@ -1213,7 +1271,27 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ], (6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2)
+    ], [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+        [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0]
+    ]
     );
     //market
     level6 = new Level([
@@ -1236,7 +1314,27 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ], (6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2)
+    ], [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+        [0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+    ]
     );
     //Blind pete
     level7 = new Level([
@@ -1259,7 +1357,27 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ], (6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2)
+    ], [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+    ]
     );
     //many bridge
     level8 = new Level([
@@ -1282,7 +1400,27 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ], (6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2)
+    ], [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+        [0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0],
+        [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 0],
+        [0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0]
+    ]
     );
     //big green plot
     level9 = new Level([
@@ -1305,7 +1443,27 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    ], (6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2)
+    ], [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+    ]
     );
     levels = [[level5, level4, level6],
     [level3, level1, level2],
@@ -1336,11 +1494,7 @@ function draw() {
     else {
         background(135, 206, 235);
         image(background_img, 0, 0);
-        for (let i = 0; i < 9; i++) {
-            for (let j = 0; j < 2; j++) {
-                image(foreground_img, (2 * tileSize) + (i * 64), (15 * tileSize) + (j * 64));
-            }
-        }
+        levels[currentLevel_y][currentLevel_x].fore_render();
         levels[currentLevel_y][currentLevel_x].render();
         if (!player.dead) {
             levels[currentLevel_y][currentLevel_x].coliding(player);
@@ -1393,12 +1547,12 @@ function draw() {
                                         }
                                         if (levels[y][x].map[i][j].type == 'sweet_potato') {
                                             levels[y][x].map[i][j].age += 1;
-                                            if (levels[y][x].map[i][j].age > 4 && levels[y][x].map[i][j].dead_counter > 0) {
-                                                levels[y][x].map[i][j].age = 4;
+                                            if (levels[y][x].map[i][j].age > 3 && levels[y][x].map[i][j].dead_counter > 0) {
+                                                levels[y][x].map[i][j].age = 3;
                                                 levels[y][x].map[i][j].dead_counter -= 1
                                             }
-                                            if (levels[y][x].map[i][j].age > 5 && levels[y][x].map[i][j].dead_counter <= 0) {
-                                                levels[y][x].map[i][j].age = 5;
+                                            if (levels[y][x].map[i][j].age > 4 && levels[y][x].map[i][j].dead_counter <= 0) {
+                                                levels[y][x].map[i][j].age = 4;
                                                 levels[y][x].map[i][j] = new Tile(11, (j * tileSize), (i * tileSize));
                                             }
                                         }
@@ -1408,8 +1562,8 @@ function draw() {
                                                 levels[y][x].map[i][j].age = 4;
                                                 levels[y][x].map[i][j].dead_counter -= 1
                                             }
-                                            if (levels[y][x].map[i][j].age > 4 && levels[y][x].map[i][j].dead_counter <= 0) {
-                                                levels[y][x].map[i][j].age = 4;
+                                            if (levels[y][x].map[i][j].age > 5 && levels[y][x].map[i][j].dead_counter <= 0) {
+                                                levels[y][x].map[i][j].age = 5;
                                                 levels[y][x].map[i][j] = new Tile(11, (j * tileSize), (i * tileSize));
                                             }
                                         }
@@ -1433,8 +1587,14 @@ function draw() {
                                         }
                                         if (levels[y][x].map[i][j].type == 'compost') {
                                             levels[y][x].map[i][j].age += 1;
-                                            if (levels[y][x].map[i][j].age > 2) {
+                                            if (levels[y][x].map[i][j].age == 2) {
                                                 levels[y][x].map[i][j] = new Tile(1, (j * tileSize), (i * tileSize));
+                                            }
+                                        }
+                                        if (levels[y][x].map[i][j].type == 'plot') {
+                                            levels[y][x].map[i][j].age += 1;
+                                            if (levels[y][x].map[i][j].age == 5) {
+                                                levels[y][x].map[i][j] = new Tile(6, (j * tileSize), (i * tileSize));
                                             }
                                         }
                                     }
@@ -1565,6 +1725,7 @@ function takeInput() {
                 if (player.hunger < maxHunger) {  // player only eats when hungry
                     if (player.inv[player.hand].type == 'corn') {
                         player.inv[player.hand].ammount -= 1;
+                        player.hunger_counter = 0;
                         if (player.inv[player.hand].ammount == 0) {
                             player.inv[player.hand].type = 'air';
                         }
@@ -1576,6 +1737,7 @@ function takeInput() {
                     }
                     else if (player.inv[player.hand].type == 'sweet_potato') {
                         player.inv[player.hand].ammount -= 1;
+                        player.hunger_counter = 0;
                         if (player.inv[player.hand].ammount == 0) {
                             player.inv[player.hand].type = 'air';
                         }
@@ -1587,6 +1749,7 @@ function takeInput() {
                     }
                     else if (player.inv[player.hand].type == 'strawberry') {
                         player.inv[player.hand].ammount -= 1;
+                        player.hunger_counter = 0;
                         if (player.inv[player.hand].ammount == 0) {
                             player.inv[player.hand].type = 'air';
                         }
@@ -1662,13 +1825,15 @@ function takeInput() {
                     addItem('strawberry', 1);
                 }
                 else if (touching.type == 'cart_s') {
-                    if (player.inv[player.hand].price != 0) {
+                    if (player.inv[player.hand].price != 0 && player.inv[player.hand].type != "air") {
+                        player.coins += player.inv[player.hand].price;
+                        moneySound.play();
                         player.inv[player.hand].ammount -= 1;
                         if (player.inv[player.hand].ammount == 0) {
                             player.inv[player.hand].type = 'air';
+                            player.inv[player.hand].ammount = 0;
+                            player.inv[player.hand].price = 0;
                         }
-                        player.coins += player.inv[player.hand].price;
-                        moneySound.play();
                     }
                 }
                 else if (touching.age == -3) {
