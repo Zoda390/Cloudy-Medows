@@ -1,5 +1,3 @@
-
-
 class Level {
     constructor(map, fore) {
         this.lights = [];
@@ -10,7 +8,11 @@ class Level {
                 if (map[i][j] == 0) {
                     this.map[i][j] = 0;
                 } else {
-                    this.map[i][j] = new Tile(map[i][j], (j * tileSize), i * tileSize);
+                    if (map[i][j] <= all_tiles.length) {
+                        this.map[i][j] = new Tile(all_tiles[map[i][j] - 1].name, all_tiles[map[i][j] - 1].png, j * tileSize, i * tileSize, all_tiles[map[i][j] - 1].border, all_tiles[map[i][j] - 1].collide, all_tiles[map[i][j] - 1].age);
+                    } else {
+                        this.map[i][j] = 0;
+                    }
                     if (this.map[i][j].type == 'lamppost') {
                         append(this.lights, new Light(this.map[i][j].pos.x, this.map[i][j].pos.y, (tileSize * 6), 255, 255, 255));
                     }
@@ -63,25 +65,6 @@ class Level {
         for (let i = 0; i < this.lights.length; i++) {
             this.lights[i].render();
         }
-    }
-
-    coliding(other) {
-        for (let i = 0; i < this.map.length; i++) {
-            for (let j = 0; j < this.map[i].length; j++) {
-                if (this.map[i][j] != 0) {
-                    if (this.map[i][j].coliding(other)) {
-                        touching = this.map[i][j];
-                        if (touching.type == 'coin') {
-                            other.coins += 1;
-                            this.map[i][j] = 0;
-                            console.log(other.coins);
-                        }
-                        return;
-                    }
-                }
-            }
-        }
-        touching = 0;
     }
 };
 

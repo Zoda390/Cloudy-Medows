@@ -13,10 +13,10 @@ class Tile {
         push()
         if (this.border == true) {
             noFill();
-            rect(this.pos.x - tileSize / 2, this.pos.y - tileSize / 2, tileSize, tileSize);
+            rect(this.pos.x, this.pos.y, tileSize, tileSize);
         }
         imageMode(CENTER);
-        image(this.png, this.pos.x, this.pos.y);
+        image(this.png, this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
         pop()
     }     
 };

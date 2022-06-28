@@ -20,10 +20,135 @@ class Entity extends Tile {
     }
 
     onInteract() {
-        //chris will do this
+        if (this.touching.name == 'grass') {
+
+            // need interactable class to make this work more efficently 
+            if (this.inv[this.hand].name == 'hoe') {
+                hoe_sound.play();
+                let new_tile_num = 2;
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(all_tiles[new_tile_num].name, all_tiles[new_tile_num].png, this.touching.pos.x, this.touching.pos.y, all_tiles[new_tile_num].border, all_tiles[new_tile_num].collide, all_tiles[new_tile_num].age);
+            }
+
+        }
+        else if (this.touching.name == 'plot') {
+            if (this.inv[this.hand].name == 'corn_seed') {
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(3, this.touching.pos.x, this.touching.pos.y);
+                this.inv[this.hand].ammount -= 1;
+                if (this.inv[this.hand].ammount == 0) {
+                    this.inv[this.hand].name = 'air';
+                }
+            }
+            else if (this.inv[this.hand].name == 'sweet_potato_seed') {
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(17, this.touching.pos.x, this.touching.pos.y);
+                this.inv[this.hand].ammount -= 1;
+                if (this.inv[this.hand].ammount == 0) {
+                    this.inv[this.hand].name = 'air';
+                }
+            }
+            else if (this.inv[this.hand].name == 'strawberry_seed') {
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(20, this.touching.pos.x, this.touching.pos.y);
+                this.inv[this.hand].ammount -= 1;
+                if (this.inv[this.hand].ammount == 0) {
+                    this.inv[this.hand].name = 'air';
+                }
+            }
+            else if (this.inv[this.hand].name == 'flower_seed') {
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(21, this.touching.pos.x, this.touching.pos.y);
+                this.inv[this.hand].ammount -= 1;
+                if (this.inv[this.hand].ammount == 0) {
+                    this.inv[this.hand].name = 'air';
+                }
+            }
+            else if (this.inv[this.hand].name == 'ladybug') {
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(24, this.touching.pos.x, this.touching.pos.y);
+                this.inv[this.hand].ammount -= 1;
+                if (this.inv[this.hand].ammount == 0) {
+                    this.inv[this.hand].name = 'air';
+                }
+            }
+
+        }
+        else if (this.touching.name == 'corn' && this.touching.age == 6) {
+            levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(2, this.touching.pos.x, this.touching.pos.y);
+            addItem('corn', 1);
+        }
+        else if (this.touching.name == 'sweet_potato' && this.touching.age == 3) {
+            levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(2, this.touching.pos.x, this.touching.pos.y);
+            addItem('sweet_potato', 1);
+        }
+        else if (this.touching.name == 'strawberry' && this.touching.age == 4) {
+            levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(2, this.touching.pos.x, this.touching.pos.y);
+            addItem('strawberry', 1);
+        }
+        else if (this.touching.name == 'cart_s') {
+            if (this.inv[this.hand].price != 0 && this.inv[this.hand].name != "air") {
+                this.coins += this.inv[this.hand].price;
+                moneySound.play();
+                this.inv[this.hand].ammount -= 1;
+                if (this.inv[this.hand].ammount == 0) {
+                    this.inv[this.hand].name = 'air';
+                    this.inv[this.hand].ammount = 0;
+                    this.inv[this.hand].price = 0;
+                }
+            }
+        }
+        else if (this.touching.age == -3) {
+            if (this.coins >= this.touching.price) {
+                moneySound.play();
+                addItem(this.touching.bname, 1);
+                this.coins -= this.touching.price;
+                moneySound.play();
+            }
+
+        }
+        else if (this.touching.name == 'compost_bucket') {
+            if (this.inv[this.hand].name == 'junk') {
+                this.inv[this.hand].ammount -= 1;
+                if (this.inv[this.hand].ammount == 0) {
+                    this.inv[this.hand].name = 'air';
+                }
+                addItem('compost', 1);
+            }
+            else if (this.inv[this.hand].name == 'corn_seed') {
+                this.inv[this.hand].ammount -= 1;
+                if (this.inv[this.hand].ammount == 0) {
+                    this.inv[this.hand].name = 'air';
+                }
+                addItem('compost', 1);
+            }
+            else if (this.inv[this.hand].name == 'sweet_potato_seed') {
+                this.inv[this.hand].ammount -= 1;
+                if (this.inv[this.hand].ammount == 0) {
+                    this.inv[this.hand].name = 'air';
+                }
+                addItem('compost', 1);
+            }
+            else if (this.inv[this.hand].name == 'strawberry_seed') {
+                this.inv[this.hand].ammount -= 1;
+                if (this.inv[this.hand].ammount == 0) {
+                    this.inv[this.hand].name = 'air';
+                }
+                addItem('compost', 1);
+            }
+
+        }
+        else if (this.touching.name == 'dirt') {
+            if (this.inv[this.hand].name == 'compost') {
+                this.inv[this.hand].ammount -= 1;
+                if (this.inv[this.hand].ammount == 0) {
+                    this.inv[this.hand].name = 'air';
+                }
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(16, this.touching.pos.x, this.touching.pos.y);
+            }
+
+        }
+        else if (this.touching.name == 'junk') {
+            addItem(this.touching.name, 1);
+            levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(2, this.touching.pos.x, this.touching.pos.y);
+        }
     }
 
-    tileTouched(){
-
+    tileTouching() {
+        return levels[currentLevel_y][currentLevel_x].map[this.pos.y / tileSize][this.pos.x / tileSize]
     }
 }

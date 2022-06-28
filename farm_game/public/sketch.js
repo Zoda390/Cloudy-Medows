@@ -60,7 +60,6 @@ var player;
 var levels = [];
 var currentLevel_y = 1;
 var currentLevel_x = 1;
-var touching = 0;
 var lastMili = 0;
 var maxHunger = 6;
 var time = 0;
@@ -69,11 +68,12 @@ var lastTimeMili = 0;
 var lastHungerMili = 0;
 var days = 0;
 var title_screen = true;
+var all_tiles = [];
 
 
 function preload() {
     //Items
-    
+
     corn_img = loadImage('images/items/Corn_item.png');
     corn_seed_bag_img = loadImage('images/items/Corn_Seed_bag.png');
     sweet_potato_seed_bag_img = loadImage('images/items/seedbag_sp.png');
@@ -204,20 +204,118 @@ function preload() {
     foreground_img = loadImage('images/Fore6.png');
 
     main_theme.play(); //needs to loop
+
+    all_tiles = [
+        { name: 'grass', png: grass_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+        { name: 'plot', png: plot_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+        { name: 'corn', png: plot_tile_img, border: true, collide: false, age: -1, class: 'Plant' },
+        { name: 'wall', png: wall_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+        { name: 'concrete', png: concrete_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+        { name: 'dirt', png: dirt_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
+        { name: 'bed', png: bed_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+        { name: 'cart_s', png: cart_s_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+        { name: 'cart_b_corn', png: cart_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+        { name: 'bridge', png: bridge_tile_img, border: false, collide: false, age: -1, class: 'Tile' },
+        { name: 'junk', png: junk_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+        { name: 'concrete2', png: concrete_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
+        { name: 'satilite', png: satilite_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+        { name: 'solarpanel', png: solarpanel_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+        { name: 'compost_bucket', png: compost_bucket_tile_img, border: true, collide: true, age: -1, class: 'le' },
+        { name: 'compost_tile', png: compost_tile_img, border: true, collide: false, age: 0, class: 'Plant' },
+        { name: 'sweet_potato', png: plot_tile_img, border: true, collide: false, age: 0, class: 'Plant' },
+        { name: 'sprinkler', png: sprinkler_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+        { name: 'lamppost', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+        { name: 'strawberry', png: lamppost_tile_img, border: true, collide: true, age: 0, class: 'Plant' },
+        { name: 'flower', png: lamppost_tile_img, border: true, collide: true, age: 0, class: 'Plant' },
+        { name: 'deb', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+        { name: 'rick', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+        { name: 'ladybug', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Entity' },
+        { name: 'bee', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
+        { name: 'meb', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
+        { name: 'cart_b_corn', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+        { name: 'cart_b_lady', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+        { name: 'cart_b_sp', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+        { name: 'cart_b_sprinkler', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+        { name: 'cart_b_straw', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+        { name: 'bridge2', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+        { name: 'mario', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
+        { name: 'garry', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
+        { name: 'mira', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
+        { name: 'oldManJ', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' }
+    ];
 }
 
-function setup() {
-    //4-  wood
-    //5- concrete
-    //7- bed
-    //19- lamp
+/*
 
+27 = cart b corn
+28 = cart b lady
+29 = cart b sp
+30 = cart b sprinkler
+31 = cart b straw
+32 = bridge2
+33 = mario
+34 = garry
+35 = mira
+36 = old man j
+37 = brandon
+38 = brent
+39 = blind pete
+40 = james
+*/
+
+
+
+
+
+
+function setup() {
     createCanvas(canvasWidth, canvasHeight);
     for (let i = 0; i < cloudCount; i++) {
         clouds[i] = new Cloud()
     }
-    player = new Player((6 * tileSize) - (tileSize / 2), (6 * tileSize) - (tileSize / 2));
+    player = new Player('player1', player_imgs, (5 * tileSize), (5 * tileSize));
     //Home
+    /*
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+        [10, 10, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 12, 5, 5, 5, 13, 5, 0, 0, 0],
+        [0, 0, 5, 4, 7, 5, 4, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 4, 5, 5, 4, 5, 5, 12, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 4, 4, 5, 4, 19, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 12, 5, 10, 10, 10],
+        [0, 0, 5, 5, 1, 1, 1, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 1, 1, 1, 5, 12, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 1, 1, 1, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 14, 14, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19, 14, 14, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
+    */
     level1 = new Level([
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -258,7 +356,7 @@ function setup() {
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
-        ]
+    ]
     );
     //Compost
     level2 = new Level
@@ -350,11 +448,11 @@ function setup() {
     level4 = new Level([
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 19, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19,0,0, 0],
+        [0, 0, 19, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19, 0, 0, 0],
         [0, 0, 5, 4, 4, 4, 4, 5, 5, 4, 4, 4, 4, 5, 5, 4, 4, 4, 4, 5, 0, 0, 0],
-        [0, 0, 5, 4, 7, 34, 4, 5, 5, 4, 7, 5, 4, 5, 5, 4, 7, 5, 4, 5, 0, 0,0],
+        [0, 0, 5, 4, 7, 34, 4, 5, 5, 4, 7, 5, 4, 5, 5, 4, 7, 5, 4, 5, 0, 0, 0],
         [0, 0, 5, 4, 5, 5, 4, 5, 5, 4, 5, 5, 4, 5, 5, 4, 4, 5, 4, 5, 0, 0, 0],
-        [0, 0, 5, 4, 4, 5, 4, 5, 19, 4, 4, 5, 4, 19, 5, 5, 4, 5, 5, 5, 0, 0,0],
+        [0, 0, 5, 4, 4, 5, 4, 5, 19, 4, 4, 5, 4, 19, 5, 5, 4, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 10, 10, 10],
         [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 4, 4, 0, 0, 0],
@@ -635,16 +733,12 @@ function draw() {
         image(background_img, 0, 0);
         levels[currentLevel_y][currentLevel_x].fore_render();
         levels[currentLevel_y][currentLevel_x].render();
-        if (!player.dead) {
-            levels[currentLevel_y][currentLevel_x].coliding(player);
-        }
         player.render();
-        player.update();
         background(0, 0, 0, time);
         render_ui();
         if (millis() - lastTimeMili > 150) { //300 for normal time
             if (timephase == 0) {
-                if (touching.type == 'bed') {
+                if (player.touching.name == 'bed') {
                     time += 5;
                 }
                 else {
@@ -652,7 +746,7 @@ function draw() {
                 }
             }
             if (timephase == 1) {
-                if (touching.type == 'bed') {
+                if (player.touching.name == 'bed') {
                     time -= 5;
                 }
                 else {
@@ -662,7 +756,6 @@ function draw() {
             if (time >= 200) {
                 timephase = 1;
                 days += 1;
-                player.hunger -= 1;
                 newDayChime.play();
             }
             if (time <= 0) {
@@ -673,7 +766,7 @@ function draw() {
                             for (let i = 0; i < levels[y][x].map.length; i++) {
                                 for (let j = 0; j < levels[y][x].map[i].length; j++) {
                                     if (levels[y][x].map[i][j].age >= 0) {
-                                        if (levels[y][x].map[i][j].type == 'corn') {
+                                        if (levels[y][x].map[i][j].name == 'corn') {
                                             levels[y][x].map[i][j].age += 1;
                                             if (levels[y][x].map[i][j].age > 6 && levels[y][x].map[i][j].dead_counter > 0) {
                                                 levels[y][x].map[i][j].age = 6;
@@ -684,7 +777,7 @@ function draw() {
                                                 levels[y][x].map[i][j] = new Tile(11, (j * tileSize), (i * tileSize));
                                             }
                                         }
-                                        if (levels[y][x].map[i][j].type == 'sweet_potato') {
+                                        if (levels[y][x].map[i][j].name == 'sweet_potato') {
                                             levels[y][x].map[i][j].age += 1;
                                             if (levels[y][x].map[i][j].age > 3 && levels[y][x].map[i][j].dead_counter > 0) {
                                                 levels[y][x].map[i][j].age = 3;
@@ -695,7 +788,7 @@ function draw() {
                                                 levels[y][x].map[i][j] = new Tile(11, (j * tileSize), (i * tileSize));
                                             }
                                         }
-                                        if (levels[y][x].map[i][j].type == 'strawberry') {
+                                        if (levels[y][x].map[i][j].name == 'strawberry') {
                                             levels[y][x].map[i][j].age += 1;
                                             if (levels[y][x].map[i][j].age > 4 && levels[y][x].map[i][j].dead_counter > 0) {
                                                 levels[y][x].map[i][j].age = 4;
@@ -706,7 +799,7 @@ function draw() {
                                                 levels[y][x].map[i][j] = new Tile(11, (j * tileSize), (i * tileSize));
                                             }
                                         }
-                                        if (levels[y][x].map[i][j].type == 'flower') {
+                                        if (levels[y][x].map[i][j].name == 'flower') {
                                             levels[y][x].map[i][j].age += 1;
                                             if (levels[y][x].map[i][j].age == 1) {
                                                 //Spawn a bee
@@ -715,7 +808,7 @@ function draw() {
                                                 levels[y][x].map[i][j].age = 2;
                                             }
                                         }
-                                        if (levels[y][x].map[i][j].type == 'ladybug') {
+                                        if (levels[y][x].map[i][j].name == 'ladybug') {
                                             levels[y][x].map[i][j].age += 1;
                                             if (levels[y][x].map[i][j].age == 1) {
                                                 //Spawn a bee
@@ -724,13 +817,13 @@ function draw() {
                                                 levels[y][x].map[i][j].age = 2;
                                             }
                                         }
-                                        if (levels[y][x].map[i][j].type == 'compost') {
+                                        if (levels[y][x].map[i][j].name == 'compost') {
                                             levels[y][x].map[i][j].age += 1;
                                             if (levels[y][x].map[i][j].age == 2) {
                                                 levels[y][x].map[i][j] = new Tile(1, (j * tileSize), (i * tileSize));
                                             }
                                         }
-                                        if (levels[y][x].map[i][j].type == 'plot') {
+                                        if (levels[y][x].map[i][j].name == 'plot') {
                                             levels[y][x].map[i][j].age += 1;
                                             if (levels[y][x].map[i][j].age == 5) {
                                                 levels[y][x].map[i][j] = new Tile(6, (j * tileSize), (i * tileSize));
@@ -743,27 +836,28 @@ function draw() {
                     }
                 }
             }
-            lastTimeMili = millis();
         }
+        lastTimeMili = millis();
     }
 }
 
+
 function addItem(ntype, ammount) {
     for (let i = 0; i < 8; i++) {
-        if (player.inv[i].type == ntype) {
+        if (player.inv[i].name == ntype) {
             player.inv[i].ammount += ammount;
             return;
         }
     }
-    if (player.inv[player.hand].type == 'air') {
-        player.inv[player.hand].type = ntype;
+    if (player.inv[player.hand].name == 'air') {
+        player.inv[player.hand].name = ntype;
         player.inv[player.hand].ammount = ammount;
         return;
     }
 
     for (let i = 0; i < 8; i++) {
-        if (player.inv[i].type == 'air') {
-            player.inv[i].type = ntype;
+        if (player.inv[i].name == 'air') {
+            player.inv[i].name = ntype;
             player.inv[i].ammount = ammount;
             return;
         }
@@ -787,252 +881,9 @@ function takeInput() {
     }
     else {
         //basic movement  
-        if (keyIsDown(move_right_button)) {
-            if (millis() - lastMili > 100) {
-                player.facing = 1;
-                if (player.pos.x + (tileSize / 2) >= canvasWidth) {
-                    currentLevel_x += 1;
-                    player.pos.x = tileSize / 2;
-                }
-                else if (player.looking() != undefined && player.looking() != 0 && player.looking().colide != true) {
-                    player.pos.x += tileSize;
-                    player.hunger_counter += round(random(0, 1));
-                    player.anim += 1;
-                    if (player.anim > 1) {
-                        player.anim = 0;
-                    }
-                }
-                lastMili = millis();
-            }
-        }
-        if (keyIsDown(move_left_button)) {
-            if (millis() - lastMili > 100) {
-                player.facing = 3;
-                if (player.pos.x - (tileSize / 2) <= 0) {
-                    currentLevel_x -= 1;
-                    player.pos.x = canvasWidth - (tileSize / 2);
-                }
-                else if (player.looking() != undefined && player.looking() != 0 && player.looking().colide != true) {
-                    player.pos.x -= tileSize;
-                    player.hunger_counter += round(random(0, 1));
-                    player.anim += 1;
-                    if (player.anim > 1) {
-                        player.anim = 0;
-                    }
-                }
-                lastMili = millis();
-            }
-        }
-        if (keyIsDown(move_up_button)) {
-            if (millis() - lastMili > 100) {
-                player.facing = 0;
-                if (player.pos.y - (tileSize / 2) <= 0) {
-                    currentLevel_y -= 1;
-                    player.pos.y = canvasHeight - (tileSize / 2);
-                }
-                else if (player.looking() != undefined && player.looking() != 0 && player.looking().colide != true) {
-                    player.pos.y -= tileSize;
-                    player.hunger_counter += round(random(0, 1));
-                    player.anim += 1;
-                    if (player.anim > 1) {
-                        player.anim = 0;
-                    }
-                }
-                lastMili = millis();
-            }
-        }
-        if (keyIsDown(move_down_button)) {
-            if (millis() - lastMili > 100) {
-                player.facing = 2;
-                if (player.pos.y + (tileSize / 2) >= canvasHeight) {
-                    currentLevel_y += 1;
-                    player.pos.y = tileSize / 2;
-                }
-                else if (player.looking() != undefined && player.looking() != 0 && player.looking().colide != true) {
-                    player.pos.y += tileSize;
-                    player.hunger_counter += round(random(0, 1));;
-                    player.anim += 1;
-                    if (player.anim > 1) {
-                        player.anim = 0;
-                    }
-                }
-                lastMili = millis();
-            }
-        }
-        if (keyIsDown(eat_button)) {
-            if (millis() - lastMili > 100) {
-                if (player.hunger < maxHunger) {  // player only eats when hungry
-                    if (player.inv[player.hand].type == 'corn') {
-                        player.inv[player.hand].ammount -= 1;
-                        player.hunger_counter = 0;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                        addItem('corn_seed', round(random(1, 2)));
-                        player.hunger += 2;
-                        if (player.hunger > maxHunger) {
-                            player.hunger = maxHunger;
-                        }
-                    }
-                    else if (player.inv[player.hand].type == 'sweet_potato') {
-                        player.inv[player.hand].ammount -= 1;
-                        player.hunger_counter = 0;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                        addItem('sweet_potato_seed', round(random(1, 3)));
-                        player.hunger += 2;
-                        if (player.hunger > maxHunger) {
-                            player.hunger = maxHunger;
-                        }
-                    }
-                    else if (player.inv[player.hand].type == 'strawberry') {
-                        player.inv[player.hand].ammount -= 1;
-                        player.hunger_counter = 0;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                        addItem('strawberry_seed', round(random(1, 2)));
-                        player.hunger += 1;
-                        if (player.hunger > maxHunger) {
-                            player.hunger = maxHunger;
-                        }
-                    }
-                }
-            }
-            lastMili = millis();
-        }
-        if (keyIsDown(interact_button)) {
-            if (millis() - lastMili > 100) {
-                if (touching.type == 'grass') {
-
-                    // need interactable class to make this work more efficently 
-                    if (player.inv[player.hand].type == 'hoe') {
-                        hoe_sound.play();
-                        levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(2, touching.pos.x, touching.pos.y);
-                    }
-
-                }
-                else if (touching.type == 'plot') {
-                    if (player.inv[player.hand].type == 'corn_seed') {
-                        levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(3, touching.pos.x, touching.pos.y);
-                        player.inv[player.hand].ammount -= 1;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                    }
-                    else if (player.inv[player.hand].type == 'sweet_potato_seed') {
-                        levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(17, touching.pos.x, touching.pos.y);
-                        player.inv[player.hand].ammount -= 1;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                    }
-                    else if (player.inv[player.hand].type == 'strawberry_seed') {
-                        levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(20, touching.pos.x, touching.pos.y);
-                        player.inv[player.hand].ammount -= 1;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                    }
-                    else if (player.inv[player.hand].type == 'flower_seed') {
-                        levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(21, touching.pos.x, touching.pos.y);
-                        player.inv[player.hand].ammount -= 1;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                    }
-                    else if (player.inv[player.hand].type == 'ladybug') {
-                        levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(24, touching.pos.x, touching.pos.y);
-                        player.inv[player.hand].ammount -= 1;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                    }
-
-                }
-                else if (touching.type == 'corn' && touching.age == 6) {
-                    levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(2, touching.pos.x, touching.pos.y);
-                    addItem('corn', 1);
-                }
-                else if (touching.type == 'sweet_potato' && touching.age == 3) {
-                    levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(2, touching.pos.x, touching.pos.y);
-                    addItem('sweet_potato', 1);
-                }
-                else if (touching.type == 'strawberry' && touching.age == 4) {
-                    levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(2, touching.pos.x, touching.pos.y);
-                    addItem('strawberry', 1);
-                }
-                else if (touching.type == 'cart_s') {
-                    if (player.inv[player.hand].price != 0 && player.inv[player.hand].type != "air") {
-                        player.coins += player.inv[player.hand].price;
-                        moneySound.play();
-                        player.inv[player.hand].ammount -= 1;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                            player.inv[player.hand].ammount = 0;
-                            player.inv[player.hand].price = 0;
-                        }
-                    }
-                }
-                else if (touching.age == -3) {
-                    if (player.coins >= touching.price) {
-                        moneySound.play();
-                        addItem(touching.btype, 1);
-                        player.coins -= touching.price;
-                        moneySound.play();
-                    }
-
-                }
-                else if (touching.type == 'compost_bucket') {
-                    if (player.inv[player.hand].type == 'junk') {
-                        player.inv[player.hand].ammount -= 1;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                        addItem('compost', 1);
-                    }
-                    else if (player.inv[player.hand].type == 'corn_seed') {
-                        player.inv[player.hand].ammount -= 1;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                        addItem('compost', 1);
-                    }
-                    else if (player.inv[player.hand].type == 'sweet_potato_seed') {
-                        player.inv[player.hand].ammount -= 1;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                        addItem('compost', 1);
-                    }
-                    else if (player.inv[player.hand].type == 'strawberry_seed') {
-                        player.inv[player.hand].ammount -= 1;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                        addItem('compost', 1);
-                    }
-
-                }
-                else if (touching.type == 'dirt') {
-                    if (player.inv[player.hand].type == 'compost') {
-                        player.inv[player.hand].ammount -= 1;
-                        if (player.inv[player.hand].ammount == 0) {
-                            player.inv[player.hand].type = 'air';
-                        }
-                        levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(16, touching.pos.x, touching.pos.y);
-                    }
-
-                }
-                else if (touching.type == 'junk') {
-                    addItem(touching.type, 1);
-                    levels[currentLevel_y][currentLevel_x].map[touching.pos.y / tileSize][touching.pos.x / tileSize] = new Tile(2, touching.pos.x, touching.pos.y);
-                }
-
-                lastMili = millis();
-            }
-        }
+        player.move();
+        player.eat();
+        player.interactCall();
         /*
         if(keyIsDown(48)){
           player.hand = 9;
@@ -1072,7 +923,7 @@ function takeInput() {
         if (keyIsDown(80)) { //p
             if (millis() - lastMili > 100) {
                 console.log(player);
-                console.log(touching);
+                console.log(player.touching);
                 lastMili = millis();
             }
         }
@@ -1095,14 +946,14 @@ function render_ui() {
     text(days, canvasWidth - 40, 50);
 
     for (let i = 0; i < 8; i++) {
-        if (player.inv[i].type != 'air') {
+        if (player.inv[i] != 0) {
             player.inv[i].render(i);
             if (i == player.hand) {
                 push();
                 fill(255)
                 textSize(13);
                 textAlign(CENTER, CENTER);
-                text(player.inv[i].type, (9 * canvasWidth / 16), (canvasHeight - 80));
+                text(player.inv[i].name, (9 * canvasWidth / 16), (canvasHeight - 80));
                 pop()
             }
         }
@@ -1121,22 +972,22 @@ function render_ui() {
 
     //draw line for clock, happens 1/12
     if (player.looking() != undefined && player.facing == 0) {
-            if (player.looking().age == -2) {
-                push()
-                stroke(0);
-                fill(255);
-                rectMode(CENTER);
-                rect(touching.pos.x, touching.pos.y - (tileSize * 2), player.looking().phraseWidth, player.looking().phraseHeight);
-                textAlign(CENTER, CENTER);
-                textSize(15);
-                fill(0);
-                text(player.looking().phrase, touching.pos.x, touching.pos.y - (tileSize * 2), player.looking().phraseWidth, player.looking().phraseHeight);
-                pop()
-            }
-            if (player.looking().htype != 'air' && player.looking().ammount > 0) {
-                addItem(player.looking().htype, player.looking().ammount);
-                player.looking().ammount = 0;
-            }
+        if (player.looking().age == -2) {
+            push()
+            stroke(0);
+            fill(255);
+            rectMode(CENTER);
+            rect(player.touching.pos.x, player.touching.pos.y - (tileSize * 2), player.looking().phraseWidth, player.looking().phraseHeight);
+            textAlign(CENTER, CENTER);
+            textSize(15);
+            fill(0);
+            text(player.looking().phrase, player.touching.pos.x, player.touching.pos.y - (tileSize * 2), player.looking().phraseWidth, player.looking().phraseHeight);
+            pop()
+        }
+        if (player.looking().htype != 'air' && player.looking().ammount > 0) {
+            addItem(player.looking().htype, player.looking().ammount);
+            player.looking().ammount = 0;
+        }
     }
     if (player.looking() != undefined && player.facing == 1) {
         if (player.looking().age == -2) {
@@ -1144,11 +995,11 @@ function render_ui() {
             stroke(0);
             fill(255);
             rectMode(CENTER);
-            rect(touching.pos.x + (tileSize), touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
+            rect(player.touching.pos.x + (tileSize), player.touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
             textAlign(CENTER, CENTER);
             textSize(15);
             fill(0);
-            text(player.looking().phrase, touching.pos.x + tileSize, touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
+            text(player.looking().phrase, player.touching.pos.x + tileSize, player.touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
             pop()
         }
         if (player.looking().htype != 'air' && player.looking().ammount > 0) {
@@ -1162,11 +1013,11 @@ function render_ui() {
             stroke(0);
             fill(255);
             rectMode(CENTER);
-            rect(touching.pos.x, touching.pos.y, player.looking().phraseWidth, player.looking().phraseHeight);
+            rect(player.touching.pos.x, player.touching.pos.y, player.looking().phraseWidth, player.looking().phraseHeight);
             textAlign(CENTER, CENTER);
             textSize(15);
             fill(0);
-            text(player.looking().phrase, touching.pos.x, touching.pos.y, player.looking().phraseWidth, player.looking().phraseHeight);
+            text(player.looking().phrase, player.touching.pos.x, player.touching.pos.y, player.looking().phraseWidth, player.looking().phraseHeight);
             pop()
         }
         if (player.looking().htype != 'air' && player.looking().ammount > 0) {
@@ -1180,11 +1031,11 @@ function render_ui() {
             stroke(0);
             fill(255);
             rectMode(CENTER);
-            rect(touching.pos.x - (tileSize), touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
+            rect(player.touching.pos.x - (tileSize), player.touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
             textAlign(CENTER, CENTER);
             textSize(15);
             fill(0);
-            text(player.looking().phrase, touching.pos.x - tileSize, touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
+            text(player.looking().phrase, player.touching.pos.x - tileSize, player.touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
             pop()
         }
         if (player.looking().htype != 'air' && player.looking().ammount > 0) {
@@ -1192,39 +1043,41 @@ function render_ui() {
             player.looking().ammount = 0;
         }
     }
-    if (touching.age == -3) {
+    if (player.touching.age == -3) {
         push()
         stroke(0)
         fill(255)
         rectMode(CENTER)
-        rect(touching.pos.x + (tileSize / 2), touching.pos.y - tileSize, touching.phraseWidth, touching.phraseHeight);
+        rect(player.touching.pos.x + (tileSize / 2), player.touching.pos.y - tileSize, player.touching.phraseWidth, player.touching.phraseHeight);
         textAlign(CENTER, CENTER);
         textSize(15);
         fill(0);
-        text(touching.price, touching.pos.x + (tileSize), touching.pos.y - tileSize, touching.phraseWidth, touching.phraseHeight);
-        image(coin_img, touching.pos.x - (tileSize / 2), touching.pos.y - (tileSize * 1.5));
+        text(player.touching.price, player.touching.pos.x + (tileSize), player.touching.pos.y - tileSize, player.touching.phraseWidth, player.touching.phraseHeight);
+        image(coin_img, player.touching.pos.x - (tileSize / 2), player.touching.pos.y - (tileSize * 1.5));
         pop()
     }
-    if (touching.type == "cart_s") {
+    if (player.touching.name == "cart_s") {
         push()
         stroke(0)
         fill(255)
         rectMode(CENTER)
-        rect(touching.pos.x + (tileSize / 2), touching.pos.y - tileSize, touching.phraseWidth, touching.phraseHeight);
+        rect(player.touching.pos.x + (tileSize / 2), player.touching.pos.y - tileSize, player.touching.phraseWidth, player.touching.phraseHeight);
         textAlign(CENTER, CENTER);
         textSize(15);
         fill(0);
-        text(touching.phrase, touching.pos.x + (tileSize / 2), touching.pos.y - (tileSize * 1.5), touching.phraseWidth, touching.phraseHeight);
-        image(coin_img, touching.pos.x - (tileSize / 2), touching.pos.y - (tileSize * 1));
+        text(player.touching.phrase, player.touching.pos.x + (tileSize / 2), player.touching.pos.y - (tileSize * 1.5), player.touching.phraseWidth, player.touching.phraseHeight);
+        image(coin_img, player.touching.pos.x - (tileSize / 2), player.touching.pos.y - (tileSize * 1));
         if (player.inv[player.hand].price == 0) {
             fill(255, 0, 0);
-            text("No", touching.pos.x + (tileSize), touching.pos.y - (tileSize / 2));
+            text("No", player.touching.pos.x + (tileSize), player.touching.pos.y - (tileSize / 2));
         }
         if (player.inv[player.hand].price > 0) {
             fill(0);
-            text(player.inv[player.hand].price, touching.pos.x + (tileSize), touching.pos.y - (tileSize /2));
+            text(player.inv[player.hand].price, player.touching.pos.x + (tileSize), player.touching.pos.y - (tileSize / 2));
         }
         pop()
-        
+
     }
 }
+
+

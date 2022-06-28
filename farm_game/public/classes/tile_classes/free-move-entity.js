@@ -1,4 +1,4 @@
-class FreeMoveEntity extends MoveableEntity{
+class FreeMoveEntity extends Entity{
 
     constructor(){
         super()
