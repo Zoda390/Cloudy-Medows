@@ -11,9 +11,9 @@ class Item {
 		push();
 		image(this.png, 112 + (i * 64), canvasHeight - 64);
 		fill(255)
-		textSize(13);
-		textAlign(CENTER, CENTER);
-		text(this.name, (9 * canvasWidth / 16), (canvasHeight - 80));
+		textSize(20);
+		textAlign(TOP, LEFT);
+		text(this.amount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
 		pop();
 	}
 }
