@@ -196,7 +196,10 @@ function preload() {
     hoe_sound = new Sound('audio/Hoe.wav');
     onDeathSound = new Sound('audio/Death.wav');
     newDayChime = new Sound('audio/NewDay.mp3');
-    main_theme = new Sound('audio/Main_theme.wav');
+    main_theme = new Sound('audio/Main_theme.mp3');
+    main_theme_old = new Sound('audio/Main_theme.wav');
+    empty_burst = new Sound('audio/empty_burst.mp3');
+    calm_dings = new Sound('audio/calm_dings.mp3');
     hit_sound = new Sound('audio/hit2.wav');
     moneySound = new Sound('audio/money.wav');
 

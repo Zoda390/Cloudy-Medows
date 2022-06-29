@@ -1,3 +1,22 @@
+class Circle {
+    constructor() {
+        this.size = random(50, 100)
+        this.xOfset = random(-this.size / 2, this.size / 2)
+        this.yOfset = random(-this.size / 2, this.size / 2)
+        this.color = random(200, 255);
+    }
+
+    update(vel) {
+        this.pos.x += vel.x;
+    }
+
+    render(cloudPos) {
+        noStroke();
+        fill(this.color)
+        circle(cloudPos.x + this.xOfset, cloudPos.y + this.yOfset, this.size)
+    }
+}
+
 class Cloud {
     constructor() {
         this.pos = createVector(random(0, canvasWidth), random(0, canvasHeight))
