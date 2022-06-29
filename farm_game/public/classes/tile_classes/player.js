@@ -1,9 +1,10 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y, inv = [new Item('hoe', 1, hoe_img, 0), 0, 0, 0, 0, 0, 0, 0]) {
+    constructor(name, png, x, y,
+        inv = [all_items[1], all_items[2], all_items[3], 0, 0, 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 0, 3);
         this.quests = [];
         this.current_quest = 0;
-        this.hunger = maxHunger;
+        this.hunger = maxHunger-1;
         this.hunger_timer = 100;
         this.hunger_counter = 0;
         this.lastFoodtype = 'corn';
@@ -150,34 +151,33 @@ class Player extends MoveableEntity {
     }
 
     eat() {
-        if (keyIsDown(eat_button)) {
-            if (millis() - this.lasteatMili > 100) {
-                if (this.hunger < maxHunger) {  // player only eats when hungry
-                    if (this.inv[this.hand].class == 'eat') {
-                        this.inv[this.hand].ammount -= 1;
-                        this.hunger_counter = 0;
-                        if (this.inv[this.hand].ammount == 0) {
-                            this.inv[this.hand] = 0;
-                        }
-                        addItem('corn_seed', round(random(1, 2))); // fix
-                        this.hunger += 2;
-                        if (this.hunger > maxHunger) {
-                            this.hunger = maxHunger;
-                        }
+        if (millis() - this.lasteatMili > 100) {
+            if (this.hunger < maxHunger) {  // player only eats when hungry
+                if (this.inv[this.hand].class == 'Eat') {
+                    this.hunger += this.inv[this.hand].hunger;
+                    if (this.hunger > maxHunger) {
+                        this.hunger = maxHunger;
                     }
+                    this.inv[this.hand].amount -= 1;
+                    this.hunger_counter = 0;
+                    let seed_obj_num = this.inv[this.hand].seed_num;
+                    if (this.inv[this.hand].amount == 0) {
+                        this.inv[this.hand] = 0;
+                    }
+                    addItem(seed_obj_num, round(random(1, 2)));
+                    
                 }
             }
-            this.lasteatMili = millis();
         }
+        this.lasteatMili = millis();
     }
 
     interactCall() {
-        if (keyIsDown(interact_button)) {
+        
             if (millis() - this.lastinteractMili > 100) {
-                console.log('E');
                 this.onInteract();
                 this.lastinteractMili = millis();
             }
-        }
+        
     }
 }

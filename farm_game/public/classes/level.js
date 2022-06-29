@@ -9,7 +9,7 @@ class Level {
                     this.map[i][j] = 0;
                 } else {
                     if (map[i][j] <= all_tiles.length) {
-                        this.map[i][j] = new Tile(all_tiles[map[i][j] - 1].name, all_tiles[map[i][j] - 1].png, j * tileSize, i * tileSize, all_tiles[map[i][j] - 1].border, all_tiles[map[i][j] - 1].collide, all_tiles[map[i][j] - 1].age);
+                        this.map[i][j] = new Tile(all_tiles[map[i][j]-1].name, all_tiles[map[i][j] - 1].png, j * tileSize, i * tileSize, all_tiles[map[i][j] - 1].border, all_tiles[map[i][j] - 1].collide, all_tiles[map[i][j] - 1].age);
                     } else {
                         this.map[i][j] = 0;
                     }
@@ -64,6 +64,44 @@ class Level {
         }
         for (let i = 0; i < this.lights.length; i++) {
             this.lights[i].render();
+        }
+    }
+
+    update() {
+        for (let i = 0; i < this.map.length; i++) {
+            for (let j = 0; j < this.map[i].length; j++) {
+                if (this.map[i][j].age >= 0) {
+                    this.map[i][j].age += 1;
+                    if (this.map[i][j].class == 'Plant') {
+                        if (this.map[i][j].age > 6 && this.map[i][j].dead_counter > 0) {
+                            this.map[i][j].age = 6;
+                            this.map[i][j].dead_counter -= 1
+                        }
+                        if (this.map[i][j].age > 7 && this.map[i][j].dead_counter <= 0) {
+                            this.map[i][j].age = 7;
+                            this.map[i][j] = new_tile_from_num(11, j * tileSize, i * tileSize);
+                        }
+                    }
+                    if (this.map[i][j].name == 'flower') {
+                        if (this.map[i][j].age == 1) {
+                            //Spawn a bee
+                        }
+                        if (this.map[i][j].age > 2) {
+                            this.map[i][j].age = 2;
+                        }
+                    }
+                    if (this.map[i][j].name == 'compost') {
+                        if (this.map[i][j].age == 2) {
+                            this.map[i][j] = new Tile(1, (j * tileSize), (i * tileSize));
+                        }
+                    }
+                    if (this.map[i][j].name == 'plot') {
+                        if (this.map[i][j].age == 5) {
+                            this.map[i][j] = new Tile(6, (j * tileSize), (i * tileSize));
+                        }
+                    }
+                }
+            }
         }
     }
 };

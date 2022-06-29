@@ -4,29 +4,32 @@ class Item {
 		this.amount = amount;
 		this.png = png;
 		this.price = price;
+		this.class = 'Item';
 	}
 
 	render(i) {
 		push();
-		image(this.png, 100 + (i * 64), canvasHeight - 64); //replace the 100
+		image(this.png, 112 + (i * 64), canvasHeight - 64);
 		//text for amount
 		pop();
 	}
 }
 
 class Seed extends Item {
-	constructor(name, amount, png) {
+	constructor(name, amount, png, plant_num) {
 		super(name, amount, png, 1);
 		this.class = "Seed";
+		this.plant_num = plant_num;
 	}
 }
 
 class Eat extends Item {
-	constructor(name, amount, png, price, hunger, hunger_timer) {
+	constructor(name, amount, png, price, hunger, hunger_timer, seed_num) {
 		super(name, amount, png, price);
 		this.class = "Eat";
 		this.hunger = hunger;
 		this.hunger_timer = hunger_timer;
+		this.seed_num = seed_num;
 	}
 }
 

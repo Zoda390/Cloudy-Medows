@@ -21,12 +21,9 @@ class Entity extends Tile {
 
     onInteract() {
         if (this.touching.name == 'grass') {
-
-            // need interactable class to make this work more efficently 
             if (this.inv[this.hand].name == 'hoe') {
                 hoe_sound.play();
-                let new_tile_num = 2;
-                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(all_tiles[new_tile_num].name, all_tiles[new_tile_num].png, this.touching.pos.x, this.touching.pos.y, all_tiles[new_tile_num].border, all_tiles[new_tile_num].collide, all_tiles[new_tile_num].age);
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
             }
 
         }

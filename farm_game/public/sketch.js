@@ -69,6 +69,7 @@ var lastHungerMili = 0;
 var days = 0;
 var title_screen = true;
 var all_tiles = [];
+var all_items = [];
 
 
 function preload() {
@@ -208,43 +209,49 @@ function preload() {
 
     main_theme.play(); //needs to loop
 
-    all_tiles = [
-        { name: 'grass', png: grass_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-        { name: 'plot', png: plot_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-        { name: 'corn', png: plot_tile_img, border: true, collide: false, age: -1, class: 'Plant' },
-        { name: 'wall', png: wall_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-        { name: 'concrete', png: concrete_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-        { name: 'dirt', png: dirt_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
-        { name: 'bed', png: bed_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-        { name: 'cart_s', png: cart_s_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-        { name: 'cart_b_corn', png: cart_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-        { name: 'bridge', png: bridge_tile_img, border: false, collide: false, age: -1, class: 'Tile' },
-        { name: 'junk', png: junk_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-        { name: 'concrete2', png: concrete_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
-        { name: 'satilite', png: satilite_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-        { name: 'solarpanel', png: solarpanel_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-        { name: 'compost_bucket', png: compost_bucket_tile_img, border: true, collide: true, age: -1, class: 'le' },
-        { name: 'compost_tile', png: compost_tile_img, border: true, collide: false, age: 0, class: 'Plant' },
-        { name: 'sweet_potato', png: plot_tile_img, border: true, collide: false, age: 0, class: 'Plant' },
-        { name: 'sprinkler', png: sprinkler_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-        { name: 'lamppost', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-        { name: 'strawberry', png: lamppost_tile_img, border: true, collide: true, age: 0, class: 'Plant' },
-        { name: 'flower', png: lamppost_tile_img, border: true, collide: true, age: 0, class: 'Plant' },
-        { name: 'deb', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-        { name: 'rick', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-        { name: 'ladybug', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Entity' },
-        { name: 'bee', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
-        { name: 'meb', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
-        { name: 'cart_b_corn', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-        { name: 'cart_b_lady', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-        { name: 'cart_b_sp', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-        { name: 'cart_b_sprinkler', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-        { name: 'cart_b_straw', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-        { name: 'bridge2', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-        { name: 'mario', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
-        { name: 'garry', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
-        { name: 'mira', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
-        { name: 'oldManJ', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' }
+    all_tiles = [ //redo to new Tile(bla)
+    /*1*/    { name: 'grass', png: grass_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*2*/    { name: 'plot', png: plot_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
+    /*3*/    { name: 'corn', png: plot_tile_img, border: true, collide: false, age: -1, class: 'Plant' },
+    /*4*/    { name: 'wall', png: wall_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+    /*5*/    { name: 'concrete', png: concrete_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*6*/    { name: 'dirt', png: dirt_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
+    /*7*/    { name: 'bed', png: bed_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*8*/    { name: 'cart_s', png: cart_s_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*9*/    { name: 'cart_b_corn', png: cart_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*10*/    { name: 'bridge', png: bridge_tile_img, border: false, collide: false, age: -1, class: 'Tile' },
+    /*11*/    { name: 'junk', png: junk_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*12*/    { name: 'concrete2', png: concrete_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*13*/    { name: 'satilite', png: satilite_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+    /*14*/    { name: 'solarpanel', png: solarpanel_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+    /*15*/    { name: 'compost_bucket', png: compost_bucket_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+    /*16*/    { name: 'compost_tile', png: compost_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
+    /*17*/    { name: 'sweet_potato', png: plot_tile_img, border: true, collide: false, age: 0, class: 'Plant' },
+    /*18*/    { name: 'sprinkler', png: sprinkler_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+    /*19*/    { name: 'lamppost', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+    /*20*/    { name: 'strawberry', png: lamppost_tile_img, border: true, collide: true, age: 0, class: 'Plant' },
+    /*21*/    { name: 'flower', png: lamppost_tile_img, border: true, collide: true, age: 0, class: 'Plant' },
+    /*22*/    { name: 'deb', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
+    /*23*/    { name: 'rick', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
+    /*24*/    { name: 'ladybug', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Entity' },
+    /*25*/    { name: 'bee', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
+    /*26*/    { name: 'meb', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
+    /*27*/    { name: 'cart_b_corn', png: lamppost_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*28*/    { name: 'cart_b_lady', png: lamppost_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*29*/    { name: 'cart_b_sp', png: lamppost_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*30*/    { name: 'cart_b_sprinkler', png: lamppost_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*31*/    { name: 'cart_b_straw', png: lamppost_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*32*/    { name: 'bridge2', png: lamppost_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*33*/    { name: 'mario', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
+    /*34*/    { name: 'garry', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
+    /*35*/    { name: 'mira', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
+    /*36*/    { name: 'oldManJ', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' }
+    ];
+    all_items = [
+        /*0*/ 0,
+        /*1*/ new Tool('hoe', 1, hoe_img),
+        /*2*/ new Eat('corn', 1, corn_img, 3, 2, 100, 3),
+        /*3*/ new Seed('corn_seed', 1, corn_seed_bag_img, 3)
     ];
 }
 
@@ -766,75 +773,7 @@ function draw() {
                 for (let y = 0; y < levels.length; y++) {
                     for (let x = 0; x < levels[y].length; x++) {
                         if (levels[y][x] != 0) {
-                            for (let i = 0; i < levels[y][x].map.length; i++) {
-                                for (let j = 0; j < levels[y][x].map[i].length; j++) {
-                                    if (levels[y][x].map[i][j].age >= 0) {
-                                        if (levels[y][x].map[i][j].name == 'corn') {
-                                            levels[y][x].map[i][j].age += 1;
-                                            if (levels[y][x].map[i][j].age > 6 && levels[y][x].map[i][j].dead_counter > 0) {
-                                                levels[y][x].map[i][j].age = 6;
-                                                levels[y][x].map[i][j].dead_counter -= 1
-                                            }
-                                            if (levels[y][x].map[i][j].age > 7 && levels[y][x].map[i][j].dead_counter <= 0) {
-                                                levels[y][x].map[i][j].age = 7;
-                                                levels[y][x].map[i][j] = new Tile(11, (j * tileSize), (i * tileSize));
-                                            }
-                                        }
-                                        if (levels[y][x].map[i][j].name == 'sweet_potato') {
-                                            levels[y][x].map[i][j].age += 1;
-                                            if (levels[y][x].map[i][j].age > 3 && levels[y][x].map[i][j].dead_counter > 0) {
-                                                levels[y][x].map[i][j].age = 3;
-                                                levels[y][x].map[i][j].dead_counter -= 1
-                                            }
-                                            if (levels[y][x].map[i][j].age > 4 && levels[y][x].map[i][j].dead_counter <= 0) {
-                                                levels[y][x].map[i][j].age = 4;
-                                                levels[y][x].map[i][j] = new Tile(11, (j * tileSize), (i * tileSize));
-                                            }
-                                        }
-                                        if (levels[y][x].map[i][j].name == 'strawberry') {
-                                            levels[y][x].map[i][j].age += 1;
-                                            if (levels[y][x].map[i][j].age > 4 && levels[y][x].map[i][j].dead_counter > 0) {
-                                                levels[y][x].map[i][j].age = 4;
-                                                levels[y][x].map[i][j].dead_counter -= 1
-                                            }
-                                            if (levels[y][x].map[i][j].age > 5 && levels[y][x].map[i][j].dead_counter <= 0) {
-                                                levels[y][x].map[i][j].age = 5;
-                                                levels[y][x].map[i][j] = new Tile(11, (j * tileSize), (i * tileSize));
-                                            }
-                                        }
-                                        if (levels[y][x].map[i][j].name == 'flower') {
-                                            levels[y][x].map[i][j].age += 1;
-                                            if (levels[y][x].map[i][j].age == 1) {
-                                                //Spawn a bee
-                                            }
-                                            if (levels[y][x].map[i][j].age > 2) {
-                                                levels[y][x].map[i][j].age = 2;
-                                            }
-                                        }
-                                        if (levels[y][x].map[i][j].name == 'ladybug') {
-                                            levels[y][x].map[i][j].age += 1;
-                                            if (levels[y][x].map[i][j].age == 1) {
-                                                //Spawn a bee
-                                            }
-                                            if (levels[y][x].map[i][j].age > 2) {
-                                                levels[y][x].map[i][j].age = 2;
-                                            }
-                                        }
-                                        if (levels[y][x].map[i][j].name == 'compost') {
-                                            levels[y][x].map[i][j].age += 1;
-                                            if (levels[y][x].map[i][j].age == 2) {
-                                                levels[y][x].map[i][j] = new Tile(1, (j * tileSize), (i * tileSize));
-                                            }
-                                        }
-                                        if (levels[y][x].map[i][j].name == 'plot') {
-                                            levels[y][x].map[i][j].age += 1;
-                                            if (levels[y][x].map[i][j].age == 5) {
-                                                levels[y][x].map[i][j] = new Tile(6, (j * tileSize), (i * tileSize));
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            
                         }
                     }
                 }
@@ -845,23 +784,24 @@ function draw() {
 }
 
 
-function addItem(ntype, ammount) {
+function addItem(item_obj_num, amount) {
+    console.log(item_obj_num);
     for (let i = 0; i < 8; i++) {
-        if (player.inv[i].name == ntype) {
-            player.inv[i].ammount += ammount;
+        if (player.inv[i].name == all_items[item_obj_num].name) {
+            player.inv[i].amount += amount;
             return;
         }
     }
     if (player.inv[player.hand].name == 'air') {
-        player.inv[player.hand].name = ntype;
-        player.inv[player.hand].ammount = ammount;
+        player.inv[player.hand] = all_items[item_obj_num];
+        player.inv[player.hand].amount = amount;
         return;
     }
 
     for (let i = 0; i < 8; i++) {
         if (player.inv[i].name == 'air') {
-            player.inv[i].name = ntype;
-            player.inv[i].ammount = ammount;
+            player.inv[player.hand] = all_items[item_obj_num];
+            player.inv[player.hand].amount = amount;
             return;
         }
     }
@@ -885,8 +825,12 @@ function takeInput() {
     else {
         //basic movement  
         player.move();
-        player.eat();
-        player.interactCall();
+        if (keyIsDown(eat_button)) {
+            player.eat();
+        }
+        if (keyIsDown(interact_button)) {
+            player.interactCall();
+        }
         /*
         if(keyIsDown(48)){
           player.hand = 9;
@@ -1083,4 +1027,11 @@ function render_ui() {
     }
 }
 
-
+function new_tile_from_num(num, x, y) {
+    if (num <= all_tiles.length) {
+        return new Tile(all_tiles[num].name, all_tiles[num].png, x, y, all_tiles[num].border, all_tiles[num].collide, all_tiles[num].age);
+    }
+    else {
+        console.log('tile created from' + num + 'doesnt exist');
+    }
+}

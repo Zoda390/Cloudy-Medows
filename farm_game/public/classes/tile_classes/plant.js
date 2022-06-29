@@ -1,8 +1,7 @@
 class Plant extends Tile {
-    constructor(name, png, x, y, border, collide, seed, eat, waterneeded, growthTime) {
+    constructor(name, png, x, y, border, collide, family, waterneeded, growthTime) {
         super(name, png, x, y, border, collide, 0)
-        this.seed = seed; //might change to the seed item having a connection to the tile
-        this.eat = eat; //object
+        this.family = family;
         this.waterneeded = waterneeded;
         this.deathAttempts = 3;
         this.growTimer = 0;
