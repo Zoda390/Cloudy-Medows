@@ -10,7 +10,10 @@ class Item {
 	render(i) {
 		push();
 		image(this.png, 112 + (i * 64), canvasHeight - 64);
-		//text for amount
+		fill(255)
+		textSize(13);
+		textAlign(CENTER, CENTER);
+		text(this.name, (9 * canvasWidth / 16), (canvasHeight - 80));
 		pop();
 	}
 }
