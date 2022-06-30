@@ -209,10 +209,20 @@ function preload() {
 
     main_theme.play(); //needs to loop
 
+    /*
+    class           obj
+    Tile            { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'Tile' }
+    Plant           { name: 'name', png: png_img, border: true, collide: false, age: 0, seed_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }
+    Entity          { name: 'name', png: png_img, border: true, collide: false, age: -1, inv: [], hand: 0, under_tile_num: 0, class: 'Entity' }
+    FreeMoveEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'FreeMoveEntity' }
+    MoveableEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'MoveableEntity' }
+    GridMoveEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'GridMoveEntity' }
+    NPC             { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'NPC' }
+    */
     all_tiles = [
     /*1*/    { name: 'grass', png: grass_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*2*/    { name: 'plot', png: plot_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
-    /*3*/    { name: 'corn', png: corn_tile_imgs, border: true, collide: false, age: 0, class: 'Plant' },
+    /*3*/    { name: 'corn', png: corn_tile_imgs, border: true, collide: false, age: 0, eat_num: 2, waterneed: 0, growthTime: 100, class: 'Plant' },
     /*4*/    { name: 'wall', png: wall_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*5*/    { name: 'concrete', png: concrete_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*6*/    { name: 'dirt', png: dirt_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
@@ -226,11 +236,11 @@ function preload() {
     /*14*/    { name: 'solarpanel', png: solarpanel_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*15*/    { name: 'compost_bucket', png: compost_bucket_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*16*/    { name: 'compost_tile', png: compost_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
-    /*17*/    { name: 'sweet_potato', png: plot_tile_img, border: true, collide: false, age: 0, class: 'Plant' },
+    /*17*/    { name: 'sweet_potato', png: plot_tile_img, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' },
     /*18*/    { name: 'sprinkler', png: sprinkler_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*19*/    { name: 'lamppost', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-    /*20*/    { name: 'strawberry', png: lamppost_tile_img, border: true, collide: true, age: 0, class: 'Plant' },
-    /*21*/    { name: 'flower', png: lamppost_tile_img, border: true, collide: true, age: 0, class: 'Plant' },
+    /*20*/    { name: 'strawberry', png: lamppost_tile_img, border: true, collide: true, age: 0, eat_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' },
+    /*21*/    { name: 'flower', png: lamppost_tile_img, border: true, collide: true, age: 0, eat_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' },
     /*22*/    { name: 'deb', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
     /*23*/    { name: 'rick', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
     /*24*/    { name: 'ladybug', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Entity' },
@@ -247,11 +257,20 @@ function preload() {
     /*35*/    { name: 'mira', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
     /*36*/    { name: 'oldManJ', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' }
     ];
+    /*
+    class       obj
+    Item        {name: 'name', png: png_img, price: 0, class: 'Item'}
+    Tool        {name: 'name', png: png_img, class: 'Tool'}
+    Eat         {name: 'name', png: png_img, price: 0, hunger: 0, hunger_timer: 0, seed_num: 0, class: 'Eat'}
+    Seed        {name: 'name', png: png_img, plant_num: 0, class: 'Seed'}
+    Placable    {name: 'name', png: png_img, tile_num: 0, class: 'Placeable'}
+    */
     all_items = [
         /*0*/ 0,
-        /*1*/ new Tool('hoe', 1, hoe_img),
-        /*2*/ new Eat('corn', 1, corn_img, 3, 2, 100, 3),
-        /*3*/ new Seed('corn_seed', 1, corn_seed_bag_img, 3)
+        /*1*/ { name: 'Hoe', png: hoe_img, class: 'Tool'},
+        /*2*/ { name: 'Corn', png: corn_img, price: 3, hunger: 2, hunger_timer: 100, seed_num: 3, class: 'Eat' },
+        /*3*/ { name: 'Corn_Seed', png: corn_seed_bag_img, plant_num: 3, class: 'Seed' },
+        /*4*/ { name: 'Junk', png: junk_img, price: 0, class: 'Item' }
     ];
 }
 
@@ -743,6 +762,13 @@ function draw() {
         image(background_img, 0, 0);
         levels[currentLevel_y][currentLevel_x].fore_render();
         levels[currentLevel_y][currentLevel_x].render();
+        for (let y = 0; y < levels.length; y++) {
+            for (let x = 0; x < levels[y].length; x++) {
+                if (levels[y][x] != 0) {
+                    levels[y][x].update(x, y);
+                }
+            }
+        }
         player.render();
         background(0, 0, 0, time);
         render_ui();
@@ -773,7 +799,7 @@ function draw() {
                 for (let y = 0; y < levels.length; y++) {
                     for (let x = 0; x < levels[y].length; x++) {
                         if (levels[y][x] != 0) {
-                            
+                            levels[y][x].daily_update();
                         }
                     }
                 }
@@ -786,21 +812,21 @@ function draw() {
 
 function addItem(item_obj_num, amount) {
     for (let i = 0; i < 8; i++) {
-        if (player.inv[i].name == all_items[item_obj_num].name) {
-            player.inv[i].amount += amount;
-            return;
+        if (player.inv[i] != 0) {
+            if (player.inv[i].name == all_items[item_obj_num].name) {
+                player.inv[i].amount += amount;
+                return;
+            }
         }
     }
-    if (player.inv[player.hand].name == 'air') {
-        player.inv[player.hand] = all_items[item_obj_num];
-        player.inv[player.hand].amount = amount;
+    if (player.inv[player.hand] == 0) {
+        player.inv[player.hand] = new_item_from_num(item_obj_num, amount);
         return;
     }
 
     for (let i = 0; i < 8; i++) {
-        if (player.inv[i].name == 'air') {
-            player.inv[player.hand] = all_items[item_obj_num];
-            player.inv[player.hand].amount = amount;
+        if (player.inv[i] == 0) {
+            player.inv[i] = new_item_from_num(item_obj_num, amount);
             return;
         }
     }
@@ -1032,10 +1058,10 @@ function new_tile_from_num(num, x, y) {
             return new Tile(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
         }
         else if (all_tiles[num - 1].class == 'Plant') {
-            return new Plant(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+            return new Plant(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].eat_num, all_tiles[num - 1].waterneed, all_tiles[num - 1].growthTime);
         }
         else if (all_tiles[num - 1].class == 'Entity') {
-            return new Entity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+            return new Entity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].hand, all_tiles[num - 1].under_tile_num);
         }
         else if (all_tiles[num - 1].class == 'FreeMoveEntity') {
             return new FreeMoveEntity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
@@ -1048,6 +1074,29 @@ function new_tile_from_num(num, x, y) {
         }
         else if (all_tiles[num - 1].class == 'NPC') {
             return new NPC(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+        }
+    }
+    else {
+        console.log('tile created from' + num + 'doesnt exist');
+    }
+}
+
+function new_item_from_num(num, amount) {
+    if (num <= all_items.length) {
+        if (all_items[num].class == 'Item') {
+            return new Item(all_items[num].name, amount, all_items[num].png, all_items[num].price);
+        }
+        else if (all_items[num].class == 'Tool') {
+            return new Tool(all_items[num].name, amount, all_items[num].png);
+        }
+        else if (all_items[num].class == 'Eat') {
+            return new Eat(all_items[num].name, amount, all_items[num].png, all_items[num].price, all_items[num].hunger, all_items[num].hunger_timer, all_items[num].seed_num);
+        }
+        else if (all_items[num].class == 'Seed') {
+            return new Seed(all_items[num].name, amount, all_items[num].png, all_items[num].plant_num);
+        }
+        else if (all_items[num].class == 'Placeable') {
+            return new Placeable(all_items[num].name, amount, all_items[num].png, all_items[num].price, all_items[num].tile_num);
         }
     }
     else {

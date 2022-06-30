@@ -1,16 +1,16 @@
 class Plant extends Tile {
-    constructor(name, png, x, y, border, collide, seed_num, waterneeded, growthTime) {
+    constructor(name, png, x, y, border, collide, eat_num, waterneeded, growthTime) {
         super(name, png, x, y, border, collide, 0);
-        this.seed_num = seed_num;
+        this.eat_num = eat_num;
         this.waterneeded = waterneeded;
         this.deathAttempts = 3;
         this.growTimer = 0;
         this.growthTime = growthTime;
+        this.class = 'Plant';
     }
 
 
     render() {
-        this.growTimer++;
         push();
         if (this.border == true) {
             noFill();
@@ -22,8 +22,12 @@ class Plant extends Tile {
         pop();
     }
 
-    grow() {
-        if (growTimer > growthTime) {
+    grow(x, y) {
+        this.growTimer++;
+        if (player.touching.name == 'bed') {
+            this.growTimer++;
+        }
+        if (this.growTimer >= this.growthTime) {
             let water_found = 0;
             //look at surrounding tiles to find sprinklers;
             if (water_found >= this.waterneeded) {
@@ -34,7 +38,7 @@ class Plant extends Tile {
                 }
                 if (this.age > this.png.length - 1 && this.deathAttempts <= 0) {
                     this.age = this.png.length - 1;
-                    //new junk tile;
+                    levels[y][x].map[this.pos.y / tileSize][this.pos.x / tileSize] = new_tile_from_num(11, this.pos.x, this.pos.y);
                 }
             }
             else {
@@ -44,6 +48,7 @@ class Plant extends Tile {
                     //new junk tile;
                 }
             }
+            this.growTimer = 0;
         }
     }
 }

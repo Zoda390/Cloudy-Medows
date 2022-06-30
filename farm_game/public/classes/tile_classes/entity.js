@@ -1,9 +1,11 @@
 class Entity extends Tile {
-    constructor(name, png, x, y, inv=[], hand=0, under_tile_png){
+    constructor(name, png, x, y, inv=[], hand=0, under_tile_num){
         super(name, png, x, y, true, true, -1);
         this.inv = inv; //Item array
         this.hand = hand;
-        this.under_tile_png = under_tile_png;
+        if (under_tile_num != 0) {
+            this.under_tile_png = all_tiles[under_tile_num - 1].png;
+        }
         this.class = "Entity";
     }
 
@@ -20,8 +22,12 @@ class Entity extends Tile {
     }
 
     onInteract() {
+        if (this.touching.class == 'Plant' && this.touching.age == this.touching.png.length - 2) {
+            addItem(levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize].eat_num, 1);
+            levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
+        }
         if (this.touching.name == 'grass') {
-            if (this.inv[this.hand].name == 'hoe') {
+            if (this.inv[this.hand].name == 'Hoe') {
                 hoe_sound.play();
                 levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
             }
@@ -36,20 +42,8 @@ class Entity extends Tile {
                 }
             }
         }
-        else if (this.touching.name == 'corn' && this.touching.age == 6) {
-            levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(2, this.touching.pos.x, this.touching.pos.y);
-            addItem('corn', 1);
-        }
-        else if (this.touching.name == 'sweet_potato' && this.touching.age == 3) {
-            levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(2, this.touching.pos.x, this.touching.pos.y);
-            addItem('sweet_potato', 1);
-        }
-        else if (this.touching.name == 'strawberry' && this.touching.age == 4) {
-            levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(2, this.touching.pos.x, this.touching.pos.y);
-            addItem('strawberry', 1);
-        }
         else if (this.touching.name == 'cart_s') {
-            if (this.inv[this.hand].price != 0 && this.inv[this.hand].name != "air") {
+            if (this.inv[this.hand].price != 0 && this.inv[this.hand] != 0) {
                 this.coins += this.inv[this.hand].price;
                 moneySound.play();
                 this.inv[this.hand].ammount -= 1;
@@ -70,7 +64,7 @@ class Entity extends Tile {
 
         }
         else if (this.touching.name == 'compost_bucket') {
-            if (this.inv[this.hand].name == 'junk') {
+            if (this.inv[this.hand].name == 'Junk') {
                 this.inv[this.hand].ammount -= 1;
                 if (this.inv[this.hand].ammount == 0) {
                     this.inv[this.hand].name = 'air';
@@ -111,8 +105,8 @@ class Entity extends Tile {
 
         }
         else if (this.touching.name == 'junk') {
-            addItem(this.touching.name, 1);
-            levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(2, this.touching.pos.x, this.touching.pos.y);
+            addItem(4, 1);
+            levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
         }
     }
 

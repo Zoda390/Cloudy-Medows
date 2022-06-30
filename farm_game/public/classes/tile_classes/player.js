@@ -1,7 +1,7 @@
 class Player extends MoveableEntity {
     constructor(name, png, x, y,
-        inv = [all_items[1], all_items[2], all_items[3], 0, 0, 0, 0, 0]) {
-        super(name, png, x, y, inv, 0, 0, 3);
+        inv = [new_item_from_num(1, 1), new_item_from_num(2, 1), new_item_from_num(3, 1), 0, 0, 0, 0, 0]) {
+        super(name, png, x, y, inv, 0, 3);
         this.quests = [];
         this.current_quest = 0;
         this.hunger = maxHunger-1;
@@ -161,6 +161,7 @@ class Player extends MoveableEntity {
                     this.inv[this.hand].amount -= 1;
                     this.hunger_counter = 0;
                     let seed_obj_num = this.inv[this.hand].seed_num;
+                    console.log(this.inv[this.hand].amount);
                     if (this.inv[this.hand].amount == 0) {
                         this.inv[this.hand] = 0;
                     }

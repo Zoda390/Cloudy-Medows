@@ -43,10 +43,10 @@ class Tool extends Item {
 	}
 }
 
-class Place_able extends Item {
+class Placeable extends Item {
 	constructor(name, amount, png, price, tile_num) {
 		super(name, amount, png, price);
-		this.class = "Place_able";
+		this.class = "Placeable";
 		this.tile_num = tile_num; 
 	}
 }
