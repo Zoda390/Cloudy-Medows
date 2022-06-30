@@ -12,7 +12,7 @@ class Item {
 		image(this.png, 112 + (i * 64), canvasHeight - 64);
 		fill(255)
 		textSize(20);
-		textAlign(TOP, LEFT);
+		textAlign(LEFT, TOP);
 		text(this.amount, (canvasWidth / 2) - (512 / 2) + 37 + (64 * i), canvasHeight - 27);
 		pop();
 	}

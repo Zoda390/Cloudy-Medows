@@ -28,42 +28,13 @@ class Entity extends Tile {
 
         }
         else if (this.touching.name == 'plot') {
-            if (this.inv[this.hand].name == 'corn_seed') {
-                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(3, this.touching.pos.x, this.touching.pos.y);
-                this.inv[this.hand].ammount -= 1;
-                if (this.inv[this.hand].ammount == 0) {
-                    this.inv[this.hand].name = 'air';
+            if (this.inv[this.hand].class == 'Seed') {
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].plant_num, this.touching.pos.x, this.touching.pos.y);
+                this.inv[this.hand].amount -= 1;
+                if (this.inv[this.hand].amount == 0) {
+                    this.inv[this.hand] = 0;
                 }
             }
-            else if (this.inv[this.hand].name == 'sweet_potato_seed') {
-                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(17, this.touching.pos.x, this.touching.pos.y);
-                this.inv[this.hand].ammount -= 1;
-                if (this.inv[this.hand].ammount == 0) {
-                    this.inv[this.hand].name = 'air';
-                }
-            }
-            else if (this.inv[this.hand].name == 'strawberry_seed') {
-                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(20, this.touching.pos.x, this.touching.pos.y);
-                this.inv[this.hand].ammount -= 1;
-                if (this.inv[this.hand].ammount == 0) {
-                    this.inv[this.hand].name = 'air';
-                }
-            }
-            else if (this.inv[this.hand].name == 'flower_seed') {
-                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(21, this.touching.pos.x, this.touching.pos.y);
-                this.inv[this.hand].ammount -= 1;
-                if (this.inv[this.hand].ammount == 0) {
-                    this.inv[this.hand].name = 'air';
-                }
-            }
-            else if (this.inv[this.hand].name == 'ladybug') {
-                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(24, this.touching.pos.x, this.touching.pos.y);
-                this.inv[this.hand].ammount -= 1;
-                if (this.inv[this.hand].ammount == 0) {
-                    this.inv[this.hand].name = 'air';
-                }
-            }
-
         }
         else if (this.touching.name == 'corn' && this.touching.age == 6) {
             levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(2, this.touching.pos.x, this.touching.pos.y);

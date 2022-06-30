@@ -1,7 +1,7 @@
 class Plant extends Tile {
-    constructor(name, png, x, y, border, collide, family, waterneeded, growthTime) {
-        super(name, png, x, y, border, collide, 0)
-        this.family = family;
+    constructor(name, png, x, y, border, collide, seed_num, waterneeded, growthTime) {
+        super(name, png, x, y, border, collide, 0);
+        this.seed_num = seed_num;
         this.waterneeded = waterneeded;
         this.deathAttempts = 3;
         this.growTimer = 0;
@@ -11,7 +11,15 @@ class Plant extends Tile {
 
     render() {
         this.growTimer++;
-        image(this.png[this.age], 10, 10);
+        push();
+        if (this.border == true) {
+            noFill();
+            rect(this.pos.x, this.pos.y, tileSize, tileSize);
+        }
+        imageMode(CENTER);
+        image(all_tiles[2 - 1].png, this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        image(this.png[this.age], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        pop();
     }
 
     grow() {

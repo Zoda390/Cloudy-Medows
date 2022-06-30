@@ -209,10 +209,10 @@ function preload() {
 
     main_theme.play(); //needs to loop
 
-    all_tiles = [ //redo to new Tile(bla)
+    all_tiles = [
     /*1*/    { name: 'grass', png: grass_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*2*/    { name: 'plot', png: plot_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
-    /*3*/    { name: 'corn', png: plot_tile_img, border: true, collide: false, age: -1, class: 'Plant' },
+    /*3*/    { name: 'corn', png: corn_tile_imgs, border: true, collide: false, age: 0, class: 'Plant' },
     /*4*/    { name: 'wall', png: wall_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*5*/    { name: 'concrete', png: concrete_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*6*/    { name: 'dirt', png: dirt_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
@@ -746,7 +746,7 @@ function draw() {
         player.render();
         background(0, 0, 0, time);
         render_ui();
-        if (millis() - lastTimeMili > 150) { //300 for normal time
+        if (millis() - lastTimeMili > 150) { //150 for normal time
             if (timephase == 0) {
                 if (player.touching.name == 'bed') {
                     time += 5;
@@ -785,7 +785,6 @@ function draw() {
 
 
 function addItem(item_obj_num, amount) {
-    console.log(item_obj_num);
     for (let i = 0; i < 8; i++) {
         if (player.inv[i].name == all_items[item_obj_num].name) {
             player.inv[i].amount += amount;
@@ -1028,8 +1027,28 @@ function render_ui() {
 }
 
 function new_tile_from_num(num, x, y) {
-    if (num <= all_tiles.length) {
-        return new Tile(all_tiles[num].name, all_tiles[num].png, x, y, all_tiles[num].border, all_tiles[num].collide, all_tiles[num].age);
+    if (num-1 <= all_tiles.length) {
+        if (all_tiles[num - 1].class == 'Tile') {
+            return new Tile(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+        }
+        else if (all_tiles[num - 1].class == 'Plant') {
+            return new Plant(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+        }
+        else if (all_tiles[num - 1].class == 'Entity') {
+            return new Entity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+        }
+        else if (all_tiles[num - 1].class == 'FreeMoveEntity') {
+            return new FreeMoveEntity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+        }
+        else if (all_tiles[num - 1].class == 'MovableEntity') {
+            return new MovableEntity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+        }
+        else if (all_tiles[num - 1].class == 'GridMoveEntity') {
+            return new GridMoveEntity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+        }
+        else if (all_tiles[num - 1].class == 'NPC') {
+            return new NPC(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+        }
     }
     else {
         console.log('tile created from' + num + 'doesnt exist');
