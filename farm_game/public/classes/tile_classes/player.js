@@ -53,36 +53,17 @@ class Player extends MoveableEntity {
         pop();
     }
 
-    looking() {
-        this.touching = this.tileTouching();
-        if (this.touching != 0) {
-            if ((this.touching.pos.y / tileSize == 0 && this.facing == 0) || (this.touching.pos.y / tileSize == 18 && this.facing == 2)) {
-                return undefined;
-            }
-            switch (this.facing) {
-                case 0:
-                    return levels[currentLevel_y][currentLevel_x].map[(this.touching.pos.y / tileSize) - 1][this.touching.pos.x / tileSize];
-                case 1:
-                    return levels[currentLevel_y][currentLevel_x].map[(this.touching.pos.y / tileSize)][(this.touching.pos.x / tileSize) + 1];
-                case 2:
-                    return levels[currentLevel_y][currentLevel_x].map[(this.touching.pos.y / tileSize) + 1][this.touching.pos.x / tileSize];
-                case 3:
-                    return levels[currentLevel_y][currentLevel_x].map[(this.touching.pos.y / tileSize)][(this.touching.pos.x / tileSize) - 1];
-                default:
-                    console.log("facing not understood");
-            }
-        }
-    }
+    
 
     move() {
         if (keyIsDown(move_right_button)) {
             if (millis() - this.lastmoveMili > 100) {
                 this.facing = 1;
-                if (this.pos.x + (tileSize / 2) >= canvasWidth) {
+                if (this.pos.x + tileSize >= canvasWidth) {
                     currentLevel_x += 1;
                     this.pos.x = tileSize / 2;
                 }
-                else if (this.looking() != undefined && this.looking() != 0 && this.looking().collide != true) {
+                else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
                     this.pos.x += tileSize;
                     this.hunger_counter += round(random(0, 1));
                     this.anim += 1;
@@ -96,11 +77,11 @@ class Player extends MoveableEntity {
         if (keyIsDown(move_left_button)) {
             if (millis() - this.lastmoveMili > 100) {
                 this.facing = 3;
-                if (this.pos.x - (tileSize / 2) <= 0) {
+                if (this.pos.x - tileSize <= 0) {
                     currentLevel_x -= 1;
                     this.pos.x = canvasWidth - (tileSize / 2);
                 }
-                else if (this.looking() != undefined && this.looking() != 0 && this.looking().collide != true) {
+                else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
                     this.pos.x -= tileSize;
                     this.hunger_counter += round(random(0, 1));
                     this.anim += 1;
@@ -114,11 +95,11 @@ class Player extends MoveableEntity {
         if (keyIsDown(move_up_button)) {
             if (millis() - this.lastmoveMili > 100) {
                 this.facing = 0;
-                if (this.pos.y - (tileSize / 2) <= 0) {
+                if (this.pos.y - tileSize <= 0) {
                     currentLevel_y -= 1;
                     this.pos.y = canvasHeight - (tileSize / 2);
                 }
-                else if (this.looking() != undefined && this.looking() != 0 && this.looking().collide != true) {
+                else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
                     this.pos.y -= tileSize;
                     this.hunger_counter += round(random(0, 1));
                     this.anim += 1;
@@ -132,11 +113,11 @@ class Player extends MoveableEntity {
         if (keyIsDown(move_down_button)) {
             if (millis() - this.lastmoveMili > 100) {
                 this.facing = 2;
-                if (this.pos.y + (tileSize / 2) >= canvasHeight) {
+                if (this.pos.y + tileSize >= canvasHeight) {
                     currentLevel_y += 1;
                     this.pos.y = tileSize / 2;
                 }
-                else if (this.looking() != undefined && this.looking() != 0 && this.looking().collide != true) {
+                else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
                     this.pos.y += tileSize;
                     this.hunger_counter += round(random(0, 1));;
                     this.anim += 1;
@@ -161,7 +142,6 @@ class Player extends MoveableEntity {
                     this.inv[this.hand].amount -= 1;
                     this.hunger_counter = 0;
                     let seed_obj_num = this.inv[this.hand].seed_num;
-                    console.log(this.inv[this.hand].amount);
                     if (this.inv[this.hand].amount == 0) {
                         this.inv[this.hand] = 0;
                     }

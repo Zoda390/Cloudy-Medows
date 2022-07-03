@@ -1,8 +1,11 @@
 class MoveableEntity extends Entity {
-    constructor(name, png, x, y, inv = [], hand = 0, facing) {
-        super(name, png, x, y, inv, hand, 0);
+    constructor(name, png, x, y, inv = [], hand = 0, facing, under_tile_num, moving_timer) {
+        super(name, png, x, y, inv, hand, under_tile_num);
         this.anim = 0;
         this.facing = facing;
+        this.touching = 0;
+        this.moving_timer = moving_timer;
+        this.max_moving_timer = this.moving_timer;
         this.class = "MovableEntity";
     }
 
@@ -13,32 +16,29 @@ class MoveableEntity extends Entity {
             rect(this.pos.x - tileSize / 2, this.pos.y - tileSize / 2, tileSize, tileSize);
         }
         imageMode(CENTER);
-        image(this.under_tile_png, this.pos.x, this.pos.y);
+        image(all_tiles[this.under_tile_num - 1].png, this.pos.x, this.pos.y);
         image(this.png[facing][anim], this.pos.x, this.pos.y);
         pop();
     }
 
-    move() {
-        /*
-        if (move) {
-            if (up) {
-                this.facing = 0;
+    looking(x, y) {
+        this.touching = this.tileTouching();
+        if (this.touching != 0) {
+            if ((this.touching.pos.y / tileSize == 0 && this.facing == 0) || (this.touching.pos.y / tileSize == 18 && this.facing == 2)) {
+                return undefined;
             }
-            if (right) {
-                this.facing = 1;
-            }
-            if (down) {
-                this.facing = 2;
-            }
-            if (left) {
-                this.facing = 3;
-            }
-            
-            this.anim += 1;
-            if (this.anim > this.png[this.facing].length) {
-                this.anim = 0;
+            switch (this.facing) {
+                case 0:
+                    return levels[y][x].map[(this.touching.pos.y / tileSize) - 1][this.touching.pos.x / tileSize];
+                case 1:
+                    return levels[y][x].map[(this.touching.pos.y / tileSize)][(this.touching.pos.x / tileSize) + 1];
+                case 2:
+                    return levels[y][x].map[(this.touching.pos.y / tileSize) + 1][this.touching.pos.x / tileSize];
+                case 3:
+                    return levels[y][x].map[(this.touching.pos.y / tileSize)][(this.touching.pos.x / tileSize) - 1];
+                default:
+                    console.log("facing not understood");
             }
         }
-        */
     }
 }

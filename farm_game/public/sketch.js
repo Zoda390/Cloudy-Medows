@@ -71,7 +71,6 @@ var title_screen = true;
 var all_tiles = [];
 var all_items = [];
 
-
 function preload() {
     //Items
 
@@ -215,10 +214,11 @@ function preload() {
     Plant           { name: 'name', png: png_img, border: true, collide: false, age: 0, seed_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }
     Entity          { name: 'name', png: png_img, border: true, collide: false, age: -1, inv: [], hand: 0, under_tile_num: 0, class: 'Entity' }
     FreeMoveEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'FreeMoveEntity' }
-    MoveableEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'MoveableEntity' }
-    GridMoveEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'GridMoveEntity' }
-    NPC             { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'NPC' }
+    MoveableEntity  { name: 'name', png: png_img, inv: [], hand: 0, facing: 3, under_tile_num: 0, moving_timer: 0, class: 'MoveableEntity' }
+    GridMoveEntity  { name: 'name', png: png_img, inv: [], hand: 0, facing: 3, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'GridMoveEntity' }
+    NPC             { name: 'name', png: png_img, inv: [], hand: 0, facing: 3, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'NPC' }
     */
+    new GridMoveEntity()
     all_tiles = [
     /*1*/    { name: 'grass', png: grass_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*2*/    { name: 'plot', png: plot_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
@@ -236,26 +236,27 @@ function preload() {
     /*14*/    { name: 'solarpanel', png: solarpanel_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*15*/    { name: 'compost_bucket', png: compost_bucket_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*16*/    { name: 'compost_tile', png: compost_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
-    /*17*/    { name: 'sweet_potato', png: plot_tile_img, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' },
-    /*18*/    { name: 'sprinkler', png: sprinkler_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+    /*17*/    { name: 'sweet_potato', png: sweet_potato_tile_imgs, border: true, collide: false, age: 0, eat_num: 5, waterneed: 0, growthTime: 100, class: 'Plant' },
+    /*18*/    { name: 'sprinkler', png: sprinkler_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*19*/    { name: 'lamppost', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-    /*20*/    { name: 'strawberry', png: lamppost_tile_img, border: true, collide: true, age: 0, eat_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' },
-    /*21*/    { name: 'flower', png: lamppost_tile_img, border: true, collide: true, age: 0, eat_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' },
-    /*22*/    { name: 'deb', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
-    /*23*/    { name: 'rick', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
-    /*24*/    { name: 'ladybug', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Entity' },
-    /*25*/    { name: 'bee', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
-    /*26*/    { name: 'meb', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
-    /*27*/    { name: 'cart_b_corn', png: lamppost_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*28*/    { name: 'cart_b_lady', png: lamppost_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*29*/    { name: 'cart_b_sp', png: lamppost_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*30*/    { name: 'cart_b_sprinkler', png: lamppost_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*31*/    { name: 'cart_b_straw', png: lamppost_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*32*/    { name: 'bridge2', png: lamppost_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*33*/    { name: 'mario', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
-    /*34*/    { name: 'garry', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
-    /*35*/    { name: 'mira', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' },
-    /*36*/    { name: 'oldManJ', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'NPC' }
+    /*20*/    { name: 'strawberry', png: strawberry_tile_imgs, border: true, collide: false, age: 0, eat_num: 7, waterneed: 0, growthTime: 100, class: 'Plant' },
+    /*21*/    { name: 'flower', png: flower_tile_imgs, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 100, class: 'Plant' },
+    /*22*/    { name: 'deb', png: deb_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
+    /*23*/    { name: 'rick', png: rick_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
+    /*24*/    { name: 'ladybug', png: ladybug_img, border: true, collide: false, age: -1, class: 'Entity' },
+    /*25*/    { name: 'bee', png: bee_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
+    /*26*/    { name: 'meb', png: meb_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
+    /*27*/    { name: 'cart_b_sp', png: cart_sp_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*28*/    { name: 'cart_b_straw', png: cart_straw_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*29*/    { name: 'cart_b_flower', png: cart_flower_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*30*/    { name: 'cart_b_lady', png: cart_ladybug_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*31*/    { name: 'cart_b_sprinkler', png: cart_sprinkler_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*32*/    { name: 'bridge2', png: bridge_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*33*/    { name: 'mario', png: mario_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*34*/    { name: 'garry', png: garry_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*35*/    { name: 'mira', png: mira_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*36*/    { name: 'oldManJ', png: old_man_j_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*37*/    { name: 'flower', png: flower_tile_imgs, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 100, class: 'Plant' }
     ];
     /*
     class       obj
@@ -272,7 +273,7 @@ function preload() {
         /*3*/ { name: 'Corn Seed', png: corn_seed_bag_img, plant_num: 3, class: 'Seed' },
         /*4*/ { name: 'Junk', png: junk_img, price: 0, class: 'Item' },
         /*5*/ { name: 'Sweet Potato', png: sweet_potato_img, price: 3, hunger: 1, hunger_timer: 100, seed_num: 6, class: 'Eat' },
-        /*6*/ { name: 'Sweet Potato Seed', png: sweet_potato_bag_img, plant_num: 17, class: 'Seed' },
+        /*6*/ { name: 'Sweet Potato Seed', png: sweet_potato_seed_bag_img, plant_num: 17, class: 'Seed' },
         /*7*/ { name: 'Strawberry', png: straw_img, price: 2, hunger: 1, hunger_timer: 50, seed_num: 8, class: 'Eat' },
         /*8*/ { name: 'Strawberry Seed', png: strawberry_seed_bag_img, plant_num: 20, class: 'Seed' }
     ];
@@ -922,6 +923,9 @@ function render_ui() {
     text(days, canvasWidth - 40, 50);
 
     for (let i = 0; i < 8; i++) {
+        if (player.inv[i] == undefined) {
+            player.inv[i] = 0;
+        }
         if (player.inv[i] != 0) {
             player.inv[i].render(i);
             if (i == player.hand) {
@@ -947,76 +951,76 @@ function render_ui() {
     text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
 
     //draw line for clock, happens 1/12
-    if (player.looking() != undefined && player.facing == 0) {
-        if (player.looking().age == -2) {
+    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.facing == 0) {
+        if (player.looking(currentLevel_x, currentLevel_y).age == -2) {
             push()
             stroke(0);
             fill(255);
             rectMode(CENTER);
-            rect(player.touching.pos.x, player.touching.pos.y - (tileSize * 2), player.looking().phraseWidth, player.looking().phraseHeight);
+            rect(player.touching.pos.x, player.touching.pos.y - (tileSize * 2), player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
             textAlign(CENTER, CENTER);
             textSize(15);
             fill(0);
-            text(player.looking().phrase, player.touching.pos.x, player.touching.pos.y - (tileSize * 2), player.looking().phraseWidth, player.looking().phraseHeight);
+            text(player.looking(currentLevel_x, currentLevel_y).phrase, player.touching.pos.x, player.touching.pos.y - (tileSize * 2), player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
             pop()
         }
-        if (player.looking().htype != 'air' && player.looking().ammount > 0) {
-            addItem(player.looking().htype, player.looking().ammount);
-            player.looking().ammount = 0;
+        if (player.looking(currentLevel_x, currentLevel_y).htype != 'air' && player.looking(currentLevel_x, currentLevel_y).ammount > 0) {
+            addItem(player.looking(currentLevel_x, currentLevel_y).htype, player.looking(currentLevel_x, currentLevel_y).ammount);
+            player.looking(currentLevel_x, currentLevel_y).ammount = 0;
         }
     }
-    if (player.looking() != undefined && player.facing == 1) {
-        if (player.looking().age == -2) {
+    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.facing == 1) {
+        if (player.looking(currentLevel_x, currentLevel_y).age == -2) {
             push()
             stroke(0);
             fill(255);
             rectMode(CENTER);
-            rect(player.touching.pos.x + (tileSize), player.touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
+            rect(player.touching.pos.x + (tileSize), player.touching.pos.y - (tileSize), player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
             textAlign(CENTER, CENTER);
             textSize(15);
             fill(0);
-            text(player.looking().phrase, player.touching.pos.x + tileSize, player.touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
+            text(player.looking(currentLevel_x, currentLevel_y).phrase, player.touching.pos.x + tileSize, player.touching.pos.y - (tileSize), player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
             pop()
         }
-        if (player.looking().htype != 'air' && player.looking().ammount > 0) {
-            addItem(player.looking().htype, player.looking().ammount);
-            player.looking().ammount = 0;
+        if (player.looking(currentLevel_x, currentLevel_y).htype != 'air' && player.looking(currentLevel_x, currentLevel_y).ammount > 0) {
+            addItem(player.looking(currentLevel_x, currentLevel_y).htype, player.looking(currentLevel_x, currentLevel_y).ammount);
+            player.looking(currentLevel_x, currentLevel_y).ammount = 0;
         }
     }
-    if (player.looking() != undefined && player.facing == 2) {
-        if (player.looking().age == -2) {
+    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.facing == 2) {
+        if (player.looking(currentLevel_x, currentLevel_y).age == -2) {
             push()
             stroke(0);
             fill(255);
             rectMode(CENTER);
-            rect(player.touching.pos.x, player.touching.pos.y, player.looking().phraseWidth, player.looking().phraseHeight);
+            rect(player.touching.pos.x, player.touching.pos.y, player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
             textAlign(CENTER, CENTER);
             textSize(15);
             fill(0);
-            text(player.looking().phrase, player.touching.pos.x, player.touching.pos.y, player.looking().phraseWidth, player.looking().phraseHeight);
+            text(player.looking(currentLevel_x, currentLevel_y).phrase, player.touching.pos.x, player.touching.pos.y, player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
             pop()
         }
-        if (player.looking().htype != 'air' && player.looking().ammount > 0) {
-            addItem(player.looking().htype, player.looking().ammount);
-            player.looking().ammount = 0;
+        if (player.looking(currentLevel_x, currentLevel_y).htype != 'air' && player.looking(currentLevel_x, currentLevel_y).ammount > 0) {
+            addItem(player.looking(currentLevel_x, currentLevel_y).htype, player.looking(currentLevel_x, currentLevel_y).ammount);
+            player.looking(currentLevel_x, currentLevel_y).ammount = 0;
         }
     }
-    if (player.looking() != undefined && player.facing == 3) {
-        if (player.looking().age == -2) {
+    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.facing == 3) {
+        if (player.looking(currentLevel_x, currentLevel_y).age == -2) {
             push()
             stroke(0);
             fill(255);
             rectMode(CENTER);
-            rect(player.touching.pos.x - (tileSize), player.touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
+            rect(player.touching.pos.x - (tileSize), player.touching.pos.y - (tileSize), player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
             textAlign(CENTER, CENTER);
             textSize(15);
             fill(0);
-            text(player.looking().phrase, player.touching.pos.x - tileSize, player.touching.pos.y - (tileSize), player.looking().phraseWidth, player.looking().phraseHeight);
+            text(player.looking(currentLevel_x, currentLevel_y).phrase, player.touching.pos.x - tileSize, player.touching.pos.y - (tileSize), player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
             pop()
         }
-        if (player.looking().htype != 'air' && player.looking().ammount > 0) {
-            addItem(player.looking().htype, player.looking().ammount);
-            player.looking().ammount = 0;
+        if (player.looking(currentLevel_x, currentLevel_y).htype != 'air' && player.looking(currentLevel_x, currentLevel_y).ammount > 0) {
+            addItem(player.looking(currentLevel_x, currentLevel_y).htype, player.looking(currentLevel_x, currentLevel_y).ammount);
+            player.looking(currentLevel_x, currentLevel_y).ammount = 0;
         }
     }
     if (player.touching.age == -3) {
@@ -1081,12 +1085,11 @@ function new_tile_from_num(num, x, y) {
         }
     }
     else {
-        console.log('tile created from' + num + 'doesnt exist');
+        console.log('tile created from ' + num + ' doesnt exist');
     }
 }
 
 function new_item_from_num(num, amount) {
-    console.log(all_items.length);
     if (num <= all_items.length) {
         if (all_items[num].class == 'Item') {
             return new Item(all_items[num].name, amount, all_items[num].png, all_items[num].price);
@@ -1105,6 +1108,6 @@ function new_item_from_num(num, amount) {
         }
     }
     else {
-        console.log('item created from' + num + 'doesnt exist');
+        console.log('item created from ' + num + ' doesnt exist');
     }
 }

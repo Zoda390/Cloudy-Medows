@@ -3,9 +3,7 @@ class Entity extends Tile {
         super(name, png, x, y, true, true, -1);
         this.inv = inv; //Item array
         this.hand = hand;
-        if (under_tile_num != 0) {
-            this.under_tile_png = all_tiles[under_tile_num - 1].png;
-        }
+        this.under_tile_num = under_tile_num;
         this.class = "Entity";
     }
 
@@ -16,7 +14,7 @@ class Entity extends Tile {
             rect(this.pos.x - tileSize / 2, this.pos.y - tileSize / 2, tileSize, tileSize);
         }
         imageMode(CENTER);
-        image(this.under_tile_png, this.pos.x, this.pos.y);
+        image(all_tiles[this.under_tile_num - 1].png, this.pos.x, this.pos.y);
         image(this.png, this.pos.x, this.pos.y);
         pop();
     }
