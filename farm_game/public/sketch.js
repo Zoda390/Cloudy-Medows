@@ -267,10 +267,14 @@ function preload() {
     */
     all_items = [
         /*0*/ 0,
-        /*1*/ { name: 'Hoe', png: hoe_img, class: 'Tool'},
-        /*2*/ { name: 'Corn', png: corn_img, price: 3, hunger: 2, hunger_timer: 100, seed_num: 3, class: 'Eat' },
-        /*3*/ { name: 'Corn_Seed', png: corn_seed_bag_img, plant_num: 3, class: 'Seed' },
-        /*4*/ { name: 'Junk', png: junk_img, price: 0, class: 'Item' }
+        /*1*/ { name: 'Hoe', png: hoe_img, class: 'Tool' },
+        /*2*/ { name: 'Corn', png: corn_img, price: 4, hunger: 2, hunger_timer: 100, seed_num: 3, class: 'Eat' },
+        /*3*/ { name: 'Corn Seed', png: corn_seed_bag_img, plant_num: 3, class: 'Seed' },
+        /*4*/ { name: 'Junk', png: junk_img, price: 0, class: 'Item' },
+        /*5*/ { name: 'Sweet Potato', png: sweet_potato_img, price: 3, hunger: 1, hunger_timer: 100, seed_num: 6, class: 'Eat' },
+        /*6*/ { name: 'Sweet Potato Seed', png: sweet_potato_bag_img, plant_num: 17, class: 'Seed' },
+        /*7*/ { name: 'Strawberry', png: straw_img, price: 2, hunger: 1, hunger_timer: 50, seed_num: 8, class: 'Eat' },
+        /*8*/ { name: 'Strawberry Seed', png: strawberry_seed_bag_img, plant_num: 20, class: 'Seed' }
     ];
 }
 
@@ -1082,6 +1086,7 @@ function new_tile_from_num(num, x, y) {
 }
 
 function new_item_from_num(num, amount) {
+    console.log(all_items.length);
     if (num <= all_items.length) {
         if (all_items[num].class == 'Item') {
             return new Item(all_items[num].name, amount, all_items[num].png, all_items[num].price);
@@ -1100,6 +1105,6 @@ function new_item_from_num(num, amount) {
         }
     }
     else {
-        console.log('tile created from' + num + 'doesnt exist');
+        console.log('item created from' + num + 'doesnt exist');
     }
 }

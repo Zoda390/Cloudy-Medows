@@ -1,6 +1,6 @@
 class Player extends MoveableEntity {
     constructor(name, png, x, y,
-        inv = [new_item_from_num(1, 1), new_item_from_num(2, 1), new_item_from_num(3, 1), 0, 0, 0, 0, 0]) {
+        inv = [new_item_from_num(1, 1), new_item_from_num(2, 1), new_item_from_num(3, 1), new_item_from_num(6, 1), new_item_from_num(7, 1), 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 3);
         this.quests = [];
         this.current_quest = 0;

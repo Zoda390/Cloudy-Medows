@@ -3,6 +3,7 @@ class Level {
         this.lights = [];
         this.fore = fore;
         this.map = map;
+        this.ladybugs = 0;
         for (let i = 0; i < map.length; i++) {
             for (let j = 0; j < map[i].length; j++) {
                 if (map[i][j] == 0) {
