@@ -13,16 +13,16 @@ class MoveableEntity extends Entity {
         push();
         if (this.border == true) {
             noFill();
-            rect(this.pos.x - tileSize / 2, this.pos.y - tileSize / 2, tileSize, tileSize);
+            rect(this.pos.x, this.pos.y, tileSize, tileSize);
         }
         imageMode(CENTER);
-        image(all_tiles[this.under_tile_num - 1].png, this.pos.x, this.pos.y);
-        image(this.png[facing][anim], this.pos.x, this.pos.y);
+        image(all_tiles[this.under_tile_num - 1].png, this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        image(this.png[this.facing][0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); //[this.anim]
         pop();
     }
 
     looking(x, y) {
-        this.touching = this.tileTouching();
+        this.touching = this.tileTouching(x, y);
         if (this.touching != 0) {
             if ((this.touching.pos.y / tileSize == 0 && this.facing == 0) || (this.touching.pos.y / tileSize == 18 && this.facing == 2)) {
                 return undefined;

@@ -87,33 +87,43 @@ function preload() {
     compost_img = loadImage('images/items/Compost.png');
     sprinkler_img = loadImage('images/items/Sprinkler.png');
 
-    //Tile                                                  Tile Num.
-    grass_tile_img = loadImage('images/tiles/Grass.png');                //1
-    plot_tile_img = loadImage('images/tiles/Plot.png');                  //2
-    wall_tile_img = loadImage('images/tiles/Wood.png');                  //4
-    concrete_tile_img = loadImage('images/tiles/Concrete_1.png');        //5
-    dirt_tile_img = loadImage('images/tiles/dirt.png');                  //6
-    bed_tile_img = loadImage('images/tiles/Bed.png');                    //7
-    cart_s_tile_img = loadImage('images/tiles/Cart_s.png');              //8
-    cart_tile_img = loadImage('images/tiles/Cart.png');                  //9
-    bridge_tile_img = loadImage('images/tiles/Bridge.png');              //10
-    junk_tile_img = loadImage('images/tiles/junk_tile.png');             //11
-    concrete_tile_2_img = loadImage('images/tiles/Concrete2.png');       //12
-    satilite_tile_img = loadImage('images/tiles/Satilite.png');          //13
-    solarpanel_tile_img = loadImage('images/tiles/SolarPanel.png');      //14
-    compost_bucket_tile_img = loadImage('images/tiles/Worm_Bucket.png'); //15
-    compost_tile_img = loadImage('images/tiles/Compost_tile.png');       //16
-    sprinkler_tile_img = loadImage('images/tiles/Sprinkler.gif');        //18
-    lamppost_tile_img = loadImage('images/tiles/Light.png');             //19
-    deb_tile_img = loadImage('images/npc/Deb.gif');                    //22
-    rick_tile_img = loadImage('images/npc/CowBoy_Rick.gif');           //23
-    meb_tile_img = loadImage('images/npc/meb.png');                    //26
+    //Tile
+    grass_tile_img = loadImage('images/tiles/Grass.png');                
+    plot_tile_img = loadImage('images/tiles/Plot.png');                  
+    wall_tile_img = loadImage('images/tiles/Wood.png');                  
+    concrete_tile_img = loadImage('images/tiles/Concrete_1.png');        
+    dirt_tile_img = loadImage('images/tiles/dirt.png');                  
+    bed_tile_img = loadImage('images/tiles/Bed.png');                    
+    cart_s_tile_img = loadImage('images/tiles/Cart_s.png');              
+    cart_tile_img = loadImage('images/tiles/Cart.png');                  
+    bridge_tile_img = loadImage('images/tiles/Bridge.png');              
+    junk_tile_img = loadImage('images/tiles/junk_tile.png');             
+    concrete_tile_2_img = loadImage('images/tiles/Concrete2.png');       
+    satilite_tile_img = loadImage('images/tiles/Satilite.png');          
+    solarpanel_tile_img = loadImage('images/tiles/SolarPanel.png');      
+    compost_bucket_tile_img = loadImage('images/tiles/Worm_Bucket.png'); 
+    compost_tile_img = loadImage('images/tiles/Compost_tile.png');       
+    sprinkler_tile_img = loadImage('images/tiles/Sprinkler.gif');        
+    lamppost_tile_img = loadImage('images/tiles/Light.png');       
     cart_sp_tile_img = loadImage('images/tiles/sp_cart.png');
     cart_straw_tile_img = loadImage('images/tiles/StrawCart.png');
     cart_flower_tile_img = loadImage('images/tiles/flowerShop.png');
     cart_ladybug_tile_img = loadImage('images/tiles/ladybug_cart.png');
     cart_sprinkler_tile_img = loadImage('images/tiles/sprinkler_cart.png');
     bridge_tile_2_img = loadImage('images/tiles/BridgeFlip.png');
+
+    //NPC
+    //Cowboy Rick
+    rick_tile_up_img = loadImage('images/npc/cowboy_rick_back.png');
+    rick_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    rick_tile_down_img = loadImage('images/npc/CowBoy_Rick.gif');
+    rick_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    rick_tile_imgs = [[rick_tile_up_img], [rick_tile_right_img], [rick_tile_down_img], [rick_tile_left_img]];
+
+
+    deb_tile_img = loadImage('images/npc/Deb.gif');
+    
+    meb_tile_img = loadImage('images/npc/meb.png');
     old_man_j_tile_img = loadImage('images/npc/old_man_Jay.gif');
     mira_tile_img = loadImage('images/npc/Mira.png');
     mario_tile_img = loadImage('images/npc/Mario.png');
@@ -212,11 +222,11 @@ function preload() {
     class           obj
     Tile            { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'Tile' }
     Plant           { name: 'name', png: png_img, border: true, collide: false, age: 0, seed_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }
-    Entity          { name: 'name', png: png_img, border: true, collide: false, age: -1, inv: [], hand: 0, under_tile_num: 0, class: 'Entity' }
+    Entity          { name: 'name', png: png_img, border: true, collide: false, age: -1, inv: [0, {num: 1, amount: 1}], hand: 0, under_tile_num: 0, class: 'Entity' }
     FreeMoveEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'FreeMoveEntity' }
-    MoveableEntity  { name: 'name', png: png_img, inv: [], hand: 0, facing: 3, under_tile_num: 0, moving_timer: 0, class: 'MoveableEntity' }
-    GridMoveEntity  { name: 'name', png: png_img, inv: [], hand: 0, facing: 3, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'GridMoveEntity' }
-    NPC             { name: 'name', png: png_img, inv: [], hand: 0, facing: 3, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'NPC' }
+    MoveableEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 3, under_tile_num: 0, moving_timer: 0, class: 'MoveableEntity' }
+    GridMoveEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 3, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'GridMoveEntity' }
+    NPC             { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 3, under_tile_num: 0, instructions: [], moving_timer: 0, phrase: 'bla', class: 'NPC' }
     */
     new GridMoveEntity()
     all_tiles = [
@@ -241,21 +251,21 @@ function preload() {
     /*19*/    { name: 'lamppost', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*20*/    { name: 'strawberry', png: strawberry_tile_imgs, border: true, collide: false, age: 0, eat_num: 7, waterneed: 0, growthTime: 100, class: 'Plant' },
     /*21*/    { name: 'flower', png: flower_tile_imgs, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 100, class: 'Plant' },
-    /*22*/    { name: 'deb', png: deb_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
-    /*23*/    { name: 'rick', png: rick_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
+    /*22*/    { name: 'deb', png: deb_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
+    /*23*/    { name: 'rick', png: rick_tile_imgs, inv: [{num: 7, amount: 2}], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'right', 'down', 'left'], moving_timer: 100, phrase: 'hi, im Rick', class: 'NPC' },
     /*24*/    { name: 'ladybug', png: ladybug_img, border: true, collide: false, age: -1, class: 'Entity' },
     /*25*/    { name: 'bee', png: bee_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
-    /*26*/    { name: 'meb', png: meb_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
+    /*26*/    { name: 'meb', png: meb_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
     /*27*/    { name: 'cart_b_sp', png: cart_sp_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*28*/    { name: 'cart_b_straw', png: cart_straw_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*29*/    { name: 'cart_b_flower', png: cart_flower_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*30*/    { name: 'cart_b_lady', png: cart_ladybug_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*31*/    { name: 'cart_b_sprinkler', png: cart_sprinkler_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*32*/    { name: 'bridge2', png: bridge_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*33*/    { name: 'mario', png: mario_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*34*/    { name: 'garry', png: garry_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*35*/    { name: 'mira', png: mira_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*36*/    { name: 'oldManJ', png: old_man_j_tile_img, inv: [], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*33*/    { name: 'mario', png: mario_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*34*/    { name: 'garry', png: garry_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*35*/    { name: 'mira', png: mira_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*36*/    { name: 'oldManJ', png: old_man_j_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
     /*37*/    { name: 'flower', png: flower_tile_imgs, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 100, class: 'Plant' }
     ];
     /*
@@ -278,24 +288,6 @@ function preload() {
         /*8*/ { name: 'Strawberry Seed', png: strawberry_seed_bag_img, plant_num: 20, class: 'Seed' }
     ];
 }
-
-/*
-
-27 = cart b corn
-28 = cart b lady
-29 = cart b sp
-30 = cart b sprinkler
-31 = cart b straw
-32 = bridge2
-33 = mario
-34 = garry
-35 = mira
-36 = old man j
-37 = brandon
-38 = brent
-39 = blind pete
-40 = james
-*/
 
 
 
@@ -736,9 +728,15 @@ function setup() {
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
     ]
     );
+    /*
     levels = [[level5, level4, level6],
     [level3, level1, level2],
     [level7, level8, level9]
+    ];
+    */
+    levels = [[0, 0, 0],
+    [level3, level1, 0],
+    [0, 0, 0]
     ];
 }
 
@@ -833,6 +831,14 @@ function addItem(item_obj_num, amount) {
         if (player.inv[i] == 0) {
             player.inv[i] = new_item_from_num(item_obj_num, amount);
             return;
+        }
+    }
+}
+
+function item_name_to_num(item_name) {
+    for (let i = 0; i < all_items.length; i++) {
+        if (item_name == all_items[i].name) {
+            return i;
         }
     }
 }
@@ -950,77 +956,40 @@ function render_ui() {
     image(coin_img, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 95));
     text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
 
-    //draw line for clock, happens 1/12
-    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.facing == 0) {
-        if (player.looking(currentLevel_x, currentLevel_y).age == -2) {
-            push()
-            stroke(0);
-            fill(255);
-            rectMode(CENTER);
-            rect(player.touching.pos.x, player.touching.pos.y - (tileSize * 2), player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
-            textAlign(CENTER, CENTER);
-            textSize(15);
-            fill(0);
-            text(player.looking(currentLevel_x, currentLevel_y).phrase, player.touching.pos.x, player.touching.pos.y - (tileSize * 2), player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
-            pop()
+    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).class == 'NPC') {
+        let offsetx = 0;
+        let offsety = 0;
+        if (player.facing == 0) {
+            offsetx = 0;
+            offsety = -tileSize;
         }
-        if (player.looking(currentLevel_x, currentLevel_y).htype != 'air' && player.looking(currentLevel_x, currentLevel_y).ammount > 0) {
-            addItem(player.looking(currentLevel_x, currentLevel_y).htype, player.looking(currentLevel_x, currentLevel_y).ammount);
-            player.looking(currentLevel_x, currentLevel_y).ammount = 0;
+        else if (player.facing == 1) {
+            offsetx = tileSize;
+            offsety = -tileSize;
         }
-    }
-    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.facing == 1) {
-        if (player.looking(currentLevel_x, currentLevel_y).age == -2) {
-            push()
-            stroke(0);
-            fill(255);
-            rectMode(CENTER);
-            rect(player.touching.pos.x + (tileSize), player.touching.pos.y - (tileSize), player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
-            textAlign(CENTER, CENTER);
-            textSize(15);
-            fill(0);
-            text(player.looking(currentLevel_x, currentLevel_y).phrase, player.touching.pos.x + tileSize, player.touching.pos.y - (tileSize), player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
-            pop()
+        else if (player.facing == 2) {
+            offsetx = 0;
+            offsety = -tileSize;
         }
-        if (player.looking(currentLevel_x, currentLevel_y).htype != 'air' && player.looking(currentLevel_x, currentLevel_y).ammount > 0) {
-            addItem(player.looking(currentLevel_x, currentLevel_y).htype, player.looking(currentLevel_x, currentLevel_y).ammount);
-            player.looking(currentLevel_x, currentLevel_y).ammount = 0;
+        else if (player.facing == 3) {
+            offsetx = -tileSize;
+            offsety = -tileSize;
         }
-    }
-    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.facing == 2) {
-        if (player.looking(currentLevel_x, currentLevel_y).age == -2) {
-            push()
-            stroke(0);
-            fill(255);
-            rectMode(CENTER);
-            rect(player.touching.pos.x, player.touching.pos.y, player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
-            textAlign(CENTER, CENTER);
-            textSize(15);
-            fill(0);
-            text(player.looking(currentLevel_x, currentLevel_y).phrase, player.touching.pos.x, player.touching.pos.y, player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
-            pop()
-        }
-        if (player.looking(currentLevel_x, currentLevel_y).htype != 'air' && player.looking(currentLevel_x, currentLevel_y).ammount > 0) {
-            addItem(player.looking(currentLevel_x, currentLevel_y).htype, player.looking(currentLevel_x, currentLevel_y).ammount);
-            player.looking(currentLevel_x, currentLevel_y).ammount = 0;
-        }
-    }
-    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.facing == 3) {
-        if (player.looking(currentLevel_x, currentLevel_y).age == -2) {
-            push()
-            stroke(0);
-            fill(255);
-            rectMode(CENTER);
-            rect(player.touching.pos.x - (tileSize), player.touching.pos.y - (tileSize), player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
-            textAlign(CENTER, CENTER);
-            textSize(15);
-            fill(0);
-            text(player.looking(currentLevel_x, currentLevel_y).phrase, player.touching.pos.x - tileSize, player.touching.pos.y - (tileSize), player.looking(currentLevel_x, currentLevel_y).phraseWidth, player.looking(currentLevel_x, currentLevel_y).phraseHeight);
-            pop()
-        }
-        if (player.looking(currentLevel_x, currentLevel_y).htype != 'air' && player.looking(currentLevel_x, currentLevel_y).ammount > 0) {
-            addItem(player.looking(currentLevel_x, currentLevel_y).htype, player.looking(currentLevel_x, currentLevel_y).ammount);
-            player.looking(currentLevel_x, currentLevel_y).ammount = 0;
+        
+        push()
+        stroke(0);
+        fill(255);
+        rectMode(CENTER);
+        rect(player.touching.pos.x + offsetx, player.touching.pos.y + offsety, 100, 100); //figure out math
+        textAlign(CENTER, CENTER);
+        textSize(15);
+        fill(0);
+        text(player.looking(currentLevel_x, currentLevel_y).phrase, player.touching.pos.x + offsetx, player.touching.pos.y + offsety, 100, 100);
+        pop()
+
+        if (player.looking(currentLevel_x, currentLevel_y).inv[player.looking(currentLevel_x, currentLevel_y).hand] != 0 && player.looking(currentLevel_x, currentLevel_y).inv[player.looking(currentLevel_x, currentLevel_y).hand].amount > 0) {
+            addItem(item_name_to_num(player.looking(currentLevel_x, currentLevel_y).inv[player.looking(currentLevel_x, currentLevel_y).hand].name), player.looking(currentLevel_x, currentLevel_y).inv[player.looking(currentLevel_x, currentLevel_y).hand].amount);
+            player.looking(currentLevel_x, currentLevel_y).inv[player.looking(currentLevel_x, currentLevel_y).hand] = 0;
         }
     }
     if (player.touching.age == -3) {
@@ -1075,13 +1044,13 @@ function new_tile_from_num(num, x, y) {
             return new FreeMoveEntity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
         }
         else if (all_tiles[num - 1].class == 'MovableEntity') {
-            return new MovableEntity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+            return new MoveableEntity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].hand, all_tiles[num - 1].facing, all_tiles[num - 1].under_tile_num, all_tiles[num - 1].moving_timer);
         }
         else if (all_tiles[num - 1].class == 'GridMoveEntity') {
-            return new GridMoveEntity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+            return new GridMoveEntity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].hand, all_tiles[num - 1].facing, all_tiles[num - 1].under_tile_num, all_tiles[num - 1].instructions, all_tiles[num - 1].moving_timer);
         }
         else if (all_tiles[num - 1].class == 'NPC') {
-            return new NPC(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+            return new NPC(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].hand, all_tiles[num - 1].facing, all_tiles[num - 1].under_tile_num, all_tiles[num - 1].instructions, all_tiles[num - 1].moving_timer, all_tiles[num - 1].phrase);
         }
     }
     else {

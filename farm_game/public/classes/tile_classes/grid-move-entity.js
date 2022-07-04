@@ -4,6 +4,7 @@ class GridMoveEntity extends MoveableEntity{
         super(name, png, x, y, inv, hand, facing, under_tile_num, moving_timer);
         this.instructions = instructions;
         this.current_instruction = 0;
+        this.class = 'GridMoveEntity';
     }
 
     move(x, y) {
@@ -17,12 +18,12 @@ class GridMoveEntity extends MoveableEntity{
                     levels[y][x].map[(this.touching.pos.y / tileSize) - 1][this.touching.pos.x / tileSize] = temp;
                     this.pos.y -= tileSize;
                     this.current_instruction += 1;
-                    if (this.current_instruction > this.instructions.length) {
+                    if (this.current_instruction >= this.instructions.length) {
                         this.current_instruction = 0;
                     }
                 }
             }
-            if (this.instructions[this.current_instruction] == 'right') {
+            else if (this.instructions[this.current_instruction] == 'right') {
                 this.facing = 1;
                 if (this.looking(x, y).collide != true) {
                     let temp = this;
@@ -30,12 +31,12 @@ class GridMoveEntity extends MoveableEntity{
                     levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) + 1] = temp;
                     this.pos.x += tileSize;
                     this.current_instruction += 1;
-                    if (this.current_instruction > this.instructions.length) {
+                    if (this.current_instruction >= this.instructions.length) {
                         this.current_instruction = 0;
                     }
                 }
             }
-            if (this.instructions[this.current_instruction] == 'down') {
+            else if (this.instructions[this.current_instruction] == 'down') {
                 this.facing = 2;
                 if (this.looking(x, y).collide != true) {
                     let temp = this;
@@ -43,12 +44,12 @@ class GridMoveEntity extends MoveableEntity{
                     levels[y][x].map[(this.touching.pos.y / tileSize) + 1][this.touching.pos.x / tileSize] = temp;
                     this.pos.y += tileSize;
                     this.current_instruction += 1;
-                    if (this.current_instruction > this.instructions.length) {
+                    if (this.current_instruction >= this.instructions.length) {
                         this.current_instruction = 0;
                     }
                 }
             }
-            if (this.instructions[this.current_instruction] == 'left') {
+            else if (this.instructions[this.current_instruction] == 'left') {
                 this.facing = 3;
                 if (this.looking(x, y).collide != true) {
                     let temp = this;
@@ -56,7 +57,7 @@ class GridMoveEntity extends MoveableEntity{
                     levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) - 1] = temp;
                     this.pos.x -= tileSize;
                     this.current_instruction += 1;
-                    if (this.current_instruction > this.instructions.length) {
+                    if (this.current_instruction >= this.instructions.length) {
                         this.current_instruction = 0;
                     }
                 }

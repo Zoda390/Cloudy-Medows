@@ -1,6 +1,6 @@
 class Player extends MoveableEntity {
     constructor(name, png, x, y,
-        inv = [new_item_from_num(1, 1), new_item_from_num(2, 1), new_item_from_num(3, 1), new_item_from_num(6, 1), new_item_from_num(7, 1), 0, 0, 0]) {
+        inv = [{ num: 1, amount: 1 }, { num: 2, amount: 1 }, { num: 3, amount: 1 }, { num: 5, amount: 1 }, { num: 7, amount: 1 }, 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 3);
         this.quests = [];
         this.current_quest = 0;
@@ -61,10 +61,13 @@ class Player extends MoveableEntity {
                 this.facing = 1;
                 if (this.pos.x + tileSize >= canvasWidth) {
                     currentLevel_x += 1;
-                    this.pos.x = tileSize / 2;
+                    this.pos.x = 0;
                 }
                 else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
+                    this.touching.collide = false;
                     this.pos.x += tileSize;
+                    this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
+                    this.touching.collide = true;
                     this.hunger_counter += round(random(0, 1));
                     this.anim += 1;
                     if (this.anim > 1) {
@@ -79,10 +82,13 @@ class Player extends MoveableEntity {
                 this.facing = 3;
                 if (this.pos.x - tileSize <= 0) {
                     currentLevel_x -= 1;
-                    this.pos.x = canvasWidth - (tileSize / 2);
+                    this.pos.x = canvasWidth - tileSize;
                 }
                 else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
+                    this.touching.collide = false;
                     this.pos.x -= tileSize;
+                    this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
+                    this.touching.collide = true;
                     this.hunger_counter += round(random(0, 1));
                     this.anim += 1;
                     if (this.anim > 1) {
@@ -97,10 +103,13 @@ class Player extends MoveableEntity {
                 this.facing = 0;
                 if (this.pos.y - tileSize <= 0) {
                     currentLevel_y -= 1;
-                    this.pos.y = canvasHeight - (tileSize / 2);
+                    this.pos.y = canvasHeight - tileSize;
                 }
                 else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
+                    this.touching.collide = false;
                     this.pos.y -= tileSize;
+                    this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
+                    this.touching.collide = true;
                     this.hunger_counter += round(random(0, 1));
                     this.anim += 1;
                     if (this.anim > 1) {
@@ -115,10 +124,13 @@ class Player extends MoveableEntity {
                 this.facing = 2;
                 if (this.pos.y + tileSize >= canvasHeight) {
                     currentLevel_y += 1;
-                    this.pos.y = tileSize / 2;
+                    this.pos.y = 0;
                 }
                 else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
+                    this.touching.collide = false;
                     this.pos.y += tileSize;
+                    this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
+                    this.touching.collide = true;
                     this.hunger_counter += round(random(0, 1));;
                     this.anim += 1;
                     if (this.anim > 1) {
