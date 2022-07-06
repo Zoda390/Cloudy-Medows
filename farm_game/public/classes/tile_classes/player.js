@@ -43,12 +43,13 @@ class Player extends MoveableEntity {
         }
         push();
         imageMode(CENTER);
+        noTint();
         image(player_imgs[this.facing][this.anim], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
         if (this.hunger <= 0 && millis() - lastHungerMili > 400) {
             hit_sound.play();
             this.hp -= 10;
-            fill(255, 0, 0, 100);
-            circle(this.pos.x, this.pos.y, tileSize);
+            tint(255, 0, 0, 100);
+            image(player_imgs[this.facing][this.anim], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
             lastHungerMili = millis();
         }
         else if (this.hunger >= maxHunger && millis() - lastHungerMili > 600) {
@@ -65,6 +66,7 @@ class Player extends MoveableEntity {
             if (millis() - this.lastmoveMili > 100) {
                 this.facing = 1;
                 if (this.pos.x + tileSize >= canvasWidth) {
+                    this.touching.collide = false;
                     currentLevel_x += 1;
                     this.pos.x = 0;
                 }
@@ -86,6 +88,7 @@ class Player extends MoveableEntity {
             if (millis() - this.lastmoveMili > 100) {
                 this.facing = 3;
                 if (this.pos.x - tileSize <= 0) {
+                    this.touching.collide = false;
                     currentLevel_x -= 1;
                     this.pos.x = canvasWidth - tileSize;
                 }
@@ -107,6 +110,7 @@ class Player extends MoveableEntity {
             if (millis() - this.lastmoveMili > 100) {
                 this.facing = 0;
                 if (this.pos.y - tileSize <= 0) {
+                    this.touching.collide = false;
                     currentLevel_y -= 1;
                     this.pos.y = canvasHeight - tileSize;
                 }
@@ -128,6 +132,7 @@ class Player extends MoveableEntity {
             if (millis() - this.lastmoveMili > 100) {
                 this.facing = 2;
                 if (this.pos.y + tileSize >= canvasHeight) {
+                    this.touching.collide = false;
                     currentLevel_y += 1;
                     this.pos.y = 0;
                 }

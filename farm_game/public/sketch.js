@@ -88,23 +88,23 @@ function preload() {
     sprinkler_img = loadImage('images/items/Sprinkler.png');
 
     //Tile
-    grass_tile_img = loadImage('images/tiles/Grass.png');                
-    plot_tile_img = loadImage('images/tiles/Plot.png');                  
-    wall_tile_img = loadImage('images/tiles/Wood.png');                  
-    concrete_tile_img = loadImage('images/tiles/Concrete_1.png');        
-    dirt_tile_img = loadImage('images/tiles/dirt.png');                  
-    bed_tile_img = loadImage('images/tiles/Bed.png');                    
-    cart_s_tile_img = loadImage('images/tiles/Cart_s.png');              
-    cart_tile_img = loadImage('images/tiles/Cart.png');                  
-    bridge_tile_img = loadImage('images/tiles/Bridge.png');              
-    junk_tile_img = loadImage('images/tiles/junk_tile.png');             
-    concrete_tile_2_img = loadImage('images/tiles/Concrete2.png');       
-    satilite_tile_img = loadImage('images/tiles/Satilite.png');          
-    solarpanel_tile_img = loadImage('images/tiles/SolarPanel.png');      
-    compost_bucket_tile_img = loadImage('images/tiles/Worm_Bucket.png'); 
-    compost_tile_img = loadImage('images/tiles/Compost_tile.png');       
-    sprinkler_tile_img = loadImage('images/tiles/Sprinkler.gif');        
-    lamppost_tile_img = loadImage('images/tiles/Light.png');       
+    grass_tile_img = loadImage('images/tiles/Grass.png');
+    plot_tile_img = loadImage('images/tiles/Plot.png');
+    wall_tile_img = loadImage('images/tiles/Wood.png');
+    concrete_tile_img = loadImage('images/tiles/Concrete_1.png');
+    dirt_tile_img = loadImage('images/tiles/dirt.png');
+    bed_tile_img = loadImage('images/tiles/Bed.png');
+    cart_s_tile_img = loadImage('images/tiles/Cart_s.png');
+    cart_tile_img = loadImage('images/tiles/Cart.png');
+    bridge_tile_img = loadImage('images/tiles/Bridge.png');
+    junk_tile_img = loadImage('images/tiles/junk_tile.png');
+    concrete_tile_2_img = loadImage('images/tiles/Concrete2.png');
+    satilite_tile_img = loadImage('images/tiles/Satilite.png');
+    solarpanel_tile_img = loadImage('images/tiles/SolarPanel.png');
+    compost_bucket_tile_img = loadImage('images/tiles/Worm_Bucket.png');
+    compost_tile_img = loadImage('images/tiles/Compost_tile.png');
+    sprinkler_tile_img = loadImage('images/tiles/Sprinkler.gif');
+    lamppost_tile_img = loadImage('images/tiles/Light.png');
     cart_sp_tile_img = loadImage('images/tiles/sp_cart.png');
     cart_straw_tile_img = loadImage('images/tiles/StrawCart.png');
     cart_flower_tile_img = loadImage('images/tiles/flowerShop.png');
@@ -116,23 +116,86 @@ function preload() {
     //Cowboy Rick
     rick_tile_up_img = loadImage('images/npc/cowboy_rick_back.png');
     rick_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
-    rick_tile_down_img = loadImage('images/npc/CowBoy_Rick.gif');
+    rick_tile_down_img = loadImage('images/npc/cowboy_rick.png');
     rick_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
     rick_tile_imgs = [[rick_tile_up_img], [rick_tile_right_img], [rick_tile_down_img], [rick_tile_left_img]];
 
+    //deb
+    deb_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    deb_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    deb_tile_down_img = loadImage('images/npc/Deb.gif');
+    deb_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    deb_tile_imgs = [[deb_tile_up_img], [deb_tile_right_img], [deb_tile_down_img], [deb_tile_left_img]];
 
-    deb_tile_img = loadImage('images/npc/Deb.gif');
-    
-    meb_tile_img = loadImage('images/npc/meb.png');
-    old_man_j_tile_img = loadImage('images/npc/old_man_Jay.gif');
-    mira_tile_img = loadImage('images/npc/Mira.png');
-    mario_tile_img = loadImage('images/npc/Mario.png');
-    liam_tile_img = loadImage('images/npc/liam.png');
-    garry_tile_img = loadImage('images/npc/Garry.png');
-    blind_pette_tile_img = loadImage('images/npc/Blind_pete.png');
-    brandon_tile_img = loadImage('images/npc/Brandon.png');
-    james_tile_img = loadImage('images/npc/james.png');
-    brent_tile_img = loadImage('images/npc/Brent.png');
+    //meb
+    meb_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    meb_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    meb_tile_down_img = loadImage('images/npc/meb.png');
+    meb_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    meb_tile_imgs = [[meb_tile_up_img], [meb_tile_right_img], [meb_tile_down_img], [meb_tile_left_img]];
+
+    //old man j
+    old_man_j_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    old_man_j_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    old_man_j_tile_down_img = loadImage('images/npc/old_man_Jay.gif');
+    old_man_j_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    old_man_j_tile_imgs = [[old_man_j_tile_up_img], [old_man_j_tile_right_img], [old_man_j_tile_down_img], [old_man_j_tile_left_img]];
+
+    //mira
+    mira_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    mira_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    mira_tile_down_img = loadImage('images/npc/Mira.png');
+    mira_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    mira_tile_imgs = [[mira_tile_up_img], [mira_tile_right_img], [mira_tile_down_img], [mira_tile_left_img]];
+
+    //mario
+    mario_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    mario_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    mario_tile_down_img = loadImage('images/npc/Mario.png');
+    mario_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    mario_tile_imgs = [[mario_tile_up_img], [mario_tile_right_img], [mario_tile_down_img], [mario_tile_left_img]];
+
+    //liam
+    liam_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    liam_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    liam_tile_down_img = loadImage('images/npc/liam.png');
+    liam_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    liam_tile_imgs = [[liam_tile_up_img], [liam_tile_right_img], [liam_tile_down_img], [liam_tile_left_img]];
+
+    //garry
+    garry_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    garry_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    garry_tile_down_img = loadImage('images/npc/Garry.png');
+    garry_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    garry_tile_imgs = [[garry_tile_up_img], [garry_tile_right_img], [garry_tile_down_img], [garry_tile_left_img]];
+
+    //bind pette
+    blind_pette_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    blind_pette_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    blind_pette_tile_down_img = loadImage('images/npc/Blind_pete.png');
+    blind_pette_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    blind_pette_tile_imgs = [[blind_pette_tile_up_img], [blind_pette_tile_right_img], [blind_pette_tile_down_img], [blind_pette_tile_left_img]];
+
+    //brandon
+    brandon_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    brandon_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    brandon_tile_down_img = loadImage('images/npc/Brandon.png');
+    brandon_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    brandon_tile_imgs = [[brandon_tile_up_img], [brandon_tile_right_img], [brandon_tile_down_img], [brandon_tile_left_img]];
+
+    //james
+    james_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    james_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    james_tile_down_img = loadImage('images/npc/james.png');
+    james_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    james_tile_imgs = [[james_tile_up_img], [james_tile_right_img], [james_tile_down_img], [james_tile_left_img]];
+
+    //brent
+    brent_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    brent_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    brent_tile_down_img = loadImage('images/npc/Brent.png');
+    brent_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    brent_tile_imgs = [[brent_tile_up_img], [brent_tile_right_img], [brent_tile_down_img], [brent_tile_left_img]];
 
     //Ui
     player_2 = loadFont('pixelFont.ttf');
@@ -225,9 +288,9 @@ function preload() {
     Plant           { name: 'name', png: png_img, border: true, collide: false, age: 0, seed_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }
     Entity          { name: 'name', png: png_img, border: true, collide: false, age: -1, inv: [0, {num: 1, amount: 1}], hand: 0, under_tile_num: 0, class: 'Entity' }
     FreeMoveEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'FreeMoveEntity' }
-    MoveableEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 3, under_tile_num: 0, moving_timer: 0, class: 'MoveableEntity' }
-    GridMoveEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 3, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'GridMoveEntity' }
-    NPC             { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 3, under_tile_num: 0, instructions: [], moving_timer: 0, phrase: 'bla', class: 'NPC' }
+    MoveableEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, moving_timer: 0, class: 'MoveableEntity' }
+    GridMoveEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'GridMoveEntity' }
+    NPC             { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 0, phrase: 'bla', class: 'NPC' }
     */
     new GridMoveEntity()
     all_tiles = [
@@ -252,22 +315,25 @@ function preload() {
     /*19*/    { name: 'lamppost', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*20*/    { name: 'strawberry', png: strawberry_tile_imgs, border: true, collide: false, age: 0, eat_num: 7, waterneed: 0, growthTime: 100, class: 'Plant' },
     /*21*/    { name: 'flower', png: flower_tile_imgs, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 100, class: 'Plant' },
-    /*22*/    { name: 'deb', png: deb_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
-    /*23*/    { name: 'rick', png: rick_tile_imgs, inv: [{num: 7, amount: 2}], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'right', 'down', 'left'], moving_timer: 100, phrase: 'hi, im Rick', class: 'NPC' },
+    /*22*/    { name: 'deb', png: deb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 0, phrase: 'bla', class: 'NPC' },
+    /*23*/    { name: 'rick', png: rick_tile_imgs, inv: [{ num: 7, amount: 2 }], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'right', 'down', 'left'], moving_timer: 100, phrase: 'hi, im Rick', class: 'NPC' },
     /*24*/    { name: 'ladybug', png: ladybug_img, border: true, collide: false, age: 0, inv: [0], hand: 0, under_tile_num: 1, class: 'Entity' },
     /*25*/    { name: 'bee', png: bee_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
-    /*26*/    { name: 'meb', png: meb_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*26*/    { name: 'meb', png: meb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
     /*27*/    { name: 'cart_b_sp', png: cart_sp_tile_img, price: 7, item_num: 5, class: 'Cart' },
     /*28*/    { name: 'cart_b_straw', png: cart_straw_tile_img, price: 2, item_num: 0, class: 'Cart' },
     /*29*/    { name: 'cart_b_flower', png: cart_flower_tile_img, price: 30, item_num: 0, class: 'Cart' },
     /*30*/    { name: 'cart_b_lady', png: cart_ladybug_tile_img, price: 100, item_num: 0, class: 'Cart' },
     /*31*/    { name: 'cart_b_sprinkler', png: cart_sprinkler_tile_img, price: 10, item_num: 0, class: 'Cart' },
-    /*32*/    { name: 'bridge2', png: bridge_tile_2_img, border: true, collide: false, age: -1, class: 'Cart' },
-    /*33*/    { name: 'mario', png: mario_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*34*/    { name: 'garry', png: garry_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*35*/    { name: 'mira', png: mira_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*36*/    { name: 'oldManJ', png: old_man_j_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*37*/    { name: 'flower', png: flower_tile_imgs, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 100, class: 'Plant' }
+    /*32*/    { name: 'bridge2', png: bridge_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*33*/    { name: 'mario', png: mario_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
+    /*34*/    { name: 'garry', png: garry_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
+    /*35*/    { name: 'mira', png: mira_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
+    /*36*/    { name: 'oldManJ', png: old_man_j_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
+    /*37*/    { name: 'brandon', png: brandon_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
+    /*37*/    { name: 'brent', png: brent_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
+    /*37*/    { name: 'blind_pette', png: blind_pette_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
+    /*37*/    { name: 'james', png: james_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' }
     ];
     /*
     class       obj
@@ -731,15 +797,9 @@ function setup() {
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
     ]
     );
-    /*
     levels = [[level5, level4, level6],
     [level3, level1, level2],
     [level7, level8, level9]
-    ];
-    */
-    levels = [[0, 0, 0],
-    [level3, level1, 0],
-    [0, 0, 0]
     ];
 }
 
@@ -918,7 +978,9 @@ function takeInput() {
             if (millis() - lastMili > 100) {
                 console.log(player);
                 console.log(player.touching);
+                console.log(player.looking(currentLevel_x, currentLevel_y));
                 lastMili = millis();
+                player.hunger = maxHunger;
             }
         }
     }
