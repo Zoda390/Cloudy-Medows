@@ -280,12 +280,12 @@ function preload() {
     all_items = [
         /*0*/ 0,
         /*1*/ { name: 'Hoe', png: hoe_img, class: 'Tool' },
-        /*2*/ { name: 'Corn', png: corn_img, price: 4, hunger: 2, hunger_timer: 100, seed_num: 3, class: 'Eat' },
+        /*2*/ { name: 'Corn', png: corn_img, price: 4, hunger: 2, hunger_timer: 500, seed_num: 3, class: 'Eat' },
         /*3*/ { name: 'Corn Seed', png: corn_seed_bag_img, plant_num: 3, class: 'Seed' },
         /*4*/ { name: 'Junk', png: junk_img, price: 0, class: 'Item' },
-        /*5*/ { name: 'Sweet Potato', png: sweet_potato_img, price: 3, hunger: 1, hunger_timer: 100, seed_num: 6, class: 'Eat' },
+        /*5*/ { name: 'Sweet Potato', png: sweet_potato_img, price: 3, hunger: 1, hunger_timer: 600, seed_num: 6, class: 'Eat' },
         /*6*/ { name: 'Sweet Potato Seed', png: sweet_potato_seed_bag_img, plant_num: 17, class: 'Seed' },
-        /*7*/ { name: 'Strawberry', png: straw_img, price: 2, hunger: 1, hunger_timer: 50, seed_num: 8, class: 'Eat' },
+        /*7*/ { name: 'Strawberry', png: straw_img, price: 2, hunger: 1, hunger_timer: 300, seed_num: 8, class: 'Eat' },
         /*8*/ { name: 'Strawberry Seed', png: strawberry_seed_bag_img, plant_num: 20, class: 'Seed' },
         /*9*/ { name: 'Compost', png: compost_img, price: 2, tile_num: 16, tile_need_num: 6, class: 'Placeable' },
         /*10*/{ name: 'Ladybugs', png: ladybug_bag_img, price: 100, tile_num: 24, tile_need_num: 1, class: 'Placeable' }

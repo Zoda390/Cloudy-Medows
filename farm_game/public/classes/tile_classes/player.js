@@ -4,10 +4,10 @@ class Player extends MoveableEntity {
         super(name, png, x, y, inv, 0, 3);
         this.quests = [];
         this.current_quest = 0;
-        this.hunger = maxHunger-1;
-        this.hunger_timer = 100;
+        this.hunger = maxHunger - 1;
+        this.lastFoodnum = 2;
+        this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = 0;
-        this.lastFoodtype = 'corn';
         this.coins = 0;
         this.hp = 100;
         this.dead = false;
@@ -23,6 +23,11 @@ class Player extends MoveableEntity {
         if (this.hunger_counter >= 45) {
             this.hunger -= 1;
             this.hunger_counter = 0;
+        }
+        this.hunger_timer -= 1;
+        if (this.hunger_timer <= 0) {
+            this.hunger -= 1;
+            this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         }
         if (this.hp <= 0) {
             this.dead = true;
@@ -153,6 +158,8 @@ class Player extends MoveableEntity {
                     }
                     this.inv[this.hand].amount -= 1;
                     this.hunger_counter = 0;
+                    this.hunger_timer = this.inv[this.hand].hunger_timer;
+                    this.lastFoodnum = item_name_to_num(this.inv[this.hand].name);
                     let seed_obj_num = this.inv[this.hand].seed_num;
                     if (this.inv[this.hand].amount == 0) {
                         this.inv[this.hand] = 0;
