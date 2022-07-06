@@ -82,24 +82,20 @@ class Level {
     }
 
     daily_update() {
-        if (this.map[i][j].age >= 0 && this.map[i][j].class != 'Plant') {
-            this.map[i][j].age += 1;
-            if (this.map[i][j].name == 'flower') {
-                if (this.map[i][j].age == 1) {
-                    //Spawn a bee
-                }
-                if (this.map[i][j].age > 2) {
-                    this.map[i][j].age = 2;
-                }
-            }
-            if (this.map[i][j].name == 'compost') {
-                if (this.map[i][j].age == 2) {
-                    this.map[i][j] = new Tile(1, (j * tileSize), (i * tileSize));
-                }
-            }
-            if (this.map[i][j].name == 'plot') {
-                if (this.map[i][j].age == 5) {
-                    this.map[i][j] = new Tile(6, (j * tileSize), (i * tileSize));
+        for (let i = 0; i < this.map.length; i++) {
+            for (let j = 0; j < this.map[i].length; j++) {
+                if (this.map[i][j].age >= 0 && this.map[i][j].class != 'Plant') {
+                    this.map[i][j].age += 1;
+                    if (this.map[i][j].name == 'compost_tile') {
+                        if (this.map[i][j].age >= 2) {
+                            this.map[i][j] = new_tile_from_num(1, (j * tileSize), (i * tileSize));
+                        }
+                    }
+                    if (this.map[i][j].name == 'plot') {
+                        if (this.map[i][j].age >= 5) {
+                            this.map[i][j] = new_tile_from_num(6, (j * tileSize), (i * tileSize));
+                        }
+                    }
                 }
             }
         }

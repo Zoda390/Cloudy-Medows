@@ -235,7 +235,7 @@ function preload() {
     /*3*/    { name: 'corn', png: corn_tile_imgs, border: true, collide: false, age: 0, eat_num: 2, waterneed: 0, growthTime: 100, class: 'Plant' },
     /*4*/    { name: 'wall', png: wall_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*5*/    { name: 'concrete', png: concrete_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*6*/    { name: 'dirt', png: dirt_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
+    /*6*/    { name: 'dirt', png: dirt_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*7*/    { name: 'bed', png: bed_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*8*/    { name: 'cart_s', png: cart_s_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*9*/    { name: 'cart_b_corn', png: cart_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
@@ -244,7 +244,7 @@ function preload() {
     /*12*/    { name: 'concrete2', png: concrete_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*13*/    { name: 'satilite', png: satilite_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*14*/    { name: 'solarpanel', png: solarpanel_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
-    /*15*/    { name: 'compost_bucket', png: compost_bucket_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
+    /*15*/    { name: 'compost_bucket', png: compost_bucket_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*16*/    { name: 'compost_tile', png: compost_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
     /*17*/    { name: 'sweet_potato', png: sweet_potato_tile_imgs, border: true, collide: false, age: 0, eat_num: 5, waterneed: 0, growthTime: 100, class: 'Plant' },
     /*18*/    { name: 'sprinkler', png: sprinkler_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
@@ -274,7 +274,7 @@ function preload() {
     Tool        {name: 'name', png: png_img, class: 'Tool'}
     Eat         {name: 'name', png: png_img, price: 0, hunger: 0, hunger_timer: 0, seed_num: 0, class: 'Eat'}
     Seed        {name: 'name', png: png_img, plant_num: 0, class: 'Seed'}
-    Placable    {name: 'name', png: png_img, tile_num: 0, class: 'Placeable'}
+    Placable    {name: 'name', png: png_img, tile_num: 0, tile_need_num: 0, class: 'Placeable'}
     */
     all_items = [
         /*0*/ 0,
@@ -285,7 +285,8 @@ function preload() {
         /*5*/ { name: 'Sweet Potato', png: sweet_potato_img, price: 3, hunger: 1, hunger_timer: 100, seed_num: 6, class: 'Eat' },
         /*6*/ { name: 'Sweet Potato Seed', png: sweet_potato_seed_bag_img, plant_num: 17, class: 'Seed' },
         /*7*/ { name: 'Strawberry', png: straw_img, price: 2, hunger: 1, hunger_timer: 50, seed_num: 8, class: 'Eat' },
-        /*8*/ { name: 'Strawberry Seed', png: strawberry_seed_bag_img, plant_num: 20, class: 'Seed' }
+        /*8*/ { name: 'Strawberry Seed', png: strawberry_seed_bag_img, plant_num: 20, class: 'Seed' },
+        /*9*/ { name: 'Compost', png: compost_img, tile_num: 16, tile_need_num: 6, class: 'Placeable' }
     ];
 }
 
@@ -346,7 +347,7 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 15, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
         [10, 10, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 12, 5, 5, 5, 13, 5, 0, 0, 0],
         [0, 0, 5, 4, 7, 5, 4, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 4, 5, 5, 4, 5, 5, 12, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
@@ -775,7 +776,7 @@ function draw() {
         player.render();
         background(0, 0, 0, time);
         render_ui();
-        if (millis() - lastTimeMili > 150) { //150 for normal time
+        if (millis() - lastTimeMili > 10) { //150 for normal time
             if (timephase == 0) {
                 if (player.touching.name == 'bed') {
                     time += 5;
@@ -838,6 +839,14 @@ function addItem(item_obj_num, amount) {
 function item_name_to_num(item_name) {
     for (let i = 0; i < all_items.length; i++) {
         if (item_name == all_items[i].name) {
+            return i;
+        }
+    }
+}
+
+function tile_name_to_num(tile_name) {
+    for (let i = 0; i < all_tiles.length; i++) {
+        if (tile_name == all_tiles[i].name) {
             return i;
         }
     }
@@ -1073,7 +1082,7 @@ function new_item_from_num(num, amount) {
             return new Seed(all_items[num].name, amount, all_items[num].png, all_items[num].plant_num);
         }
         else if (all_items[num].class == 'Placeable') {
-            return new Placeable(all_items[num].name, amount, all_items[num].png, all_items[num].price, all_items[num].tile_num);
+            return new Placeable(all_items[num].name, amount, all_items[num].png, all_items[num].price, all_items[num].tile_num, all_items[num].tile_need_num);
         }
     }
     else {

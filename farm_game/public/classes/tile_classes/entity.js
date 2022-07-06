@@ -29,6 +29,15 @@ class Entity extends Tile {
             addItem(levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize].eat_num, 1);
             levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
         }
+        if (this.inv[this.hand].class == 'Placeable') {
+            if (tile_name_to_num(this.touching.name) == (this.inv[this.hand].tile_need_num-1)) {
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.touching.pos.x, this.touching.pos.y);
+                this.inv[this.hand].amount -= 1;
+                if (this.inv[this.hand].amount == 0) {
+                    this.inv[this.hand] = 0;
+                }
+            }
+        }
         if (this.touching.name == 'grass') {
             if (this.inv[this.hand].name == 'Hoe') {
                 hoe_sound.play();
@@ -49,11 +58,9 @@ class Entity extends Tile {
             if (this.inv[this.hand].price != 0 && this.inv[this.hand] != 0) {
                 this.coins += this.inv[this.hand].price;
                 moneySound.play();
-                this.inv[this.hand].ammount -= 1;
-                if (this.inv[this.hand].ammount == 0) {
-                    this.inv[this.hand].name = 'air';
-                    this.inv[this.hand].ammount = 0;
-                    this.inv[this.hand].price = 0;
+                this.inv[this.hand].amount -= 1;
+                if (this.inv[this.hand].amount == 0) {
+                    this.inv[this.hand] = 0;
                 }
             }
         }
@@ -68,42 +75,32 @@ class Entity extends Tile {
         }
         else if (this.touching.name == 'compost_bucket') {
             if (this.inv[this.hand].name == 'Junk') {
-                this.inv[this.hand].ammount -= 1;
-                if (this.inv[this.hand].ammount == 0) {
-                    this.inv[this.hand].name = 'air';
+                this.inv[this.hand].amount -= 1;
+                if (this.inv[this.hand].amount == 0) {
+                    this.inv[this.hand] = 0;
                 }
-                addItem('compost', 1);
+                addItem(9, 1);
             }
-            else if (this.inv[this.hand].name == 'corn_seed') {
-                this.inv[this.hand].ammount -= 1;
-                if (this.inv[this.hand].ammount == 0) {
-                    this.inv[this.hand].name = 'air';
+            else if (this.inv[this.hand].name == 'Corn Seed') {
+                this.inv[this.hand].amount -= 1;
+                if (this.inv[this.hand].amount == 0) {
+                    this.inv[this.hand] = 0;
                 }
-                addItem('compost', 1);
+                addItem(9, 1);
             }
-            else if (this.inv[this.hand].name == 'sweet_potato_seed') {
-                this.inv[this.hand].ammount -= 1;
-                if (this.inv[this.hand].ammount == 0) {
-                    this.inv[this.hand].name = 'air';
+            else if (this.inv[this.hand].name == 'Sweet Potato Seed') {
+                this.inv[this.hand].amount -= 1;
+                if (this.inv[this.hand].amount == 0) {
+                    this.inv[this.hand] = 0;
                 }
-                addItem('compost', 1);
+                addItem(9, 1);
             }
-            else if (this.inv[this.hand].name == 'strawberry_seed') {
-                this.inv[this.hand].ammount -= 1;
-                if (this.inv[this.hand].ammount == 0) {
-                    this.inv[this.hand].name = 'air';
+            else if (this.inv[this.hand].name == 'Strawberry Seed') {
+                this.inv[this.hand].amount -= 1;
+                if (this.inv[this.hand].amount == 0) {
+                    this.inv[this.hand] = 0;
                 }
-                addItem('compost', 1);
-            }
-
-        }
-        else if (this.touching.name == 'dirt') {
-            if (this.inv[this.hand].name == 'compost') {
-                this.inv[this.hand].ammount -= 1;
-                if (this.inv[this.hand].ammount == 0) {
-                    this.inv[this.hand].name = 'air';
-                }
-                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new Tile(16, this.touching.pos.x, this.touching.pos.y);
+                addItem(9, 1);
             }
 
         }
