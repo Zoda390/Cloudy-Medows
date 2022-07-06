@@ -16,7 +16,7 @@ class Tile {
             rect(this.pos.x, this.pos.y, tileSize, tileSize);
         }
         imageMode(CENTER);
-        if (this.name == 'bed' || this.name == 'lamppost' || this.name == 'compost_bucket') {
+        if (this.name == 'bed' || this.name == 'lamppost' || this.name == 'compost_bucket' || this.name == 'cart_s') {
             image(all_tiles[5 - 1].png, this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); //concrete 1 under
         }
         if (this.name == 'junk') {

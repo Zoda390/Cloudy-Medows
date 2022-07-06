@@ -221,6 +221,7 @@ function preload() {
     /*
     class           obj
     Tile            { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'Tile' }
+    Cart            { name: 'name', png: png_img, price: 0, item_num: 0, class: 'Cart'}
     Plant           { name: 'name', png: png_img, border: true, collide: false, age: 0, seed_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }
     Entity          { name: 'name', png: png_img, border: true, collide: false, age: -1, inv: [0, {num: 1, amount: 1}], hand: 0, under_tile_num: 0, class: 'Entity' }
     FreeMoveEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'FreeMoveEntity' }
@@ -238,7 +239,7 @@ function preload() {
     /*6*/    { name: 'dirt', png: dirt_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*7*/    { name: 'bed', png: bed_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*8*/    { name: 'cart_s', png: cart_s_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*9*/    { name: 'cart_b_corn', png: cart_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*9*/    { name: 'cart_b_corn', png: cart_tile_img, price: 5, item_num: 2, class: 'Cart' },
     /*10*/    { name: 'bridge', png: bridge_tile_img, border: false, collide: false, age: -1, class: 'Tile' },
     /*11*/    { name: 'junk', png: junk_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*12*/    { name: 'concrete2', png: concrete_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
@@ -253,15 +254,15 @@ function preload() {
     /*21*/    { name: 'flower', png: flower_tile_imgs, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 100, class: 'Plant' },
     /*22*/    { name: 'deb', png: deb_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
     /*23*/    { name: 'rick', png: rick_tile_imgs, inv: [{num: 7, amount: 2}], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'right', 'down', 'left'], moving_timer: 100, phrase: 'hi, im Rick', class: 'NPC' },
-    /*24*/    { name: 'ladybug', png: ladybug_img, border: true, collide: false, age: -1, class: 'Entity' },
+    /*24*/    { name: 'ladybug', png: ladybug_img, border: true, collide: false, age: 0, inv: [0], hand: 0, under_tile_num: 1, class: 'Entity' },
     /*25*/    { name: 'bee', png: bee_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
     /*26*/    { name: 'meb', png: meb_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*27*/    { name: 'cart_b_sp', png: cart_sp_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*28*/    { name: 'cart_b_straw', png: cart_straw_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*29*/    { name: 'cart_b_flower', png: cart_flower_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*30*/    { name: 'cart_b_lady', png: cart_ladybug_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*31*/    { name: 'cart_b_sprinkler', png: cart_sprinkler_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*32*/    { name: 'bridge2', png: bridge_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*27*/    { name: 'cart_b_sp', png: cart_sp_tile_img, price: 7, item_num: 5, class: 'Cart' },
+    /*28*/    { name: 'cart_b_straw', png: cart_straw_tile_img, price: 2, item_num: 0, class: 'Cart' },
+    /*29*/    { name: 'cart_b_flower', png: cart_flower_tile_img, price: 30, item_num: 0, class: 'Cart' },
+    /*30*/    { name: 'cart_b_lady', png: cart_ladybug_tile_img, price: 100, item_num: 0, class: 'Cart' },
+    /*31*/    { name: 'cart_b_sprinkler', png: cart_sprinkler_tile_img, price: 10, item_num: 0, class: 'Cart' },
+    /*32*/    { name: 'bridge2', png: bridge_tile_2_img, border: true, collide: false, age: -1, class: 'Cart' },
     /*33*/    { name: 'mario', png: mario_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
     /*34*/    { name: 'garry', png: garry_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
     /*35*/    { name: 'mira', png: mira_tile_img, inv: [0], hand: 0, facing: 3, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
@@ -274,7 +275,7 @@ function preload() {
     Tool        {name: 'name', png: png_img, class: 'Tool'}
     Eat         {name: 'name', png: png_img, price: 0, hunger: 0, hunger_timer: 0, seed_num: 0, class: 'Eat'}
     Seed        {name: 'name', png: png_img, plant_num: 0, class: 'Seed'}
-    Placable    {name: 'name', png: png_img, tile_num: 0, tile_need_num: 0, class: 'Placeable'}
+    Placable    {name: 'name', png: png_img, price: 0, tile_num: 0, tile_need_num: 0, class: 'Placeable'}
     */
     all_items = [
         /*0*/ 0,
@@ -286,7 +287,8 @@ function preload() {
         /*6*/ { name: 'Sweet Potato Seed', png: sweet_potato_seed_bag_img, plant_num: 17, class: 'Seed' },
         /*7*/ { name: 'Strawberry', png: straw_img, price: 2, hunger: 1, hunger_timer: 50, seed_num: 8, class: 'Eat' },
         /*8*/ { name: 'Strawberry Seed', png: strawberry_seed_bag_img, plant_num: 20, class: 'Seed' },
-        /*9*/ { name: 'Compost', png: compost_img, tile_num: 16, tile_need_num: 6, class: 'Placeable' }
+        /*9*/ { name: 'Compost', png: compost_img, price: 2, tile_num: 16, tile_need_num: 6, class: 'Placeable' },
+        /*10*/{ name: 'Ladybugs', png: ladybug_bag_img, price: 100, tile_num: 24, tile_need_num: 1, class: 'Placeable' }
     ];
 }
 
@@ -347,7 +349,7 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 15, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 15, 8, 9, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
         [10, 10, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 12, 5, 5, 5, 13, 5, 0, 0, 0],
         [0, 0, 5, 4, 7, 5, 4, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 4, 5, 5, 4, 5, 5, 12, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
@@ -966,66 +968,21 @@ function render_ui() {
     text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
 
     if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).class == 'NPC') {
-        let offsetx = 0;
-        let offsety = 0;
-        if (player.facing == 0) {
-            offsetx = 0;
-            offsety = -tileSize;
-        }
-        else if (player.facing == 1) {
-            offsetx = tileSize;
-            offsety = -tileSize;
-        }
-        else if (player.facing == 2) {
-            offsetx = 0;
-            offsety = -tileSize;
-        }
-        else if (player.facing == 3) {
-            offsetx = -tileSize;
-            offsety = -tileSize;
-        }
-        
-        push()
-        stroke(0);
-        fill(255);
-        rectMode(CENTER);
-        rect(player.touching.pos.x + offsetx, player.touching.pos.y + offsety, 100, 100); //figure out math
-        textAlign(CENTER, CENTER);
-        textSize(15);
-        fill(0);
-        text(player.looking(currentLevel_x, currentLevel_y).phrase, player.touching.pos.x + offsetx, player.touching.pos.y + offsety, 100, 100);
-        pop()
+        player.looking(currentLevel_x, currentLevel_y).phrase_render();
+    }
 
-        if (player.looking(currentLevel_x, currentLevel_y).inv[player.looking(currentLevel_x, currentLevel_y).hand] != 0 && player.looking(currentLevel_x, currentLevel_y).inv[player.looking(currentLevel_x, currentLevel_y).hand].amount > 0) {
-            addItem(item_name_to_num(player.looking(currentLevel_x, currentLevel_y).inv[player.looking(currentLevel_x, currentLevel_y).hand].name), player.looking(currentLevel_x, currentLevel_y).inv[player.looking(currentLevel_x, currentLevel_y).hand].amount);
-            player.looking(currentLevel_x, currentLevel_y).inv[player.looking(currentLevel_x, currentLevel_y).hand] = 0;
-        }
-    }
-    if (player.touching.age == -3) {
-        push()
-        stroke(0)
-        fill(255)
-        rectMode(CENTER)
-        rect(player.touching.pos.x + (tileSize / 2), player.touching.pos.y - tileSize, player.touching.phraseWidth, player.touching.phraseHeight);
-        textAlign(CENTER, CENTER);
-        textSize(15);
-        fill(0);
-        text(player.touching.price, player.touching.pos.x + (tileSize), player.touching.pos.y - tileSize, player.touching.phraseWidth, player.touching.phraseHeight);
-        image(coin_img, player.touching.pos.x - (tileSize / 2), player.touching.pos.y - (tileSize * 1.5));
-        pop()
-    }
     if (player.touching.name == "cart_s") {
         push()
         stroke(0)
         fill(255)
         rectMode(CENTER)
-        rect(player.touching.pos.x + (tileSize / 2), player.touching.pos.y - tileSize, player.touching.phraseWidth, player.touching.phraseHeight);
+        rect(player.touching.pos.x + (tileSize / 2), player.touching.pos.y - tileSize, 90, 70);
         textAlign(CENTER, CENTER);
         textSize(15);
         fill(0);
-        text(player.touching.phrase, player.touching.pos.x + (tileSize / 2), player.touching.pos.y - (tileSize * 1.5), player.touching.phraseWidth, player.touching.phraseHeight);
-        image(coin_img, player.touching.pos.x - (tileSize / 2), player.touching.pos.y - (tileSize * 1));
-        if (player.inv[player.hand].price == 0) {
+        text('Sell', player.touching.pos.x + (tileSize / 2), player.touching.pos.y - (tileSize * 1.5), 90, 70);
+        image(coin_img, player.touching.pos.x - (tileSize / 2) - 5, player.touching.pos.y - (tileSize * 1));
+        if (player.inv[player.hand].price == 0 || player.inv[player.hand] == 0) {
             fill(255, 0, 0);
             text("No", player.touching.pos.x + (tileSize), player.touching.pos.y - (tileSize / 2));
         }
@@ -1036,6 +993,9 @@ function render_ui() {
         pop()
 
     }
+    if (player.touching.class == 'Cart') {
+        player.touching.phrase_render();
+    }
 }
 
 function new_tile_from_num(num, x, y) {
@@ -1043,11 +1003,14 @@ function new_tile_from_num(num, x, y) {
         if (all_tiles[num - 1].class == 'Tile') {
             return new Tile(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
         }
+        else if (all_tiles[num - 1].class == 'Cart') {
+            return new Cart(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].price, all_tiles[num - 1].item_num);
+        }
         else if (all_tiles[num - 1].class == 'Plant') {
             return new Plant(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].eat_num, all_tiles[num - 1].waterneed, all_tiles[num - 1].growthTime);
         }
         else if (all_tiles[num - 1].class == 'Entity') {
-            return new Entity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].hand, all_tiles[num - 1].under_tile_num);
+            return new Entity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].age, all_tiles[num - 1].inv, all_tiles[num - 1].hand, all_tiles[num - 1].under_tile_num);
         }
         else if (all_tiles[num - 1].class == 'FreeMoveEntity') {
             return new FreeMoveEntity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);

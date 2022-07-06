@@ -1,6 +1,6 @@
 class MoveableEntity extends Entity {
     constructor(name, png, x, y, inv = [], hand = 0, facing, under_tile_num, moving_timer) {
-        super(name, png, x, y, inv, hand, under_tile_num);
+        super(name, png, x, y, -1, inv, hand, under_tile_num);
         this.anim = 0;
         this.facing = facing;
         this.touching = 0;

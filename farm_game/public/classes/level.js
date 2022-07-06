@@ -14,10 +14,10 @@ class Level {
                     } else {
                         this.map[i][j] = 0;
                     }
-                    if (this.map[i][j].type == 'lamppost') {
+                    if (this.map[i][j].name == 'lamppost') {
                         append(this.lights, new Light(this.map[i][j].pos.x, this.map[i][j].pos.y, (tileSize * 6), 255, 255, 255));
                     }
-                    if (this.map[i][j].type == 'satilite') {
+                    if (this.map[i][j].name == 'satilite') {
                         append(this.lights, new Light(this.map[i][j].pos.x, this.map[i][j].pos.y, (tileSize * 1), 255, 255, 0));
                     }
                 }
@@ -94,6 +94,12 @@ class Level {
                     if (this.map[i][j].name == 'plot') {
                         if (this.map[i][j].age >= 5) {
                             this.map[i][j] = new_tile_from_num(6, (j * tileSize), (i * tileSize));
+                        }
+                    }
+                    if (this.map[i][j].name == 'ladybug') {
+                        if (this.map[i][j].age >= 20) {
+                            this.ladybugs -= 1;
+                            this.map[i][j] = new_tile_from_num(1, (j * tileSize), (i * tileSize));
                         }
                     }
                 }
