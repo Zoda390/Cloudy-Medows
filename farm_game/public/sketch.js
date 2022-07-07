@@ -292,7 +292,6 @@ function preload() {
     GridMoveEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'GridMoveEntity' }
     NPC             { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 0, phrase: 'bla', class: 'NPC' }
     */
-    new GridMoveEntity()
     all_tiles = [
     /*1*/    { name: 'grass', png: grass_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*2*/    { name: 'plot', png: plot_tile_img, border: true, collide: false, age: 0, class: 'Tile' },
