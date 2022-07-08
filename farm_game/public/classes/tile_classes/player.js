@@ -1,7 +1,7 @@
 class Player extends MoveableEntity {
     constructor(name, png, x, y,
         inv = [{ num: 1, amount: 1 }, { num: 2, amount: 1 }, { num: 3, amount: 1 }, { num: 5, amount: 1 }, { num: 7, amount: 1 }, { num: 10, amount: 2 }, 0, 0]) {
-        super(name, png, x, y, inv, 0, 3);
+        super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
         this.hunger = maxHunger - 1;
@@ -14,12 +14,19 @@ class Player extends MoveableEntity {
         this.deaths = 0;
         this.op = 255;
         this.touching = 0;
+        this.talking = 0;
+        this.oldlooking_name = 0;
         this.lastmoveMili = 0;
         this.lasteatMili = 0;
         this.lastinteractMili = 0;
     }
 
     render() {
+        if(this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0){
+            if(this.oldlooking_name != this.looking(currentLevel_x, currentLevel_y).name && this.looking(currentLevel_x, currentLevel_y).class == 'NPC'){
+                this.talking = this.looking(currentLevel_x, currentLevel_y);
+            }
+        }
         if (this.hunger_counter >= 45) {
             this.hunger -= 1;
             this.hunger_counter = 0;
@@ -71,6 +78,7 @@ class Player extends MoveableEntity {
                     this.pos.x = 0;
                 }
                 else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
+                    this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name;
                     this.touching.collide = false;
                     this.pos.x += tileSize;
                     this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
@@ -93,6 +101,7 @@ class Player extends MoveableEntity {
                     this.pos.x = canvasWidth - tileSize;
                 }
                 else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
+                    this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name;
                     this.touching.collide = false;
                     this.pos.x -= tileSize;
                     this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
@@ -115,6 +124,7 @@ class Player extends MoveableEntity {
                     this.pos.y = canvasHeight - tileSize;
                 }
                 else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
+                    this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name;
                     this.touching.collide = false;
                     this.pos.y -= tileSize;
                     this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
@@ -137,6 +147,7 @@ class Player extends MoveableEntity {
                     this.pos.y = 0;
                 }
                 else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
+                    this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name;
                     this.touching.collide = false;
                     this.pos.y += tileSize;
                     this.touching = this.tileTouching(currentLevel_x, currentLevel_y);

@@ -1,0 +1,368 @@
+{
+  "Deb": [
+    {
+      "phrase": "hi, im Deb.",
+      "replies": [
+        {
+          "phrase": "Hi Deb",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "Did you know you can turn junk and seeds into compost, right here in this bucket?",
+      "replies": [
+        {
+          "phrase": "Yeah",
+          "dialouge_num": 2
+        },
+        {
+          "phrase": "No",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "Here I have some Junk in my pockets",
+      "replies": [
+        {
+          "phrase": "Thanks",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Weirdo, who caries junk in their pocket?",
+          "dialouge_num": -1
+        }
+      ]
+    }
+  ],
+  "Rick": [
+    {
+      "phrase": "hi, im Rick.",
+      "replies": [
+        {
+          "phrase": "Hi Rick",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "Do you want some strawberries?",
+      "replies": [
+        {
+          "phrase": "Yeah",
+          "dialouge_num": 2
+        },
+        {
+          "phrase": "No, thanks",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "Here you go.",
+      "replies": [
+        {
+          "phrase": "Thanks",
+          "dialouge_num": -1
+        }
+      ]
+    }
+  ],
+  "Meb": [
+    {
+      "phrase": "hi, im Meb, I know she got the better name.",
+      "replies": [
+        {
+          "phrase": "Hi Meb",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bad",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    }
+  ],
+  "Mario": [
+    {
+      "phrase": "hi, im Mario",
+      "replies": [
+        {
+          "phrase": "Hi Mario",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bad",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    }
+  ],
+  "Garry": [
+    {
+      "phrase": "hi, im Garry",
+      "replies": [
+        {
+          "phrase": "Hi Garry",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bad",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    }
+  ],
+  "Mira": [
+    {
+      "phrase": "hi, im Mira",
+      "replies": [
+        {
+          "phrase": "Hi Mira",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bad",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    }
+  ],
+  "OldManJ": [
+    {
+      "phrase": "hi, im OldManJ",
+      "replies": [
+        {
+          "phrase": "Hi OldManJ",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bad",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    }
+  ],
+  "Brandon": [
+    {
+      "phrase": "hi, im Brandon",
+      "replies": [
+        {
+          "phrase": "Hi Brandon",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bad",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    }
+  ],
+  "Brent": [
+    {
+      "phrase": "hi, im Brent",
+      "replies": [
+        {
+          "phrase": "Hi Brent",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bad",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    }
+  ],
+  "Blind_Pette": [
+    {
+      "phrase": "hi, im Blind_Pette",
+      "replies": [
+        {
+          "phrase": "Hi Blind_Pette",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bad",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    }
+  ],
+  "James": [
+    {
+      "phrase": "hi, im James",
+      "replies": [
+        {
+          "phrase": "Hi James",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bad",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    }
+  ]
+}

@@ -70,6 +70,7 @@ var days = 0;
 var title_screen = true;
 var all_tiles = [];
 var all_items = [];
+var Dialouge_JSON = 0;
 
 function preload() {
     //Items
@@ -113,6 +114,7 @@ function preload() {
     bridge_tile_2_img = loadImage('images/tiles/BridgeFlip.png');
 
     //NPC
+    Dialouge_JSON = loadJSON('dialouge_list.json');
     //Cowboy Rick
     rick_tile_up_img = loadImage('images/npc/cowboy_rick_back.png');
     rick_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
@@ -290,7 +292,7 @@ function preload() {
     FreeMoveEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'FreeMoveEntity' }
     MoveableEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, moving_timer: 0, class: 'MoveableEntity' }
     GridMoveEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'GridMoveEntity' }
-    NPC             { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 0, phrase: 'bla', class: 'NPC' }
+    NPC             { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'NPC' }
     */
     all_tiles = [
     /*1*/    { name: 'grass', png: grass_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
@@ -314,25 +316,25 @@ function preload() {
     /*19*/    { name: 'lamppost', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*20*/    { name: 'strawberry', png: strawberry_tile_imgs, border: true, collide: false, age: 0, eat_num: 7, waterneed: 0, growthTime: 100, class: 'Plant' },
     /*21*/    { name: 'flower', png: flower_tile_imgs, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 100, class: 'Plant' },
-    /*22*/    { name: 'deb', png: deb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 0, phrase: 'bla', class: 'NPC' },
-    /*23*/    { name: 'rick', png: rick_tile_imgs, inv: [{ num: 7, amount: 2 }], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'right', 'down', 'left'], moving_timer: 100, phrase: 'hi, im Rick', class: 'NPC' },
+    /*22*/    { name: 'Deb', png: deb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
+    /*23*/    { name: 'Rick', png: rick_tile_imgs, inv: [{ num: 7, amount: 2 }], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'right', 'down', 'left'], moving_timer: 100, class: 'NPC' },
     /*24*/    { name: 'ladybug', png: ladybug_img, border: true, collide: false, age: 0, inv: [0], hand: 0, under_tile_num: 1, class: 'Entity' },
     /*25*/    { name: 'bee', png: bee_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
-    /*26*/    { name: 'meb', png: meb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
+    /*26*/    { name: 'Meb', png: meb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
     /*27*/    { name: 'cart_b_sp', png: cart_sp_tile_img, price: 7, item_num: 5, class: 'Cart' },
     /*28*/    { name: 'cart_b_straw', png: cart_straw_tile_img, price: 2, item_num: 0, class: 'Cart' },
     /*29*/    { name: 'cart_b_flower', png: cart_flower_tile_img, price: 30, item_num: 0, class: 'Cart' },
     /*30*/    { name: 'cart_b_lady', png: cart_ladybug_tile_img, price: 100, item_num: 0, class: 'Cart' },
     /*31*/    { name: 'cart_b_sprinkler', png: cart_sprinkler_tile_img, price: 10, item_num: 0, class: 'Cart' },
     /*32*/    { name: 'bridge2', png: bridge_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*33*/    { name: 'mario', png: mario_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
-    /*34*/    { name: 'garry', png: garry_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
-    /*35*/    { name: 'mira', png: mira_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
-    /*36*/    { name: 'oldManJ', png: old_man_j_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
-    /*37*/    { name: 'brandon', png: brandon_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
-    /*37*/    { name: 'brent', png: brent_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
-    /*37*/    { name: 'blind_pette', png: blind_pette_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' },
-    /*37*/    { name: 'james', png: james_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, phrase: 'bla', class: 'NPC' }
+    /*33*/    { name: 'Mario', png: mario_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*34*/    { name: 'Garry', png: garry_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*35*/    { name: 'Mira', png: mira_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*36*/    { name: 'OldManJ', png: old_man_j_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*37*/    { name: 'Brandon', png: brandon_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*37*/    { name: 'Brent', png: brent_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*37*/    { name: 'Blind_Pette', png: blind_pette_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*37*/    { name: 'James', png: james_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' }
     ];
     /*
     class       obj
@@ -360,14 +362,14 @@ function preload() {
 
 
 
-
-
+var current_reply = 0;
 function setup() {
     createCanvas(canvasWidth, canvasHeight);
     for (let i = 0; i < cloudCount; i++) {
         clouds[i] = new Cloud()
     }
     player = new Player('player1', player_imgs, (5 * tileSize), (5 * tileSize));
+    dialouge = new Dialouge('Hi, My name is gay, bla bla bla bla bla bla bla bla bla bla bla', [{phrase: 'Hello Gay!', dialouge_num: 1}, {phrase: 'Bye Gay!', dialouge_num: -1}])
     //Home
     /*
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -837,7 +839,7 @@ function draw() {
         player.render();
         background(0, 0, 0, time);
         render_ui();
-        if (millis() - lastTimeMili > 10) { //150 for normal time
+        if (millis() - lastTimeMili > 150) { //150 for normal time
             if (timephase == 0) {
                 if (player.touching.name == 'bed') {
                     time += 5;
@@ -928,6 +930,51 @@ function takeInput() {
             title_screen = false;
         }
     }
+    else if(player.talking != 0){
+        if (keyIsDown(move_up_button)){
+            if (millis() - lastMili > 200) {
+                current_reply -= 1;
+                if (current_reply < 0){
+                    current_reply = 0;
+                }
+                lastMili = millis();
+            }
+        }
+        if (keyIsDown(move_down_button)){
+            if (millis() - lastMili > 200) {
+                current_reply += 1;
+                if (current_reply > player.talking.dialouges[player.talking.current_dialouge].replies.length-1){
+                    current_reply = player.talking.dialouges[player.talking.current_dialouge].replies.length-1;
+                }
+                lastMili = millis();
+            }
+        }
+        if (keyIsDown(interact_button)){
+            if (millis() - lastMili > 500) {
+                if(player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num == -1){
+                    player.talking.move_bool = true;
+                    player.talking.current_dialouge = 0;
+                    player.oldlooking_name = player.talking.name;
+                    player.talking = 0;
+                    current_reply = 0;
+                }
+                else{
+                    player.talking.current_dialouge = player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num
+                }
+                lastMili = millis();
+            }
+            
+        }
+        if (keyIsDown(80)) { //p
+            if (millis() - lastMili > 100) {
+                console.log(player);
+                console.log(player.touching);
+                console.log(player.looking(currentLevel_x, currentLevel_y));
+                lastMili = millis();
+                player.hunger = maxHunger;
+            }
+        }
+    }
     else {
         //basic movement  
         player.move();
@@ -987,11 +1034,9 @@ function takeInput() {
 
 //Christian's function to make UI more readible, positioning + math stuff
 function render_ui() {
-    image(inv_img, (canvasWidth / 2) - (512 / 2), canvasHeight - 64);
-    image(inv_hand_img, (canvasWidth / 2) - (512 / 2) + (64 * player.hand), canvasHeight - 64);
+    //calendar
+    push();
     image(calendar_img, canvasWidth - 70, 6);
-
-    //calendar text
     textFont(player_2);
     fill(255, 0, 0);
     textAlign(CENTER, CENTER);
@@ -999,63 +1044,71 @@ function render_ui() {
     text('days', canvasWidth - 39, 30);
     textSize(15);
     text(days, canvasWidth - 40, 50);
+    pop();
 
-    for (let i = 0; i < 8; i++) {
-        if (player.inv[i] == undefined) {
-            player.inv[i] = 0;
-        }
-        if (player.inv[i] != 0) {
-            player.inv[i].render(i);
-            if (i == player.hand) {
-                push();
-                fill(255)
-                textSize(13);
-                textAlign(CENTER, CENTER);
-                text(player.inv[i].name, (9 * canvasWidth / 16), (canvasHeight - 80));
-                pop()
+    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).class == 'NPC' && player.talking != 0) {
+        player.looking(currentLevel_x, currentLevel_y).move_bool = false;
+        player.looking(currentLevel_x, currentLevel_y).dialouge_render();
+    }
+    else{
+        image(inv_img, (canvasWidth / 2) - (512 / 2), canvasHeight - 64);
+        image(inv_hand_img, (canvasWidth / 2) - (512 / 2) + (64 * player.hand), canvasHeight - 64);
+        
+
+        for (let i = 0; i < 8; i++) {
+            if (player.inv[i] == undefined) {
+                player.inv[i] = 0;
+            }
+            if (player.inv[i] != 0) {
+                player.inv[i].render(i);
+                if (i == player.hand) {
+                    push();
+                    fill(255)
+                    textSize(13);
+                    textAlign(CENTER, CENTER);
+                    text(player.inv[i].name, (9 * canvasWidth / 16), (canvasHeight - 80));
+                    pop()
+                }
             }
         }
-    }
-    for (let i = 0; i < maxHunger; i++) {
-        image(hunger_e, (canvasWidth / 2) - (512 / 2) + (30 * i), (canvasHeight - 100));
-    }
-    for (let i = 0; i < player.hunger; i++) {
-        image(hunger_f, (canvasWidth / 2) - (512 / 2) + (30 * i), (canvasHeight - 100));
-    }
-    textSize(32.5);
-    fill(0);
-    textAlign(LEFT, TOP);
-    image(coin_img, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 95));
-    text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
-
-    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).class == 'NPC') {
-        player.looking(currentLevel_x, currentLevel_y).phrase_render();
-    }
-
-    if (player.touching.name == "cart_s") {
-        push()
-        stroke(0)
-        fill(255)
-        rectMode(CENTER)
-        rect(player.touching.pos.x + (tileSize / 2), player.touching.pos.y - tileSize, 90, 70);
-        textAlign(CENTER, CENTER);
-        textSize(15);
+        for (let i = 0; i < maxHunger; i++) {
+            image(hunger_e, (canvasWidth / 2) - (512 / 2) + (30 * i), (canvasHeight - 100));
+        }
+        for (let i = 0; i < player.hunger; i++) {
+            image(hunger_f, (canvasWidth / 2) - (512 / 2) + (30 * i), (canvasHeight - 100));
+        }
+        textFont(player_2);
+        textSize(32.5);
         fill(0);
-        text('Sell', player.touching.pos.x + (tileSize / 2), player.touching.pos.y - (tileSize * 1.5), 90, 70);
-        image(coin_img, player.touching.pos.x - (tileSize / 2) - 5, player.touching.pos.y - (tileSize * 1));
-        if (player.inv[player.hand].price == 0 || player.inv[player.hand] == 0) {
-            fill(255, 0, 0);
-            text("No", player.touching.pos.x + (tileSize), player.touching.pos.y - (tileSize / 2));
-        }
-        if (player.inv[player.hand].price > 0) {
-            fill(0);
-            text(player.inv[player.hand].price, player.touching.pos.x + (tileSize), player.touching.pos.y - (tileSize / 2));
-        }
-        pop()
+        textAlign(LEFT, TOP);
+        image(coin_img, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 95));
+        text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
 
-    }
-    if (player.touching.class == 'Cart') {
-        player.touching.phrase_render();
+        if (player.touching.name == "cart_s") {
+            push()
+            stroke(0)
+            fill(255)
+            rectMode(CENTER)
+            rect(player.touching.pos.x + (tileSize / 2), player.touching.pos.y - tileSize, 90, 70);
+            textAlign(CENTER, CENTER);
+            textSize(15);
+            fill(0);
+            text('Sell', player.touching.pos.x + (tileSize / 2), player.touching.pos.y - (tileSize * 1.5), 90, 70);
+            image(coin_img, player.touching.pos.x - (tileSize / 2) - 5, player.touching.pos.y - (tileSize * 1));
+            if (player.inv[player.hand].price == 0 || player.inv[player.hand] == 0) {
+                fill(255, 0, 0);
+                text("No", player.touching.pos.x + (tileSize), player.touching.pos.y - (tileSize / 2));
+            }
+            if (player.inv[player.hand].price > 0) {
+                fill(0);
+                text(player.inv[player.hand].price, player.touching.pos.x + (tileSize), player.touching.pos.y - (tileSize / 2));
+            }
+            pop()
+    
+        }
+        if (player.touching.class == 'Cart') {
+            player.touching.phrase_render();
+        }
     }
 }
 
@@ -1083,7 +1136,7 @@ function new_tile_from_num(num, x, y) {
             return new GridMoveEntity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].hand, all_tiles[num - 1].facing, all_tiles[num - 1].under_tile_num, all_tiles[num - 1].instructions, all_tiles[num - 1].moving_timer);
         }
         else if (all_tiles[num - 1].class == 'NPC') {
-            return new NPC(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].hand, all_tiles[num - 1].facing, all_tiles[num - 1].under_tile_num, all_tiles[num - 1].instructions, all_tiles[num - 1].moving_timer, all_tiles[num - 1].phrase);
+            return new NPC(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].hand, all_tiles[num - 1].facing, all_tiles[num - 1].under_tile_num, all_tiles[num - 1].instructions, all_tiles[num - 1].moving_timer);
         }
     }
     else {
