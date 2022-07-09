@@ -143,31 +143,10 @@
   ],
   "Garry": [
     {
-      "phrase": "hi, im Garry",
+      "phrase": "hi, im Garry, and im very tired so leave me alone",
       "replies": [
         {
-          "phrase": "Hi Garry",
-          "dialouge_num": 1
-        },
-        {
-          "phrase": "Bye",
-          "dialouge_num": -1
-        }
-      ]
-    },
-    {
-      "phrase": "How are you today?",
-      "replies": [
-        {
-          "phrase": "Good",
-          "dialouge_num": -1
-        },
-        {
-          "phrase": "Bad",
-          "dialouge_num": -1
-        },
-        {
-          "phrase": "Bye",
+          "phrase": "Oh, ok bye",
           "dialouge_num": -1
         }
       ]
@@ -339,6 +318,38 @@
       "replies": [
         {
           "phrase": "Hi James",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bad",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ]
+    }
+  ],
+  "Liam": [
+    {
+      "phrase": "hi, im Liam",
+      "replies": [
+        {
+          "phrase": "Hi Liam",
           "dialouge_num": 1
         },
         {

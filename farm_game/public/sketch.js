@@ -3,52 +3,6 @@
 @brief: Outputs to canvas
 */
 
-/*
-Matrix/Tile Key:
-
-1 = grass
-2 = plot
-3 = corn
-4 = wall
-5 = concrete1
-5 = dirt
-7 = bed
-8 = cart_s
-9 = corn cart
-10 = bridge
-11 = junk
-12 = concrete2
-13 = satilite
-14 = solar panel
-15 = compost bucket
-16 = compost
-17 = sweet potato
-18 = sprinkler
-19 = lampost
-20 = strawberry
-21 = flower
-22 = deb
-23 = cowboy rick
-24 = ladybug
-25 = bee
-26 = meb
-27 = cart b corn
-28 = cart b lady
-29 = cart b sp
-30 = cart b sprinkler
-31 = cart b straw
-32 = bridge2
-33 = mario
-34 = garry
-35 = mira
-36 = old man j
-37 = brandon
-38 = brent
-39 = blind pete
-40 = james
-
-*/
-
 //main stuff starts here
 
 var cloudCount = 8;
@@ -123,9 +77,9 @@ function preload() {
     rick_tile_imgs = [[rick_tile_up_img], [rick_tile_right_img], [rick_tile_down_img], [rick_tile_left_img]];
 
     //deb
-    deb_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    deb_tile_up_img = loadImage('images/npc/cowboy_rick_back.png');
     deb_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
-    deb_tile_down_img = loadImage('images/npc/Deb.gif');
+    deb_tile_down_img = loadImage('images/npc/deb.png');
     deb_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
     deb_tile_imgs = [[deb_tile_up_img], [deb_tile_right_img], [deb_tile_down_img], [deb_tile_left_img]];
 
@@ -137,52 +91,52 @@ function preload() {
     meb_tile_imgs = [[meb_tile_up_img], [meb_tile_right_img], [meb_tile_down_img], [meb_tile_left_img]];
 
     //old man j
-    old_man_j_tile_up_img = loadImage('images/npc/cowboy_rick.png');
-    old_man_j_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
-    old_man_j_tile_down_img = loadImage('images/npc/old_man_Jay.gif');
-    old_man_j_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    old_man_j_tile_up_img = loadImage('images/npc/old_man_jay_back.png');
+    old_man_j_tile_right_img = loadImage('images/npc/old_man_jay_right.png');
+    old_man_j_tile_down_img = loadImage('images/npc/old_man_jay1.png');
+    old_man_j_tile_left_img = loadImage('images/npc/old_man_jay_left.png');
     old_man_j_tile_imgs = [[old_man_j_tile_up_img], [old_man_j_tile_right_img], [old_man_j_tile_down_img], [old_man_j_tile_left_img]];
 
     //mira
-    mira_tile_up_img = loadImage('images/npc/cowboy_rick.png');
-    mira_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
-    mira_tile_down_img = loadImage('images/npc/Mira.png');
-    mira_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    mira_tile_up_img = loadImage('images/npc/mira_back.png');
+    mira_tile_right_img = loadImage('images/npc/mira_right.png');
+    mira_tile_down_img = loadImage('images/npc/mira.png');
+    mira_tile_left_img = loadImage('images/npc/mira_left.png');
     mira_tile_imgs = [[mira_tile_up_img], [mira_tile_right_img], [mira_tile_down_img], [mira_tile_left_img]];
 
     //mario
     mario_tile_up_img = loadImage('images/npc/cowboy_rick.png');
     mario_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
-    mario_tile_down_img = loadImage('images/npc/Mario.png');
+    mario_tile_down_img = loadImage('images/npc/mario.png');
     mario_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
     mario_tile_imgs = [[mario_tile_up_img], [mario_tile_right_img], [mario_tile_down_img], [mario_tile_left_img]];
 
     //liam
-    liam_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    liam_tile_up_img = loadImage('images/npc/liam_back.png');
     liam_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
     liam_tile_down_img = loadImage('images/npc/liam.png');
     liam_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
     liam_tile_imgs = [[liam_tile_up_img], [liam_tile_right_img], [liam_tile_down_img], [liam_tile_left_img]];
 
     //garry
-    garry_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    garry_tile_up_img = loadImage('images/npc/garry_back.png');
     garry_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
-    garry_tile_down_img = loadImage('images/npc/Garry.png');
+    garry_tile_down_img = loadImage('images/npc/garry.png');
     garry_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
     garry_tile_imgs = [[garry_tile_up_img], [garry_tile_right_img], [garry_tile_down_img], [garry_tile_left_img]];
 
     //bind pette
-    blind_pette_tile_up_img = loadImage('images/npc/cowboy_rick.png');
+    blind_pette_tile_up_img = loadImage('images/npc/blind_pete_back.png');
     blind_pette_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
-    blind_pette_tile_down_img = loadImage('images/npc/Blind_pete.png');
+    blind_pette_tile_down_img = loadImage('images/npc/blind_pete.png');
     blind_pette_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
     blind_pette_tile_imgs = [[blind_pette_tile_up_img], [blind_pette_tile_right_img], [blind_pette_tile_down_img], [blind_pette_tile_left_img]];
 
     //brandon
-    brandon_tile_up_img = loadImage('images/npc/cowboy_rick.png');
-    brandon_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
-    brandon_tile_down_img = loadImage('images/npc/Brandon.png');
-    brandon_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    brandon_tile_up_img = loadImage('images/npc/brandon_back.png');
+    brandon_tile_right_img = loadImage('images/npc/brandon_right.png');
+    brandon_tile_down_img = loadImage('images/npc/brandon.png');
+    brandon_tile_left_img = loadImage('images/npc/brandon_left.png');
     brandon_tile_imgs = [[brandon_tile_up_img], [brandon_tile_right_img], [brandon_tile_down_img], [brandon_tile_left_img]];
 
     //james
@@ -195,7 +149,7 @@ function preload() {
     //brent
     brent_tile_up_img = loadImage('images/npc/cowboy_rick.png');
     brent_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
-    brent_tile_down_img = loadImage('images/npc/Brent.png');
+    brent_tile_down_img = loadImage('images/npc/brent.png');
     brent_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
     brent_tile_imgs = [[brent_tile_up_img], [brent_tile_right_img], [brent_tile_down_img], [brent_tile_left_img]];
 
@@ -317,7 +271,7 @@ function preload() {
     /*20*/    { name: 'strawberry', png: strawberry_tile_imgs, border: true, collide: false, age: 0, eat_num: 7, waterneed: 0, growthTime: 100, class: 'Plant' },
     /*21*/    { name: 'flower', png: flower_tile_imgs, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 100, class: 'Plant' },
     /*22*/    { name: 'Deb', png: deb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
-    /*23*/    { name: 'Rick', png: rick_tile_imgs, inv: [{ num: 7, amount: 2 }], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'right', 'down', 'left'], moving_timer: 100, class: 'NPC' },
+    /*23*/    { name: 'Rick', png: rick_tile_imgs, inv: [{ num: 7, amount: 2 }], hand: 0, facing: 2, under_tile_num: 5, instructions: ['left', 'left', 'left', 'left', 'left', 'left', 'left', 'up', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'down', 'left', 'left', 'left', 'left', 'left', 'left', 'left'], moving_timer: 100, class: 'NPC' },
     /*24*/    { name: 'ladybug', png: ladybug_img, border: true, collide: false, age: 0, inv: [0], hand: 0, under_tile_num: 1, class: 'Entity' },
     /*25*/    { name: 'bee', png: bee_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
     /*26*/    { name: 'Meb', png: meb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
@@ -328,13 +282,14 @@ function preload() {
     /*31*/    { name: 'cart_b_sprinkler', png: cart_sprinkler_tile_img, price: 10, item_num: 0, class: 'Cart' },
     /*32*/    { name: 'bridge2', png: bridge_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*33*/    { name: 'Mario', png: mario_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*34*/    { name: 'Garry', png: garry_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*35*/    { name: 'Mira', png: mira_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*36*/    { name: 'OldManJ', png: old_man_j_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*37*/    { name: 'Brandon', png: brandon_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*37*/    { name: 'Brent', png: brent_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*37*/    { name: 'Blind_Pette', png: blind_pette_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*37*/    { name: 'James', png: james_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' }
+    /*34*/    { name: 'Garry', png: garry_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['down', 'up'], moving_timer: 100, class: 'NPC' },
+    /*35*/    { name: 'Mira', png: mira_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['down', 'left', 'up', 'right'], moving_timer: 100, class: 'NPC' },
+    /*36*/    { name: 'OldManJ', png: old_man_j_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['left', 'left', 'left', 'down', 'right', 'right', 'right', 'up'], moving_timer: 100, class: 'NPC' },
+    /*37*/    { name: 'Brandon', png: brandon_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'right', 'down', 'left'], moving_timer: 100, class: 'NPC' },
+    /*38*/    { name: 'Brent', png: brent_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*39*/    { name: 'Blind_Pette', png: blind_pette_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down'], moving_timer: 100, class: 'NPC' },
+    /*40*/    { name: 'James', png: james_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*41*/    { name: 'Liam', png: liam_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'up', 'down', 'down'], moving_timer: 100, class: 'NPC' }
     ];
     /*
     class       obj
@@ -355,7 +310,9 @@ function preload() {
         /*7*/ { name: 'Strawberry', png: straw_img, price: 2, hunger: 1, hunger_timer: 300, seed_num: 8, class: 'Eat' },
         /*8*/ { name: 'Strawberry Seed', png: strawberry_seed_bag_img, plant_num: 20, class: 'Seed' },
         /*9*/ { name: 'Compost', png: compost_img, price: 2, tile_num: 16, tile_need_num: 6, class: 'Placeable' },
-        /*10*/{ name: 'Ladybugs', png: ladybug_bag_img, price: 100, tile_num: 24, tile_need_num: 1, class: 'Placeable' }
+        /*10*/{ name: 'Ladybugs', png: ladybug_bag_img, price: 100, tile_num: 24, tile_need_num: 1, class: 'Placeable' },
+        /*11*/{ name: 'Flower Seed', png: flower_bag_img, plant_num: 21, class: 'Seed'},
+        /*12*/{ name: 'Sprinklers', png: sprinkler_img, price: 9, tile_num: 18, tile_need_num: 1, class: 'Placeable' }
     ];
 }
 
@@ -371,47 +328,6 @@ function setup() {
     player = new Player('player1', player_imgs, (5 * tileSize), (5 * tileSize));
     dialouge = new Dialouge('Hi, My name is gay, bla bla bla bla bla bla bla bla bla bla bla', [{phrase: 'Hello Gay!', dialouge_num: 1}, {phrase: 'Bye Gay!', dialouge_num: -1}])
     //Home
-    /*
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-        [10, 10, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 12, 5, 5, 5, 13, 5, 0, 0, 0],
-        [0, 0, 5, 4, 7, 5, 4, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 4, 5, 5, 4, 5, 5, 12, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 4, 4, 5, 4, 19, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 12, 5, 10, 10, 10],
-        [0, 0, 5, 5, 1, 1, 1, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 5, 1, 1, 1, 5, 12, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 5, 1, 1, 1, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 14, 14, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19, 14, 14, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-        [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0]
-    */
     level1 = new Level([
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -547,16 +463,16 @@ function setup() {
         [0, 0, 19, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19, 0, 0, 0],
         [0, 0, 5, 4, 4, 4, 4, 5, 5, 4, 4, 4, 4, 5, 5, 4, 4, 4, 4, 5, 0, 0, 0],
         [0, 0, 5, 4, 7, 34, 4, 5, 5, 4, 7, 5, 4, 5, 5, 4, 7, 5, 4, 5, 0, 0, 0],
-        [0, 0, 5, 4, 5, 5, 4, 5, 5, 4, 5, 5, 4, 5, 5, 4, 4, 5, 4, 5, 0, 0, 0],
-        [0, 0, 5, 4, 4, 5, 4, 5, 19, 4, 4, 5, 4, 19, 5, 5, 4, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 4, 5, 5, 4, 5, 5, 4, 5, 5, 4, 5, 5, 4, 5, 5, 4, 5, 0, 0, 0],
+        [0, 0, 5, 4, 4, 5, 4, 5, 19, 4, 4, 5, 4, 19, 5, 4, 4, 5, 4, 5, 0, 0, 0],
         [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 10, 10, 10],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 4, 4, 0, 0, 0],
-        [10, 10, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 0, 0, 0],
-        [0, 0, 5, 5, 5, 4, 5, 4, 4, 5, 5, 5, 5, 5, 5, 5, 4, 7, 5, 4, 0, 0, 0],
-        [0, 0, 5, 5, 5, 4, 5, 5, 4, 5, 5, 5, 5, 5, 19, 5, 4, 4, 4, 4, 0, 0, 0],
-        [0, 0, 5, 5, 5, 4, 7, 5, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-        [0, 0, 19, 5, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+        [10, 10, 5, 5, 5, 5, 5, 5, 5, 4, 5, 4, 4, 5, 5, 4, 5, 4, 4, 5, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 4, 5, 5, 4, 5, 5, 4, 5, 5, 4, 5, 0, 0, 0],
+        [0, 0, 5, 5, 41, 5, 5, 5, 5, 4, 5, 7, 4, 5, 19, 4, 5, 7, 4, 5, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 4, 4, 4, 4, 5, 5, 4, 4, 4, 4, 5, 0, 0, 0],
+        [0, 0, 19, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
