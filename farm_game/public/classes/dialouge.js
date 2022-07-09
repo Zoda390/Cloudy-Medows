@@ -1,5 +1,5 @@
 class Dialouge {
-    constructor(phrase, replies = [], ){
+    constructor(phrase, replies = [], item){
         this.phrase = phrase;
         this.replies = replies;
     }
