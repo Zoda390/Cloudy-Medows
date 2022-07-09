@@ -1,8 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public"
+    "\\public",
+    "\\public\\classes",
+    "\\public\\classes\\tile_classes",
+    "\\public\\images\\npc"
   ],
-  "SelectedNode": "\\public\\Stawberry.png",
+  "SelectedNode": "\\public\\index.html",
   "PreviewInSolutionExplorer": false
 }

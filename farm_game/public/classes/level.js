@@ -32,18 +32,30 @@ class Level {
                 if (this.fore[i][j] == 1) {
                     image(foreground_img, j * tileSize, i * tileSize);
                 }
+                if (this.fore[i][j] == 2) {
+                    image(fore_cloud_img, j * tileSize, i * tileSize);
+                }
+                if (this.fore[i][j] == 3){
+                    image(fore_building_img, j * tileSize, i * tileSize)
+                }
+                if (this.fore[i][j] == 4){
+                    image(fore_red_building_img, j * tileSize, i * tileSize)
+                }
+                if (this.fore[i][j] == 5){
+                    image(fore_red_grown_building_img, j * tileSize, i * tileSize)
+                }
             }
         }
         for (let i = 0; i < this.fore.length; i++) {
             for (let j = 0; j < this.fore[i].length; j++) {
-                if (last == 1 && this.fore[i][j] == 0) {
+                if (last == 1 && this.fore[i][j] == 3) {
                     push();
                     stroke(0);
                     strokeWeight(3);
                     line(j * tileSize, i * tileSize, j * tileSize, canvasHeight);
                     pop();
                 }
-                if (last == 0 && this.fore[i][j] == 1) {
+                if (last == 3 && this.fore[i][j] == 1) {
                     push();
                     stroke(0);
                     strokeWeight(3);

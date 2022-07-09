@@ -5,11 +5,12 @@ class GridMoveEntity extends MoveableEntity{
         this.instructions = instructions;
         this.current_instruction = 0;
         this.class = 'GridMoveEntity';
+        this.move_bool = true;
     }
 
     move(x, y) {
         this.moving_timer -= 1;
-        if (this.moving_timer <= 0) {
+        if (this.moving_timer <= 0 && this.move_bool) {
             if (this.instructions[this.current_instruction] == 'up') {
                 this.facing = 0;
                 if (this.looking(x, y).collide != true) {
