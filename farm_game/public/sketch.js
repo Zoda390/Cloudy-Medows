@@ -26,17 +26,12 @@ var all_tiles = [];
 var all_items = [];
 var Dialouge_JSON = 0;
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 function preload() {
     //Items
-
-    corn_img = loadImage('images/items/Corn_item.png');
-    corn_seed_bag_img = loadImage('images/items/Corn_Seed_bag.png');
-    sweet_potato_seed_bag_img = loadImage('images/items/seedbag_sp.png');
-    sweet_potato_img = loadImage('images/items/SweetPotato.png');
-
-    straw_img = loadImage('images/items/Stawberry.png');
-    strawberry_seed_bag_img = loadImage('images/items/SeedBag_Stawberry.png');
-
     fullcourse_img = loadImage('images/items/FullCourse.png');
 
     hoe_img = loadImage('images/items/Hoe.png');
@@ -71,6 +66,7 @@ function preload() {
     bush_img = loadImage("images/tiles/Bush.png");
 
     //NPC
+    quest_marker_img = loadImage('images/ui/QuestMarker.png');
     Dialouge_JSON = loadJSON('dialouge_list.json');
     //Cowboy Rick
     rick_tile_up_img = loadImage('images/npc/cowboy_rick_back.png');
@@ -185,7 +181,10 @@ function preload() {
 
     //Plants
     done_dot = loadImage('images/ui/plant_done_icon.png');
+    
     //  Corn 3
+    corn_img = loadImage('images/items/Corn_item.png');
+    corn_seed_bag_img = loadImage('images/items/Corn_Seed_bag.png');
     corn_tile_img = loadImage('images/tiles/CornStage_1.png');
     corn_tile_2_img = loadImage('images/tiles/CornStage_2.png');
     corn_tile_3_img = loadImage('images/tiles/CornStage_4.png');
@@ -195,7 +194,10 @@ function preload() {
     corn_tile_7_img = loadImage('images/tiles/CornStage8.png');
     corn_tile_8_img = loadImage('images/tiles/CornDead.png');
     corn_tile_imgs = [corn_tile_img, corn_tile_2_img, corn_tile_3_img, corn_tile_4_img, corn_tile_5_img, corn_tile_6_img, corn_tile_7_img, corn_tile_8_img];
+    
     //  Sweet Potato 17
+    sweet_potato_seed_bag_img = loadImage('images/items/seedbag_sp.png');
+    sweet_potato_img = loadImage('images/items/SweetPotato.png');
     sweet_potato_tile_img = loadImage('images/tiles/beets_1.png');
     sweet_potato_tile_2_img = loadImage('images/tiles/beets_2.png');
     sweet_potato_tile_3_img = loadImage('images/tiles/beets_3.png');
@@ -204,6 +206,8 @@ function preload() {
     sweet_potato_tile_imgs = [sweet_potato_tile_img, sweet_potato_tile_2_img, sweet_potato_tile_3_img, sweet_potato_tile_4_img, sweet_potato_tile_5_img];
 
     //Strawberry 20
+    straw_img = loadImage('images/items/Stawberry.png');
+    strawberry_seed_bag_img = loadImage('images/items/SeedBag_Stawberry.png');
     strawberry_tile_img = loadImage('images/tiles/strawberry_1.png');
     strawberry_tile_2_img = loadImage('images/tiles/strawberry_2.png');
     strawberry_tile_3_img = loadImage('images/tiles/strawberry_3.png');
@@ -216,6 +220,17 @@ function preload() {
     flower_tile_img = loadImage("images/tiles/FlowerStage_1.png");
     flower_tile_img2 = loadImage("images/tiles/FlowerStage_2.png");
     flower_tile_imgs = [flower_tile_img, flower_tile_img2, flower_tile_img2];
+
+    //tomato 43
+    tomato_img = loadImage("images/items/tomato.png");
+    tomato_seed_bag_img = loadImage("images/items/tomato_bag.png");
+    tomato_tile_img = loadImage("images/tiles/tomato_1.png");
+    tomato_tile_img2 = loadImage("images/tiles/tomato_2.png");
+    tomato_tile_img3 = loadImage("images/tiles/tomato_3.png");
+    tomato_tile_img4 = loadImage("images/tiles/tomato_4.png");
+    tomato_tile_img5 = loadImage("images/tiles/tomato_5.png");
+    tomato_tile_img6 = loadImage("images/tiles/tomato_6.png");
+    tomato_tile_imgs = [tomato_tile_img, tomato_tile_img2, tomato_tile_img3, tomato_tile_img4, tomato_tile_img5, tomato_tile_img6];
 
     // ladybugs
     ladybug_bag_img = loadImage("images/items/Lady_Bug_bag.png");
@@ -298,6 +313,7 @@ function preload() {
     /*40*/    { name: 'James', png: james_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
     /*41*/    { name: 'Liam', png: liam_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'up', 'down', 'down'], moving_timer: 100, class: 'NPC' },
     /*42*/    { name: 'bush', png: bush_img, border: false, collide: true, age: -1, class: 'Tile' },
+    /*43*/    { name: 'tomato', png: tomato_tile_imgs, border: true, collide: false, age: 0, seed_num: 14, waterneed: 0, growthTime: 100, class: 'Plant' }
     ];
     /*
     class       obj
@@ -321,7 +337,9 @@ function preload() {
         /*10*/{ name: 'Ladybugs', png: ladybug_bag_img, price: 100, tile_num: 24, tile_need_num: 1, class: 'Placeable' },
         /*11*/{ name: 'Flower Seed', png: flower_bag_img, plant_num: 21, class: 'Seed'},
         /*12*/{ name: 'Sprinklers', png: sprinkler_img, price: 9, tile_num: 18, tile_need_num: 1, class: 'Placeable' },
-        /*13*/ { name: 'Full Course', png: fullcourse_img, price: 20, hunger: 100, hunger_timer: 700, seed_num: 0, class: 'Eat' },
+        /*13*/{ name: 'Full Course', png: fullcourse_img, price: 20, hunger: 100, hunger_timer: 700, seed_num: 0, class: 'Eat' },
+        /*14*/{name: 'Tomato Seed', png: tomato_seed_bag_img, plant_num: 43, class: 'Seed'},
+        /*15*/{name: 'Tomato', png: tomato_img, price: 3, hunger: 1, hunger_timer: 500, seed_num: 14, class: 'Eat'}
     ];
 }
 
@@ -875,7 +893,7 @@ function takeInput() {
             }
         }
         if (keyIsDown(interact_button)){
-            if (millis() - lastMili > 500) {
+            if (millis() - lastMili > 200) {
                 if(player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num == -1){
                     player.talking.move_bool = true;
                     player.talking.current_dialouge = 0;

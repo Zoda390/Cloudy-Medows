@@ -19,6 +19,9 @@ class Plant extends Tile {
         imageMode(CENTER);
         image(all_tiles[2 - 1].png, this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
         image(this.png[this.age], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        if(this.age == this.png.length - 2){
+            image(done_dot, this.pos.x + (tileSize/2), this.pos.y - (tileSize/4));
+        }
         pop();
     }
 

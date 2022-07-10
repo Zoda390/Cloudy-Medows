@@ -11,7 +11,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     },
     {
       "phrase": "Did you know you can turn junk and seeds into compost, right here in this bucket?",
@@ -24,7 +25,8 @@
           "phrase": "No",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     },
     {
       "phrase": "Here I have some Junk in my pockets",
@@ -37,7 +39,8 @@
           "phrase": "Weirdo, who caries junk in their pocket?",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     }
   ],
   "Rick": [
@@ -52,7 +55,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     },
     {
       "phrase": "Do you want some strawberries?",
@@ -65,7 +69,8 @@
           "phrase": "No, thanks",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     },
     {
       "phrase": "Here you go.",
@@ -74,7 +79,8 @@
           "phrase": "Thanks",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": 0
     }
   ],
   "Meb": [
@@ -89,7 +95,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     },
     {
       "phrase": "How are you today?",
@@ -106,7 +113,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     }
   ],
   "Mario": [
@@ -121,7 +129,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     },
     {
       "phrase": "How are you today?",
@@ -138,7 +147,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     }
   ],
   "Garry": [
@@ -149,7 +159,8 @@
           "phrase": "Oh, ok bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     }
   ],
   "Mira": [
@@ -164,7 +175,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     },
     {
       "phrase": "How are you today?",
@@ -181,7 +193,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     }
   ],
   "OldManJ": [
@@ -196,7 +209,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     },
     {
       "phrase": "How are you today?",
@@ -213,7 +227,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     }
   ],
   "Brandon": [
@@ -228,7 +243,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     },
     {
       "phrase": "How are you today?",
@@ -245,7 +261,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     }
   ],
   "Brent": [
@@ -260,7 +277,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     },
     {
       "phrase": "How are you today?",
@@ -277,7 +295,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     }
   ],
   "Blind_Pette": [
@@ -292,7 +311,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     },
     {
       "phrase": "How are you today?",
@@ -309,7 +329,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     }
   ],
   "James": [
@@ -324,7 +345,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     },
     {
       "phrase": "How are you today?",
@@ -341,7 +363,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     }
   ],
   "Liam": [
@@ -356,7 +379,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     },
     {
       "phrase": "How are you today?",
@@ -373,7 +397,8 @@
           "phrase": "Bye",
           "dialouge_num": -1
         }
-      ]
+      ],
+      "hand_num": -1
     }
   ]
 }
