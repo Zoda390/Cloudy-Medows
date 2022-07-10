@@ -37,6 +37,8 @@ function preload() {
     straw_img = loadImage('images/items/Stawberry.png');
     strawberry_seed_bag_img = loadImage('images/items/SeedBag_Stawberry.png');
 
+    fullcourse_img = loadImage('images/items/FullCourse.png');
+
     hoe_img = loadImage('images/items/Hoe.png');
     junk_img = loadImage('images/items/junk.png');
     compost_img = loadImage('images/items/Compost.png');
@@ -66,6 +68,7 @@ function preload() {
     cart_ladybug_tile_img = loadImage('images/tiles/ladybug_cart.png');
     cart_sprinkler_tile_img = loadImage('images/tiles/sprinkler_cart.png');
     bridge_tile_2_img = loadImage('images/tiles/BridgeFlip.png');
+    bush_img = loadImage("images/tiles/Bush.png");
 
     //NPC
     Dialouge_JSON = loadJSON('dialouge_list.json');
@@ -293,7 +296,8 @@ function preload() {
     /*38*/    { name: 'Brent', png: brent_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
     /*39*/    { name: 'Blind_Pette', png: blind_pette_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'up', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down', 'down'], moving_timer: 100, class: 'NPC' },
     /*40*/    { name: 'James', png: james_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*41*/    { name: 'Liam', png: liam_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'up', 'down', 'down'], moving_timer: 100, class: 'NPC' }
+    /*41*/    { name: 'Liam', png: liam_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'up', 'down', 'down'], moving_timer: 100, class: 'NPC' },
+    /*42*/    { name: 'bush', png: bush_img, border: false, collide: true, age: -1, class: 'Tile' },
     ];
     /*
     class       obj
@@ -316,7 +320,8 @@ function preload() {
         /*9*/ { name: 'Compost', png: compost_img, price: 2, tile_num: 16, tile_need_num: 6, class: 'Placeable' },
         /*10*/{ name: 'Ladybugs', png: ladybug_bag_img, price: 100, tile_num: 24, tile_need_num: 1, class: 'Placeable' },
         /*11*/{ name: 'Flower Seed', png: flower_bag_img, plant_num: 21, class: 'Seed'},
-        /*12*/{ name: 'Sprinklers', png: sprinkler_img, price: 9, tile_num: 18, tile_need_num: 1, class: 'Placeable' }
+        /*12*/{ name: 'Sprinklers', png: sprinkler_img, price: 9, tile_num: 18, tile_need_num: 1, class: 'Placeable' },
+        /*13*/ { name: 'Full Course', png: fullcourse_img, price: 20, hunger: 100, hunger_timer: 700, seed_num: 0, class: 'Eat' },
     ];
 }
 
@@ -342,7 +347,7 @@ function setup() {
         [0, 0, 5, 4, 5, 5, 4, 5, 5, 12, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 4, 4, 5, 4, 19, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 12, 5, 10, 10, 10],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 42, 5, 5, 5, 5, 12, 5, 10, 10, 10],
         [0, 0, 5, 5, 1, 1, 1, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 5, 1, 1, 1, 5, 12, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 5, 1, 1, 1, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
