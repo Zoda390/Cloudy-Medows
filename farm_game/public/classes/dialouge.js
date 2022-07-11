@@ -1,5 +1,5 @@
 class Dialouge {
-    constructor(phrase, replies = [], hand_num){
+    constructor(phrase, replies = [], hand_num, amount, textSpeed){
         this.phrase = phrase;
         this.phrase2 = [];
         for(let i = 0; i < this.phrase.length; i++){
@@ -8,6 +8,8 @@ class Dialouge {
         this.phrase = [];
         this.replies = replies;
         this.hand_num = hand_num;
+        this.amount = amount;
+        this.textSpeed = textSpeed;
         this.done = false;
     }
 
@@ -20,7 +22,7 @@ class Dialouge {
         rect(canvasWidth / 20, canvasHeight - 150, (canvasWidth / 2) - (canvasWidth/10) + 20, 150);
         textFont(player_2);
         textSize(15);
-        fill(89, 48, 5);
+        fill(255);
         stroke(0);
         strokeWeight(4);
         text(name, (canvasWidth / 20) + 10, canvasHeight - 140);
@@ -34,24 +36,48 @@ class Dialouge {
                 if (i == this.phrase2.length - 1){
                     this.done = true;
                     if(this.hand_num != -1 && inv[this.hand_num] != 0 && inv[this.hand_num].amount > 0){
-                        addItem(item_name_to_num(inv[this.hand_num].name), inv[this.hand_num].amount);
-                        inv[this.hand_num] = 0;
+                        if (this.amount >= inv[this.hand_num].amount){
+                            addItem(item_name_to_num(inv[this.hand_num].name), inv[this.hand_num].amount);
+                            inv[this.hand_num].amount = 0;
+                            this.phrase = "Sorry I dont have any more.";
+                            this.replies[0] = {phrase: 'Oh ok', dialouge_num: -1};
+                        }
+                        else {
+                            addItem(item_name_to_num(inv[this.hand_num].name), this.amount);
+                            inv[this.hand_num].amount -= this.amount;
+                        }
                     }
                 }
-                await sleep(2);
+                await sleep(this.textSpeed);
             }
         }
         else{
-            text(this.phrase.join(''), (canvasWidth / 20) + 10, canvasHeight - 115, (canvasWidth / 2) - (canvasWidth / 20) - 20);
+            text(this.phrase2.join(''), (canvasWidth / 20) + 10, canvasHeight - 115, (canvasWidth / 2) - (canvasWidth / 20) - 20);
         }
         for (let i = 0; i < this.replies.length; i++){
             if(current_reply == i){
-                stroke(255);
-                text('>' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
+                stroke(255, 255, 0);
+                if (this.replies[i].phrase == '1'){
+                    text('>' + this.replies[i].phrase + ' ' + inv[this.hand_num].price, (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
+                }
+                else if (this.replies[i].phrase == '2'){
+                    text('>' + this.replies[i].phrase + ' ' + (inv[this.hand_num].price*2), (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
+                }
+                else{
+                    text('>' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
+                }
             }
             else{
                 stroke(0);
-                text('-' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
+                if (this.replies[i].phrase == '1'){
+                    text('-' + this.replies[i].phrase + ' ' + inv[this.hand_num].price, (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
+                }
+                else if (this.replies[i].phrase == '2'){
+                    text('-' + this.replies[i].phrase + ' ' + (inv[this.hand_num].price*2), (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
+                }
+                else{
+                    text('-' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
+                }
             }
         }
         pop();

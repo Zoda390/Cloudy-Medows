@@ -1,6 +1,6 @@
 class Player extends MoveableEntity {
     constructor(name, png, x, y,
-        inv = [{ num: 1, amount: 1 }, { num: 14, amount: 1 }, { num: 3, amount: 1 }, { num: 5, amount: 1 }, { num: 7, amount: 1 }, { num: 13, amount: 2 }, 0, 0]) {
+        inv = [{ num: 1, amount: 1 }, { num: 14, amount: 1 }, { num: 3, amount: 1 }, { num: 5, amount: 1 }, { num: 10, amount: 1 }, { num: 13, amount: 2 }, 0, 0]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
@@ -23,7 +23,7 @@ class Player extends MoveableEntity {
 
     render() {
         if(this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0){
-            if(this.oldlooking_name != this.looking(currentLevel_x, currentLevel_y).name && this.looking(currentLevel_x, currentLevel_y).class == 'NPC'){
+            if(this.oldlooking_name != this.looking(currentLevel_x, currentLevel_y).name && (this.looking(currentLevel_x, currentLevel_y).class == 'NPC' || this.looking(currentLevel_x, currentLevel_y).class == 'Cart')){
                 this.talking = this.looking(currentLevel_x, currentLevel_y);
             }
         }
@@ -31,7 +31,9 @@ class Player extends MoveableEntity {
             this.hunger -= 1;
             this.hunger_counter = 0;
         }
-        this.hunger_timer -= 1;
+        if(!paused){
+            this.hunger_timer -= 1;
+        }
         if (this.hunger_timer <= 0) {
             this.hunger -= 1;
             this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
@@ -52,14 +54,14 @@ class Player extends MoveableEntity {
         imageMode(CENTER);
         noTint();
         image(player_imgs[this.facing][this.anim], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
-        if (this.hunger <= 0 && millis() - lastHungerMili > 400) {
+        if (this.hunger <= 0 && millis() - lastHungerMili > 400 && !paused) {
             hit_sound.play();
             this.hp -= 10;
             tint(255, 0, 0, 100);
             image(player_imgs[this.facing][this.anim], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
             lastHungerMili = millis();
         }
-        else if (this.hunger >= maxHunger && millis() - lastHungerMili > 600) {
+        else if (this.hunger >= maxHunger && millis() - lastHungerMili > 600 && !paused) {
             this.hp += 2;
             lastHungerMili = millis();
         }
@@ -74,7 +76,13 @@ class Player extends MoveableEntity {
                 this.facing = 1;
                 if (this.pos.x + tileSize >= canvasWidth) {
                     this.touching.collide = false;
+                    levels[currentLevel_y][currentLevel_x].level_name_popup = false;
+                    levels[currentLevel_y][currentLevel_x].y = -50;
+                    levels[currentLevel_y][currentLevel_x].done = false;
+                    levels[currentLevel_y][currentLevel_x].movephase = 0;
+                    levels[currentLevel_y][currentLevel_x].ticks = 0;
                     currentLevel_x += 1;
+                    levels[currentLevel_y][currentLevel_x].level_name_popup = true;
                     this.pos.x = 0;
                 }
                 else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
@@ -97,7 +105,13 @@ class Player extends MoveableEntity {
                 this.facing = 3;
                 if (this.pos.x - tileSize <= 0) {
                     this.touching.collide = false;
+                    levels[currentLevel_y][currentLevel_x].level_name_popup = false;
+                    levels[currentLevel_y][currentLevel_x].y = -50;
+                    levels[currentLevel_y][currentLevel_x].done = false;
+                    levels[currentLevel_y][currentLevel_x].movephase = 0;
+                    levels[currentLevel_y][currentLevel_x].ticks = 0;
                     currentLevel_x -= 1;
+                    levels[currentLevel_y][currentLevel_x].level_name_popup = true;
                     this.pos.x = canvasWidth - tileSize;
                 }
                 else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
@@ -120,7 +134,13 @@ class Player extends MoveableEntity {
                 this.facing = 0;
                 if (this.pos.y - tileSize <= 0) {
                     this.touching.collide = false;
+                    levels[currentLevel_y][currentLevel_x].level_name_popup = false;
+                    levels[currentLevel_y][currentLevel_x].y = -50;
+                    levels[currentLevel_y][currentLevel_x].done = false;
+                    levels[currentLevel_y][currentLevel_x].movephase = 0;
+                    levels[currentLevel_y][currentLevel_x].ticks = 0;
                     currentLevel_y -= 1;
+                    levels[currentLevel_y][currentLevel_x].level_name_popup = true;
                     this.pos.y = canvasHeight - tileSize;
                 }
                 else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
@@ -143,7 +163,13 @@ class Player extends MoveableEntity {
                 this.facing = 2;
                 if (this.pos.y + tileSize >= canvasHeight) {
                     this.touching.collide = false;
+                    levels[currentLevel_y][currentLevel_x].level_name_popup = false;
+                    levels[currentLevel_y][currentLevel_x].y = -50;
+                    levels[currentLevel_y][currentLevel_x].done = false;
+                    levels[currentLevel_y][currentLevel_x].movephase = 0;
+                    levels[currentLevel_y][currentLevel_x].ticks = 0;
                     currentLevel_y += 1;
+                    levels[currentLevel_y][currentLevel_x].level_name_popup = true;
                     this.pos.y = 0;
                 }
                 else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {

@@ -1,9 +1,15 @@
 class Level {
-    constructor(map, fore) {
+    constructor(name, map, fore) {
+        this.name = name;
         this.lights = [];
         this.fore = fore;
         this.map = map;
         this.ladybugs = 0;
+        this.level_name_popup = false;
+        this.done = false;
+        this.movephase = 0;
+        this.ticks = 0;
+        this.y = -50;
         for (let i = 0; i < map.length; i++) {
             for (let j = 0; j < map[i].length; j++) {
                 if (map[i][j] == 0) {
@@ -25,8 +31,48 @@ class Level {
         }
     }
 
+    name_render() {
+        if(!this.done){
+            if(this.movephase == 0){
+                if(this.ticks >= 50){
+                    this.movephase = 1;
+                    this.ticks = 0;
+                }
+                this.y += 1;
+            }
+            if(this.movephase == 1){
+                if(this.ticks >= 70){
+                    this.movephase = 2;
+                    this.ticks = 0;
+                }
+            }
+            if(this.movephase == 2){
+                this.y -= 1;
+                if(this.ticks >= 50){
+                    this.done = true;
+                    this.ticks = 0;
+                }
+            }
+            push();
+            stroke(149, 108, 65);
+            strokeWeight(5);
+            fill(187, 132, 75);
+            rect(5, this.y, (this.name.length*17)+6, 50);
+            textFont(player_2);
+            textSize(15);
+            fill(255);
+            stroke(0);
+            strokeWeight(4);
+            textAlign(CENTER, CENTER);
+            text(this.name, (((this.name.length*17)+6)/2)+5, this.y+25);
+            pop();
+            this.ticks += 1;
+        }
+        else{
+            this.level_name_popup = false;
+        }
+    }
     fore_render() {
-        let last = 0;
         for (let i = 0; i < this.fore.length; i++) {
             for (let j = 0; j < this.fore[i].length; j++) {
                 if (this.fore[i][j] == 1) {
@@ -44,25 +90,9 @@ class Level {
                 if (this.fore[i][j] == 5){
                     image(fore_red_grown_building_img, j * tileSize, i * tileSize)
                 }
-            }
-        }
-        for (let i = 0; i < this.fore.length; i++) {
-            for (let j = 0; j < this.fore[i].length; j++) {
-                if (last == 1 && this.fore[i][j] == 3) {
-                    push();
-                    stroke(0);
-                    strokeWeight(3);
-                    line(j * tileSize, i * tileSize, j * tileSize, canvasHeight);
-                    pop();
+                if (this.fore[i][j] == 6){
+                    image(fore_gray_building_img, j * tileSize, i * tileSize);
                 }
-                if (last == 3 && this.fore[i][j] == 1) {
-                    push();
-                    stroke(0);
-                    strokeWeight(3);
-                    line(j * tileSize, i * tileSize, j * tileSize, canvasHeight);
-                    pop();
-                }
-                last = this.fore[i][j];
             }
         }
     }

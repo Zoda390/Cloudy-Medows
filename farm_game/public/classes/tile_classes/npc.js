@@ -5,7 +5,7 @@ class NPC extends GridMoveEntity {
         this.class = 'NPC';
         this.dialouges = Dialouge_JSON[this.name];
         for(let i = 0; i < this.dialouges.length; i++){
-            this.dialouges[i] = new Dialouge(this.dialouges[i].phrase, this.dialouges[i].replies, this.dialouges[i].hand_num);
+            this.dialouges[i] = new Dialouge(this.dialouges[i].phrase, this.dialouges[i].replies, this.dialouges[i].hand_num, this.dialouges[i].amount);
         }
         this.current_dialouge = 0;
     }

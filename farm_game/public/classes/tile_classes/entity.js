@@ -20,6 +20,13 @@ class Entity extends Tile {
         }
         imageMode(CENTER);
         image(all_tiles[this.under_tile_num - 1].png, this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        if(paused){
+            this.png.pause();
+        }
+        else{
+            this.png.play();
+        }
+        
         image(this.png, this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
         pop();
     }

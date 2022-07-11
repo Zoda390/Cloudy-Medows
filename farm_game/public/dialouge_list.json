@@ -12,7 +12,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     },
     {
       "phrase": "Did you know you can turn junk and seeds into compost, right here in this bucket?",
@@ -26,7 +28,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     },
     {
       "phrase": "Here I have some Junk in my pockets",
@@ -40,7 +44,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     }
   ],
   "Rick": [
@@ -56,7 +62,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     },
     {
       "phrase": "Do you want some strawberries?",
@@ -70,7 +78,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     },
     {
       "phrase": "Here you go.",
@@ -80,7 +90,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": 0
+      "hand_num": 0,
+      "amount": 2,
+      "textSpeed": 10
     }
   ],
   "Meb": [
@@ -96,7 +108,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     },
     {
       "phrase": "How are you today?",
@@ -114,7 +128,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     }
   ],
   "Mario": [
@@ -130,7 +146,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     },
     {
       "phrase": "How are you today?",
@@ -148,7 +166,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     }
   ],
   "Garry": [
@@ -160,7 +180,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     }
   ],
   "Mira": [
@@ -176,7 +198,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     },
     {
       "phrase": "How are you today?",
@@ -194,7 +218,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     }
   ],
   "OldManJ": [
@@ -210,7 +236,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     },
     {
       "phrase": "How are you today?",
@@ -228,7 +256,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     }
   ],
   "Brandon": [
@@ -244,7 +274,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     },
     {
       "phrase": "How are you today?",
@@ -262,7 +294,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     }
   ],
   "Brent": [
@@ -278,7 +312,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     },
     {
       "phrase": "How are you today?",
@@ -296,7 +332,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     }
   ],
   "Blind_Pette": [
@@ -312,7 +350,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     },
     {
       "phrase": "How are you today?",
@@ -330,7 +370,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     }
   ],
   "James": [
@@ -346,7 +388,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     },
     {
       "phrase": "How are you today?",
@@ -364,7 +408,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     }
   ],
   "Liam": [
@@ -380,7 +426,9 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
     },
     {
       "phrase": "How are you today?",
@@ -398,7 +446,237 @@
           "dialouge_num": -1
         }
       ],
-      "hand_num": -1
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
+    }
+  ],
+  "cart_b_corn": [
+    {
+      "phrase": "What would you like to buy?",
+      "replies": [
+        {
+          "phrase": "Corn",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
+    },
+    {
+      "phrase": "How many?",
+      "replies": [
+        {
+          "phrase": "1",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "2",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Back",
+          "dialouge_num": 0
+        }
+      ],
+      "hand_num": 0,
+      "amount": 1,
+      "textSpeed": 10
+    }
+  ],
+  "cart_b_sp": [
+    {
+      "phrase": "What would you like to buy?",
+      "replies": [
+        {
+          "phrase": "Sweet Potato",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
+    },
+    {
+      "phrase": "How many?",
+      "replies": [
+        {
+          "phrase": "1",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "2",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Back",
+          "dialouge_num": 0
+        }
+      ],
+      "hand_num": 0,
+      "amount": 0,
+      "textSpeed": 10
+    }
+  ],
+  "cart_b_straw": [
+    {
+      "phrase": "What would you like to buy?",
+      "replies": [
+        {
+          "phrase": "Strawberry",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
+    },
+    {
+      "phrase": "How many?",
+      "replies": [
+        {
+          "phrase": "1",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "2",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Back",
+          "dialouge_num": 0
+        }
+      ],
+      "hand_num": 0,
+      "amount": 0,
+      "textSpeed": 10
+    }
+  ],
+  "cart_b_flower": [
+    {
+      "phrase": "What would you like to buy?",
+      "replies": [
+        {
+          "phrase": "Flower",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
+    },
+    {
+      "phrase": "How many?",
+      "replies": [
+        {
+          "phrase": "1",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "2",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Back",
+          "dialouge_num": 0
+        }
+      ],
+      "hand_num": 0,
+      "amount": 0,
+      "textSpeed": 10
+    }
+  ],
+  "cart_b_lady": [
+    {
+      "phrase": "What would you like to buy?",
+      "replies": [
+        {
+          "phrase": "Ladybug",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
+    },
+    {
+      "phrase": "How many?",
+      "replies": [
+        {
+          "phrase": "1",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "2",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Back",
+          "dialouge_num": 0
+        }
+      ],
+      "hand_num": 0,
+      "amount": 0,
+      "textSpeed": 10
+    }
+  ],
+  "cart_b_sprinkler": [
+    {
+      "phrase": "What would you like to buy?",
+      "replies": [
+        {
+          "phrase": "Sprinkler",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0,
+      "textSpeed": 10
+    },
+    {
+      "phrase": "How many?",
+      "replies": [
+        {
+          "phrase": "1",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "2",
+          "dialouge_num": 1
+        },
+        {
+          "phrase": "Back",
+          "dialouge_num": 0
+        }
+      ],
+      "hand_num": 0,
+      "amount": 0,
+      "textSpeed": 10
     }
   ]
 }

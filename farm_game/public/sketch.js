@@ -25,6 +25,7 @@ var title_screen = true;
 var all_tiles = [];
 var all_items = [];
 var Dialouge_JSON = 0;
+var paused = false;
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -256,13 +257,14 @@ function preload() {
     fore_building_img = loadImage('images/Building_Low.png');
     fore_red_building_img = loadImage('images/Red_building_low.png');
     fore_red_grown_building_img = loadImage('images/red_building_low2.png');
+    fore_gray_building_img = loadImage('images/building_gray.png');
 
     main_theme.play(); //needs to loop
 
     /*
     class           obj
     Tile            { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'Tile' }
-    Cart            { name: 'name', png: png_img, price: 0, item_num: 0, class: 'Cart'}
+    Cart            { name: 'name', png: png_img, inv: [], class: 'Cart'}
     Plant           { name: 'name', png: png_img, border: true, collide: false, age: 0, seed_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }
     Entity          { name: 'name', png: png_img, border: true, collide: false, age: -1, inv: [0, {num: 1, amount: 1}], hand: 0, under_tile_num: 0, class: 'Entity' }
     FreeMoveEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'FreeMoveEntity' }
@@ -279,7 +281,7 @@ function preload() {
     /*6*/    { name: 'dirt', png: dirt_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*7*/    { name: 'bed', png: bed_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*8*/    { name: 'cart_s', png: cart_s_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*9*/    { name: 'cart_b_corn', png: cart_tile_img, price: 5, item_num: 2, class: 'Cart' },
+    /*9*/    { name: 'cart_b_corn', png: cart_tile_img, inv: [{ num: 2, amount: 7}], class: 'Cart' },
     /*10*/    { name: 'bridge', png: bridge_tile_img, border: false, collide: false, age: -1, class: 'Tile' },
     /*11*/    { name: 'junk', png: junk_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*12*/    { name: 'concrete2', png: concrete_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
@@ -297,11 +299,11 @@ function preload() {
     /*24*/    { name: 'ladybug', png: ladybug_img, border: true, collide: false, age: 0, inv: [0], hand: 0, under_tile_num: 1, class: 'Entity' },
     /*25*/    { name: 'bee', png: bee_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
     /*26*/    { name: 'Meb', png: meb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*27*/    { name: 'cart_b_sp', png: cart_sp_tile_img, price: 7, item_num: 5, class: 'Cart' },
-    /*28*/    { name: 'cart_b_straw', png: cart_straw_tile_img, price: 2, item_num: 0, class: 'Cart' },
-    /*29*/    { name: 'cart_b_flower', png: cart_flower_tile_img, price: 30, item_num: 0, class: 'Cart' },
-    /*30*/    { name: 'cart_b_lady', png: cart_ladybug_tile_img, price: 100, item_num: 0, class: 'Cart' },
-    /*31*/    { name: 'cart_b_sprinkler', png: cart_sprinkler_tile_img, price: 10, item_num: 0, class: 'Cart' },
+    /*27*/    { name: 'cart_b_sp', png: cart_sp_tile_img, inv: [{num: 5, amount: 6}], class: 'Cart' },
+    /*28*/    { name: 'cart_b_straw', png: cart_straw_tile_img, inv: [{num: 7, amount: 6}], class: 'Cart' },
+    /*29*/    { name: 'cart_b_flower', png: cart_flower_tile_img, inv: [{num: 11, amount: 6}], class: 'Cart' },
+    /*30*/    { name: 'cart_b_lady', png: cart_ladybug_tile_img, inv: [{num: 10, amount: 6}], class: 'Cart' },
+    /*31*/    { name: 'cart_b_sprinkler', png: cart_sprinkler_tile_img, inv: [{num: 12, amount: 6}], class: 'Cart' },
     /*32*/    { name: 'bridge2', png: bridge_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*33*/    { name: 'Mario', png: mario_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
     /*34*/    { name: 'Garry', png: garry_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['down', 'up'], moving_timer: 100, class: 'NPC' },
@@ -355,11 +357,11 @@ function setup() {
     player = new Player('player1', player_imgs, (5 * tileSize), (5 * tileSize));
     dialouge = new Dialouge('Hi, My name is gay, bla bla bla bla bla bla bla bla bla bla bla', [{phrase: 'Hello Gay!', dialouge_num: 1}, {phrase: 'Bye Gay!', dialouge_num: -1}])
     //Home
-    level1 = new Level([
+    level1 = new Level('Home', [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 15, 8, 9, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
         [10, 10, 5, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 12, 5, 5, 5, 13, 5, 0, 0, 0],
         [0, 0, 5, 4, 7, 5, 4, 5, 5, 5, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 4, 5, 5, 4, 5, 5, 12, 5, 1, 1, 1, 1, 1, 1, 5, 5, 5, 0, 0, 0],
@@ -379,10 +381,10 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [2, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
+        [2, 6, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2],
         [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 2, 2],
-        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 2],
-        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 3, 3],
+        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 6, 2],
+        [2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 3, 6],
         [3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 2, 2],
         [5, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2],
         [2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2],
@@ -399,7 +401,7 @@ function setup() {
     );
     //Compost
     level2 = new Level
-        ([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ('Compost', [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 13, 5, 12, 5, 5, 5, 5, 5, 5, 5, 12, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
@@ -441,7 +443,7 @@ function setup() {
         ]
         );
     //Strawberry farm
-    level3 = new Level([
+    level3 = new Level('Strawberry farm', [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -484,7 +486,7 @@ function setup() {
     ]
     );
     //village
-    level4 = new Level([
+    level4 = new Level('Village', [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 19, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 19, 0, 0, 0],
@@ -527,7 +529,7 @@ function setup() {
     ]
     );
     //abandened plot
-    level5 = new Level([
+    level5 = new Level('Abandened Plot', [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0],
@@ -570,7 +572,7 @@ function setup() {
     ]
     );
     //market
-    level6 = new Level([
+    level6 = new Level('Market', [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -580,7 +582,7 @@ function setup() {
         [0, 0, 0, 5, 5, 19, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0],
         [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
         [10, 10, 5, 5, 5, 5, 5, 29, 5, 5, 5, 5, 35, 5, 5, 5, 19, 5, 5, 5, 0, 0, 0],
-        [0, 0, 5, 5, 5, 5, 37, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
+        [0, 0, 5, 5, 37, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 5, 5, 5, 5, 30, 5, 5, 5, 5, 5, 5, 5, 27, 5, 5, 5, 5, 0, 0, 0],
         [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 31, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0],
         [0, 0, 0, 5, 19, 5, 5, 5, 5, 5, 5, 19, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0],
@@ -613,7 +615,7 @@ function setup() {
     ]
     );
     //Blind pete
-    level7 = new Level([
+    level7 = new Level('Scary Edge', [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 5, 0, 32, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 5, 5, 32, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -656,7 +658,7 @@ function setup() {
     ]
     );
     //many bridge
-    level8 = new Level([
+    level8 = new Level('Many Bridge', [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 19, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -699,7 +701,7 @@ function setup() {
     ]
     );
     //big green plot
-    level9 = new Level([
+    level9 = new Level('Big Green Plot', [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -745,6 +747,7 @@ function setup() {
     [level3, level1, level2],
     [level7, level8, level9]
     ];
+    levels[currentLevel_y][currentLevel_x].level_name_popup = true;
 }
 
 function draw() {
@@ -772,50 +775,54 @@ function draw() {
         image(background_img, 0, 0);
         levels[currentLevel_y][currentLevel_x].fore_render();
         levels[currentLevel_y][currentLevel_x].render();
-        for (let y = 0; y < levels.length; y++) {
-            for (let x = 0; x < levels[y].length; x++) {
-                if (levels[y][x] != 0) {
-                    levels[y][x].update(x, y);
+        if (!paused){
+            for (let y = 0; y < levels.length; y++) {
+                for (let x = 0; x < levels[y].length; x++) {
+                    if (levels[y][x] != 0) {
+                        levels[y][x].update(x, y);
+                    }
                 }
             }
         }
         player.render();
         background(0, 0, 0, time);
         render_ui();
-        if (millis() - lastTimeMili > 150) { //150 for normal time
-            if (timephase == 0) {
-                if (player.touching.name == 'bed') {
-                    time += 5;
+        if (!paused){
+            if (millis() - lastTimeMili > 150) { //150 for normal time
+                if (timephase == 0) {
+                    if (player.touching.name == 'bed') {
+                        time += 5;
+                    }
+                    else {
+                        time += 1;
+                    }
                 }
-                else {
-                    time += 1;
+                if (timephase == 1) {
+                    if (player.touching.name == 'bed') {
+                        time -= 5;
+                    }
+                    else {
+                        time -= 1;
+                    }
                 }
-            }
-            if (timephase == 1) {
-                if (player.touching.name == 'bed') {
-                    time -= 5;
+                if (time >= 200) {
+                    timephase = 1;
+                    days += 1;
+                    newDayChime.play();
                 }
-                else {
-                    time -= 1;
-                }
-            }
-            if (time >= 200) {
-                timephase = 1;
-                days += 1;
-                newDayChime.play();
-            }
-            if (time <= 0) {
-                timephase = 0;
-                for (let y = 0; y < levels.length; y++) {
-                    for (let x = 0; x < levels[y].length; x++) {
-                        if (levels[y][x] != 0) {
-                            levels[y][x].daily_update();
+                if (time <= 0) {
+                    timephase = 0;
+                    for (let y = 0; y < levels.length; y++) {
+                        for (let x = 0; x < levels[y].length; x++) {
+                            if (levels[y][x] != 0) {
+                                levels[y][x].daily_update();
+                            }
                         }
                     }
                 }
             }
+            lastTimeMili = millis();
         }
-        lastTimeMili = millis();
     }
 }
 
@@ -867,13 +874,28 @@ var move_up_button = 87;   //w
 var move_down_button = 83; //s
 var interact_button = 69;  //e
 var eat_button = 81;       //q
+var pause_button = 27;     //esc
 function takeInput() {
     if (title_screen) {
         if (keyIsDown(interact_button)) {
             title_screen = false;
         }
     }
+    else if(paused){
+        if(keyIsDown(pause_button)){
+            if (millis() - lastMili > 200) {
+                paused = false;
+                lastMili = millis();
+            }
+        }
+    }
     else if(player.talking != 0){
+        if(keyIsDown(pause_button)){
+            if (millis() - lastMili > 200) {
+                paused = true;
+                lastMili = millis();
+            }
+        }
         if (keyIsDown(move_up_button)){
             if (millis() - lastMili > 200) {
                 current_reply -= 1;
@@ -897,12 +919,16 @@ function takeInput() {
                 if(player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num == -1){
                     player.talking.move_bool = true;
                     player.talking.current_dialouge = 0;
+                    for(let i = 0; i < player.talking.dialouges.length; i++){
+                        player.talking.dialouges[i].done = false;
+                        player.talking.dialouges[i].phrase = [];
+                    }
                     player.oldlooking_name = player.talking.name;
                     player.talking = 0;
                     current_reply = 0;
                 }
                 else{
-                    player.talking.current_dialouge = player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num
+                    player.talking.current_dialouge = player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num;
                 }
                 lastMili = millis();
             }
@@ -919,6 +945,12 @@ function takeInput() {
         }
     }
     else {
+        if(keyIsDown(pause_button)){
+            if (millis() - lastMili > 200) {
+                paused = true;
+                lastMili = millis();
+            }
+        }
         //basic movement  
         player.move();
         if (keyIsDown(eat_button)) {
@@ -989,8 +1021,15 @@ function render_ui() {
     text(days, canvasWidth - 40, 50);
     pop();
 
+    if(levels[currentLevel_y][currentLevel_x].level_name_popup){
+        levels[currentLevel_y][currentLevel_x].name_render();
+    }
+
     if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).class == 'NPC' && player.talking != 0) {
         player.looking(currentLevel_x, currentLevel_y).move_bool = false;
+        player.looking(currentLevel_x, currentLevel_y).dialouge_render();
+    }
+    else if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).class == 'Cart' && player.talking != 0){
         player.looking(currentLevel_x, currentLevel_y).dialouge_render();
     }
     else{
@@ -1026,7 +1065,21 @@ function render_ui() {
         textAlign(LEFT, TOP);
         image(coin_img, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 95));
         text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
-
+        if(paused){
+            push()
+            stroke(149, 108, 65);
+            strokeWeight(5);
+            fill(187, 132, 75);
+            rectMode(CENTER);
+            rect(canvasWidth/2, (canvasHeight/2)-30, 400, 400);
+            fill(255);
+            stroke(0);
+            strokeWeight(2);
+            textFont(player_2);
+            textAlign(CENTER, CENTER);
+            text('Paused', canvasWidth/2, (canvasHeight/3)-30);
+            pop()
+        }
         if (player.touching.name == "cart_s") {
             push()
             stroke(0)
@@ -1061,7 +1114,7 @@ function new_tile_from_num(num, x, y) {
             return new Tile(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
         }
         else if (all_tiles[num - 1].class == 'Cart') {
-            return new Cart(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].price, all_tiles[num - 1].item_num);
+            return new Cart(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv);
         }
         else if (all_tiles[num - 1].class == 'Plant') {
             return new Plant(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].eat_num, all_tiles[num - 1].waterneed, all_tiles[num - 1].growthTime);
@@ -1106,6 +1159,7 @@ function new_item_from_num(num, amount) {
         }
     }
     else {
+        console.log(amount);
         console.log('item created from ' + num + ' doesnt exist');
     }
 }
