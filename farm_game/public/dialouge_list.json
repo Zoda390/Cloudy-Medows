@@ -38,14 +38,10 @@
         {
           "phrase": "Thanks",
           "dialouge_num": -1
-        },
-        {
-          "phrase": "Weirdo, who caries junk in their pocket?",
-          "dialouge_num": -1
         }
       ],
-      "hand_num": -1, 
-      "amount": 0,
+      "hand_num": 0, 
+      "amount": 3,
       "textSpeed": 10
     }
   ],
@@ -151,14 +147,14 @@
       "textSpeed": 10
     },
     {
-      "phrase": "How are you today?",
+      "phrase": "I may be the local plumber, but I don't take crap from nobody",
       "replies": [
         {
-          "phrase": "Good",
-          "dialouge_num": -1
+          "phrase": "Good for you",
+          "dialouge_num": 2
         },
         {
-          "phrase": "Bad",
+          "phrase": "Isn't that your job?",
           "dialouge_num": -1
         },
         {
@@ -168,6 +164,18 @@
       ],
       "hand_num": -1, 
       "amount": 0,
+      "textSpeed": 10
+    },
+    {
+      "phrase": "Thanks, have a sprinkler",
+      "replies": [
+        {
+          "phrase": "Thank you",
+          "dialouge_num": -1
+        }
+      ],
+      "hand_num": 0, 
+      "amount": 1,
       "textSpeed": 10
     }
   ],

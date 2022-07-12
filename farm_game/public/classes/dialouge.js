@@ -6,7 +6,9 @@ class Dialouge {
           this.phrase2[i] = this.phrase[i];
         }
         this.phrase = [];
+        this.new_phrase = -1;
         this.replies = replies;
+        this.new_replies = -1;
         this.hand_num = hand_num;
         this.amount = amount;
         this.textSpeed = textSpeed;
@@ -40,8 +42,13 @@ class Dialouge {
                             if(checkForSpace(item_name_to_num(inv[this.hand_num].name))){
                                 addItem(item_name_to_num(inv[this.hand_num].name), inv[this.hand_num].amount);
                                 inv[this.hand_num].amount = 0;
-                                this.phrase = "Sorry I dont have any more.";
-                                this.replies[0] = {phrase: 'Oh ok', dialouge_num: -1};
+                                this.new_phrase = [];
+                                let phrase = "Sorry I dont have any more " + inv[this.hand_num].name;
+                                for(let i = 0; i < phrase.length; i++){
+                                    this.new_phrase[i] = phrase[i];
+                                }
+                                this.new_replies = [];
+                                this.new_replies[0] = {phrase: 'Oh ok', dialouge_num: -1};
                             }
                         }
                         else {

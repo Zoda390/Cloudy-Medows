@@ -300,7 +300,7 @@ function preload() {
     /*19*/    { name: 'lamppost', png: lamppost_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*20*/    { name: 'strawberry', png: strawberry_tile_imgs, border: true, collide: false, age: 0, eat_num: 7, waterneed: 0, growthTime: 100, class: 'Plant' },
     /*21*/    { name: 'flower', png: flower_tile_imgs, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 100, class: 'Plant' },
-    /*22*/    { name: 'Deb', png: deb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
+    /*22*/    { name: 'Deb', png: deb_tile_imgs, inv: [{num: 4, amount: 3}], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
     /*23*/    { name: 'Rick', png: rick_tile_imgs, inv: [{ num: 7, amount: 2 }], hand: 0, facing: 2, under_tile_num: 5, instructions: ['left', 'left', 'left', 'left', 'left', 'left', 'left', 'up', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'down', 'left', 'left', 'left', 'left', 'left', 'left', 'left', 'left'], moving_timer: 100, class: 'NPC' },
     /*24*/    { name: 'ladybug', png: ladybug_img, border: true, collide: false, age: 0, inv: [0], hand: 0, under_tile_num: 1, class: 'Entity' },
     /*25*/    { name: 'bee', png: bee_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
@@ -311,7 +311,7 @@ function preload() {
     /*30*/    { name: 'cart_b_lady', png: cart_ladybug_tile_img, inv: [{num: 10, amount: 6}], class: 'Cart' },
     /*31*/    { name: 'cart_b_sprinkler', png: cart_sprinkler_tile_img, inv: [{num: 12, amount: 6}], class: 'Cart' },
     /*32*/    { name: 'bridge2', png: bridge_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*33*/    { name: 'Mario', png: mario_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*33*/    { name: 'Mario', png: mario_tile_imgs, inv: [{num: 12, amount: 1}], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
     /*34*/    { name: 'Garry', png: garry_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['down', 'up'], moving_timer: 100, class: 'NPC' },
     /*35*/    { name: 'Mira', png: mira_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['down', 'left', 'up', 'right'], moving_timer: 100, class: 'NPC' },
     /*36*/    { name: 'OldManJ', png: old_man_j_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['left', 'left', 'left', 'down', 'right', 'right', 'right', 'up'], moving_timer: 100, class: 'NPC' },
@@ -337,9 +337,9 @@ function preload() {
         /*2*/ { name: 'Corn', png: corn_img, price: 4, hunger: 2, hunger_timer: 500, seed_num: 3, class: 'Eat' },
         /*3*/ { name: 'Corn Seed', png: corn_seed_bag_img, plant_num: 3, class: 'Seed' },
         /*4*/ { name: 'Junk', png: junk_img, price: 0, class: 'Item' },
-        /*5*/ { name: 'Sweet Potato', png: sweet_potato_img, price: 3, hunger: 1, hunger_timer: 600, seed_num: 6, class: 'Eat' },
+        /*5*/ { name: 'Sweet Potatos', png: sweet_potato_img, price: 3, hunger: 1, hunger_timer: 600, seed_num: 6, class: 'Eat' },
         /*6*/ { name: 'Sweet Potato Seed', png: sweet_potato_seed_bag_img, plant_num: 17, class: 'Seed' },
-        /*7*/ { name: 'Strawberry', png: straw_img, price: 2, hunger: 1, hunger_timer: 300, seed_num: 8, class: 'Eat' },
+        /*7*/ { name: 'Strawberries', png: straw_img, price: 2, hunger: 1, hunger_timer: 300, seed_num: 8, class: 'Eat' },
         /*8*/ { name: 'Strawberry Seed', png: strawberry_seed_bag_img, plant_num: 20, class: 'Seed' },
         /*9*/ { name: 'Compost', png: compost_img, price: 2, tile_num: 16, tile_need_num: 6, class: 'Placeable' },
         /*10*/{ name: 'Ladybugs', png: ladybug_bag_img, price: 100, tile_num: 24, tile_need_num: 1, class: 'Placeable' },
@@ -358,7 +358,6 @@ function setup() {
         clouds[i] = new Cloud()
     }
     player = new Player('player1', player_imgs, (5 * tileSize), (5 * tileSize));
-    dialouge = new Dialouge('Hi, My name is gay, bla bla bla bla bla bla bla bla bla bla bla', [{phrase: 'Hello Gay!', dialouge_num: 1}, {phrase: 'Bye Gay!', dialouge_num: -1}])
     //Home
     level1 = new Level('Home', [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -952,6 +951,16 @@ function takeInput() {
                     for(let i = 0; i < player.talking.dialouges.length; i++){
                         player.talking.dialouges[i].done = false;
                         player.talking.dialouges[i].phrase = [];
+                        if(player.talking.dialouges[i].new_phrase != -1){
+                            player.talking.dialouges[i].phrase2 = player.talking.dialouges[i].new_phrase;
+                            player.talking.dialouges[i].new_phrase = -1;
+                        }
+                        if(player.talking.dialouges[i].new_replies != -1){
+                            for(let j = 0; j < player.talking.dialouges[i].new_replies.length; j++){
+                                player.talking.dialouges[i].replies[j] = player.talking.dialouges[i].new_replies[j];
+                            }
+                            player.talking.dialouges[i].new_replies = -1;
+                        }
                     }
                     player.oldlooking_name = player.talking.name;
                     player.talking = 0;
