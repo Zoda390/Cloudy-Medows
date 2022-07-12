@@ -32,7 +32,9 @@ class MusicPlayer {
         this.player.setAttribute("controls", "none");
         this.player.style.display = "none";
         this.volume = this.player.volume;
+
         document.body.appendChild(this.player);
+        this.player.play();
     }
 
     play() {
@@ -45,8 +47,9 @@ class MusicPlayer {
 
     update(){
         //check if done 
-        
-        console.log(this.player.currentTime + " Not " + this.player.duration)
+        this.play();
+        this.player.volume = 0.05;
+        //console.log(this.player.currentTime + " Not " + this.player.duration)
         if( this.player.currentTime >= this.player.duration){
             console.log(this.player.currentTime + " DONE " + this.player.duration)
             if(this.currentTrack >=  this.tracks.length-1){

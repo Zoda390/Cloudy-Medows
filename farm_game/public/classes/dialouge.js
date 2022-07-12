@@ -37,14 +37,18 @@ class Dialouge {
                     this.done = true;
                     if(this.hand_num != -1 && inv[this.hand_num] != 0 && inv[this.hand_num].amount > 0){
                         if (this.amount >= inv[this.hand_num].amount){
-                            addItem(item_name_to_num(inv[this.hand_num].name), inv[this.hand_num].amount);
-                            inv[this.hand_num].amount = 0;
-                            this.phrase = "Sorry I dont have any more.";
-                            this.replies[0] = {phrase: 'Oh ok', dialouge_num: -1};
+                            if(checkForSpace(item_name_to_num(inv[this.hand_num].name))){
+                                addItem(item_name_to_num(inv[this.hand_num].name), inv[this.hand_num].amount);
+                                inv[this.hand_num].amount = 0;
+                                this.phrase = "Sorry I dont have any more.";
+                                this.replies[0] = {phrase: 'Oh ok', dialouge_num: -1};
+                            }
                         }
                         else {
-                            addItem(item_name_to_num(inv[this.hand_num].name), this.amount);
-                            inv[this.hand_num].amount -= this.amount;
+                            if(checkForSpace(item_name_to_num(inv[this.hand_num].name))){
+                                addItem(item_name_to_num(inv[this.hand_num].name), this.amount);
+                                inv[this.hand_num].amount -= this.amount;
+                            }
                         }
                     }
                 }

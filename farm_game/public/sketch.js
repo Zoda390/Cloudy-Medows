@@ -271,7 +271,7 @@ function preload() {
     class           obj
     Tile            { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'Tile' }
     Cart            { name: 'name', png: png_img, inv: [], class: 'Cart'}
-    Plant           { name: 'name', png: png_img, border: true, collide: false, age: 0, seed_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }
+    Plant           { name: 'name', png: png_img, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }
     Entity          { name: 'name', png: png_img, border: true, collide: false, age: -1, inv: [0, {num: 1, amount: 1}], hand: 0, under_tile_num: 0, class: 'Entity' }
     FreeMoveEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'FreeMoveEntity' }
     MoveableEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, moving_timer: 0, class: 'MoveableEntity' }
@@ -301,7 +301,7 @@ function preload() {
     /*20*/    { name: 'strawberry', png: strawberry_tile_imgs, border: true, collide: false, age: 0, eat_num: 7, waterneed: 0, growthTime: 100, class: 'Plant' },
     /*21*/    { name: 'flower', png: flower_tile_imgs, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 100, class: 'Plant' },
     /*22*/    { name: 'Deb', png: deb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 0, class: 'NPC' },
-    /*23*/    { name: 'Rick', png: rick_tile_imgs, inv: [{ num: 7, amount: 2 }], hand: 0, facing: 2, under_tile_num: 5, instructions: ['left', 'left', 'left', 'left', 'left', 'left', 'left', 'up', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'down', 'left', 'left', 'left', 'left', 'left', 'left', 'left'], moving_timer: 100, class: 'NPC' },
+    /*23*/    { name: 'Rick', png: rick_tile_imgs, inv: [{ num: 7, amount: 2 }], hand: 0, facing: 2, under_tile_num: 5, instructions: ['left', 'left', 'left', 'left', 'left', 'left', 'left', 'up', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'down', 'left', 'left', 'left', 'left', 'left', 'left', 'left', 'left'], moving_timer: 100, class: 'NPC' },
     /*24*/    { name: 'ladybug', png: ladybug_img, border: true, collide: false, age: 0, inv: [0], hand: 0, under_tile_num: 1, class: 'Entity' },
     /*25*/    { name: 'bee', png: bee_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
     /*26*/    { name: 'Meb', png: meb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
@@ -754,7 +754,7 @@ function setup() {
 }
 
 function draw() {
-
+    
     musicplayer.update()
 
     takeInput();
@@ -853,8 +853,30 @@ function addItem(item_obj_num, amount) {
             return;
         }
     }
+}
 
-    return // noo space?
+function checkForSpace(item_obj_num){
+    var check = false;
+    for (let i = 0; i < 8; i++) {
+        if (player.inv[i] != 0) { // stack items
+            if (player.inv[i].name == all_items[item_obj_num].name) {
+                check = true;
+                return check;
+            }
+        }
+    }
+    if (player.inv[player.hand] == 0) { // air in hand
+        check = true;
+        return check;
+    }
+
+    for (let i = 0; i < 8; i++) {
+        if (player.inv[i] == 0) { // find space
+            check = true;
+            return check;
+        }
+    }
+    return check;
 }
 
 function item_name_to_num(item_name) {

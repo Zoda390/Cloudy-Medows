@@ -33,8 +33,10 @@ class Entity extends Tile {
 
     onInteract() {
         if (this.touching.class == 'Plant' && this.touching.age == this.touching.png.length - 2) {
-            addItem(levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize].eat_num, 1 + levels[currentLevel_y][currentLevel_x].ladybugs);
-            levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
+            if(checkForSpace(levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize].eat_num)){
+                addItem(levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize].eat_num, 1 + levels[currentLevel_y][currentLevel_x].ladybugs);
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
+            }
         }
         if (this.inv[this.hand].class == 'Placeable') {
             if (tile_name_to_num(this.touching.name) == (this.inv[this.hand].tile_need_num-1)) {
@@ -83,39 +85,21 @@ class Entity extends Tile {
 
         }
         else if (this.touching.name == 'compost_bucket') {
-            if (this.inv[this.hand].name == 'Junk') {
-                this.inv[this.hand].amount -= 1;
-                if (this.inv[this.hand].amount == 0) {
-                    this.inv[this.hand] = 0;
+            if (this.inv[this.hand].name == 'Junk' || this.inv[this.hand].name == 'Corn Seed' || this.inv[this.hand].name == 'Sweet Potato Seed' || this.inv[this.hand].name == 'Strawberry Seed') {
+                if(checkForSpace(9)){
+                    this.inv[this.hand].amount -= 1;
+                    if (this.inv[this.hand].amount == 0) {
+                        this.inv[this.hand] = 0;
+                    }
+                    addItem(9, 1);
                 }
-                addItem(9, 1);
             }
-            else if (this.inv[this.hand].name == 'Corn Seed') {
-                this.inv[this.hand].amount -= 1;
-                if (this.inv[this.hand].amount == 0) {
-                    this.inv[this.hand] = 0;
-                }
-                addItem(9, 1);
-            }
-            else if (this.inv[this.hand].name == 'Sweet Potato Seed') {
-                this.inv[this.hand].amount -= 1;
-                if (this.inv[this.hand].amount == 0) {
-                    this.inv[this.hand] = 0;
-                }
-                addItem(9, 1);
-            }
-            else if (this.inv[this.hand].name == 'Strawberry Seed') {
-                this.inv[this.hand].amount -= 1;
-                if (this.inv[this.hand].amount == 0) {
-                    this.inv[this.hand] = 0;
-                }
-                addItem(9, 1);
-            }
-
         }
         else if (this.touching.name == 'junk') {
-            addItem(4, 1);
-            levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
+            if(checkForSpace(4)){
+                addItem(4, 1);
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
+            }
         }
     }
 
