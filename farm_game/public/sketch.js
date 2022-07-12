@@ -315,7 +315,7 @@ function preload() {
     /*40*/    { name: 'James', png: james_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
     /*41*/    { name: 'Liam', png: liam_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['up', 'up', 'down', 'down'], moving_timer: 100, class: 'NPC' },
     /*42*/    { name: 'bush', png: bush_img, border: false, collide: true, age: -1, class: 'Tile' },
-    /*43*/    { name: 'tomato', png: tomato_tile_imgs, border: true, collide: false, age: 0, seed_num: 14, waterneed: 0, growthTime: 100, class: 'Plant' }
+    /*43*/    { name: 'tomato', png: tomato_tile_imgs, border: true, collide: false, age: 0, eat_num: 15, waterneed: 0, growthTime: 100, class: 'Plant' }
     ];
     /*
     class       obj
@@ -344,9 +344,6 @@ function preload() {
         /*15*/{name: 'Tomato', png: tomato_img, price: 3, hunger: 1, hunger_timer: 500, seed_num: 14, class: 'Eat'}
     ];
 }
-
-
-
 
 var current_reply = 0;
 function setup() {
