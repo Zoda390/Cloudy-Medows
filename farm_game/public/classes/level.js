@@ -54,7 +54,9 @@ class Level {
                         this.ticks = 0;
                     }
                 }
-          }
+                
+            this.ticks += 1;
+        }
             push();
             stroke(149, 108, 65);
             strokeWeight(5);
@@ -68,7 +70,7 @@ class Level {
             textAlign(CENTER, CENTER);
             text(this.name, (((this.name.length*17)+6)/2)+5, this.y+25);
             pop();
-            this.ticks += 1;
+
         }
         else{
             this.level_name_popup = false;

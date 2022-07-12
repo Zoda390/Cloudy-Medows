@@ -35,7 +35,7 @@ function sleep(ms) {
 
 function preload() {
 
-    musicplayer = new MusicPlayer(['audio/Main_theme.wav','audio/calm_dings.wav','audio/empty_burst.wav'])
+    musicplayer = new MusicPlayer(['audio/Main_theme.wav','audio/calm_dings.wav','audio/empty_burst.wav','audio/Main_theme.mp3'])
     musicplayer.play()
 
     //Items
