@@ -826,24 +826,26 @@ function draw() {
 
 function addItem(item_obj_num, amount) {
     for (let i = 0; i < 8; i++) {
-        if (player.inv[i] != 0) {
+        if (player.inv[i] != 0) { // stack items
             if (player.inv[i].name == all_items[item_obj_num].name) {
                 player.inv[i].amount += amount;
                 return;
             }
         }
     }
-    if (player.inv[player.hand] == 0) {
+    if (player.inv[player.hand] == 0) { // air
         player.inv[player.hand] = new_item_from_num(item_obj_num, amount);
         return;
     }
 
     for (let i = 0; i < 8; i++) {
-        if (player.inv[i] == 0) {
+        if (player.inv[i] == 0) { // find space
             player.inv[i] = new_item_from_num(item_obj_num, amount);
             return;
         }
     }
+
+    return // no space?
 }
 
 function item_name_to_num(item_name) {

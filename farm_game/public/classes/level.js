@@ -33,26 +33,28 @@ class Level {
 
     name_render() {
         if(!this.done){
-            if(this.movephase == 0){
-                if(this.ticks >= 50){
-                    this.movephase = 1;
-                    this.ticks = 0;
+            if(!paused){
+                if(this.movephase == 0){
+                    if(this.ticks >= 50){
+                        this.movephase = 1;
+                        this.ticks = 0;
+                    }
+                    this.y += 1;
                 }
-                this.y += 1;
-            }
-            if(this.movephase == 1){
-                if(this.ticks >= 70){
-                    this.movephase = 2;
-                    this.ticks = 0;
+                if(this.movephase == 1){
+                    if(this.ticks >= 70){
+                        this.movephase = 2;
+                        this.ticks = 0;
+                    }
                 }
-            }
-            if(this.movephase == 2){
-                this.y -= 1;
-                if(this.ticks >= 50){
-                    this.done = true;
-                    this.ticks = 0;
+                if(this.movephase == 2){
+                    this.y -= 1;
+                    if(this.ticks >= 50){
+                        this.done = true;
+                        this.ticks = 0;
+                    }
                 }
-            }
+          }
             push();
             stroke(149, 108, 65);
             strokeWeight(5);

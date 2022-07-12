@@ -16,3 +16,23 @@ class Sound {
         this.sound.pause();
     }
 }
+
+
+class MusicSystem {
+
+    constructor(tracks) {
+        this.player = document.createElement("audio");
+        this.player.tracks = tracks;
+        this.player.src = tracks[0];
+        this.player.setAttribute("preload", "auto");
+        this.player.setAttribute("controls", "none");
+        this.player.style.display = "none";
+        document.body.appendChild(this.player);
+    }
+    play() {
+        this.player.play();
+    }
+    stop() {
+        this.player.pause();
+    }
+}
