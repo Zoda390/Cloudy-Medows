@@ -27,11 +27,17 @@ var all_items = [];
 var Dialouge_JSON = 0;
 var paused = false;
 
+var musicplayer = {};
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function preload() {
+
+    musicplayer = new MusicPlayer(['audio/Main_theme.wav','audio/calm_dings.wav','audio/empty_burst.wav'])
+    musicplayer.play()
+
     //Items
     fullcourse_img = loadImage('images/items/FullCourse.png');
 
@@ -259,7 +265,7 @@ function preload() {
     fore_red_grown_building_img = loadImage('images/red_building_low2.png');
     fore_gray_building_img = loadImage('images/building_gray.png');
 
-    main_theme.play(); //needs to loop
+    // main_theme.play(); //needs to loop
 
     /*
     class           obj
@@ -748,6 +754,9 @@ function setup() {
 }
 
 function draw() {
+
+    musicplayer.update()
+
     takeInput();
     if (title_screen) {
         background(135, 206, 235);
@@ -845,7 +854,7 @@ function addItem(item_obj_num, amount) {
         }
     }
 
-    return // no space?
+    return // noo space?
 }
 
 function item_name_to_num(item_name) {
