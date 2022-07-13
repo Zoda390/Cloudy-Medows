@@ -1,6 +1,9 @@
 class Shop extends Entity {
 	constructor(name, png, x, y, inv) {
 		super(name, png, x, y, -1, inv, 0, 5);
+        for(let i = 0; i < this.inv.length; i++){
+            this.inv[i].price = all_items[item_name_to_num(this.inv[i].name)].price + round(random(0, 3));
+        }
         this.class = 'Shop';
 	}
 
@@ -55,5 +58,14 @@ class Shop extends Entity {
             text(this.inv[i].amount, (canvasWidth / 20) + 442, (canvasHeight - 100) + (i * 32) + 8);
         }
         pop()
+    }
+
+    daily_update(){
+        for(let i = 0; i < this.inv.length; i++){
+            if(this.inv[i].amount < 50){
+                this.inv[i].amount += round(random(0, 3));
+            }
+            
+        }
     }
 }

@@ -923,9 +923,30 @@ function takeInput() {
             }
         }
         if (keyIsDown(eat_button)) {
-            if (player.talking.class == 'Shop'){
+            if (millis() - lastMili > 200) {
+                if(player.talking.class == 'NPC'){
+                    player.talking.move_bool = true;
+                    player.talking.current_dialouge = 0;
+                    for(let i = 0; i < player.talking.dialouges.length; i++){
+                        player.talking.dialouges[i].done = false;
+                        player.talking.dialouges[i].phrase = [];
+                        if(player.talking.dialouges[i].new_phrase != -1){
+                            player.talking.dialouges[i].phrase2 = player.talking.dialouges[i].new_phrase;
+                            player.talking.dialouges[i].new_phrase = -1;
+                        }
+                        if(player.talking.dialouges[i].new_replies != -1){
+                            for(let j = 0; j < player.talking.dialouges[i].new_replies.length; j++){
+                                player.talking.dialouges[i].replies[j] = player.talking.dialouges[i].new_replies[j];
+                            }
+                            player.talking.dialouges[i].new_replies = -1;
+                        }
+                    }
+                }
                 player.oldlooking_name = player.talking.name;
                 player.talking = 0;
+                current_reply = 0;
+                lastMili = millis();
+                player.lasteatMili = millis();
             }
         }
         if (keyIsDown(move_up_button)){
@@ -983,8 +1004,8 @@ function takeInput() {
                 }
                 else if (player.talking.class == 'Shop'){
                     if(player.coins >= player.talking.inv[current_reply].price){    //check if you have the money
-                        player.coins -= player.talking.inv[current_reply].price; //reduce money
                         addItem(item_name_to_num(player.talking.inv[current_reply].name), 1);
+                        player.coins -= player.talking.inv[current_reply].price; //reduce money
                         player.talking.inv[current_reply].amount -= 1; //shop.inv -1 amount
                     }
                 }
@@ -1088,9 +1109,21 @@ function render_ui() {
             player.looking(currentLevel_x, currentLevel_y).move_bool = false;
             player.looking(currentLevel_x, currentLevel_y).dialouge_render();
         }
-        else if (player.looking(currentLevel_x, currentLevel_y).class == 'Shop'){
+        if (player.looking(currentLevel_x, currentLevel_y).class == 'Shop'){
             player.looking(currentLevel_x, currentLevel_y).shop_render();
         }
+        for (let i = 0; i < maxHunger; i++) {
+            image(hunger_e, (canvasWidth / 20) + (30 * i), (canvasHeight - 185));
+        }
+        for (let i = 0; i < player.hunger; i++) {
+            image(hunger_f, (canvasWidth / 20) + (30 * i), (canvasHeight - 185));
+        }
+        textFont(player_2);
+        textSize(32.5);
+        fill(0);
+        textAlign(LEFT, TOP);
+        image(coin_img, canvasWidth - 140, (canvasHeight - 185));
+        text(player.coins, canvasWidth - 110, (canvasHeight - 182.5));
     }
     else{
         image(inv_img, (canvasWidth / 2) - (512 / 2), canvasHeight - 64);

@@ -130,6 +130,9 @@ class Level {
     daily_update() {
         for (let i = 0; i < this.map.length; i++) {
             for (let j = 0; j < this.map[i].length; j++) {
+                if(this.map[i][j].class == 'Shop'){
+                    this.map[i][j].daily_update();
+                }
                 if (this.map[i][j].age >= 0 && this.map[i][j].class != 'Plant') {
                     this.map[i][j].age += 1;
                     if (this.map[i][j].name == 'compost_tile') {
