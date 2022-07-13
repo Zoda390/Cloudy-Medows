@@ -35,8 +35,7 @@ function sleep(ms) {
 
 function preload() {
 
-    musicplayer = new MusicPlayer(['audio/Main_theme.wav','audio/calm_dings.wav','audio/empty_burst.wav','audio/Main_theme.mp3'])
-    musicplayer.play()
+    musicplayer = new MusicPlayer(['audio/Main_theme.wav','audio/calm_dings.mp3','audio/empty_burst.mp3','audio/Main_theme.mp3'])
 
     //Items
     fullcourse_img = loadImage('images/items/FullCourse.png');
@@ -265,12 +264,10 @@ function preload() {
     fore_red_grown_building_img = loadImage('images/red_building_low2.png');
     fore_gray_building_img = loadImage('images/building_gray.png');
 
-    // main_theme.play(); //needs to loop
-
     /*
     class           obj
     Tile            { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'Tile' }
-    Cart            { name: 'name', png: png_img, inv: [], class: 'Cart'}
+    Shop            { name: 'name', png: png_img, inv: [], class: 'Shop'}
     Plant           { name: 'name', png: png_img, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }
     Entity          { name: 'name', png: png_img, border: true, collide: false, age: -1, inv: [0, {num: 1, amount: 1}], hand: 0, under_tile_num: 0, class: 'Entity' }
     FreeMoveEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'FreeMoveEntity' }
@@ -287,7 +284,7 @@ function preload() {
     /*6*/    { name: 'dirt', png: dirt_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*7*/    { name: 'bed', png: bed_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*8*/    { name: 'cart_s', png: cart_s_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*9*/    { name: 'cart_b_corn', png: cart_tile_img, inv: [{ num: 2, amount: 7}], class: 'Cart' },
+    /*9*/    { name: 'Fruits', png: cart_tile_img, inv: [{ num: 2, amount: 7}, {num: 5, amount: 6}, {num: 7, amount: 0}], class: 'Shop' },
     /*10*/    { name: 'bridge', png: bridge_tile_img, border: false, collide: false, age: -1, class: 'Tile' },
     /*11*/    { name: 'junk', png: junk_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*12*/    { name: 'concrete2', png: concrete_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
@@ -305,11 +302,11 @@ function preload() {
     /*24*/    { name: 'ladybug', png: ladybug_img, border: true, collide: false, age: 0, inv: [0], hand: 0, under_tile_num: 1, class: 'Entity' },
     /*25*/    { name: 'bee', png: bee_img, border: true, collide: true, age: -1, class: 'FreeMoveEntity' },
     /*26*/    { name: 'Meb', png: meb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*27*/    { name: 'cart_b_sp', png: cart_sp_tile_img, inv: [{num: 5, amount: 6}], class: 'Cart' },
-    /*28*/    { name: 'cart_b_straw', png: cart_straw_tile_img, inv: [{num: 7, amount: 6}], class: 'Cart' },
-    /*29*/    { name: 'cart_b_flower', png: cart_flower_tile_img, inv: [{num: 11, amount: 6}], class: 'Cart' },
-    /*30*/    { name: 'cart_b_lady', png: cart_ladybug_tile_img, inv: [{num: 10, amount: 6}], class: 'Cart' },
-    /*31*/    { name: 'cart_b_sprinkler', png: cart_sprinkler_tile_img, inv: [{num: 12, amount: 6}], class: 'Cart' },
+    /*27*/    { name: 'cart_b_sp', png: cart_sp_tile_img, inv: [{num: 5, amount: 6}], class: 'Shop' },
+    /*28*/    { name: 'cart_b_straw', png: cart_straw_tile_img, inv: [{num: 7, amount: 6}], class: 'Shop' },
+    /*29*/    { name: 'cart_b_flower', png: cart_flower_tile_img, inv: [{num: 11, amount: 6}], class: 'Shop' },
+    /*30*/    { name: 'cart_b_lady', png: cart_ladybug_tile_img, inv: [{num: 10, amount: 6}], class: 'Shop' },
+    /*31*/    { name: 'cart_b_sprinkler', png: cart_sprinkler_tile_img, inv: [{num: 12, amount: 6}], class: 'Shop' },
     /*32*/    { name: 'bridge2', png: bridge_tile_2_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*33*/    { name: 'Mario', png: mario_tile_imgs, inv: [{num: 12, amount: 1}], hand: 0, facing: 2, under_tile_num: 5, instructions: [], moving_timer: 100, class: 'NPC' },
     /*34*/    { name: 'Garry', png: garry_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 5, instructions: ['down', 'up'], moving_timer: 100, class: 'NPC' },
@@ -825,8 +822,8 @@ function draw() {
                         }
                     }
                 }
+                lastTimeMili = millis();
             }
-            lastTimeMili = millis();
         }
     }
 }
@@ -925,6 +922,12 @@ function takeInput() {
                 lastMili = millis();
             }
         }
+        if (keyIsDown(eat_button)) {
+            if (player.talking.class == 'Shop'){
+                player.oldlooking_name = player.talking.name;
+                player.talking = 0;
+            }
+        }
         if (keyIsDown(move_up_button)){
             if (millis() - lastMili > 200) {
                 current_reply -= 1;
@@ -937,37 +940,53 @@ function takeInput() {
         if (keyIsDown(move_down_button)){
             if (millis() - lastMili > 200) {
                 current_reply += 1;
-                if (current_reply > player.talking.dialouges[player.talking.current_dialouge].replies.length-1){
-                    current_reply = player.talking.dialouges[player.talking.current_dialouge].replies.length-1;
+                if (player.talking.class == 'NPC'){
+                    if (current_reply > player.talking.dialouges[player.talking.current_dialouge].replies.length-1){
+                        current_reply = player.talking.dialouges[player.talking.current_dialouge].replies.length-1;
+                    }
+                }
+                else if (player.talking.class == 'Shop'){
+                    if (current_reply > player.talking.inv.length-1){
+                        current_reply = player.talking.inv.length-1;
+                    }
                 }
                 lastMili = millis();
             }
         }
         if (keyIsDown(interact_button)){
             if (millis() - lastMili > 200) {
-                if(player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num == -1){
-                    player.talking.move_bool = true;
-                    player.talking.current_dialouge = 0;
-                    for(let i = 0; i < player.talking.dialouges.length; i++){
-                        player.talking.dialouges[i].done = false;
-                        player.talking.dialouges[i].phrase = [];
-                        if(player.talking.dialouges[i].new_phrase != -1){
-                            player.talking.dialouges[i].phrase2 = player.talking.dialouges[i].new_phrase;
-                            player.talking.dialouges[i].new_phrase = -1;
-                        }
-                        if(player.talking.dialouges[i].new_replies != -1){
-                            for(let j = 0; j < player.talking.dialouges[i].new_replies.length; j++){
-                                player.talking.dialouges[i].replies[j] = player.talking.dialouges[i].new_replies[j];
+                if (player.talking.class == 'NPC'){
+                    if(player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num == -1){
+                        player.talking.move_bool = true;
+                        player.talking.current_dialouge = 0;
+                        for(let i = 0; i < player.talking.dialouges.length; i++){
+                            player.talking.dialouges[i].done = false;
+                            player.talking.dialouges[i].phrase = [];
+                            if(player.talking.dialouges[i].new_phrase != -1){
+                                player.talking.dialouges[i].phrase2 = player.talking.dialouges[i].new_phrase;
+                                player.talking.dialouges[i].new_phrase = -1;
                             }
-                            player.talking.dialouges[i].new_replies = -1;
+                            if(player.talking.dialouges[i].new_replies != -1){
+                                for(let j = 0; j < player.talking.dialouges[i].new_replies.length; j++){
+                                    player.talking.dialouges[i].replies[j] = player.talking.dialouges[i].new_replies[j];
+                                }
+                                player.talking.dialouges[i].new_replies = -1;
+                            }
                         }
+                        player.oldlooking_name = player.talking.name;
+                        player.talking = 0;
+                        current_reply = 0;
                     }
-                    player.oldlooking_name = player.talking.name;
-                    player.talking = 0;
-                    current_reply = 0;
+                    else{
+                        player.talking.current_dialouge = player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num;
+                    }
                 }
-                else{
-                    player.talking.current_dialouge = player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num;
+                else if (player.talking.class == 'Shop'){
+                    if(player.coins >= player.talking.inv[current_reply].price){    //check if you have the money
+                        player.coins -= player.talking.inv[current_reply].price; //reduce money
+                        addItem(item_name_to_num(player.talking.inv[current_reply].name), 1);
+                        player.talking.inv[current_reply].amount -= 1; //shop.inv -1 amount
+                    }
                 }
                 lastMili = millis();
             }
@@ -1064,12 +1083,14 @@ function render_ui() {
         levels[currentLevel_y][currentLevel_x].name_render();
     }
 
-    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).class == 'NPC' && player.talking != 0) {
-        player.looking(currentLevel_x, currentLevel_y).move_bool = false;
-        player.looking(currentLevel_x, currentLevel_y).dialouge_render();
-    }
-    else if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).class == 'Cart' && player.talking != 0){
-        player.looking(currentLevel_x, currentLevel_y).dialouge_render();
+    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0) {
+        if (player.looking(currentLevel_x, currentLevel_y).class == 'NPC' ){
+            player.looking(currentLevel_x, currentLevel_y).move_bool = false;
+            player.looking(currentLevel_x, currentLevel_y).dialouge_render();
+        }
+        else if (player.looking(currentLevel_x, currentLevel_y).class == 'Shop'){
+            player.looking(currentLevel_x, currentLevel_y).shop_render();
+        }
     }
     else{
         image(inv_img, (canvasWidth / 2) - (512 / 2), canvasHeight - 64);
@@ -1104,21 +1125,6 @@ function render_ui() {
         textAlign(LEFT, TOP);
         image(coin_img, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 95));
         text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
-        if(paused){
-            push()
-            stroke(149, 108, 65);
-            strokeWeight(5);
-            fill(187, 132, 75);
-            rectMode(CENTER);
-            rect(canvasWidth/2, (canvasHeight/2)-30, 400, 400);
-            fill(255);
-            stroke(0);
-            strokeWeight(2);
-            textFont(player_2);
-            textAlign(CENTER, CENTER);
-            text('Paused', canvasWidth/2, (canvasHeight/3)-30);
-            pop()
-        }
         if (player.touching.name == "cart_s") {
             push()
             stroke(0)
@@ -1141,9 +1147,21 @@ function render_ui() {
             pop()
     
         }
-        if (player.touching.class == 'Cart') {
-            player.touching.phrase_render();
-        }
+    }
+    if(paused){
+        push()
+        stroke(149, 108, 65);
+        strokeWeight(5);
+        fill(187, 132, 75);
+        rectMode(CENTER);
+        rect(canvasWidth/2, (canvasHeight/2)-30, 400, 400);
+        fill(255);
+        stroke(0);
+        strokeWeight(2);
+        textFont(player_2);
+        textAlign(CENTER, CENTER);
+        text('Paused', canvasWidth/2, (canvasHeight/3)-30);
+        pop()
     }
 }
 
@@ -1152,8 +1170,8 @@ function new_tile_from_num(num, x, y) {
         if (all_tiles[num - 1].class == 'Tile') {
             return new Tile(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
         }
-        else if (all_tiles[num - 1].class == 'Cart') {
-            return new Cart(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv);
+        else if (all_tiles[num - 1].class == 'Shop') {
+            return new Shop(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv);
         }
         else if (all_tiles[num - 1].class == 'Plant') {
             return new Plant(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].eat_num, all_tiles[num - 1].waterneed, all_tiles[num - 1].growthTime);

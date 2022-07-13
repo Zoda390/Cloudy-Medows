@@ -8,7 +8,7 @@ class Player extends MoveableEntity {
         this.lastFoodnum = 2;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = 0;
-        this.coins = 0;
+        this.coins = 3;
         this.hp = 100;
         this.dead = false;
         this.deaths = 0;
@@ -23,7 +23,7 @@ class Player extends MoveableEntity {
 
     render() {
         if(this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0){
-            if(this.oldlooking_name != this.looking(currentLevel_x, currentLevel_y).name && (this.looking(currentLevel_x, currentLevel_y).class == 'NPC' || this.looking(currentLevel_x, currentLevel_y).class == 'Cart')){
+            if(this.oldlooking_name != this.looking(currentLevel_x, currentLevel_y).name && ((this.looking(currentLevel_x, currentLevel_y).class == 'NPC' || this.looking(currentLevel_x, currentLevel_y).class == 'Shop'))){
                 this.talking = this.looking(currentLevel_x, currentLevel_y);
             }
         }
@@ -40,10 +40,12 @@ class Player extends MoveableEntity {
         }
         if (this.hp <= 0) {
             this.dead = true;
+            this.touching.collide = false;
             currentLevel_y = 1;
             currentLevel_x = 1;
             this.pos.x = (5 * tileSize);
             this.pos.y = (5 * tileSize);
+            this.talking = 0;
             this.hunger = 4;
             this.hp = 100;
             this.deaths += 1;

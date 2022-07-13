@@ -76,14 +76,6 @@ class Entity extends Tile {
                 }
             }
         }
-        else if (player.touching.class == 'Cart') {
-            if (this.coins >= this.touching.price) {
-                moneySound.play();
-                addItem(this.touching.item_num, 1);
-                this.coins -= this.touching.price;
-            }
-
-        }
         else if (this.touching.name == 'compost_bucket') {
             if (this.inv[this.hand].name == 'Junk' || this.inv[this.hand].name == 'Corn Seed' || this.inv[this.hand].name == 'Sweet Potato Seed' || this.inv[this.hand].name == 'Strawberry Seed') {
                 if(checkForSpace(9)){

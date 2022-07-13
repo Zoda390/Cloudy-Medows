@@ -1,6 +1,5 @@
 
 class Sound {
-
     constructor(src) {
         this.src = src;
 
@@ -21,7 +20,6 @@ class Sound {
 
 
 class MusicPlayer {
-
     constructor(tracks) {
         this.player = document.createElement("audio");
         this.tracks = tracks;
@@ -45,23 +43,20 @@ class MusicPlayer {
     }
 
 
-    update(){
-        //check if done 
+    update(){ 
         this.play();
         this.player.volume = 0.05;
-        //console.log(this.player.currentTime + " Not " + this.player.duration)
-        if( this.player.currentTime >= this.player.duration){
+        //console.log(this.player.currentTime + " Not " + (this.player.duration - 0.1) + " Track " + this.currentTrack);
+        if( this.player.currentTime >= this.player.duration - 0.1){ //check if done
             console.log(this.player.currentTime + " DONE " + this.player.duration)
+            this.currentTrack++; // go to the next track
+            
             if(this.currentTrack >=  this.tracks.length-1){
-                // all tracks playied
-                this.currentTrack = 0;
-            }else{
-
-                // go to the next track
-                this.currentTrack++;
+                this.currentTrack = 0; // all tracks playied
             }
+            this.player.src = this.tracks[this.currentTrack];
             this.play()
-        }   
+        }
 
     }
 
