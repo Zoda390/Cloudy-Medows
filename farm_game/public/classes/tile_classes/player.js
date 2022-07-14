@@ -72,7 +72,7 @@ class Player extends MoveableEntity {
                 fill(255, 0, 0, this.a);
                 textAlign(CENTER, CENTER);
                 textFont(player_2);
-                text('YOU LOSE', canvasWidth/2, canvasHeight/4);
+                text('YOU DIED', canvasWidth/2, canvasHeight/4);
                 pop();
                 if(!paused){
                     if(this.transphase == 0){
