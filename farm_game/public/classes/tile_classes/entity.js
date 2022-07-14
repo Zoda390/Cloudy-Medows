@@ -50,6 +50,16 @@ class Entity extends Tile {
                 }
             }
         }
+        if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).name == 'cart_s') {
+            if (this.inv[this.hand].price != 0 && this.inv[this.hand] != 0) {
+                this.coins += this.inv[this.hand].price;
+                moneySound.play();
+                this.inv[this.hand].amount -= 1;
+                if (this.inv[this.hand].amount == 0) {
+                    this.inv[this.hand] = 0;
+                }
+            }
+        }
         if (this.touching.name == 'grass') {
             if (this.inv[this.hand].name == 'Hoe') {
                 hoe_sound.play();
@@ -60,16 +70,6 @@ class Entity extends Tile {
         else if (this.touching.name == 'plot') {
             if (this.inv[this.hand].class == 'Seed') {
                 levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].plant_num, this.touching.pos.x, this.touching.pos.y);
-                this.inv[this.hand].amount -= 1;
-                if (this.inv[this.hand].amount == 0) {
-                    this.inv[this.hand] = 0;
-                }
-            }
-        }
-        else if (this.touching.name == 'cart_s') {
-            if (this.inv[this.hand].price != 0 && this.inv[this.hand] != 0) {
-                this.coins += this.inv[this.hand].price;
-                moneySound.play();
                 this.inv[this.hand].amount -= 1;
                 if (this.inv[this.hand].amount == 0) {
                     this.inv[this.hand] = 0;

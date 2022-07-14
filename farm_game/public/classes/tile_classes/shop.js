@@ -2,7 +2,7 @@ class Shop extends Entity {
 	constructor(name, png, x, y, inv) {
 		super(name, png, x, y, -1, inv, 0, 5);
         for(let i = 0; i < this.inv.length; i++){
-            this.inv[i].price = all_items[item_name_to_num(this.inv[i].name)].price + round(random(0, 3));
+            this.inv[i].price += round(random(0, 3));
         }
         this.class = 'Shop';
 	}
@@ -33,6 +33,7 @@ class Shop extends Entity {
         text(this.name, (canvasWidth / 20) + 10, canvasHeight - 140);
         textSize(13);
         strokeWeight(2);
+        text('Q to leave', ((3*canvasWidth) / 4) + 10, canvasHeight - 140);
         text('Item,          cost,      quantity in store', (canvasWidth / 20) + 42, canvasHeight - 115);
         for(let i = 0; i < this.inv.length; i++){
             if(this.inv[i].amount <= 0){

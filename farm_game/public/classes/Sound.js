@@ -11,6 +11,7 @@ class Sound {
         this.sound.setAttribute("controls", "none");
         this.sound.style.display = "none";
         document.body.appendChild(this.sound);
+        this.sound.volume = fxSlider.value();
         this.sound.play();
     }
     stop() {
@@ -45,7 +46,7 @@ class MusicPlayer {
 
     update(){ 
         this.play();
-        this.player.volume = 0.05;
+        this.player.volume = musicSlider.value();
         //console.log(this.player.currentTime + " Not " + (this.player.duration - 0.1) + " Track " + this.currentTrack);
         if( this.player.currentTime >= this.player.duration - 0.1){ //check if done
             console.log(this.player.currentTime + " DONE " + this.player.duration)

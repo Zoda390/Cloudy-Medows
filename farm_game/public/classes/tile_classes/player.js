@@ -4,7 +4,7 @@ class Player extends MoveableEntity {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
-        this.hunger = maxHunger - 1;
+        this.hunger = maxHunger - 5;
         this.lastFoodnum = 2;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = 0;
@@ -19,6 +19,11 @@ class Player extends MoveableEntity {
         this.lastmoveMili = 0;
         this.lasteatMili = 0;
         this.lastinteractMili = 0;
+        this.transphase = 0;
+        this.ticks = 0;
+        this.a = 0;
+        this.done = false;
+        this.class = 'Player';
     }
 
     render() {
@@ -38,25 +43,11 @@ class Player extends MoveableEntity {
             this.hunger -= 1;
             this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         }
-        if (this.hp <= 0) {
-            this.dead = true;
-            this.touching.collide = false;
-            currentLevel_y = 1;
-            currentLevel_x = 1;
-            this.pos.x = (5 * tileSize);
-            this.pos.y = (5 * tileSize);
-            this.talking = 0;
-            this.hunger = 4;
-            this.hp = 100;
-            this.deaths += 1;
-            this.dead = false;
-            onDeathSound.play();
-        }
         push();
         imageMode(CENTER);
         noTint();
         image(player_imgs[this.facing][this.anim], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
-        if (this.hunger <= 0 && millis() - lastHungerMili > 400 && !paused) {
+        if (this.hunger <= 0 && millis() - lastHungerMili > 400 && !paused && !this.dead) {
             hit_sound.play();
             this.hp -= 10;
             tint(255, 0, 0, 100);
@@ -68,6 +59,61 @@ class Player extends MoveableEntity {
             lastHungerMili = millis();
         }
         pop();
+        if (this.hp <= 0) { // Player Death
+            //turn player death screen on
+            if(!this.done){
+                push()
+                fill(10, this.a);
+                rect(0, 0, canvasWidth, canvasHeight);
+                tint(255, this.a);
+                imageMode(CENTER);
+                image(skull_img, canvasWidth/2, canvasHeight/2);
+                textSize(90);
+                fill(255, 0, 0, this.a);
+                textAlign(CENTER, CENTER);
+                textFont(player_2);
+                text('YOU LOSE', canvasWidth/2, canvasHeight/4);
+                pop();
+                if(!paused){
+                    if(this.transphase == 0){
+                        if(this.ticks == 0){
+                            onDeathSound.play();
+                            this.dead = true;
+                            this.touching.collide = false;
+                        }
+                        if(this.ticks >= 51){
+                            this.transphase = 1;
+                            this.ticks = 0;
+                        }
+                        this.a += 5;
+                    }
+                    if(this.transphase == 1){
+                        if(this.ticks >= 600){
+                            currentLevel_y = 1;
+                            currentLevel_x = 1;
+                            this.dead = false;
+                            this.pos.x = (5 * tileSize);
+                            this.pos.y = (5 * tileSize);
+                            this.talking = 0;
+                            this.hunger = 4;
+                            this.deaths += 1;
+                            this.transphase = 2;
+                            this.ticks = 0;
+                        }
+                    }
+                    if(this.transphase == 2){
+                        this.a -= 5;
+                        if(this.ticks >= 51){
+                            this.done = true;
+                            this.ticks = 0;
+                            this.hp = 100;
+                        }
+                    }
+                    
+                    this.ticks += 1;
+                }
+            }
+        }
     }
 
     
@@ -105,7 +151,7 @@ class Player extends MoveableEntity {
         if (keyIsDown(move_left_button)) {
             if (millis() - this.lastmoveMili > 100) {
                 this.facing = 3;
-                if (this.pos.x - tileSize <= 0) {
+                if (this.pos.x - tileSize < 0) {
                     this.touching.collide = false;
                     levels[currentLevel_y][currentLevel_x].level_name_popup = false;
                     levels[currentLevel_y][currentLevel_x].y = -50;
@@ -134,7 +180,7 @@ class Player extends MoveableEntity {
         if (keyIsDown(move_up_button)) {
             if (millis() - this.lastmoveMili > 100) {
                 this.facing = 0;
-                if (this.pos.y - tileSize <= 0) {
+                if (this.pos.y - tileSize < 0) {
                     this.touching.collide = false;
                     levels[currentLevel_y][currentLevel_x].level_name_popup = false;
                     levels[currentLevel_y][currentLevel_x].y = -50;

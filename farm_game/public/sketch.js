@@ -26,6 +26,8 @@ var all_tiles = [];
 var all_items = [];
 var Dialouge_JSON = 0;
 var paused = false;
+var musicSlider = 0;
+var fxSlider = 0;
 
 var musicplayer = {};
 
@@ -52,7 +54,7 @@ function preload() {
     concrete_tile_img = loadImage('images/tiles/Concrete_1.png');
     dirt_tile_img = loadImage('images/tiles/dirt.png');
     bed_tile_img = loadImage('images/tiles/Bed.png');
-    cart_s_tile_img = loadImage('images/tiles/Cart_s.png');
+    cart_s_tile_img = loadImage('images/tiles/Shop.png');
     cart_tile_img = loadImage('images/tiles/Cart.png');
     bridge_tile_img = loadImage('images/tiles/Bridge.png');
     junk_tile_img = loadImage('images/tiles/junk_tile.png');
@@ -169,6 +171,9 @@ function preload() {
     title_screen_img = loadImage('images/ui/Title_Screen.gif');
     button_img = loadImage('images/ui/Button.png');
     button_selected_img = loadImage('images/ui/ButtonSelected.png');
+    music_note_img = loadImage('images/ui/Music_Note.png');
+    fx_img = loadImage('images/ui/fx.png');
+    skull_img = loadImage('images/ui/dealth_icon(128x128).png');
 
     //Player
     up_move_img_1 = loadImage('images/player/Back_Move.png');
@@ -257,12 +262,12 @@ function preload() {
     moneySound = new Sound('audio/money.wav');
 
     background_img = loadImage('images/Skyline.gif');
-    foreground_img = loadImage('images/Fore6.png');
-    fore_cloud_img = loadImage('images/Cloud_Tile.png');
-    fore_building_img = loadImage('images/Building_Low.png');
-    fore_red_building_img = loadImage('images/Red_building_low.png');
-    fore_red_grown_building_img = loadImage('images/red_building_low2.png');
-    fore_gray_building_img = loadImage('images/building_gray.png');
+    foreground_img = loadImage('images/foreground/Fore6.png');
+    fore_cloud_img = loadImage('images/foreground/Cloud_Tile.png');
+    fore_building_img = loadImage('images/foreground/Building_Low.png');
+    fore_red_building_img = loadImage('images/foreground/Red_building_low.png');
+    fore_red_grown_building_img = loadImage('images/foreground/red_building_low2.png');
+    fore_gray_building_img = loadImage('images/foreground/building_gray.png');
 
     /*
     class           obj
@@ -283,7 +288,7 @@ function preload() {
     /*5*/    { name: 'concrete', png: concrete_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*6*/    { name: 'dirt', png: dirt_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
     /*7*/    { name: 'bed', png: bed_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
-    /*8*/    { name: 'cart_s', png: cart_s_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
+    /*8*/    { name: 'cart_s', png: cart_s_tile_img, border: true, collide: true, age: -1, class: 'Tile' },
     /*9*/    { name: 'Fruits', png: cart_tile_img, inv: [{ num: 2, amount: 7}, {num: 5, amount: 6}, {num: 7, amount: 0}], class: 'Shop' },
     /*10*/    { name: 'bridge', png: bridge_tile_img, border: false, collide: false, age: -1, class: 'Tile' },
     /*11*/    { name: 'junk', png: junk_tile_img, border: true, collide: false, age: -1, class: 'Tile' },
@@ -355,6 +360,15 @@ function setup() {
         clouds[i] = new Cloud()
     }
     player = new Player('player1', player_imgs, (5 * tileSize), (5 * tileSize));
+    
+    musicSlider = createSlider(0, 1, 1, 0.01);
+    musicSlider.position((canvasWidth/2)-10, (canvasHeight/2)-85);
+    musicSlider.hide();
+
+    fxSlider = createSlider(0, 1, 1, 0.01);
+    fxSlider.position((canvasWidth/2)-10, (canvasHeight/2)-5);
+    fxSlider.hide();
+
     //Home
     level1 = new Level('Home', [
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -787,8 +801,11 @@ function draw() {
             }
         }
         player.render();
-        background(0, 0, 0, time);
-        render_ui();
+        if(!player.dead){
+            background(0, 0, 0, time);
+            render_ui();
+        }
+        
         if (!paused){
             if (millis() - lastTimeMili > 150) { //150 for normal time
                 if (timephase == 0) {
@@ -1003,10 +1020,12 @@ function takeInput() {
                     }
                 }
                 else if (player.talking.class == 'Shop'){
-                    if(player.coins >= player.talking.inv[current_reply].price){    //check if you have the money
-                        addItem(item_name_to_num(player.talking.inv[current_reply].name), 1);
-                        player.coins -= player.talking.inv[current_reply].price; //reduce money
-                        player.talking.inv[current_reply].amount -= 1; //shop.inv -1 amount
+                    if(player.talking.inv[current_reply].amount >= 1){
+                        if(player.coins >= player.talking.inv[current_reply].price){    //check if you have the money
+                            addItem(item_name_to_num(player.talking.inv[current_reply].name), 1);
+                            player.coins -= player.talking.inv[current_reply].price; //reduce money
+                            player.talking.inv[current_reply].amount -= 1; //shop.inv -1 amount
+                        }
                     }
                 }
                 lastMili = millis();
@@ -1129,7 +1148,6 @@ function render_ui() {
         image(inv_img, (canvasWidth / 2) - (512 / 2), canvasHeight - 64);
         image(inv_hand_img, (canvasWidth / 2) - (512 / 2) + (64 * player.hand), canvasHeight - 64);
         
-
         for (let i = 0; i < 8; i++) {
             if (player.inv[i] == undefined) {
                 player.inv[i] = 0;
@@ -1158,24 +1176,28 @@ function render_ui() {
         textAlign(LEFT, TOP);
         image(coin_img, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 95));
         text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
-        if (player.touching.name == "cart_s") {
+        if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).name == "cart_s") {
             push()
             stroke(0)
-            fill(255)
+            stroke(149, 108, 65);
+            strokeWeight(5);
+            fill(187, 132, 75);
             rectMode(CENTER)
-            rect(player.touching.pos.x + (tileSize / 2), player.touching.pos.y - tileSize, 90, 70);
+            rect(player.looking(currentLevel_x, currentLevel_y).pos.x + (tileSize / 2), player.looking(currentLevel_x, currentLevel_y).pos.y - tileSize, 90, 70);
             textAlign(CENTER, CENTER);
             textSize(15);
-            fill(0);
-            text('Sell', player.touching.pos.x + (tileSize / 2), player.touching.pos.y - (tileSize * 1.5), 90, 70);
-            image(coin_img, player.touching.pos.x - (tileSize / 2) - 5, player.touching.pos.y - (tileSize * 1));
+            fill(255);
+            stroke(0);
+            strokeWeight(4);
+            text('Sell', player.looking(currentLevel_x, currentLevel_y).pos.x + (tileSize / 2), player.looking(currentLevel_x, currentLevel_y).pos.y - (tileSize * 1.5), 90, 70);
+            image(coin_img, player.looking(currentLevel_x, currentLevel_y).pos.x - (tileSize / 2) - 5, player.looking(currentLevel_x, currentLevel_y).pos.y - (tileSize * 1));
             if (player.inv[player.hand].price == 0 || player.inv[player.hand] == 0) {
                 fill(255, 0, 0);
-                text("No", player.touching.pos.x + (tileSize), player.touching.pos.y - (tileSize / 2));
+                text("No", player.looking(currentLevel_x, currentLevel_y).pos.x + (tileSize), player.looking(currentLevel_x, currentLevel_y).pos.y - (tileSize / 2));
             }
             if (player.inv[player.hand].price > 0) {
-                fill(0);
-                text(player.inv[player.hand].price, player.touching.pos.x + (tileSize), player.touching.pos.y - (tileSize / 2));
+                fill(255);
+                text(player.inv[player.hand].price, player.looking(currentLevel_x, currentLevel_y).pos.x + (tileSize), player.looking(currentLevel_x, currentLevel_y).pos.y - (tileSize / 2));
             }
             pop()
     
@@ -1194,7 +1216,16 @@ function render_ui() {
         textFont(player_2);
         textAlign(CENTER, CENTER);
         text('Paused', canvasWidth/2, (canvasHeight/3)-30);
+        musicSlider.show();
+        fxSlider.show();
+        image(music_note_img, (canvasWidth/2)-65, (canvasHeight/3)-5);
+        image(fx_img, (canvasWidth/2)-65, (canvasHeight/2)-30);
+
         pop()
+    }
+    else{
+        musicSlider.hide();
+        fxSlider.hide();
     }
 }
 

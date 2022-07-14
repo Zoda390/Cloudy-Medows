@@ -31,6 +31,7 @@ class Level {
         }
     }
 
+    //Controls movement for top-left level box when you enter a new level
     name_render() {
         if(!this.done){
             if(!paused){
