@@ -278,7 +278,7 @@ function preload() {
     class           obj
     Tile            { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'Tile' }
     Shop            { name: 'name', png: png_img, inv: [], class: 'Shop'}
-    Plant           { name: 'name', png: png_img, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }
+    Plant           { name: 'name', png: png_img, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }  2000 growthTime is about 1 day
     Entity          { name: 'name', png: png_img, border: true, collide: false, age: -1, inv: [0, {num: 1, amount: 1}], hand: 0, under_tile_num: 0, class: 'Entity' }
     FreeMoveEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'FreeMoveEntity' }
     MoveableEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, moving_timer: 0, class: 'MoveableEntity' }
@@ -306,11 +306,11 @@ function preload() {
     /*18*/    { name: 'Sprinklers', png: [cart_sprinkler_tile_img], inv: [{num: 12, amount: 6}], class: 'Shop' },
     /*19*/    { name: 'Seeds', png: [cart_tile_img, cart_sp_tile_img, cart_straw_tile_img], inv: [{ num: 3, amount: 7}, {num: 6, amount: 6}, {num: 8, amount: 0}], class: 'Shop' },
     /*20*/    { name: 'sprinkler', png: [sprinkler_tile_img], border: true, collide: false, age: -1, class: 'Tile' },
-    /*21*/    { name: 'corn', png: corn_tile_imgs, border: true, collide: false, age: 0, eat_num: 2, waterneed: 0, growthTime: 100, class: 'Plant' },
-    /*22*/    { name: 'sweet_potato', png: sweet_potato_tile_imgs, border: true, collide: false, age: 0, eat_num: 5, waterneed: 0, growthTime: 100, class: 'Plant' },
-    /*23*/    { name: 'strawberry', png: strawberry_tile_imgs, border: true, collide: false, age: 0, eat_num: 7, waterneed: 0, growthTime: 100, class: 'Plant' },
-    /*24*/    { name: 'tomato', png: tomato_tile_imgs, border: true, collide: false, age: 0, eat_num: 15, waterneed: 0, growthTime: 100, class: 'Plant' },
-    /*25*/    { name: 'flower', png: flower_tile_imgs, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 100, class: 'Plant' },
+    /*21*/    { name: 'corn', png: corn_tile_imgs, border: true, collide: false, age: 0, eat_num: 2, waterneed: 0, growthTime: 2000, class: 'Plant' },
+    /*22*/    { name: 'sweet_potato', png: sweet_potato_tile_imgs, border: true, collide: false, age: 0, eat_num: 5, waterneed: 0, growthTime: 2200, class: 'Plant' },
+    /*23*/    { name: 'strawberry', png: strawberry_tile_imgs, border: true, collide: false, age: 0, eat_num: 7, waterneed: 1, growthTime: 1900, class: 'Plant' },
+    /*24*/    { name: 'tomato', png: tomato_tile_imgs, border: true, collide: false, age: 0, eat_num: 15, waterneed: 0, growthTime: 1300, class: 'Plant' },
+    /*25*/    { name: 'flower', png: flower_tile_imgs, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 1000, class: 'Plant' },
     /*26*/    { name: 'ladybug', png: ladybug_img, border: true, collide: false, age: 0, inv: [0], hand: 0, under_tile_num: 2, class: 'Entity' },
     /*27*/    { name: 'Rick', png: rick_tile_imgs, inv: [{ num: 7, amount: 2 }], hand: 0, facing: 2, under_tile_num: 1, instructions: ['left', 'left', 'left', 'left', 'left', 'left', 'left', 'up', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'down', 'left', 'left', 'left', 'left', 'left', 'left', 'left', 'left'], moving_timer: 100, class: 'NPC' },
     /*28*/    { name: 'Deb', png: deb_tile_imgs, inv: [{num: 4, amount: 3}], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 0, class: 'NPC' },
@@ -337,20 +337,20 @@ function preload() {
     all_items = [
         /*0*/ 0,
         /*1*/ { name: 'Hoe', png: hoe_img, class: 'Tool' },
-        /*2*/ { name: 'Corn', png: corn_img, price: 4, hunger: 2, hunger_timer: 500, seed_num: 3, class: 'Eat' },
+        /*2*/ { name: 'Corn', png: corn_img, price: 4, hunger: 2, hunger_timer: 2000, seed_num: 3, class: 'Eat' },
         /*3*/ { name: 'Corn Seed', png: corn_seed_bag_img, plant_num: 21, class: 'Seed' },
         /*4*/ { name: 'Junk', png: junk_img, price: 0, class: 'Item' },
-        /*5*/ { name: 'Sweet Potatos', png: sweet_potato_img, price: 3, hunger: 1, hunger_timer: 600, seed_num: 6, class: 'Eat' },
+        /*5*/ { name: 'Sweet Potatos', png: sweet_potato_img, price: 3, hunger: 1, hunger_timer: 3000, seed_num: 6, class: 'Eat' },
         /*6*/ { name: 'Sweet Potato Seed', png: sweet_potato_seed_bag_img, plant_num: 22, class: 'Seed' },
-        /*7*/ { name: 'Strawberries', png: straw_img, price: 2, hunger: 1, hunger_timer: 300, seed_num: 8, class: 'Eat' },
+        /*7*/ { name: 'Strawberries', png: straw_img, price: 2, hunger: 1, hunger_timer: 1700, seed_num: 8, class: 'Eat' },
         /*8*/ { name: 'Strawberry Seed', png: strawberry_seed_bag_img, plant_num: 23, class: 'Seed' },
         /*9*/ { name: 'Compost', png: compost_img, price: 2, tile_num: 13, tile_need_num: 6, class: 'Placeable' },
         /*10*/{ name: 'Ladybugs', png: ladybug_bag_img, price: 100, tile_num: 26, tile_need_num: 2, class: 'Placeable' },
         /*11*/{ name: 'Flower Seed', png: flower_bag_img, plant_num: 25, class: 'Seed'},
         /*12*/{ name: 'Sprinkler', png: sprinkler_img, price: 9, tile_num: 20, tile_need_num: 2, class: 'Placeable' },
-        /*13*/{ name: 'Full Course', png: fullcourse_img, price: 20, hunger: 100, hunger_timer: 700, seed_num: 0, class: 'Eat' },
+        /*13*/{ name: 'Full Course', png: fullcourse_img, price: 20, hunger: 100, hunger_timer: 4000, seed_num: 0, class: 'Eat' },
         /*14*/{name: 'Tomato Seed', png: tomato_seed_bag_img, plant_num: 24, class: 'Seed'},
-        /*15*/{name: 'Tomato', png: tomato_img, price: 3, hunger: 1, hunger_timer: 500, seed_num: 14, class: 'Eat'}
+        /*15*/{name: 'Tomato', png: tomato_img, price: 3, hunger: 1, hunger_timer: 1800, seed_num: 14, class: 'Eat'}
     ];
 }
 
@@ -809,7 +809,7 @@ function draw() {
         }
         
         if (!paused){
-            if (millis() - lastTimeMili > 150) { //150 for normal time
+            if (millis() - lastTimeMili > 300) { //300 for 2 min 1 day, 150 for 1 min 1 day
                 if (timephase == 0) {
                     if (player.touching.name == 'bed') {
                         time += 5;

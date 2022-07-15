@@ -1,6 +1,6 @@
 class Player extends MoveableEntity {
     constructor(name, png, x, y,
-        inv = [{ num: 1, amount: 1 }, { num: 12, amount: 2 }, { num: 3, amount: 20 }, { num: 5, amount: 200 }, { num: 10, amount: 2 }, { num: 13, amount: 2 }, 0, 0]) {
+        inv = [{ num: 1, amount: 1 }, { num: 2, amount: 2 }, { num: 3, amount: 2 }, { num: 12, amount: 1}, { num: 8, amount: 2}, 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
@@ -8,7 +8,7 @@ class Player extends MoveableEntity {
         this.lastFoodnum = 2;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = 0;
-        this.coins = 3;
+        this.coins = 0;
         this.hp = 100;
         this.dead = false;
         this.deaths = 0;
@@ -38,6 +38,9 @@ class Player extends MoveableEntity {
         }
         if(!paused){
             this.hunger_timer -= 1;
+            if(this.touching.name == 'bed'){
+                this.hunger_timer -= 1;
+            }
         }
         if (this.hunger_timer <= 0) {
             this.hunger -= 1;

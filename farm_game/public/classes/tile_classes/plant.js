@@ -32,7 +32,13 @@ class Plant extends Tile {
         }
         if (this.growTimer >= this.growthTime) {
             let water_found = 0;
-            //look at surrounding tiles to find sprinklers;
+            for(let i = -1; i <= 1; i++){
+                for(let j = -1; j <= 1; j++){
+                    if(levels[y][x].map[(this.pos.y/tileSize)+i][(this.pos.x/tileSize)+j].name == 'sprinkler'){
+                        water_found += 1;
+                    }
+                }
+            }
             if (water_found >= this.waterneeded) {
                 this.age += 1;
                 if (this.age > this.png.length - 2 && this.deathAttempts > 0) {
@@ -41,14 +47,14 @@ class Plant extends Tile {
                 }
                 if (this.age > this.png.length - 1 && this.deathAttempts <= 0) {
                     this.age = this.png.length - 1;
-                    levels[y][x].map[this.pos.y / tileSize][this.pos.x / tileSize] = new_tile_from_num(11, this.pos.x, this.pos.y);
+                    levels[y][x].map[this.pos.y / tileSize][this.pos.x / tileSize] = new_tile_from_num(5, this.pos.x, this.pos.y);
                 }
             }
             else {
                 this.deathAttempts -= 1;
                 if (this.deathAttempts <= 0) {
                     this.age = this.png.length - 1;
-                    //new junk tile;
+                    levels[y][x].map[this.pos.y / tileSize][this.pos.x / tileSize] = new_tile_from_num(5, this.pos.x, this.pos.y);
                 }
             }
             this.growTimer = 0;
