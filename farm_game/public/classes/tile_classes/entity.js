@@ -19,7 +19,7 @@ class Entity extends Tile {
             rect(this.pos.x - tileSize / 2, this.pos.y - tileSize / 2, tileSize, tileSize);
         }
         imageMode(CENTER);
-        image(all_tiles[this.under_tile_num - 1].png, this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        image(all_tiles[this.under_tile_num - 1].png[0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
         if(paused){
             this.png.pause();
         }
@@ -35,7 +35,7 @@ class Entity extends Tile {
         if (this.touching.class == 'Plant' && this.touching.age == this.touching.png.length - 2) {
             if(checkForSpace(levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize].eat_num)){
                 addItem(levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize].eat_num, 1 + levels[currentLevel_y][currentLevel_x].ladybugs);
-                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
             }
         }
         if (this.inv[this.hand].class == 'Placeable') {
@@ -63,7 +63,7 @@ class Entity extends Tile {
         if (this.touching.name == 'grass') {
             if (this.inv[this.hand].name == 'Hoe') {
                 hoe_sound.play();
-                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
             }
 
         }
@@ -90,7 +90,7 @@ class Entity extends Tile {
         else if (this.touching.name == 'junk') {
             if(checkForSpace(4)){
                 addItem(4, 1);
-                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
+                levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
             }
         }
     }

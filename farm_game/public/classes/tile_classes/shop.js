@@ -1,6 +1,6 @@
 class Shop extends Entity {
 	constructor(name, png, x, y, inv) {
-		super(name, png, x, y, -1, inv, 0, 5);
+		super(name, png, x, y, -1, inv, 0, 1);
         for(let i = 0; i < this.inv.length; i++){
             this.inv[i].price += round(random(0, 3));
         }
@@ -14,8 +14,8 @@ class Shop extends Entity {
             rect(this.pos.x, this.pos.y, tileSize, tileSize);
         }
         imageMode(CENTER);
-        image(all_tiles[this.under_tile_num - 1].png, this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
-        image(this.png, this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        image(all_tiles[this.under_tile_num - 1].png[0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        image(this.png[this.variant], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
         pop()
     }
 
@@ -34,7 +34,7 @@ class Shop extends Entity {
         textSize(13);
         strokeWeight(2);
         text('Q to leave', ((3*canvasWidth) / 4) + 10, canvasHeight - 140);
-        text('Item,          cost,      quantity in store', (canvasWidth / 20) + 42, canvasHeight - 115);
+        text('Item,             cost,    quantity in store', (canvasWidth / 20) + 42, canvasHeight - 115);
         for(let i = 0; i < this.inv.length; i++){
             if(this.inv[i].amount <= 0){
                 fill(0, 0, 255);
@@ -55,7 +55,7 @@ class Shop extends Entity {
             }
             image(this.inv[i].png, (canvasWidth / 20) + 10, (canvasHeight - 100) + (i * 32), 32, 32);
             text(this.inv[i].name, (canvasWidth / 20) + 42, (canvasHeight - 100) + (i * 32) + 8);
-            text(this.inv[i].price, (canvasWidth / 20) + 242, (canvasHeight - 100) + (i * 32) + 8);
+            text(this.inv[i].price, (canvasWidth / 20) + 282, (canvasHeight - 100) + (i * 32) + 8);
             text(this.inv[i].amount, (canvasWidth / 20) + 442, (canvasHeight - 100) + (i * 32) + 8);
         }
         pop()

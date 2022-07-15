@@ -16,7 +16,7 @@ class MoveableEntity extends Entity {
             rect(this.pos.x, this.pos.y, tileSize, tileSize);
         }
         imageMode(CENTER);
-        image(all_tiles[this.under_tile_num - 1].png, this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        image(all_tiles[this.under_tile_num - 1].png[0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
         image(this.png[this.facing][0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); //[this.anim]
         pop();
     }

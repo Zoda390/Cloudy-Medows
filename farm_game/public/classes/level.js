@@ -1,3 +1,23 @@
+class Foreground {
+    constructor(type, x, y){
+        this.type = type;
+        if(this.type == 1){ // Front of the building
+            this.png = [fore_1_img, fore_2_img, fore_4_img, fore_6_img];
+        }
+        if(this.type == 2){ // Clouds
+            this.png = [fore_cloud_img];
+        }
+        if(this.type == 3){ // buildings
+            this.png = [fore_building_img, fore_red_building_img, fore_red_grown_building_img, fore_gray_building_img];
+        }
+        this.variant = round(random(0, this.png.length-1));
+        this.pos = createVector(x, y);
+    }
+
+    render(){
+        image(this.png[this.variant], this.pos.x, this.pos.y);
+    }
+}
 class Level {
     constructor(name, map, fore) {
         this.name = name;
@@ -26,6 +46,13 @@ class Level {
                     if (this.map[i][j].name == 'satilite') {
                         append(this.lights, new Light(this.map[i][j].pos.x, this.map[i][j].pos.y, (tileSize * 1), 255, 255, 0));
                     }
+                }
+            }
+        }
+        for(let i = 0; i < fore.length; i++){
+            for(let j = 0; j < fore[i].length; j++){
+                if(this.fore[i][j] != 0){
+                    this.fore[i][j] = new Foreground(fore[i][j], j * tileSize, i * tileSize);
                 }
             }
         }
@@ -80,23 +107,8 @@ class Level {
     fore_render() {
         for (let i = 0; i < this.fore.length; i++) {
             for (let j = 0; j < this.fore[i].length; j++) {
-                if (this.fore[i][j] == 1) {
-                    image(foreground_img, j * tileSize, i * tileSize);
-                }
-                if (this.fore[i][j] == 2) {
-                    image(fore_cloud_img, j * tileSize, i * tileSize);
-                }
-                if (this.fore[i][j] == 3){
-                    image(fore_building_img, j * tileSize, i * tileSize)
-                }
-                if (this.fore[i][j] == 4){
-                    image(fore_red_building_img, j * tileSize, i * tileSize)
-                }
-                if (this.fore[i][j] == 5){
-                    image(fore_red_grown_building_img, j * tileSize, i * tileSize)
-                }
-                if (this.fore[i][j] == 6){
-                    image(fore_gray_building_img, j * tileSize, i * tileSize);
+                if(this.fore[i][j] != 0){
+                    this.fore[i][j].render()
                 }
             }
         }

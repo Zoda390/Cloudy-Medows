@@ -1,10 +1,10 @@
 class Player extends MoveableEntity {
     constructor(name, png, x, y,
-        inv = [{ num: 1, amount: 1 }, { num: 14, amount: 2 }, { num: 3, amount: 2 }, { num: 5, amount: 2 }, { num: 10, amount: 2 }, { num: 13, amount: 2 }, 0, 0]) {
+        inv = [{ num: 1, amount: 1 }, { num: 12, amount: 2 }, { num: 3, amount: 2 }, { num: 5, amount: 2 }, { num: 10, amount: 2 }, { num: 13, amount: 2 }, 0, 0]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
-        this.hunger = maxHunger - 5;
+        this.hunger = maxHunger;
         this.lastFoodnum = 2;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = 0;
@@ -119,122 +119,124 @@ class Player extends MoveableEntity {
     
 
     move() {
-        if (keyIsDown(move_right_button)) {
-            if (millis() - this.lastmoveMili > 100) {
-                this.facing = 1;
-                if (this.pos.x + tileSize >= canvasWidth) {
-                    this.touching.collide = false;
-                    levels[currentLevel_y][currentLevel_x].level_name_popup = false;
-                    levels[currentLevel_y][currentLevel_x].y = -50;
-                    levels[currentLevel_y][currentLevel_x].done = false;
-                    levels[currentLevel_y][currentLevel_x].movephase = 0;
-                    levels[currentLevel_y][currentLevel_x].ticks = 0;
-                    currentLevel_x += 1;
-                    levels[currentLevel_y][currentLevel_x].level_name_popup = true;
-                    this.pos.x = 0;
-                }
-                else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
-                    this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name;
-                    this.touching.collide = false;
-                    this.pos.x += tileSize;
-                    this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
-                    this.touching.collide = true;
-                    this.hunger_counter += round(random(0, 1));
-                    this.anim += 1;
-                    if (this.anim > 1) {
-                        this.anim = 0;
+        if(!this.dead){
+            if (keyIsDown(move_right_button)) {
+                if (millis() - this.lastmoveMili > 100) {
+                    this.facing = 1;
+                    if (this.pos.x + tileSize >= canvasWidth) {
+                        this.touching.collide = false;
+                        levels[currentLevel_y][currentLevel_x].level_name_popup = false;
+                        levels[currentLevel_y][currentLevel_x].y = -50;
+                        levels[currentLevel_y][currentLevel_x].done = false;
+                        levels[currentLevel_y][currentLevel_x].movephase = 0;
+                        levels[currentLevel_y][currentLevel_x].ticks = 0;
+                        currentLevel_x += 1;
+                        levels[currentLevel_y][currentLevel_x].level_name_popup = true;
+                        this.pos.x = 0;
                     }
-                }
-                this.lastmoveMili = millis();
-            }
-        }
-        if (keyIsDown(move_left_button)) {
-            if (millis() - this.lastmoveMili > 100) {
-                this.facing = 3;
-                if (this.pos.x - tileSize < 0) {
-                    this.touching.collide = false;
-                    levels[currentLevel_y][currentLevel_x].level_name_popup = false;
-                    levels[currentLevel_y][currentLevel_x].y = -50;
-                    levels[currentLevel_y][currentLevel_x].done = false;
-                    levels[currentLevel_y][currentLevel_x].movephase = 0;
-                    levels[currentLevel_y][currentLevel_x].ticks = 0;
-                    currentLevel_x -= 1;
-                    levels[currentLevel_y][currentLevel_x].level_name_popup = true;
-                    this.pos.x = canvasWidth - tileSize;
-                }
-                else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
-                    this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name;
-                    this.touching.collide = false;
-                    this.pos.x -= tileSize;
-                    this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
-                    this.touching.collide = true;
-                    this.hunger_counter += round(random(0, 1));
-                    this.anim += 1;
-                    if (this.anim > 1) {
-                        this.anim = 0;
+                    else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
+                        this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name;
+                        this.touching.collide = false;
+                        this.pos.x += tileSize;
+                        this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
+                        this.touching.collide = true;
+                        this.hunger_counter += round(random(0, 1));
+                        this.anim += 1;
+                        if (this.anim > 1) {
+                            this.anim = 0;
+                        }
                     }
+                    this.lastmoveMili = millis();
                 }
-                this.lastmoveMili = millis();
             }
-        }
-        if (keyIsDown(move_up_button)) {
-            if (millis() - this.lastmoveMili > 100) {
-                this.facing = 0;
-                if (this.pos.y - tileSize < 0) {
-                    this.touching.collide = false;
-                    levels[currentLevel_y][currentLevel_x].level_name_popup = false;
-                    levels[currentLevel_y][currentLevel_x].y = -50;
-                    levels[currentLevel_y][currentLevel_x].done = false;
-                    levels[currentLevel_y][currentLevel_x].movephase = 0;
-                    levels[currentLevel_y][currentLevel_x].ticks = 0;
-                    currentLevel_y -= 1;
-                    levels[currentLevel_y][currentLevel_x].level_name_popup = true;
-                    this.pos.y = canvasHeight - tileSize;
-                }
-                else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
-                    this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name;
-                    this.touching.collide = false;
-                    this.pos.y -= tileSize;
-                    this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
-                    this.touching.collide = true;
-                    this.hunger_counter += round(random(0, 1));
-                    this.anim += 1;
-                    if (this.anim > 1) {
-                        this.anim = 0;
+            if (keyIsDown(move_left_button)) {
+                if (millis() - this.lastmoveMili > 100) {
+                    this.facing = 3;
+                    if (this.pos.x - tileSize < 0) {
+                        this.touching.collide = false;
+                        levels[currentLevel_y][currentLevel_x].level_name_popup = false;
+                        levels[currentLevel_y][currentLevel_x].y = -50;
+                        levels[currentLevel_y][currentLevel_x].done = false;
+                        levels[currentLevel_y][currentLevel_x].movephase = 0;
+                        levels[currentLevel_y][currentLevel_x].ticks = 0;
+                        currentLevel_x -= 1;
+                        levels[currentLevel_y][currentLevel_x].level_name_popup = true;
+                        this.pos.x = canvasWidth - tileSize;
                     }
-                }
-                this.lastmoveMili = millis();
-            }
-        }
-        if (keyIsDown(move_down_button)) {
-            if (millis() - this.lastmoveMili > 100) {
-                this.facing = 2;
-                if (this.pos.y + tileSize >= canvasHeight) {
-                    this.touching.collide = false;
-                    levels[currentLevel_y][currentLevel_x].level_name_popup = false;
-                    levels[currentLevel_y][currentLevel_x].y = -50;
-                    levels[currentLevel_y][currentLevel_x].done = false;
-                    levels[currentLevel_y][currentLevel_x].movephase = 0;
-                    levels[currentLevel_y][currentLevel_x].ticks = 0;
-                    currentLevel_y += 1;
-                    levels[currentLevel_y][currentLevel_x].level_name_popup = true;
-                    this.pos.y = 0;
-                }
-                else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
-                    this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name;
-                    this.touching.collide = false;
-                    this.pos.y += tileSize;
-                    this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
-                    this.touching.collide = true;
-                    this.hunger_counter += round(random(0, 1));;
-                    this.anim += 1;
-                    if (this.anim > 1) {
-                        this.anim = 0;
+                    else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
+                        this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name;
+                        this.touching.collide = false;
+                        this.pos.x -= tileSize;
+                        this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
+                        this.touching.collide = true;
+                        this.hunger_counter += round(random(0, 1));
+                        this.anim += 1;
+                        if (this.anim > 1) {
+                            this.anim = 0;
+                        }
                     }
+                    this.lastmoveMili = millis();
                 }
-                this.lastmoveMili = millis();
             }
-
+            if (keyIsDown(move_up_button)) {
+                if (millis() - this.lastmoveMili > 100) {
+                    this.facing = 0;
+                    if (this.pos.y - tileSize < 0) {
+                        this.touching.collide = false;
+                        levels[currentLevel_y][currentLevel_x].level_name_popup = false;
+                        levels[currentLevel_y][currentLevel_x].y = -50;
+                        levels[currentLevel_y][currentLevel_x].done = false;
+                        levels[currentLevel_y][currentLevel_x].movephase = 0;
+                        levels[currentLevel_y][currentLevel_x].ticks = 0;
+                        currentLevel_y -= 1;
+                        levels[currentLevel_y][currentLevel_x].level_name_popup = true;
+                        this.pos.y = canvasHeight - tileSize;
+                    }
+                    else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
+                        this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name;
+                        this.touching.collide = false;
+                        this.pos.y -= tileSize;
+                        this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
+                        this.touching.collide = true;
+                        this.hunger_counter += round(random(0, 1));
+                        this.anim += 1;
+                        if (this.anim > 1) {
+                            this.anim = 0;
+                        }
+                    }
+                    this.lastmoveMili = millis();
+                }
+            }
+            if (keyIsDown(move_down_button)) {
+                if (millis() - this.lastmoveMili > 100) {
+                    this.facing = 2;
+                    if (this.pos.y + tileSize >= canvasHeight) {
+                        this.touching.collide = false;
+                        levels[currentLevel_y][currentLevel_x].level_name_popup = false;
+                        levels[currentLevel_y][currentLevel_x].y = -50;
+                        levels[currentLevel_y][currentLevel_x].done = false;
+                        levels[currentLevel_y][currentLevel_x].movephase = 0;
+                        levels[currentLevel_y][currentLevel_x].ticks = 0;
+                        currentLevel_y += 1;
+                        levels[currentLevel_y][currentLevel_x].level_name_popup = true;
+                        this.pos.y = 0;
+                    }
+                    else if (this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0 && this.looking(currentLevel_x, currentLevel_y).collide != true) {
+                        this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name;
+                        this.touching.collide = false;
+                        this.pos.y += tileSize;
+                        this.touching = this.tileTouching(currentLevel_x, currentLevel_y);
+                        this.touching.collide = true;
+                        this.hunger_counter += round(random(0, 1));;
+                        this.anim += 1;
+                        if (this.anim > 1) {
+                            this.anim = 0;
+                        }
+                    }
+                    this.lastmoveMili = millis();
+                }
+    
+            }
         }
     }
 
