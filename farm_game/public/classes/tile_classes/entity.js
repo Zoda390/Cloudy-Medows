@@ -1,7 +1,7 @@
 class Entity extends Tile {
     constructor(name, png, x, y, age, inv=[], hand=0, under_tile_num){
         super(name, png, x, y, true, true, age);
-        this.inv = inv;
+        this.inv = JSON.parse(JSON.stringify(inv));
         for (let i = 0; i < this.inv.length; i++) {
             if (this.inv[i] != 0) {
                 this.inv[i] = new_item_from_num(this.inv[i].num, this.inv[i].amount);

@@ -7,15 +7,16 @@ class Item {
 		this.class = 'Item';
 	}
 
-	render(i) {
+	render(x, y) {
 		push();
-		image(this.png, 112 + (i * 64), canvasHeight - 64);
+		image(this.png, x, y);
 		fill(255)
 		let amountS = str(this.amount)
 		textSize(25 - ((amountS.length-1)*8));
 		textAlign(CENTER, CENTER);
 		textFont(player_2);
-		text(this.amount, (canvasWidth / 2) - (512 / 2) + 47 + (64 * i), canvasHeight - 19 + (amountS.length*2));
+		noStroke();
+		text(this.amount, x + 47, y + 47 + (amountS.length*2));
 		pop();
 	}
 }

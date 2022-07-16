@@ -28,6 +28,7 @@ var Dialouge_JSON = 0;
 var paused = false;
 var musicSlider = 0;
 var fxSlider = 0;
+var mouse_item = 0;
 
 var musicplayer = {};
 
@@ -74,6 +75,7 @@ function preload() {
     cart_ladybug_tile_img = loadImage('images/tiles/ladybug_cart.png');
     cart_sprinkler_tile_img = loadImage('images/tiles/sprinkler_cart.png');
     bush_img = loadImage("images/tiles/Bush.png");
+    chest_img = loadImage('images/tiles/Chest.png');
 
     //NPC
     quest_marker_img = loadImage('images/ui/QuestMarker.png');
@@ -324,7 +326,8 @@ function preload() {
     /*36*/    { name: 'James', png: james_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 100, class: 'NPC' },
     /*37*/    { name: 'Liam', png: liam_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: ['up', 'up', 'down', 'down'], moving_timer: 100, class: 'NPC' },
     /*38*/    { name: 'Meb', png: meb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 100, class: 'NPC' },
-    /*39*/    { name: 'bush', png: [bush_img], border: false, collide: true, age: -1, class: 'Tile' }
+    /*39*/    { name: 'bush', png: [bush_img], border: false, collide: true, age: -1, class: 'Tile' },
+    /*40*/    { name: 'chest', png: chest_img, inv: [0, { num: 4, amount: 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], facing: 2, under_tile_num: 1, class: 'Chest'}
     ];
     /*
     class       obj
@@ -378,7 +381,7 @@ function setup() {
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], 
         [8, 8, 1, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10, 1, 0, 0, 0], 
         [0, 0, 1, 6, 7, 1, 6, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0], 
-        [0, 0, 1, 6, 1, 1, 6, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0], 
+        [0, 0, 1, 6, 40, 1, 6, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0], 
         [0, 0, 1, 6, 6, 1, 6, 12, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0], 
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], 
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 39, 1, 1, 1, 1, 1, 1, 8, 8, 8], 
@@ -514,7 +517,7 @@ function setup() {
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], 
         [8, 8, 1, 1, 1, 1, 1, 1, 1, 6, 1, 6, 6, 1, 1, 6, 1, 6, 6, 1, 0, 0, 0], 
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 6, 1, 1, 6, 1, 1, 6, 1, 1, 6, 1, 0, 0, 0], 
-        [0, 0, 1, 1, 37, 1, 1, 1, 1, 6, 1, 7, 6, 1, 12, 6, 1, 7, 6, 1, 0, 0, 0], 
+        [0, 0, 1, 1, 37, 40, 1, 1, 1, 6, 1, 7, 6, 1, 12, 6, 1, 7, 6, 1, 0, 0, 0], 
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 1, 0, 0, 0], 
         [0, 0, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 12, 0, 0, 0], 
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
@@ -961,6 +964,38 @@ function takeInput() {
                         }
                     }
                 }
+                else if(player.talking.class == 'Chest'){
+                    if(mouse_item != 0){
+                        if(checkForSpace(item_name_to_num(mouse_item.name))){
+                            addItem(item_name_to_num(mouse_item.name), mouse_item.amount);
+                            mouse_item = 0;
+                        }
+                        else{
+                            let dropped = false;
+                            for (let i = 0; i < player.talking.inv.length; i++) {
+                                for(let j = 0; j < player.talking.inv[i].length; j++){
+                                    if (player.talking.inv[i][j] != 0) { // stack items
+                                        if (player.talking.inv[i][j].name == mouse_item.name) {
+                                            player.talking.inv[i][j].amount += mouse_item.amount;
+                                            dropped = true;
+                                        }
+                                    }
+                                }
+                            }
+                            for (let i = 0; i < player.talking.inv.length; i++) {
+                                for(let j = 0; j < player.talking.inv[i].length; j++){
+                                    if (player.inv[i] == 0) { // empty space
+                                        player.talking.inv[i][j] = mouse_item;
+                                        dropped = true;
+                                    }
+                                }
+                            }
+                            if(!dropped){
+                                return;
+                            }
+                        }
+                    }
+                }
                 player.oldlooking_name = player.talking.name;
                 player.talking = 0;
                 current_reply = 0;
@@ -969,7 +1004,7 @@ function takeInput() {
             }
         }
         if (keyIsDown(move_up_button)){
-            if (millis() - lastMili > 200) {
+            if ((millis() - lastMili > 200) && player.talking.class != 'Chest') {
                 current_reply -= 1;
                 if (current_reply < 0){
                     current_reply = 0;
@@ -1039,6 +1074,7 @@ function takeInput() {
                 console.log(player);
                 console.log(player.touching);
                 console.log(player.looking(currentLevel_x, currentLevel_y));
+                console.log(all_tiles)
                 lastMili = millis();
                 player.hunger = maxHunger;
             }
@@ -1100,6 +1136,7 @@ function takeInput() {
                 console.log(player);
                 console.log(player.touching);
                 console.log(player.looking(currentLevel_x, currentLevel_y));
+                console.log(all_tiles)
                 lastMili = millis();
                 player.hunger = maxHunger;
             }
@@ -1125,12 +1162,12 @@ function render_ui() {
         levels[currentLevel_y][currentLevel_x].name_render();
     }
 
-    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0) {
+    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class != 'Chest') {
         if (player.looking(currentLevel_x, currentLevel_y).class == 'NPC' ){
             player.looking(currentLevel_x, currentLevel_y).move_bool = false;
             player.looking(currentLevel_x, currentLevel_y).dialouge_render();
         }
-        if (player.looking(currentLevel_x, currentLevel_y).class == 'Shop'){
+        else if (player.looking(currentLevel_x, currentLevel_y).class == 'Shop'){
             player.looking(currentLevel_x, currentLevel_y).shop_render();
         }
         for (let i = 0; i < maxHunger; i++) {
@@ -1147,6 +1184,9 @@ function render_ui() {
         text(player.coins, canvasWidth - 110, (canvasHeight - 182.5));
     }
     else{
+        if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Chest'){
+            player.looking(currentLevel_x, currentLevel_y).chest_render();
+        }
         image(inv_img, (canvasWidth / 2) - (512 / 2), canvasHeight - 64);
         image(inv_hand_img, (canvasWidth / 2) - (512 / 2) + (64 * player.hand), canvasHeight - 64);
         
@@ -1155,7 +1195,7 @@ function render_ui() {
                 player.inv[i] = 0;
             }
             if (player.inv[i] != 0) {
-                player.inv[i].render(i);
+                player.inv[i].render(112 + (i * 64), canvasHeight - 64);
                 if (i == player.hand) {
                     push();
                     fill(255)
@@ -1178,6 +1218,9 @@ function render_ui() {
         textAlign(LEFT, TOP);
         image(coin_img, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 95));
         text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
+        if(mouse_item != 0 && player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Chest'){
+            mouse_item.render(mouseX, mouseY)
+        }
         if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).name == "cart_s") {
             push()
             stroke(0)
@@ -1257,6 +1300,9 @@ function new_tile_from_num(num, x, y) {
         else if (all_tiles[num - 1].class == 'NPC') {
             return new NPC(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].hand, all_tiles[num - 1].facing, all_tiles[num - 1].under_tile_num, all_tiles[num - 1].instructions, all_tiles[num - 1].moving_timer);
         }
+        else if (all_tiles[num - 1].class == 'Chest'){
+            return new Chest(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].under_tile_num);
+        }
     }
     else {
         console.log('tile created from ' + num + ' doesnt exist');
@@ -1282,6 +1328,52 @@ function new_item_from_num(num, amount) {
         }
     }
     else {
-        console.log('item created from ' + num + ' doesnt exist');
+        console.error('item created from ' + num + ' doesnt exist');
     }
 }
+
+function mouseReleased() {
+    if(!title_screen){
+        if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Chest'){
+            if(mouseY >= 189 && mouseY <= 457){
+                if(mouseX >= 184 && mouseX <= 552){
+                    let currentX = min(player.talking.inv[0].length-1, round((mouseX-229)/90))
+                    let currentY = min(player.talking.inv.length-1, round((mouseY-234)/90))
+                    if(mouse_item == 0 || player.talking.inv[currentY][currentX] == 0){
+                        let temp = mouse_item;
+                        mouse_item = player.talking.inv[currentY][currentX]
+                        player.talking.inv[currentY][currentX] = temp;
+                    }
+                    else if(player.talking.inv[currentY][currentX].name == mouse_item.name){
+                        player.talking.inv[currentY][currentX].amount += mouse_item.amount;
+                        mouse_item = 0;
+                    }
+                    else{
+                        let temp = mouse_item;
+                        mouse_item = player.talking.inv[currentY][currentX]
+                        player.talking.inv[currentY][currentX] = temp;
+                    }
+                }
+            }
+            else if(mouseY >= canvasHeight - 64 && mouseY <= canvasHeight){
+                if(mouseX >= 113 && mouseX <= 622){
+                    let currentX = min(player.inv.length-1, round((mouseX-113)/64))
+                    if(mouse_item == 0 || player.inv[currentX] == 0){
+                        let temp = mouse_item;
+                        mouse_item = player.inv[currentX]
+                        player.inv[currentX] = temp;
+                    }
+                    else if(player.inv[currentX].name == mouse_item.name){
+                        player.inv[currentX].amount += mouse_item.amount;
+                        mouse_item = 0;
+                    }
+                    else{
+                        let temp = mouse_item;
+                        mouse_item = player.inv[currentX]
+                        player.talking.inv[currentX] = temp;
+                    }
+                }
+            }
+        }
+    }
+  }
