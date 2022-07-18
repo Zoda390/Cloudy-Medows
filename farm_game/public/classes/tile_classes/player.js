@@ -37,7 +37,7 @@ class Player extends MoveableEntity {
     }
     save(){
         localData.set('coins',this.coins);   
-        localData.set('inv',this.inv);    
+        //localData.set('inv',this.inv);    
     }
 
     render() {
