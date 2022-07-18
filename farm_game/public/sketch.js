@@ -347,7 +347,7 @@ function preload() {
         /*6*/ { name: 'Sweet Potato Seed', png: sweet_potato_seed_bag_img, plant_num: 22, class: 'Seed' },
         /*7*/ { name: 'Strawberries', png: straw_img, price: 2, hunger: 1, hunger_timer: 1700, seed_num: 8, class: 'Eat' },
         /*8*/ { name: 'Strawberry Seed', png: strawberry_seed_bag_img, plant_num: 23, class: 'Seed' },
-        /*9*/ { name: 'Compost', png: compost_img, price: 2, tile_num: 13, tile_need_num: 6, class: 'Placeable' },
+        /*9*/ { name: 'Compost', png: compost_img, price: 2, tile_num: 13, tile_need_num: 4, class: 'Placeable' },
         /*10*/{ name: 'Ladybugs', png: ladybug_bag_img, price: 100, tile_num: 26, tile_need_num: 2, class: 'Placeable' },
         /*11*/{ name: 'Flower Seed', png: flower_bag_img, plant_num: 25, class: 'Seed'},
         /*12*/{ name: 'Sprinkler', png: sprinkler_img, price: 9, tile_num: 20, tile_need_num: 2, class: 'Placeable' },

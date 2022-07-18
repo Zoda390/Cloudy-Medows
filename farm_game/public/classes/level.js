@@ -150,18 +150,18 @@ class Level {
                     this.map[i][j].age += 1;
                     if (this.map[i][j].name == 'compost_tile') {
                         if (this.map[i][j].age >= 2) {
-                            this.map[i][j] = new_tile_from_num(1, (j * tileSize), (i * tileSize));
+                            this.map[i][j] = new_tile_from_num(2, (j * tileSize), (i * tileSize));
                         }
                     }
                     if (this.map[i][j].name == 'plot') {
                         if (this.map[i][j].age >= 5) {
-                            this.map[i][j] = new_tile_from_num(6, (j * tileSize), (i * tileSize));
+                            this.map[i][j] = new_tile_from_num(4, (j * tileSize), (i * tileSize));
                         }
                     }
                     if (this.map[i][j].name == 'ladybug') {
                         if (this.map[i][j].age >= 20) {
                             this.ladybugs -= 1;
-                            this.map[i][j] = new_tile_from_num(1, (j * tileSize), (i * tileSize));
+                            this.map[i][j] = new_tile_from_num(2, (j * tileSize), (i * tileSize));
                         }
                     }
                 }
