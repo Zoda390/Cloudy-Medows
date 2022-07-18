@@ -29,7 +29,7 @@ var paused = false;
 var musicSlider = 0;
 var fxSlider = 0;
 var mouse_item = 0;
-
+var localData = localDataStorage( 'passphrase.life' )
 var musicplayer = {};
 
 function sleep(ms) {
@@ -37,6 +37,7 @@ function sleep(ms) {
 }
 
 function preload() {
+
 
     musicplayer = new MusicPlayer(['audio/Main_theme.wav','audio/calm_dings.mp3','audio/empty_burst.mp3','audio/Main_theme.mp3'])
 
@@ -359,6 +360,7 @@ function preload() {
 
 var current_reply = 0;
 function setup() {
+
     createCanvas(canvasWidth, canvasHeight);
     for (let i = 0; i < cloudCount; i++) {
         clouds[i] = new Cloud()
@@ -812,6 +814,7 @@ function draw() {
         }
         
         if (!paused){
+
             if (millis() - lastTimeMili > 300) { //300 for 2 min 1 day, 150 for 1 min 1 day
                 if (timephase == 0) {
                     if (player.touching.name == 'bed') {
@@ -924,8 +927,10 @@ var interact_button = 69;  //e
 var eat_button = 81;       //q
 var pause_button = 27;     //esc
 function takeInput() {
+            
     if (title_screen) {
         if (keyIsDown(interact_button)) {
+            
             title_screen = false;
         }
     }
@@ -1093,6 +1098,7 @@ function takeInput() {
             player.eat();
         }
         if (keyIsDown(interact_button)) {
+        
             player.interactCall();
         }
         /*

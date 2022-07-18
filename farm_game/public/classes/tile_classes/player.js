@@ -1,6 +1,5 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y,
-        inv = [{ num: 1, amount: 1 }, { num: 2, amount: 5 }, { num: 3, amount: 3}, 0, 0, 0, 0, 0]) {
+    constructor(name, png, x, y,inv = [{ num: 1, amount: 1 }, { num: 2, amount: 5 }, { num: 3, amount: 3}, 0, 0, 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
@@ -24,9 +23,26 @@ class Player extends MoveableEntity {
         this.a = 0;
         this.done = false;
         this.class = 'Player';
+
+        //load
+        if(localData.get('coins') != null ){
+            this.coins = localData.get('coins')
+        }
+
+        
+        if(localData.get('inv') != null){
+            
+        }
+
+    }
+    save(){
+        localData.set('coins',this.coins);   
+        localData.set('inv',this.inv);    
     }
 
     render() {
+
+        this.save()
         if(this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0){
             if(this.oldlooking_name != this.looking(currentLevel_x, currentLevel_y).name && ((this.looking(currentLevel_x, currentLevel_y).class == 'NPC' || this.looking(currentLevel_x, currentLevel_y).class == 'Shop' || this.looking(currentLevel_x, currentLevel_y).class == 'Chest'))){
                 this.talking = this.looking(currentLevel_x, currentLevel_y);
