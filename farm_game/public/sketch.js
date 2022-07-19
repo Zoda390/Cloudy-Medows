@@ -272,6 +272,7 @@ function preload() {
     fore_4_img = loadImage('images/foreground/fore4.png');
     fore_6_img = loadImage('images/foreground/Fore6.png');
     fore_cloud_img = loadImage('images/foreground/Cloud_Tile.png');
+    fore_cloud_2_img = loadImage('images/foreground/cloud_tile2.png');
     fore_building_img = loadImage('images/foreground/Building_Low.png');
     fore_red_building_img = loadImage('images/foreground/Red_building_low.png');
     fore_red_grown_building_img = loadImage('images/foreground/red_building_low2.png');

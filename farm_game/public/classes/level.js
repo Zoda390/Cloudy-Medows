@@ -5,7 +5,7 @@ class Foreground {
             this.png = [fore_1_img, fore_2_img, fore_4_img, fore_6_img];
         }
         if(this.type == 2){ // Clouds
-            this.png = [fore_cloud_img];
+            this.png = [fore_cloud_2_img];
         }
         if(this.type == 3){ // buildings
             this.png = [fore_building_img, fore_red_building_img, fore_red_grown_building_img, fore_gray_building_img];

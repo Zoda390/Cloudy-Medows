@@ -13,7 +13,7 @@ class GridMoveEntity extends MoveableEntity{
         if (this.moving_timer <= 0 && this.move_bool) {
             if (this.instructions[this.current_instruction] == 'up') {
                 this.facing = 0;
-                if (this.looking(x, y).collide != true) {
+                if (this.looking(x, y) != 0 && this.looking(x, y).collide != true) {
                     let temp = this;
                     levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(this.under_tile_num, this.pos.x, this.pos.y);
                     levels[y][x].map[(this.touching.pos.y / tileSize) - 1][this.touching.pos.x / tileSize] = temp;
@@ -26,7 +26,7 @@ class GridMoveEntity extends MoveableEntity{
             }
             else if (this.instructions[this.current_instruction] == 'right') {
                 this.facing = 1;
-                if (this.looking(x, y).collide != true) {
+                if (this.looking(x, y) != 0 && this.looking(x, y).collide != true) {
                     let temp = this;
                     levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(this.under_tile_num, this.pos.x, this.pos.y);
                     levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) + 1] = temp;
@@ -39,7 +39,7 @@ class GridMoveEntity extends MoveableEntity{
             }
             else if (this.instructions[this.current_instruction] == 'down') {
                 this.facing = 2;
-                if (this.looking(x, y).collide != true) {
+                if (this.looking(x, y) != 0 && this.looking(x, y).collide != true) {
                     let temp = this;
                     levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(this.under_tile_num, this.pos.x, this.pos.y);
                     levels[y][x].map[(this.touching.pos.y / tileSize) + 1][this.touching.pos.x / tileSize] = temp;
@@ -52,7 +52,7 @@ class GridMoveEntity extends MoveableEntity{
             }
             else if (this.instructions[this.current_instruction] == 'left') {
                 this.facing = 3;
-                if (this.looking(x, y).collide != true) {
+                if (this.looking(x, y) != 0 && this.looking(x, y).collide != true) {
                     let temp = this;
                     levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(this.under_tile_num, this.pos.x, this.pos.y);
                     levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) - 1] = temp;
