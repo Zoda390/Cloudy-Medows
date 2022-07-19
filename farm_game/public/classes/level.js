@@ -2,7 +2,7 @@ class Foreground {
     constructor(type, x, y){
         this.type = type;
         if(this.type == 1){ // Front of the building
-            this.png = [fore_1_img, fore_2_img, fore_4_img, fore_6_img];
+            this.png = [fore_1_img, fore_2_img, fore_4_img, fore_6_img, fore_empty_img];
         }
         if(this.type == 2){ // Clouds
             this.png = [fore_cloud_2_img];

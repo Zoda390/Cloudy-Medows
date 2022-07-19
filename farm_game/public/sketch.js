@@ -60,8 +60,12 @@ function preload() {
     cart_tile_img = loadImage('images/tiles/Cart.png');
     bridge_tile_img = loadImage('images/tiles/Bridge.png');
     bridge_tile_var_img = loadImage('images/tiles/Bridge2.png');
+    bridge_tile_var2_img = loadImage('images/tiles/Bridge3.png');
+    bridge_tile_var3_img = loadImage('images/tiles/Bridge4.png');
     bridge_tile_2_img = loadImage('images/tiles/BridgeFlip.png');
     bridge_tile_2var_img = loadImage('images/tiles/Bridge2Flip.png');
+    bridge_tile_2var2_img = loadImage('images/tiles/Bridge3flip.png');
+    bridge_tile_2var3_img = loadImage('images/tiles/Bridge4flip.png');
     junk_tile_img = loadImage('images/tiles/junk_tile.png');
     concrete_tile_2_img = loadImage('images/tiles/Concrete2.png');
     satilite_tile_img = loadImage('images/tiles/Satilite.png');
@@ -248,6 +252,9 @@ function preload() {
     tomato_tile_img6 = loadImage("images/tiles/tomato_6.png");
     tomato_tile_imgs = [tomato_tile_img, tomato_tile_img2, tomato_tile_img3, tomato_tile_img4, tomato_tile_img5, tomato_tile_img6];
 
+    //watermelon
+    
+    
     // ladybugs
     ladybug_bag_img = loadImage("images/items/Lady_Bug_bag.png");
     ladybug_img = loadImage("images/tiles/LadyBugs.gif");
@@ -271,6 +278,7 @@ function preload() {
     fore_2_img = loadImage('images/foreground/fore_gray_2.png');
     fore_4_img = loadImage('images/foreground/fore4.png');
     fore_6_img = loadImage('images/foreground/Fore6.png');
+    fore_empty_img = loadImage('images/foreground/building_empty.png');
     fore_cloud_img = loadImage('images/foreground/Cloud_Tile.png');
     fore_cloud_2_img = loadImage('images/foreground/cloud_tile2.png');
     fore_building_img = loadImage('images/foreground/Building_Low.png');
@@ -297,8 +305,8 @@ function preload() {
     /*5*/    { name: 'junk', png: [junk_tile_img], border: true, collide: false, age: -1, class: 'Tile' },
     /*6*/    { name: 'wall', png: [wall_tile_img], border: true, collide: true, age: -1, class: 'Tile' },
     /*7*/    { name: 'bed', png: [bed_tile_img], border: true, collide: false, age: -1, class: 'Tile' },
-    /*8*/    { name: 'bridge', png: [bridge_tile_img, bridge_tile_var_img], border: false, collide: false, age: -1, class: 'Tile' },
-    /*9*/    { name: 'bridge2', png: [bridge_tile_2_img, bridge_tile_2var_img], border: true, collide: false, age: -1, class: 'Tile' },
+    /*8*/    { name: 'bridge', png: [bridge_tile_img, bridge_tile_var_img, bridge_tile_var2_img, bridge_tile_var3_img], border: false, collide: false, age: -1, class: 'Tile' },
+    /*9*/    { name: 'bridge2', png: [bridge_tile_2_img, bridge_tile_2var_img, bridge_tile_2var2_img, bridge_tile_2var3_img], border: true, collide: false, age: -1, class: 'Tile' },
     /*10*/    { name: 'satilite', png: [satilite_tile_img], border: true, collide: true, age: -1, class: 'Tile' },
     /*11*/    { name: 'solarpanel', png: [solarpanel_tile_img], border: true, collide: true, age: -1, class: 'Tile' },
     /*12*/    { name: 'lamppost', png: [lamppost_tile_img], border: true, collide: true, age: -1, class: 'Tile' },
