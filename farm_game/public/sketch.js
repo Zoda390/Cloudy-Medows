@@ -176,6 +176,9 @@ function preload() {
     brent_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
     brent_tile_imgs = [[brent_tile_up_img], [brent_tile_right_img], [brent_tile_down_img], [brent_tile_left_img]];
 
+    //robot
+    //robot_tile_up_img = loadImage('images/')
+    
     //Ui
     player_2 = loadFont('pixelFont.ttf');
     inv_img = loadImage('images/ui/Inventory.png');
@@ -352,7 +355,8 @@ function preload() {
     /*38*/    { name: 'Meb', png: meb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 100, class: 'NPC' },
     /*39*/    { name: 'bush', png: [bush_img], border: false, collide: true, age: -1, class: 'Tile' },
     /*40*/    { name: 'chest', png: chest_img, inv: [0, { num: 4, amount: 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], facing: 2, under_tile_num: 1, class: 'Chest'},
-    /*41*/    { name: 'watermelon', png: watermelon_tile_imgs, border: true, collide: false, age: 0, eat_num: 17, waterneed: 2, growthTime: 4000, class: 'Plant'}
+    /*41*/    { name: 'watermelon', png: watermelon_tile_imgs, border: true, collide: false, age: 0, eat_num: 17, waterneed: 2, growthTime: 4000, class: 'Plant'},
+    /*42*/    { name: 'robot', png: robot_tile_imgs, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0], moving_timer: 100, class: 'Robot'}
     ];
     /*
     class       obj
@@ -1428,6 +1432,9 @@ function new_tile_from_num(num, x, y) {
         }
         else if (all_tiles[num - 1].class == 'Chest'){
             return new Chest(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].under_tile_num);
+        }
+        else if (all_tiles[num - 1].class == 'Robot'){
+            return new Robot(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].under_tile_num, all_tiles[num - 1].instructions, all_tiles[num - 1].moving_timer);
         }
     }
     else {
