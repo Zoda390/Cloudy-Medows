@@ -38,7 +38,7 @@ class Entity extends Tile {
                 levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
             }
         }
-        if (this.inv[this.hand].class == 'Placeable') {
+        if (this.inv[this.hand] != 0 && this.inv[this.hand].class == 'Placeable') {
             if (tile_name_to_num(this.touching.name) == (this.inv[this.hand].tile_need_num-1)) {
                 levels[currentLevel_y][currentLevel_x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.touching.pos.x, this.touching.pos.y);
                 if (this.inv[this.hand].name == 'Ladybugs') {

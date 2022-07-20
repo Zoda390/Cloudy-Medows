@@ -32,6 +32,13 @@ var mouse_item = 0;
 var localData = localDataStorage( 'passphrase.life' )
 var musicplayer = {};
 
+
+var startButton;
+var optionsButton;
+var creditsButton;
+
+
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -251,9 +258,16 @@ function preload() {
     tomato_tile_img5 = loadImage("images/tiles/tomato_5.png");
     tomato_tile_img6 = loadImage("images/tiles/tomato_6.png");
     tomato_tile_imgs = [tomato_tile_img, tomato_tile_img2, tomato_tile_img3, tomato_tile_img4, tomato_tile_img5, tomato_tile_img6];
+    //letuce
+    letuce_tile_img = loadImage("images/tiles/lettuce_3.png");
 
     //watermelon
-    
+    watermelon_img = loadImage("images/items/watermelon2.png");
+    watermelon_seed_bag_img = loadImage("images/items/seedbagwatermelon.png");
+    watermelon_tile_2_img = loadImage("images/tiles/watermelon_4.png");
+    watermelon_tile_3_img = loadImage("images/tiles/watermelon_5.png");
+    watermelon_tile_4_img = loadImage("images/tiles/watermelon_6.png");
+    watermelon_tile_imgs = [letuce_tile_img, watermelon_tile_2_img, watermelon_tile_3_img, watermelon_tile_4_img];
     
     // ladybugs
     ladybug_bag_img = loadImage("images/items/Lady_Bug_bag.png");
@@ -337,7 +351,8 @@ function preload() {
     /*37*/    { name: 'Liam', png: liam_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: ['up', 'up', 'down', 'down'], moving_timer: 100, class: 'NPC' },
     /*38*/    { name: 'Meb', png: meb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 100, class: 'NPC' },
     /*39*/    { name: 'bush', png: [bush_img], border: false, collide: true, age: -1, class: 'Tile' },
-    /*40*/    { name: 'chest', png: chest_img, inv: [0, { num: 4, amount: 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], facing: 2, under_tile_num: 1, class: 'Chest'}
+    /*40*/    { name: 'chest', png: chest_img, inv: [0, { num: 4, amount: 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], facing: 2, under_tile_num: 1, class: 'Chest'},
+    /*41*/    { name: 'watermelon', png: watermelon_tile_imgs, border: true, collide: false, age: 0, eat_num: 17, waterneed: 2, growthTime: 4000, class: 'Plant'}
     ];
     /*
     class       obj
@@ -363,9 +378,91 @@ function preload() {
         /*12*/{ name: 'Sprinkler', png: sprinkler_img, price: 9, tile_num: 20, tile_need_num: 2, class: 'Placeable' },
         /*13*/{ name: 'Full Course', png: fullcourse_img, price: 20, hunger: 100, hunger_timer: 4000, seed_num: 0, class: 'Eat' },
         /*14*/{name: 'Tomato Seed', png: tomato_seed_bag_img, plant_num: 24, class: 'Seed'},
-        /*15*/{name: 'Tomato', png: tomato_img, price: 3, hunger: 1, hunger_timer: 1800, seed_num: 14, class: 'Eat'}
+        /*15*/{name: 'Tomato', png: tomato_img, price: 3, hunger: 1, hunger_timer: 1800, seed_num: 14, class: 'Eat'},
+        /*16*/{name: 'Watermelon Seed', png: watermelon_seed_bag_img, plant_num: 41, class: 'Seed'},
+        /*17*/{name: 'Watermelon', png: watermelon_img, price: 8, hunger: 2, hunger_timer: 2000, seed_num: 16, class: 'Eat'}
     ];
 }
+
+function start(){
+    startButton.hide();
+    optionsButton.hide();
+    creditsButton.hide();
+    title_screen = false;
+}
+function flipPaused(){
+    paused = !paused;
+}
+
+function showOptions(){
+    push()
+    stroke(149, 108, 65);
+    strokeWeight(5);
+    fill(187, 132, 75);
+    rectMode(CENTER);
+    rect(((4*canvasWidth)/5)-10, canvasHeight/2, 300, canvasHeight);
+    fill(255);
+    stroke(0);
+    strokeWeight(2);
+    textFont(player_2);
+    textAlign(CENTER, CENTER);
+    textSize(30);
+    text('Options', ((4*canvasWidth)/5)-10, 30);
+    musicSlider.show();
+    fxSlider.show();
+    musicSlider.position(((4*canvasWidth)/5)-30, (canvasHeight/6)-25);
+    fxSlider.position(((4*canvasWidth)/5)-30, (canvasHeight/6)+15);
+
+    image(music_note_img, ((4*canvasWidth)/5)-80, (canvasHeight/6)-50);
+    image(fx_img, ((4*canvasWidth)/5)-80, (canvasHeight/6)-10);
+    pop()
+}
+
+function showPaused(){
+    push()
+    stroke(149, 108, 65);
+    strokeWeight(5);
+    fill(187, 132, 75);
+    rectMode(CENTER);
+    rect(canvasWidth/2, (canvasHeight/2)-30, 400, 400);
+    fill(255);
+    stroke(0);
+    strokeWeight(2);
+    textFont(player_2);
+    textAlign(CENTER, CENTER);
+    textSize(30);
+    text('Paused', canvasWidth/2, (canvasHeight/5)-20);
+    musicSlider.show();
+    fxSlider.show();
+    musicSlider.position((canvasWidth/2)-10, (canvasHeight/5)+25);
+    fxSlider.position((canvasWidth/2)-10, (canvasHeight/5)+65);
+
+    image(music_note_img, (canvasWidth/2)-65, (canvasHeight/5));
+    image(fx_img, (canvasWidth/2)-65, (canvasHeight/5)+40);
+    pop()
+}
+
+var creditsOn = false;
+function flipCredits(){
+    creditsOn = !creditsOn;
+}
+function showCredits(){
+    push()
+    stroke(149, 108, 65);
+    strokeWeight(5);
+    fill(187, 132, 75);
+    rectMode(CENTER);
+    rect(canvasWidth/2 + 120, 150/2, 490, 150 );
+    fill(255);
+    stroke(0);
+    strokeWeight(2);
+    textFont(player_2);
+    textAlign(CENTER, CENTER);
+    text('Credits', canvasWidth/2 + 120, 20);
+    text('Christian Rodriguez - Lead programmer \n David Kozdra - Art and Music \n Patrick Mayer - Helped Christian with UI \n Christian “Sealand” Rodriguez - Music', (canvasWidth/2)+120, 80);
+    pop()
+}
+
 
 var current_reply = 0;
 function setup() {
@@ -374,7 +471,22 @@ function setup() {
     for (let i = 0; i < cloudCount; i++) {
         clouds[i] = new Cloud()
     }
+    
     player = new Player('player1', player_imgs, (5 * tileSize), (5 * tileSize));
+
+    startButton = createButton('Start');
+    startButton.position(canvasWidth/2, canvasHeight/2+100);
+    startButton.mousePressed(start);
+
+    
+    optionsButton = createButton('Options');
+    optionsButton.position(canvasWidth/2, canvasHeight/2+140);
+    optionsButton.mousePressed(flipPaused);
+
+    creditsButton = createButton('Credits');
+    creditsButton.position(canvasWidth/2, canvasHeight/2+180);
+    creditsButton.mousePressed(flipCredits);
+
     
     musicSlider = createSlider(0, 1, 1, 0.01);
     musicSlider.position((canvasWidth/2)-10, (canvasHeight/2)-85);
@@ -793,16 +905,32 @@ function draw() {
         }
         imageMode(CENTER);
         image(title_screen_img, canvasWidth / 2, (canvasHeight / 2) - 40);
-
+        
         textFont(player_2);
         fill('black');
         textAlign(CENTER, CENTER);
         textSize(13);
-        text('Press E to start.', canvasWidth / 2, (canvasHeight * 4) / 5);
-
+        
+        startButton.show();
+        
         pop();
+
+        if(paused){
+            showOptions();
+        }
+        else{
+            musicSlider.hide();
+            fxSlider.hide();
+        }
+        if(creditsOn){
+            showCredits();
+        }
     }
     else {
+
+        startButton.hide();
+        optionsButton.hide();
+        creditsButton.hide();
         background(135, 206, 235);
         image(background_img, 0, 0);
         levels[currentLevel_y][currentLevel_x].fore_render();
@@ -939,7 +1067,6 @@ function takeInput() {
             
     if (title_screen) {
         if (keyIsDown(interact_button)) {
-            
             title_screen = false;
         }
     }
@@ -1264,30 +1391,14 @@ function render_ui() {
         }
     }
     if(paused){
-        push()
-        stroke(149, 108, 65);
-        strokeWeight(5);
-        fill(187, 132, 75);
-        rectMode(CENTER);
-        rect(canvasWidth/2, (canvasHeight/2)-30, 400, 400);
-        fill(255);
-        stroke(0);
-        strokeWeight(2);
-        textFont(player_2);
-        textAlign(CENTER, CENTER);
-        text('Paused', canvasWidth/2, (canvasHeight/3)-30);
-        musicSlider.show();
-        fxSlider.show();
-        image(music_note_img, (canvasWidth/2)-65, (canvasHeight/3)-5);
-        image(fx_img, (canvasWidth/2)-65, (canvasHeight/2)-30);
-
-        pop()
+        showPaused();
     }
     else{
         musicSlider.hide();
         fxSlider.hide();
     }
 }
+
 
 function new_tile_from_num(num, x, y) {
     if (num-1 <= all_tiles.length) {
