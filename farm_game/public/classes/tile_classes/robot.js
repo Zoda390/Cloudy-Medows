@@ -70,6 +70,9 @@ class Robot extends GridMoveEntity{
 
     move(x, y) {
         this.moving_timer -= 1;
+        if(player.touching.name == 'bed'){
+            this.moving_timer -= 1;
+        }
         if (this.moving_timer <= 0 && this.move_bool) {
             if(this.instructions[this.current_instruction] == 0){
                 this.current_instruction += 1;
