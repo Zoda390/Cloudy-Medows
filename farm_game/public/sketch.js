@@ -177,6 +177,7 @@ function preload() {
     brent_tile_imgs = [[brent_tile_up_img], [brent_tile_right_img], [brent_tile_down_img], [brent_tile_left_img]];
 
     //robot
+    robot_img = loadImage('images/items/robot.png');
     robot_tile_up_img = loadImage('images/npc/robot_back.png');
     robot_tile_right_img = loadImage('images/npc/robot_right.png');
     robot_tile_down_img = loadImage('images/npc/robot_front.png');
@@ -360,7 +361,7 @@ function preload() {
     /*39*/    { name: 'bush', png: [bush_img], border: false, collide: true, age: -1, class: 'Tile' },
     /*40*/    { name: 'chest', png: chest_img, inv: [0, { num: 4, amount: 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], facing: 2, under_tile_num: 1, class: 'Chest'},
     /*41*/    { name: 'watermelon', png: watermelon_tile_imgs, border: true, collide: false, age: 0, eat_num: 17, waterneed: 2, growthTime: 4000, class: 'Plant'},
-    /*42*/    { name: 'robot', png: robot_tile_imgs, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0], moving_timer: 100, class: 'Robot'},
+    /*42*/    { name: 'robot', png: robot_tile_imgs, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 0, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 100, class: 'Robot'},
     /*43*/    { name: 'Fruis', png: [cart_straw_tile_img], inv: [{num: 7, amount: 3}, {num: 15, amount: 3}, {num: 17, amount: 3}], class: 'Shop' },
     /*44*/    { name: 'Fruit Seeds', png: [cart_straw_tile_img], inv: [{num: 7, amount: 4}, {num: 15, amount: 2}, {num: 17, amount: 1}], class: 'Shop' }
     ];
@@ -390,7 +391,8 @@ function preload() {
         /*14*/{name: 'Tomato Seed', png: tomato_seed_bag_img, plant_num: 24, class: 'Seed'},
         /*15*/{name: 'Tomato', png: tomato_img, price: 3, hunger: 1, hunger_timer: 1800, seed_num: 14, class: 'Eat'},
         /*16*/{name: 'Watermelon Seed', png: watermelon_seed_bag_img, plant_num: 41, class: 'Seed'},
-        /*17*/{name: 'Watermelon', png: watermelon_img, price: 8, hunger: 2, hunger_timer: 2000, seed_num: 16, class: 'Eat'}
+        /*17*/{name: 'Watermelon', png: watermelon_img, price: 8, hunger: 2, hunger_timer: 2000, seed_num: 16, class: 'Eat'},
+        /*18*/{name: 'Robot', png: robot_img, price: 80, tile_num: 42, tile_need_num: 1, class: 'Placeable'}
     ];
 }
 
@@ -490,21 +492,21 @@ function setup() {
     startButton.position(canvasWidth/2-250/2, canvasHeight/2+120);
     startButton.mousePressed(start);
     startButton.style('width', '250px');
-    startButton.style('background','url(public/images/ui/Button.png)');
+    startButton.style('background','url()');
     startButton.style("font-family","pixelFont");
     
     optionsButton = createButton('Options');
     optionsButton.position(canvasWidth/2-250/2, canvasHeight/2+160);
     optionsButton.mousePressed(flipPaused);
     optionsButton.style('width', '250px');
-    optionsButton.style('background','url(public/images/ui/Button.png)');
+    optionsButton.style('background','url()');
     optionsButton.style("font-family","pixelFont");
 
     creditsButton = createButton('Credits');
     creditsButton.position(canvasWidth/2-250/2, canvasHeight/2+200);
     creditsButton.mousePressed(flipCredits);
     creditsButton.style('width', '250px');
-    creditsButton.style('background','url(public/images/ui/Button.png)');
+    creditsButton.style('background','url()');
     creditsButton.style("font-family","pixelFont");
 
     musicSlider = createSlider(0, 1, 1, 0.01);
@@ -911,7 +913,6 @@ function setup() {
 }
 
 function draw() {
-    
     musicplayer.update()
 
     takeInput();
@@ -1211,6 +1212,7 @@ function takeInput() {
                         player.oldlooking_name = player.talking.name;
                         player.talking = 0;
                         current_reply = 0;
+                        player.lastinteractMili = millis();
                     }
                     else{
                         player.talking.current_dialouge = player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num;
@@ -1297,7 +1299,6 @@ function takeInput() {
                 console.log(player);
                 console.log(player.touching);
                 console.log(player.looking(currentLevel_x, currentLevel_y));
-                console.log(all_tiles)
                 lastMili = millis();
                 player.hunger = maxHunger;
             }
@@ -1323,13 +1324,13 @@ function render_ui() {
         levels[currentLevel_y][currentLevel_x].name_render();
     }
 
-    if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class != 'Chest') {
-        if (player.looking(currentLevel_x, currentLevel_y).class == 'NPC' ){
-            player.looking(currentLevel_x, currentLevel_y).move_bool = false;
-            player.looking(currentLevel_x, currentLevel_y).dialouge_render();
+    if (player.talking != undefined && player.talking != 0 && player.talking.class != 'Chest' && player.talking.class != 'Robot') {
+        if (player.talking.class == 'NPC' ){
+            player.talking.move_bool = false;
+            player.talking.dialouge_render();
         }
-        else if (player.looking(currentLevel_x, currentLevel_y).class == 'Shop'){
-            player.looking(currentLevel_x, currentLevel_y).shop_render();
+        else if (player.talking.class == 'Shop'){
+            player.talking.shop_render();
         }
         for (let i = 0; i < maxHunger; i++) {
             image(hunger_e, (canvasWidth / 20) + (30 * i), (canvasHeight - 185));
@@ -1345,8 +1346,13 @@ function render_ui() {
         text(player.coins, canvasWidth - 110, (canvasHeight - 182.5));
     }
     else{
-        if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Chest'){
-            player.looking(currentLevel_x, currentLevel_y).chest_render();
+        if(player.talking != undefined && player.talking != 0){
+            if (player.talking.class == 'Chest'){
+                player.talking.chest_render();
+            }
+            else if(player.talking.class == 'Robot'){
+                player.talking.render_pc();
+            }
         }
         image(inv_img, (canvasWidth / 2) - (512 / 2), canvasHeight - 64);
         image(inv_hand_img, (canvasWidth / 2) - (512 / 2) + (64 * player.hand), canvasHeight - 64);
@@ -1379,8 +1385,8 @@ function render_ui() {
         textAlign(LEFT, TOP);
         image(coin_img, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 95));
         text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
-        if(mouse_item != 0 && player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Chest'){
-            mouse_item.render(mouseX, mouseY)
+        if(mouse_item != 0){
+            mouse_item.render(mouseX-32, mouseY-32);
         }
         if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).name == "cart_s") {
             push()
@@ -1482,6 +1488,25 @@ function new_item_from_num(num, amount) {
 
 function mouseReleased() {
     if(!title_screen){
+        if(mouseY >= canvasHeight - 64 && mouseY <= canvasHeight){
+            if(mouseX >= 113 && mouseX <= 622){
+                let currentX = min(player.inv.length-1, round((mouseX-113-32)/64))
+                if(mouse_item == 0 || player.inv[currentX] == 0){
+                    let temp = mouse_item;
+                    mouse_item = player.inv[currentX]
+                    player.inv[currentX] = temp;
+                }
+                else if(player.inv[currentX].name == mouse_item.name){
+                    player.inv[currentX].amount += mouse_item.amount;
+                    mouse_item = 0;
+                }
+                else{
+                    let temp = mouse_item;
+                    mouse_item = player.inv[currentX]
+                    player.inv[currentX] = temp;
+                }
+            }
+        }
         if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Chest'){
             if(mouseY >= 189 && mouseY <= 457){
                 if(mouseX >= 184 && mouseX <= 552){
@@ -1503,21 +1528,23 @@ function mouseReleased() {
                     }
                 }
             }
-            else if(mouseY >= canvasHeight - 64 && mouseY <= canvasHeight){
-                if(mouseX >= 113 && mouseX <= 622){
-                    let currentX = min(player.inv.length-1, round((mouseX-113)/64))
-                    if(mouse_item == 0 || player.inv[currentX] == 0){
+        }
+        if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Robot'){
+            if(mouseY >= 435 && mouseY <= 500){
+                if(mouseX >= 70 && mouseX <= 678){
+                    let currentX = min(player.talking.inv.length-1, round((mouseX-70-45)/90))
+                    if(mouse_item == 0 || player.talking.inv[currentX] == 0){
                         let temp = mouse_item;
-                        mouse_item = player.inv[currentX]
-                        player.inv[currentX] = temp;
+                        mouse_item = player.talking.inv[currentX]
+                        player.talking.inv[currentX] = temp;
                     }
-                    else if(player.inv[currentX].name == mouse_item.name){
-                        player.inv[currentX].amount += mouse_item.amount;
+                    else if(player.talking.inv[currentX].name == mouse_item.name){
+                        player.talking.inv[currentX].amount += mouse_item.amount;
                         mouse_item = 0;
                     }
                     else{
                         let temp = mouse_item;
-                        mouse_item = player.inv[currentX]
+                        mouse_item = player.talking.inv[currentX]
                         player.talking.inv[currentX] = temp;
                     }
                 }

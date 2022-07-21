@@ -1,5 +1,5 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y,inv = [{ num: 1, amount: 1 }, { num: 2, amount: 5 }, { num: 3, amount: 3}, {num: 17, amount: 2}, 0, 0, 0, 0]) {
+    constructor(name, png, x, y,inv = [{ num: 1, amount: 1 }, { num: 2, amount: 5 }, { num: 3, amount: 3}, {num: 18, amount: 1}, 0, 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
@@ -44,7 +44,7 @@ class Player extends MoveableEntity {
 
         this.save()
         if(this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0){
-            if(this.oldlooking_name != this.looking(currentLevel_x, currentLevel_y).name && ((this.looking(currentLevel_x, currentLevel_y).class == 'NPC' || this.looking(currentLevel_x, currentLevel_y).class == 'Shop' || this.looking(currentLevel_x, currentLevel_y).class == 'Chest'))){
+            if(this.oldlooking_name != this.looking(currentLevel_x, currentLevel_y).name && ((this.looking(currentLevel_x, currentLevel_y).class == 'NPC' || this.looking(currentLevel_x, currentLevel_y).class == 'Shop' || this.looking(currentLevel_x, currentLevel_y).class == 'Chest' || this.looking(currentLevel_x, currentLevel_y).class == 'Robot'))){
                 this.talking = this.looking(currentLevel_x, currentLevel_y);
             }
         }
@@ -69,6 +69,9 @@ class Player extends MoveableEntity {
         if (this.hunger <= 0 && millis() - lastHungerMili > 400 && !paused && !this.dead) {
             hit_sound.play();
             this.hp -= 10;
+            if(this.hp < 0){
+                this.hp = 0;
+            }
             tint(255, 0, 0, 100);
             image(player_imgs[this.facing][this.anim], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
             lastHungerMili = millis();
@@ -286,7 +289,7 @@ class Player extends MoveableEntity {
     interactCall() {
         
             if (millis() - this.lastinteractMili > 100) {
-                this.onInteract();
+                this.onInteract(currentLevel_x, currentLevel_y);
                 this.lastinteractMili = millis();
             }
         
