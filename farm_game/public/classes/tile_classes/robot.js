@@ -46,7 +46,7 @@ class Robot extends GridMoveEntity{
             }
             rect((x*90)+160, y, 64, 64);
             if(this.instructions[i] != 0){
-                this.instructions[i].render();
+                this.instructions[i].render((x*90)+160, y);
             }
             x += 1;
         }
@@ -66,5 +66,78 @@ class Robot extends GridMoveEntity{
             }
         }
         pop()
+    }
+
+    move(x, y) {
+        this.moving_timer -= 1;
+        if (this.moving_timer <= 0 && this.move_bool) {
+            if(this.instructions[this.current_instruction] == 0){
+                this.current_instruction += 1;
+                    if (this.current_instruction >= this.instructions.length) {
+                        this.current_instruction = 0;
+                    }
+            }
+            else if (this.instructions[this.current_instruction].command == 'up') {
+                this.facing = 0;
+                if (this.looking(x, y) != 0 && this.looking(x, y).collide != true) {
+                    let temp = this;
+                    levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = this.under_tile;
+                    temp.under_tile = levels[y][x].map[(this.touching.pos.y / tileSize) - 1][this.touching.pos.x / tileSize];
+                    levels[y][x].map[(this.touching.pos.y / tileSize) - 1][this.touching.pos.x / tileSize] = temp;
+                    this.pos.y -= tileSize;
+                    this.current_instruction += 1;
+                    if (this.current_instruction >= this.instructions.length) {
+                        this.current_instruction = 0;
+                    }
+                }
+            }
+            else if (this.instructions[this.current_instruction].command == 'right') {
+                this.facing = 1;
+                if (this.looking(x, y) != 0 && this.looking(x, y).collide != true) {
+                    let temp = this;
+                    levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = this.under_tile;
+                    temp.under_tile = levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) + 1];
+                    levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) + 1] = temp;
+                    this.pos.x += tileSize;
+                    this.current_instruction += 1;
+                    if (this.current_instruction >= this.instructions.length) {
+                        this.current_instruction = 0;
+                    }
+                }
+            }
+            else if (this.instructions[this.current_instruction].command == 'down') {
+                this.facing = 2;
+                if (this.looking(x, y) != 0 && this.looking(x, y).collide != true) {
+                    let temp = this;
+                    levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = this.under_tile;
+                    temp.under_tile = levels[y][x].map[(this.touching.pos.y / tileSize) + 1][this.touching.pos.x / tileSize];
+                    levels[y][x].map[(this.touching.pos.y / tileSize) + 1][this.touching.pos.x / tileSize] = temp;
+                    this.pos.y += tileSize;
+                    this.current_instruction += 1;
+                    if (this.current_instruction >= this.instructions.length) {
+                        this.current_instruction = 0;
+                    }
+                }
+            }
+            else if (this.instructions[this.current_instruction].command == 'left') {
+                this.facing = 3;
+                if (this.looking(x, y) != 0 && this.looking(x, y).collide != true) {
+                    let temp = this;
+                    levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = this.under_tile;
+                    temp.under_tile = levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) - 1];
+                    levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) - 1] = temp;
+                    this.pos.x -= tileSize;
+                    this.current_instruction += 1;
+                    if (this.current_instruction >= this.instructions.length) {
+                        this.current_instruction = 0;
+                    }
+                }
+            }
+            this.anim += 1;
+            if (this.anim > this.png[this.facing].length) {
+                this.anim = 0;
+            }
+            this.moving_timer = this.max_moving_timer;
+        }
     }
 }

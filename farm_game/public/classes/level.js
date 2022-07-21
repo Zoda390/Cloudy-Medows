@@ -136,6 +136,9 @@ class Level {
                 if (this.map[i][j].class == 'NPC') {
                     this.map[i][j].move(x,y);
                 }
+                if (this.map[i][j].class == 'Robot') {
+                    this.map[i][j].move(x,y);
+                }
             }
         }
     }

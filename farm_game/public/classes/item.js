@@ -10,13 +10,14 @@ class Item {
 	render(x, y) {
 		push();
 		image(this.png, x, y);
-		fill(255)
+		fill(255);
 		let amountS = str(this.amount)
-		textSize(25 - ((amountS.length-1)*8));
+		textSize(20 - ((amountS.length-1)*8));
 		textAlign(CENTER, CENTER);
 		textFont(player_2);
-		noStroke();
-		text(this.amount, x + 47, y + 47 + (amountS.length*2));
+		stroke(0)
+		strokeWeight(1);
+		text(this.amount, x + 51, y + 51 + (amountS.length*2));
 		pop();
 	}
 }
@@ -52,5 +53,13 @@ class Placeable extends Item {
 		this.class = "Placeable";
 		this.tile_num = tile_num;
 		this.tile_need_num = tile_need_num;
+	}
+}
+
+class Command extends Item {
+	constructor(name, amount, png, command){
+		super(name, amount, png, 10)
+		this.command = command;
+		this.class = 'Command';
 	}
 }

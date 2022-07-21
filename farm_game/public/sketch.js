@@ -184,6 +184,13 @@ function preload() {
     robot_tile_left_img = loadImage('images/npc/robot_left.png');
     robot_tile_imgs = [[robot_tile_up_img], [robot_tile_right_img], [robot_tile_down_img], [robot_tile_left_img]];
 
+    //commands
+    command_up_img = loadImage('images/items/floppy_up.png');
+    command_right_img = loadImage('images/items/floppy_right.png');
+    command_down_img = loadImage('images/items/floppy_down.png');
+    command_left_img = loadImage('images/items/floppy_left.png');
+    command_interact_img = loadImage('images/items/floppy_interact.png');
+
     //Ui
     player_2 = loadFont('pixelFont.ttf');
     inv_img = loadImage('images/ui/Inventory.png');
@@ -361,7 +368,7 @@ function preload() {
     /*39*/    { name: 'bush', png: [bush_img], border: false, collide: true, age: -1, class: 'Tile' },
     /*40*/    { name: 'chest', png: chest_img, inv: [0, { num: 4, amount: 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], facing: 2, under_tile_num: 1, class: 'Chest'},
     /*41*/    { name: 'watermelon', png: watermelon_tile_imgs, border: true, collide: false, age: 0, eat_num: 17, waterneed: 2, growthTime: 4000, class: 'Plant'},
-    /*42*/    { name: 'robot', png: robot_tile_imgs, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 0, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 100, class: 'Robot'},
+    /*42*/    { name: 'robot', png: robot_tile_imgs, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 0, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 70, class: 'Robot'},
     /*43*/    { name: 'Fruis', png: [cart_straw_tile_img], inv: [{num: 7, amount: 3}, {num: 15, amount: 3}, {num: 17, amount: 3}], class: 'Shop' },
     /*44*/    { name: 'Fruit Seeds', png: [cart_straw_tile_img], inv: [{num: 7, amount: 4}, {num: 15, amount: 2}, {num: 17, amount: 1}], class: 'Shop' }
     ];
@@ -392,7 +399,11 @@ function preload() {
         /*15*/{name: 'Tomato', png: tomato_img, price: 3, hunger: 1, hunger_timer: 1800, seed_num: 14, class: 'Eat'},
         /*16*/{name: 'Watermelon Seed', png: watermelon_seed_bag_img, plant_num: 41, class: 'Seed'},
         /*17*/{name: 'Watermelon', png: watermelon_img, price: 8, hunger: 2, hunger_timer: 2000, seed_num: 16, class: 'Eat'},
-        /*18*/{name: 'Robot', png: robot_img, price: 80, tile_num: 42, tile_need_num: 1, class: 'Placeable'}
+        /*18*/{name: 'Robot', png: robot_img, price: 80, tile_num: 42, tile_need_num: 1, class: 'Placeable'},
+        /*19*/{name: 'Up Command', png: command_up_img, command: 'up', class: 'Command'},
+        /*20*/{name: 'Right Command', png: command_right_img, command: 'right', class: 'Command'},
+        /*21*/{name: 'Down Command', png: command_down_img, command: 'down', class: 'Command'},
+        /*22*/{name: 'Left Command', png: command_left_img, command: 'left', class: 'Command'}
     ];
 }
 
@@ -1157,6 +1168,9 @@ function takeInput() {
                         }
                     }
                 }
+                else if (player.talking.class == 'Robot'){
+                    player.talking.move_bool = true;
+                }
                 player.oldlooking_name = player.talking.name;
                 player.talking = 0;
                 current_reply = 0;
@@ -1351,6 +1365,7 @@ function render_ui() {
                 player.talking.chest_render();
             }
             else if(player.talking.class == 'Robot'){
+                player.talking.move_bool = false;
                 player.talking.render_pc();
             }
         }
@@ -1480,6 +1495,9 @@ function new_item_from_num(num, amount) {
         else if (all_items[num].class == 'Placeable') {
             return new Placeable(all_items[num].name, amount, all_items[num].png, all_items[num].price, all_items[num].tile_num, all_items[num].tile_need_num);
         }
+        else if(all_items[num].class == 'Command'){
+            return new Command(all_items[num].name, amount, all_items[num].png, all_items[num].command);
+        }
     }
     else {
         console.error('item created from ' + num + ' doesnt exist');
@@ -1530,6 +1548,31 @@ function mouseReleased() {
             }
         }
         if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Robot'){
+            if(mouseY >= 78 && mouseY <= 414){
+                if(mouseX >= 152 && mouseX <= 682){
+                    let currentX = (min(player.talking.instructions.length/6, round((mouseY - 78-(86/2))/86))*6) + min(5, round((mouseX - 152-45)/90))
+                    if(mouse_item == 0){
+                        mouse_item = player.talking.instructions[currentX];
+                        player.talking.instructions[currentX] = 0;
+                    }
+                    else if(player.talking.instructions[currentX] == 0){
+                        player.talking.instructions[currentX] = new_item_from_num(item_name_to_num(mouse_item.name), 1);
+                        mouse_item.amount -= 1;
+                        if(mouse_item.amount == 0){
+                        mouse_item = 0;
+                        }
+                    }
+                    else if (player.talking.instructions[currentX].name == mouse_item.name){
+                        mouse_item.amount += 1;
+                        player.talking.instructions[currentX] = 0;
+                    }
+                    else{
+                        let temp = mouse_item;
+                        mouse_item = player.talking.instructions[currentX];
+                        player.talking.instructions[currentX] = temp;
+                    }
+                }
+            }
             if(mouseY >= 435 && mouseY <= 500){
                 if(mouseX >= 70 && mouseX <= 678){
                     let currentX = min(player.talking.inv.length-1, round((mouseX-70-45)/90))
