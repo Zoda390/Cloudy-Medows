@@ -8,7 +8,12 @@ class Entity extends Tile {
             }
         }
         this.hand = hand;
-        this.under_tile_num = under_tile_num;
+        if(under_tile_num == 0){
+            this.under_tile = 0
+        }
+        else{
+            this.under_tile = new_tile_from_num(under_tile_num, this.pos.x, this.pos.y);
+        }
         this.class = "Entity";
     }
 
@@ -19,7 +24,12 @@ class Entity extends Tile {
             rect(this.pos.x - tileSize / 2, this.pos.y - tileSize / 2, tileSize, tileSize);
         }
         imageMode(CENTER);
-        image(all_tiles[this.under_tile_num - 1].png[0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        if(this.under_tile != 0){
+            this.under_tile.render();
+        }
+        /*if (this.under_tile.class == 'Plant') {
+            this.under_tile.grow(x,y);
+        }*/
         if(paused){
             this.png.pause();
         }

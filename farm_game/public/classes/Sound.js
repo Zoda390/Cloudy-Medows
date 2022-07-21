@@ -17,6 +17,15 @@ class Sound {
     stop() {
         this.sound.pause();
     }
+
+    update(){ 
+        if( this.sound.currentTime >= this.sound.duration - 0.1){ //check if done
+            console.log(this.sound.currentTime + " DONE " + this.sound.duration)
+            this.sound.remove();
+        }
+
+    }
+
 }
 
 

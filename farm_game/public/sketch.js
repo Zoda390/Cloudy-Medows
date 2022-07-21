@@ -177,8 +177,12 @@ function preload() {
     brent_tile_imgs = [[brent_tile_up_img], [brent_tile_right_img], [brent_tile_down_img], [brent_tile_left_img]];
 
     //robot
-    //robot_tile_up_img = loadImage('images/')
-    
+    robot_tile_up_img = loadImage('images/npc/robot_back.png');
+    robot_tile_right_img = loadImage('images/npc/robot_right.png');
+    robot_tile_down_img = loadImage('images/npc/robot_front.png');
+    robot_tile_left_img = loadImage('images/npc/robot_left.png');
+    robot_tile_imgs = [[robot_tile_up_img], [robot_tile_right_img], [robot_tile_down_img], [robot_tile_left_img]];
+
     //Ui
     player_2 = loadFont('pixelFont.ttf');
     inv_img = loadImage('images/ui/Inventory.png');
@@ -330,10 +334,10 @@ function preload() {
     /*13*/    { name: 'compost_tile', png: [compost_tile_img], border: true, collide: false, age: 0, class: 'Tile' },
     /*14*/    { name: 'compost_bucket', png: [compost_bucket_tile_img], border: true, collide: false, age: -1, class: 'Tile' },
     /*15*/    { name: 'cart_s', png: [cart_s_tile_img], border: true, collide: true, age: -1, class: 'Tile' },
-    /*16*/    { name: 'Fruits', png: [cart_tile_img, cart_sp_tile_img, cart_straw_tile_img], inv: [{ num: 2, amount: 7}, {num: 5, amount: 6}, {num: 7, amount: 0}], class: 'Shop' },
+    /*16*/    { name: 'Vegitables', png: [cart_tile_img, cart_sp_tile_img], inv: [{ num: 2, amount: 7}, {num: 5, amount: 6}], class: 'Shop' },
     /*17*/    { name: 'Ladybugs and Flowers', png: [cart_ladybug_tile_img, cart_flower_tile_img], inv: [{num: 10, amount: 6}, {num: 11, amount: 6}], class: 'Shop' },
     /*18*/    { name: 'Sprinklers', png: [cart_sprinkler_tile_img], inv: [{num: 12, amount: 6}], class: 'Shop' },
-    /*19*/    { name: 'Seeds', png: [cart_tile_img, cart_sp_tile_img, cart_straw_tile_img], inv: [{ num: 3, amount: 7}, {num: 6, amount: 6}, {num: 8, amount: 0}], class: 'Shop' },
+    /*19*/    { name: 'Veggy Seeds', png: [cart_tile_img, cart_sp_tile_img], inv: [{ num: 3, amount: 7}, {num: 6, amount: 6}], class: 'Shop' },
     /*20*/    { name: 'sprinkler', png: [sprinkler_tile_img], border: true, collide: false, age: -1, class: 'Tile' },
     /*21*/    { name: 'corn', png: corn_tile_imgs, border: true, collide: false, age: 0, eat_num: 2, waterneed: 0, growthTime: 2000, class: 'Plant' },
     /*22*/    { name: 'sweet_potato', png: sweet_potato_tile_imgs, border: true, collide: false, age: 0, eat_num: 5, waterneed: 0, growthTime: 2200, class: 'Plant' },
@@ -356,7 +360,9 @@ function preload() {
     /*39*/    { name: 'bush', png: [bush_img], border: false, collide: true, age: -1, class: 'Tile' },
     /*40*/    { name: 'chest', png: chest_img, inv: [0, { num: 4, amount: 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], facing: 2, under_tile_num: 1, class: 'Chest'},
     /*41*/    { name: 'watermelon', png: watermelon_tile_imgs, border: true, collide: false, age: 0, eat_num: 17, waterneed: 2, growthTime: 4000, class: 'Plant'},
-    /*42*/    { name: 'robot', png: robot_tile_imgs, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0], moving_timer: 100, class: 'Robot'}
+    /*42*/    { name: 'robot', png: robot_tile_imgs, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0], moving_timer: 100, class: 'Robot'},
+    /*43*/    { name: 'Fruis', png: [cart_straw_tile_img], inv: [{num: 7, amount: 3}, {num: 15, amount: 3}, {num: 17, amount: 3}], class: 'Shop' },
+    /*44*/    { name: 'Fruit Seeds', png: [cart_straw_tile_img], inv: [{num: 7, amount: 4}, {num: 15, amount: 2}, {num: 17, amount: 1}], class: 'Shop' }
     ];
     /*
     class       obj
@@ -393,9 +399,11 @@ function start(){
     optionsButton.hide();
     creditsButton.hide();
     title_screen = false;
+    paused = false;
 }
 function flipPaused(){
     paused = !paused;
+    creditsOn = false;
 }
 
 function showOptions(){
@@ -449,6 +457,7 @@ function showPaused(){
 var creditsOn = false;
 function flipCredits(){
     creditsOn = !creditsOn;
+    paused = false;
 }
 function showCredits(){
     push()
@@ -470,7 +479,6 @@ function showCredits(){
 
 var current_reply = 0;
 function setup() {
-
     createCanvas(canvasWidth, canvasHeight);
     for (let i = 0; i < cloudCount; i++) {
         clouds[i] = new Cloud()
@@ -479,19 +487,26 @@ function setup() {
     player = new Player('player1', player_imgs, (5 * tileSize), (5 * tileSize));
 
     startButton = createButton('Start');
-    startButton.position(canvasWidth/2, canvasHeight/2+100);
+    startButton.position(canvasWidth/2-250/2, canvasHeight/2+120);
     startButton.mousePressed(start);
-
+    startButton.style('width', '250px');
+    startButton.style('background','url(public/images/ui/Button.png)');
+    startButton.style("font-family","pixelFont");
     
     optionsButton = createButton('Options');
-    optionsButton.position(canvasWidth/2, canvasHeight/2+140);
+    optionsButton.position(canvasWidth/2-250/2, canvasHeight/2+160);
     optionsButton.mousePressed(flipPaused);
+    optionsButton.style('width', '250px');
+    optionsButton.style('background','url(public/images/ui/Button.png)');
+    optionsButton.style("font-family","pixelFont");
 
     creditsButton = createButton('Credits');
-    creditsButton.position(canvasWidth/2, canvasHeight/2+180);
+    creditsButton.position(canvasWidth/2-250/2, canvasHeight/2+200);
     creditsButton.mousePressed(flipCredits);
+    creditsButton.style('width', '250px');
+    creditsButton.style('background','url(public/images/ui/Button.png)');
+    creditsButton.style("font-family","pixelFont");
 
-    
     musicSlider = createSlider(0, 1, 1, 0.01);
     musicSlider.position((canvasWidth/2)-10, (canvasHeight/2)-85);
     musicSlider.hide();
@@ -724,7 +739,7 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0], 
         [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 12, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0], 
         [0, 0, 0, 0, 1, 1, 1, 1, 34, 1, 1, 1, 1, 1, 36, 1, 1, 1, 0, 0, 0, 0, 0], 
-        [0, 0, 0, 1, 1, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0], 
+        [0, 0, 0, 1, 1, 12, 1, 1, 1, 43, 1, 1, 1, 44, 1, 1, 1, 1, 1, 0, 0, 0, 0], 
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], 
         [8, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 31, 1, 1, 1, 12, 1, 1, 1, 0, 0, 0], 
         [0, 0, 1, 1, 33, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], 

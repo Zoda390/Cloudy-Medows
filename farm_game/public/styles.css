@@ -1,3 +1,13 @@
+@font-face {
+    font-family: pixelFont;
+    src: url('pixelFont.ttf');
+}
+
 .button-image-element:hover {
     background: url('ButtonSelected.png');
+}
+
+.but{
+    background-color: black;
+
 }
