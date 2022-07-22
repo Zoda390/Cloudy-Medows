@@ -53,10 +53,9 @@ class MoveableEntity extends Entity {
         }
         if (this.inv[this.hand] != 0 && this.inv[this.hand].class == 'Placeable') {
             if (tile_name_to_num(this.under_tile.name) == (this.inv[this.hand].tile_need_num-1) || this.inv[this.hand].tile_need_num == 0) {
-                if(this.inv[this.hand].name == 'Robot'){
+                if(this.inv[this.hand].name == 'Robot_tier1' || this.inv[this.hand].name == 'Robot_tier2' || this.inv[this.hand].name == 'Robot_tier3'){
                     if(this.looking(x, y) != undefined && this.looking(x, y).collide == false){
                         let temp = this.looking(x, y);
-                        this.under_tile = this.tileTouching(x, y);
                         if (this.under_tile != 0) {
                             if(this.facing == 0){
                                 levels[y][x].map[(this.under_tile.pos.y / tileSize) - 1][this.under_tile.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.under_tile.pos.x, this.under_tile.pos.y - 32);
@@ -122,6 +121,17 @@ class MoveableEntity extends Entity {
                         this.inv[this.hand] = 0;
                     }
                     addItem(this, 9, 1);
+                }
+            }
+        }
+        else if (this.touching.name == 'Veggie_Press') {
+            if (this.inv[this.hand].class == 'Eat') {
+                if(checkForSpace(this, 31)){
+                    this.inv[this.hand].amount -= 1;
+                    if (this.inv[this.hand].amount == 0) {
+                        this.inv[this.hand] = 0;
+                    }
+                    addItem(this, 31, 1);
                 }
             }
         }

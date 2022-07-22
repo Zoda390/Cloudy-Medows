@@ -17,7 +17,7 @@ class Tile {
             rect(this.pos.x, this.pos.y, tileSize, tileSize);
         }
         imageMode(CENTER);
-        if (this.name == 'bed' || this.name == 'lamppost' || this.name == 'compost_bucket' || this.name == 'cart_s' || this.name == "bush") {
+        if (this.name == 'bed' || this.name == 'lamppost' || this.name == 'compost_bucket' || this.name == 'cart_s' || this.name == "bush" || this.name == 'Veggie_Press') {
             image(all_tiles[1 - 1].png[0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); //concrete under
         }
         if (this.name == 'sprinkler'){
@@ -31,5 +31,5 @@ class Tile {
         }
         image(this.png[this.variant], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
         pop()
-    }     
+    }
 };

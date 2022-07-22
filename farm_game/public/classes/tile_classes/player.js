@@ -1,5 +1,5 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y,inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 3, amount: 6}, {num: 18, amount: 1}, {num: 19, amount: 4}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}]) {
+    constructor(name, png, x, y,inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 31, amount: 3}, {num: 28, amount: 3}, {num: 19, amount: 4}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
@@ -305,7 +305,7 @@ class Player extends MoveableEntity {
         }
         if (this.inv[this.hand] != 0 && this.inv[this.hand].class == 'Placeable') {
             if (tile_name_to_num(this.touching.name) == (this.inv[this.hand].tile_need_num-1) || this.inv[this.hand].tile_need_num == 0) {
-                if(this.inv[this.hand].name == 'Robot'){
+                if(this.inv[this.hand].name == 'Robot_tier1' || this.inv[this.hand].name == 'Robot_tier2' || this.inv[this.hand].name == 'Robot_tier3'){
                     if(this.looking(x, y) != undefined && this.looking(x, y).collide == false){
                         let temp = this.looking(x, y);
                         this.touching = this.tileTouching(x, y);
@@ -367,13 +367,24 @@ class Player extends MoveableEntity {
             }
         }
         else if (this.touching.name == 'compost_bucket') {
-            if (this.inv[this.hand].name == 'Junk' || this.inv[this.hand].name == 'Corn Seed' || this.inv[this.hand].name == 'Sweet Potato Seed' || this.inv[this.hand].name == 'Strawberry Seed') {
+            if (this.inv[this.hand].name == 'Junk' || this.inv[this.hand].class == 'Seed') {
                 if(checkForSpace(this, 9)){
                     this.inv[this.hand].amount -= 1;
                     if (this.inv[this.hand].amount == 0) {
                         this.inv[this.hand] = 0;
                     }
                     addItem(this, 9, 1);
+                }
+            }
+        }
+        else if (this.touching.name == 'Veggie_Press') {
+            if (this.inv[this.hand].class == 'Eat') {
+                if(checkForSpace(this, 31)){
+                    this.inv[this.hand].amount -= 1;
+                    if (this.inv[this.hand].amount == 0) {
+                        this.inv[this.hand] = 0;
+                    }
+                    addItem(this, 31, 1);
                 }
             }
         }

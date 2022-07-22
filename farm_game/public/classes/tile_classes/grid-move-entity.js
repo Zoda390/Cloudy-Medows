@@ -2,7 +2,7 @@ class GridMoveEntity extends MoveableEntity{
 
     constructor(name, png, x, y, inv = [], hand = 0, facing = 3, under_tile_num, instructions = [], moving_timer){
         super(name, png, x, y, inv, hand, facing, under_tile_num, moving_timer);
-        this.instructions = instructions;
+        this.instructions = JSON.parse(JSON.stringify(instructions));
         this.current_instruction = 0;
         this.class = 'GridMoveEntity';
         this.move_bool = true;

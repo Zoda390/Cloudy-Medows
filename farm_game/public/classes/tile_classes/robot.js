@@ -2,7 +2,27 @@ class Robot extends GridMoveEntity{
     constructor(name, png, x, y, inv, under_tile_num, instructions, moving_timer){
         super(name, png, x, y, inv, 0, 2, under_tile_num, instructions, moving_timer);
         this.class = 'Robot';
-        this.fuel = 100;
+        this.fuel = 190-188;
+        this.max_fuel = 190;
+        this.fuel_timer = moving_timer;
+        this.max_fuel_timer = this.fuel_timer;
+    }
+
+    render() {
+        push();
+        if (this.border == true) {
+            noFill();
+            rect(this.pos.x, this.pos.y, tileSize, tileSize);
+        }
+        imageMode(CENTER);
+        if(this.under_tile != 0){
+            this.under_tile.render();
+        }
+        if(this.fuel < 10){
+            image(battery_low_img, this.pos.x + tileSize - 5, this.pos.y + tileSize/4)
+        }
+        image(this.png[this.facing][0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); //[this.anim]
+        pop();
     }
 
     render_pc(){
@@ -70,15 +90,44 @@ class Robot extends GridMoveEntity{
 
     move(x, y) {
         this.moving_timer -= 1;
+        this.fuel_timer -= 1;
         if(player.touching.name == 'bed'){
             this.moving_timer -= 1;
+            this.fuel_timer -= 1;
         }
-        if (this.moving_timer <= 0 && this.move_bool) {
-            if(this.instructions[this.current_instruction] == 0 || this.instructions[this.current_instruction].command == undefined){
-                this.current_instruction += 1;
-                    if (this.current_instruction >= this.instructions.length) {
-                        this.current_instruction = 0;
+        if(this.fuel_timer <= 0 && this.fuel < this.max_fuel - 10){ //change 10 when adding efficentcy
+            let fueled = false;
+            if(this.name == 'robot_tier1'){
+                for (let i = 0; i < this.inv.length; i++){
+                    if(this.inv[i].name == 'Veggy Oil' && this.fuel < this.max_fuel - 10){
+                        this.fuel += 10;
+                        fueled = true;
+                        this.inv[i].amount -= 1;
+                        if(this.inv[i].amount == 0){
+                            this.inv[i] = 0;
+                        }
                     }
+                }
+            }
+            else if(this.name == 'robot_tier2'){
+                if(this.under_tile.name == 'sprinkler'){
+                    this.fuel += 10;
+                    fueled = true;
+                }
+            }
+            else if(this.name == 'robot_tier3'){
+                if(time <= 100){
+                    this.fuel += 10;
+                    fueled = true;
+                }
+            }
+            if (fueled){
+                this.fuel_timer = this.max_fuel_timer;
+            }
+        }
+        if (this.moving_timer <= 0 && this.move_bool && this.fuel > 0) {
+            if(this.instructions[this.current_instruction] == 0 || this.instructions[this.current_instruction].command == undefined){
+                //if we need special stuff
             }
             else if (this.instructions[this.current_instruction].command == 'up') {
                 this.facing = 0;
@@ -88,10 +137,7 @@ class Robot extends GridMoveEntity{
                     temp.under_tile = levels[y][x].map[(this.touching.pos.y / tileSize) - 1][this.touching.pos.x / tileSize];
                     levels[y][x].map[(this.touching.pos.y / tileSize) - 1][this.touching.pos.x / tileSize] = temp;
                     this.pos.y -= tileSize;
-                    this.current_instruction += 1;
-                    if (this.current_instruction >= this.instructions.length) {
-                        this.current_instruction = 0;
-                    }
+                    
                 }
             }
             else if (this.instructions[this.current_instruction].command == 'right') {
@@ -102,10 +148,7 @@ class Robot extends GridMoveEntity{
                     temp.under_tile = levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) + 1];
                     levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) + 1] = temp;
                     this.pos.x += tileSize;
-                    this.current_instruction += 1;
-                    if (this.current_instruction >= this.instructions.length) {
-                        this.current_instruction = 0;
-                    }
+                    
                 }
             }
             else if (this.instructions[this.current_instruction].command == 'down') {
@@ -116,10 +159,7 @@ class Robot extends GridMoveEntity{
                     temp.under_tile = levels[y][x].map[(this.touching.pos.y / tileSize) + 1][this.touching.pos.x / tileSize];
                     levels[y][x].map[(this.touching.pos.y / tileSize) + 1][this.touching.pos.x / tileSize] = temp;
                     this.pos.y += tileSize;
-                    this.current_instruction += 1;
-                    if (this.current_instruction >= this.instructions.length) {
-                        this.current_instruction = 0;
-                    }
+                    
                 }
             }
             else if (this.instructions[this.current_instruction].command == 'left') {
@@ -130,10 +170,7 @@ class Robot extends GridMoveEntity{
                     temp.under_tile = levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) - 1];
                     levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) - 1] = temp;
                     this.pos.x -= tileSize;
-                    this.current_instruction += 1;
-                    if (this.current_instruction >= this.instructions.length) {
-                        this.current_instruction = 0;
-                    }
+                    
                 }
             }
             else if (this.instructions[this.current_instruction].command == 'interact'){
@@ -143,10 +180,7 @@ class Robot extends GridMoveEntity{
                     }
                 }
                 this.onInteract(x, y);
-                this.current_instruction += 1;
-                if (this.current_instruction >= this.instructions.length) {
-                    this.current_instruction = 0;
-                }
+                
             }
             else if (this.instructions[this.current_instruction].command == 'restart'){
                 this.current_instruction = 0;
@@ -168,17 +202,15 @@ class Robot extends GridMoveEntity{
                             }
                         }
                     }
-                    for (let i = 0; i < this.looking(x, y).inv.length; i++) {
-                        for(let j = 0; j < this.looking(x, y).inv[i].length; j++){
-                            if (this.inv[i] == 0) { // empty space
-                                this.looking(x, y).inv[i][j] = new_item_from_num(item_name_to_num(this.inv[this.hand].name), this.inv[this.hand].amount);
-                                this.inv[this.hand] = 0;
+                    if(this.inv[this.hand] != 0){
+                        for (let i = 0; i < this.looking(x, y).inv.length; i++) {
+                            for(let j = 0; j < this.looking(x, y).inv[i].length; j++){
+                                if (this.inv[this.hand] != 0 && this.looking(x, y).inv[i][j] == 0) { // empty space
+                                    this.looking(x, y).inv[i][j] = new_item_from_num(item_name_to_num(this.inv[this.hand].name), this.inv[this.hand].amount);
+                                    this.inv[this.hand] = 0;
+                                }
                             }
                         }
-                    }
-                    this.current_instruction += 1;
-                    if (this.current_instruction >= this.instructions.length) {
-                        this.current_instruction = 0;
                     }
                 }
             }
@@ -194,11 +226,12 @@ class Robot extends GridMoveEntity{
                             }
                         }
                     }
-                    this.current_instruction += 1;
-                    if (this.current_instruction >= this.instructions.length) {
-                        this.current_instruction = 0;
-                    }
                 }
+            }
+            this.fuel-=1;
+            this.current_instruction += 1;
+            if (this.current_instruction >= this.instructions.length) {
+                this.current_instruction = 0;
             }
             this.anim += 1;
             if (this.anim > this.png[this.facing].length) {

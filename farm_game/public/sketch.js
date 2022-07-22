@@ -55,6 +55,8 @@ function preload() {
     junk_img = loadImage('images/items/junk.png');
     compost_img = loadImage('images/items/Compost.png');
     sprinkler_img = loadImage('images/items/Sprinkler.png');
+    veggy_oil_img = loadImage('images/items/veg_oil.png');
+    shovel_img = loadImage('images/items/shovel.png');
 
     //Tile
     grass_tile_img = loadImage('images/tiles/Grass.png');
@@ -88,6 +90,7 @@ function preload() {
     cart_sprinkler_tile_img = loadImage('images/tiles/sprinkler_cart.png');
     bush_img = loadImage("images/tiles/Bush.png");
     chest_img = loadImage('images/tiles/Chest.png');
+    veggy_press_tile_img = loadImage('images/tiles/veg_oil_maker.png');
 
     //NPC
     quest_marker_img = loadImage('images/ui/QuestMarker.png');
@@ -177,12 +180,30 @@ function preload() {
     brent_tile_imgs = [[brent_tile_up_img], [brent_tile_right_img], [brent_tile_down_img], [brent_tile_left_img]];
 
     //robot
+    battery_low_img = loadImage('images/ui/batteryIcon.png');
+
     robot_img = loadImage('images/items/robot.png');
     robot_tile_up_img = loadImage('images/npc/robot_back.png');
     robot_tile_right_img = loadImage('images/npc/robot_right.png');
     robot_tile_down_img = loadImage('images/npc/robot_front.png');
     robot_tile_left_img = loadImage('images/npc/robot_left.png');
     robot_tile_imgs = [[robot_tile_up_img], [robot_tile_right_img], [robot_tile_down_img], [robot_tile_left_img]];
+
+    
+    robot_1_img = loadImage('images/items/robot2.png');
+    robot_1_tile_up_img = loadImage('images/npc/robot2_back.png');
+    robot_1_tile_right_img = loadImage('images/npc/robot2_right.png');
+    robot_1_tile_down_img = loadImage('images/npc/robot2.png');
+    robot_1_tile_left_img = loadImage('images/npc/robot2_left.png');
+    robot_1_tile_imgs = [[robot_1_tile_up_img], [robot_1_tile_right_img], [robot_1_tile_down_img], [robot_1_tile_left_img]];
+
+    
+    robot_water_img = loadImage('images/items/robot_water.png');
+    robot_water_tile_up_img = loadImage('images/npc/robot_water_back.png');
+    robot_water_tile_right_img = loadImage('images/npc/robot_water_right.png');
+    robot_water_tile_down_img = loadImage('images/npc/robot_water.png');
+    robot_water_tile_left_img = loadImage('images/npc/robot_water_left.png');
+    robot_2_tile_imgs = [[robot_water_tile_up_img], [robot_water_tile_right_img], [robot_water_tile_down_img], [robot_water_tile_left_img]];
 
     //commands
     command_up_img = loadImage('images/items/floppy_up.png');
@@ -191,6 +212,8 @@ function preload() {
     command_left_img = loadImage('images/items/floppy_left.png');
     command_interact_img = loadImage('images/items/floppy_interact.png');
     command_restart_img = loadImage('images/items/floppy_restart.png');
+    command_chest1_img = loadImage('images/items/Floppy_addChestt.png');
+    command_chest2_img = loadImage('images/items/floppy_removechest.png');
 
     //Ui
     player_2 = loadFont('pixelFont.ttf');
@@ -379,13 +402,15 @@ function preload() {
     /*37*/    { name: 'Liam', png: liam_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: ['up', 'up', 'down', 'down'], moving_timer: 100, class: 'NPC' },
     /*38*/    { name: 'Meb', png: meb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 100, class: 'NPC' },
     /*39*/    { name: 'bush', png: [bush_img], border: false, collide: true, age: -1, class: 'Tile' },
-    /*40*/    { name: 'chest', png: chest_img, inv: [0, { num: 23, amount: 2}, { num: 26, amount: 1}, 0, 0, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], facing: 2, under_tile_num: 1, class: 'Chest'},
+    /*40*/    { name: 'chest', png: chest_img, inv: [0, { num: 23, amount: 2}, { num: 26, amount: 1}, { num: 29, amount: 1}, { num: 30, amount: 1}, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], facing: 2, under_tile_num: 1, class: 'Chest'},
     /*41*/    { name: 'watermelon', png: watermelon_tile_imgs, border: true, collide: false, age: 0, eat_num: 17, waterneed: 2, growthTime: 4000, class: 'Plant'},
-    /*42*/    { name: 'robot', png: robot_tile_imgs, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 0, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 70, class: 'Robot'},
+    /*42*/    { name: 'robot_tier3', png: robot_tile_imgs, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 60, class: 'Robot'},
     /*43*/    { name: 'Fruis', png: [cart_straw_tile_img], inv: [{num: 7, amount: 3}, {num: 15, amount: 3}, {num: 17, amount: 3}], class: 'Shop' },
     /*44*/    { name: 'Fruit Seeds', png: [cart_straw_tile_img], inv: [{num: 7, amount: 4}, {num: 15, amount: 2}, {num: 17, amount: 1}], class: 'Shop' },
-    /*45*/    { name: 'hemp', png: hemp_tile_imgs, border: true, collide: false, age: 0, eat_num: 25, waterneed: 2, growthTime: 2000, class: 'Plant'}
-  
+    /*45*/    { name: 'hemp', png: hemp_tile_imgs, border: true, collide: false, age: 0, eat_num: 25, waterneed: 2, growthTime: 2000, class: 'Plant'},
+    /*46*/    { name: 'robot_tier1', png: robot_1_tile_imgs, inv: [0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 100, class: 'Robot'},
+    /*47*/    { name: 'robot_tier2', png: robot_2_tile_imgs, inv: [0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 80, class: 'Robot'},
+    /*48*/    { name: 'Veggie_Press', png: [veggy_press_tile_img], border: true, collide: false, age: -1, class: 'Tile' }
 ];
     /*
     class       obj
@@ -414,7 +439,7 @@ function preload() {
         /*15*/{name: 'Tomato', png: tomato_img, price: 3, hunger: 1, hunger_timer: 1800, seed_num: 14, class: 'Eat'},
         /*16*/{name: 'Watermelon Seed', png: watermelon_seed_bag_img, plant_num: 41, class: 'Seed'},
         /*17*/{name: 'Watermelon', png: watermelon_img, price: 8, hunger: 2, hunger_timer: 2000, seed_num: 16, class: 'Eat'},
-        /*18*/{name: 'Robot', png: robot_img, price: 80, tile_num: 42, tile_need_num: 1, class: 'Placeable'},
+        /*18*/{name: 'Robot_tier3', png: robot_img, price: 80, tile_num: 42, tile_need_num: 0, class: 'Placeable'},
         /*19*/{name: 'Up Command', png: command_up_img, command: 'up', class: 'Command'},
         /*20*/{name: 'Right Command', png: command_right_img, command: 'right', class: 'Command'},
         /*21*/{name: 'Down Command', png: command_down_img, command: 'down', class: 'Command'},
@@ -422,7 +447,13 @@ function preload() {
         /*23*/{name: 'Interact Command', png: command_interact_img, command: 'interact', class: 'Command'},
         /*24*/{name: 'Hemp Seed', png: hemp_seed_img, plant_num: 45, class: 'Seed'},
         /*25*/{name: 'Hemp Flower', png: hemp_img, price: 20, hunger: -2, hunger_timer: 100, seed_num: 24, class: 'Eat'},
-        /*26*/{name: 'Restart Command', png: command_restart_img, command: 'restart', class: 'Command'}
+        /*26*/{name: 'Restart Command', png: command_restart_img, command: 'restart', class: 'Command'},
+        /*27*/{name: 'Robot_tier1', png: robot_1_img, price: 60, tile_num: 46, tile_need_num: 0, class: 'Placeable'},
+        /*28*/{name: 'Robot_tier2', png: robot_water_img, price: 70, tile_num: 47, tile_need_num: 0, class: 'Placeable'},
+        /*29*/{name: 'Add to Chest Command', png: command_chest1_img, command: 'add_to_chest', class: 'Command'},
+        /*30*/{name: 'Add from Chest Command', png: command_chest2_img, command: 'add_from_chest', class: 'Command'},
+        /*31*/{name: 'Veggy Oil', png: veggy_oil_img, price: 7, class: 'Item'},
+        /*32*/{name: 'Shovel', png: shovel_img, class: 'Tool'}
     ];
 }
 
@@ -553,7 +584,7 @@ function setup() {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], 
-        [8, 8, 1, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10, 1, 0, 0, 0], 
+        [8, 8, 1, 6, 6, 6, 6, 1, 1, 1, 48, 1, 1, 1, 1, 1, 1, 1, 10, 1, 0, 0, 0], 
         [0, 0, 1, 6, 7, 1, 6, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0], 
         [0, 0, 1, 6, 40, 1, 6, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0], 
         [0, 0, 1, 6, 6, 1, 6, 12, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0], 
@@ -1188,6 +1219,7 @@ function takeInput() {
                     }
                 }
                 else if (player.talking.class == 'Robot'){
+                    player.talking.fuel_timer = player.talking.max_fuel_timer;
                     player.talking.move_bool = true;
                 }
                 player.oldlooking_name = player.talking.name;
@@ -1567,7 +1599,7 @@ function mouseReleased() {
             }
         }
         if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Robot'){
-            if(mouseY >= 78 && mouseY <= 414){
+            if(mouseY >= 78 && mouseY <= (ceil(player.talking.instructions.length/6)*86)+78){
                 if(mouseX >= 152 && mouseX <= 682){
                     let currentX = (min(player.talking.instructions.length/6, round((mouseY - 78-(86/2))/86))*6) + min(5, round((mouseX - 152-45)/90))
                     if(mouse_item == 0){
