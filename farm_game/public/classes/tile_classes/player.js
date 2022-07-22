@@ -1,5 +1,5 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y,inv = [{ num: 1, amount: 1 }, { num: 2, amount: 5 }, { num: 3, amount: 3}, {num: 18, amount: 1}, {num: 19, amount: 4}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}]) {
+    constructor(name, png, x, y,inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 3, amount: 6}, {num: 18, amount: 1}, {num: 19, amount: 1}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
@@ -118,6 +118,7 @@ class Player extends MoveableEntity {
                             this.pos.y = (5 * tileSize);
                             this.talking = 0;
                             this.hunger = 4;
+                            this.hunger_timer = all_items[2].hunger_timer;
                             this.deaths += 1;
                             this.transphase = 2;
                             this.ticks = 0;
@@ -278,7 +279,7 @@ class Player extends MoveableEntity {
                     if (this.inv[this.hand].amount == 0) {
                         this.inv[this.hand] = 0;
                     }
-                    addItem(seed_obj_num, round(random(1, 2)));
+                    addItem(this, seed_obj_num, round(random(1, 2)));
                     
                 }
             }
@@ -293,5 +294,94 @@ class Player extends MoveableEntity {
                 this.lastinteractMili = millis();
             }
         
+    }
+
+    onInteract(x, y) {
+        if (this.touching.class == 'Plant' && this.touching.age == this.touching.png.length - 2) {
+            if(checkForSpace(this, levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize].eat_num)){
+                addItem(this, levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize].eat_num, 1 + levels[y][x].ladybugs);
+                levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
+            }
+        }
+        if (this.inv[this.hand] != 0 && this.inv[this.hand].class == 'Placeable') {
+            if (tile_name_to_num(this.touching.name) == (this.inv[this.hand].tile_need_num-1) || this.inv[this.hand].tile_need_num == 0) {
+                if(this.inv[this.hand].name == 'Robot'){
+                    if(this.looking(x, y) != undefined && this.looking(x, y).collide == false){
+                        let temp = this.looking(x, y);
+                        this.touching = this.tileTouching(x, y);
+                        if (this.touching != 0) {
+                            if(this.facing == 0){
+                                levels[y][x].map[(this.touching.pos.y / tileSize) - 1][this.touching.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.touching.pos.x, this.touching.pos.y - 32);
+                            }
+                            else if(this.facing == 1){
+                                levels[y][x].map[(this.touching.pos.y / tileSize)][(this.touching.pos.x / tileSize) + 1] = new_tile_from_num(this.inv[this.hand].tile_num, this.touching.pos.x + 32, this.touching.pos.y);
+                            }
+                            else if(this.facing == 2){
+                                levels[y][x].map[(this.touching.pos.y / tileSize) + 1][this.touching.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.touching.pos.x, this.touching.pos.y + 32);
+                            }
+                            else if(this.facing == 3){
+                                levels[y][x].map[(this.touching.pos.y / tileSize)][(this.touching.pos.x / tileSize) - 1] = new_tile_from_num(this.inv[this.hand].tile_num, this.touching.pos.x - 32, this.touching.pos.y);
+                            }
+                        }
+                        this.looking(x, y).under_tile = temp;
+                    }
+                    else{
+                        return;
+                    }
+                }
+                else{
+                    levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.touching.pos.x, this.touching.pos.y);
+                    if (this.inv[this.hand].name == 'Ladybugs') {
+                        levels[y][x].ladybugs += 1;
+                    }
+                }
+                this.inv[this.hand].amount -= 1;
+                if (this.inv[this.hand].amount == 0) {
+                    this.inv[this.hand] = 0;
+                }
+            }
+        }
+        if (this.looking(x, y) != undefined && this.looking(x, y).name == 'cart_s') {
+            if (this.inv[this.hand].price != 0 && this.inv[this.hand] != 0) {
+                player.coins += this.inv[this.hand].price;
+                moneySound.play();
+                this.inv[this.hand].amount -= 1;
+                if (this.inv[this.hand].amount == 0) {
+                    this.inv[this.hand] = 0;
+                }
+            }
+        }
+        if (this.touching.name == 'grass') {
+            if (this.inv[this.hand].name == 'Hoe') {
+                hoe_sound.play();
+                levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
+            }
+        }
+        else if (this.touching.name == 'plot') {
+            if (this.inv[this.hand].class == 'Seed') {
+                levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].plant_num, this.touching.pos.x, this.touching.pos.y);
+                this.inv[this.hand].amount -= 1;
+                if (this.inv[this.hand].amount == 0) {
+                    this.inv[this.hand] = 0;
+                }
+            }
+        }
+        else if (this.touching.name == 'compost_bucket') {
+            if (this.inv[this.hand].name == 'Junk' || this.inv[this.hand].name == 'Corn Seed' || this.inv[this.hand].name == 'Sweet Potato Seed' || this.inv[this.hand].name == 'Strawberry Seed') {
+                if(checkForSpace(this, 9)){
+                    this.inv[this.hand].amount -= 1;
+                    if (this.inv[this.hand].amount == 0) {
+                        this.inv[this.hand] = 0;
+                    }
+                    addItem(this, 9, 1);
+                }
+            }
+        }
+        else if (this.touching.name == 'junk') {
+            if(checkForSpace(this, 4)){
+                addItem(this, 4, 1);
+                levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
+            }
+        }
     }
 }

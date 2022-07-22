@@ -74,7 +74,7 @@ class Robot extends GridMoveEntity{
             this.moving_timer -= 1;
         }
         if (this.moving_timer <= 0 && this.move_bool) {
-            if(this.instructions[this.current_instruction] == 0){
+            if(this.instructions[this.current_instruction] == 0 || this.instructions[this.current_instruction].command == undefined){
                 this.current_instruction += 1;
                     if (this.current_instruction >= this.instructions.length) {
                         this.current_instruction = 0;
@@ -130,6 +130,70 @@ class Robot extends GridMoveEntity{
                     temp.under_tile = levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) - 1];
                     levels[y][x].map[this.touching.pos.y / tileSize][(this.touching.pos.x / tileSize) - 1] = temp;
                     this.pos.x -= tileSize;
+                    this.current_instruction += 1;
+                    if (this.current_instruction >= this.instructions.length) {
+                        this.current_instruction = 0;
+                    }
+                }
+            }
+            else if (this.instructions[this.current_instruction].command == 'interact'){
+                for(let i = 0; i < this.inv.length; i++){
+                    if(this.instructions[this.current_instruction + 1].name == this.inv[i].name){
+                        this.hand = i;
+                    }
+                }
+                this.onInteract(x, y);
+                this.current_instruction += 1;
+                if (this.current_instruction >= this.instructions.length) {
+                    this.current_instruction = 0;
+                }
+            }
+            else if (this.instructions[this.current_instruction].command == 'restart'){
+                this.current_instruction = 0;
+            }
+            else if (this.instructions[this.current_instruction].command == 'add_to_chest'){
+                for(let i = 0; i < this.inv.length; i++){
+                    if(this.instructions[this.current_instruction + 1].name == this.inv[i].name){
+                        this.hand = i;
+                    }
+                }
+                if(this.looking(x, y).class == 'Chest'){
+                    for (let i = 0; i < this.looking(x, y).inv.length; i++) {
+                        for(let j = 0; j < this.looking(x, y).inv[i].length; j++){
+                            if (this.looking(x, y).inv[i][j] != 0) { // stack items
+                                if (this.looking(x, y).inv[i][j].name == this.inv[this.hand].name) {
+                                    this.looking(x, y).inv[i][j].amount += this.inv[this.hand].amount;
+                                    this.inv[this.hand] = 0;
+                                }
+                            }
+                        }
+                    }
+                    for (let i = 0; i < this.looking(x, y).inv.length; i++) {
+                        for(let j = 0; j < this.looking(x, y).inv[i].length; j++){
+                            if (this.inv[i] == 0) { // empty space
+                                this.looking(x, y).inv[i][j] = new_item_from_num(item_name_to_num(this.inv[this.hand].name), this.inv[this.hand].amount);
+                                this.inv[this.hand] = 0;
+                            }
+                        }
+                    }
+                    this.current_instruction += 1;
+                    if (this.current_instruction >= this.instructions.length) {
+                        this.current_instruction = 0;
+                    }
+                }
+            }
+            else if (this.instructions[this.current_instruction].command == 'add_from_chest'){
+                if(this.looking(x, y).class == 'Chest'){
+                    for (let i = 0; i < this.looking(x, y).inv.length; i++) {
+                        for(let j = 0; j < this.looking(x, y).inv[i].length; j++){
+                            if (this.looking(x, y).inv[i][j].name == this.instructions[this.current_instruction + 1].name) {
+                                if(checkForSpace(this, item_name_to_num(this.instructions[this.current_instruction + 1].name))){
+                                    addItem(this, item_name_to_num(this.looking(x, y).inv[i][j].name), this.looking(x, y).inv[i][j].amount)
+                                    this.looking(x, y).inv[i][j] = 0;
+                                }
+                            }
+                        }
+                    }
                     this.current_instruction += 1;
                     if (this.current_instruction >= this.instructions.length) {
                         this.current_instruction = 0;

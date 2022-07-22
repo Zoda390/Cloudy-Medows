@@ -190,6 +190,7 @@ function preload() {
     command_down_img = loadImage('images/items/floppy_down.png');
     command_left_img = loadImage('images/items/floppy_left.png');
     command_interact_img = loadImage('images/items/floppy_interact.png');
+    command_restart_img = loadImage('images/items/floppy_restart.png');
 
     //Ui
     player_2 = loadFont('pixelFont.ttf');
@@ -283,7 +284,19 @@ function preload() {
     watermelon_tile_3_img = loadImage("images/tiles/watermelon_5.png");
     watermelon_tile_4_img = loadImage("images/tiles/watermelon_6.png");
     watermelon_tile_imgs = [letuce_tile_img, watermelon_tile_2_img, watermelon_tile_3_img, watermelon_tile_4_img];
+
+    //hemp
     
+    hemp_img = loadImage("images/items/hemp.png");
+    hemp_tile_1_img = loadImage("images/tiles/hemp_1.png");
+    hemp_tile_3_img = loadImage("images/tiles/hemp_3.png");
+    hemp_tile_4_img = loadImage("images/tiles/hemp_4.png");
+    hemp_tile_5_img = loadImage("images/tiles/hemp_5.png");
+    hemp_tile_6_img = loadImage("images/tiles/hemp_6.png");
+    hemp_seed_img = loadImage("images/items/hemp_seeds.png");
+    hemp_tile_imgs = [hemp_tile_1_img, hemp_tile_3_img, hemp_tile_4_img,hemp_tile_5_img,hemp_tile_6_img];
+
+
     // ladybugs
     ladybug_bag_img = loadImage("images/items/Lady_Bug_bag.png");
     ladybug_img = loadImage("images/tiles/LadyBugs.gif");
@@ -366,12 +379,14 @@ function preload() {
     /*37*/    { name: 'Liam', png: liam_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: ['up', 'up', 'down', 'down'], moving_timer: 100, class: 'NPC' },
     /*38*/    { name: 'Meb', png: meb_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 100, class: 'NPC' },
     /*39*/    { name: 'bush', png: [bush_img], border: false, collide: true, age: -1, class: 'Tile' },
-    /*40*/    { name: 'chest', png: chest_img, inv: [0, { num: 4, amount: 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], facing: 2, under_tile_num: 1, class: 'Chest'},
+    /*40*/    { name: 'chest', png: chest_img, inv: [0, { num: 23, amount: 1}, 0, 0, 0, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], facing: 2, under_tile_num: 1, class: 'Chest'},
     /*41*/    { name: 'watermelon', png: watermelon_tile_imgs, border: true, collide: false, age: 0, eat_num: 17, waterneed: 2, growthTime: 4000, class: 'Plant'},
     /*42*/    { name: 'robot', png: robot_tile_imgs, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 0, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 70, class: 'Robot'},
     /*43*/    { name: 'Fruis', png: [cart_straw_tile_img], inv: [{num: 7, amount: 3}, {num: 15, amount: 3}, {num: 17, amount: 3}], class: 'Shop' },
-    /*44*/    { name: 'Fruit Seeds', png: [cart_straw_tile_img], inv: [{num: 7, amount: 4}, {num: 15, amount: 2}, {num: 17, amount: 1}], class: 'Shop' }
-    ];
+    /*44*/    { name: 'Fruit Seeds', png: [cart_straw_tile_img], inv: [{num: 7, amount: 4}, {num: 15, amount: 2}, {num: 17, amount: 1}], class: 'Shop' },
+    /*45*/    { name: 'hemp', png: hemp_tile_imgs, border: true, collide: false, age: 0, eat_num: 25, waterneed: 2, growthTime: 2000, class: 'Plant'}
+  
+];
     /*
     class       obj
     Item        {name: 'name', png: png_img, price: 0, class: 'Item'}
@@ -403,7 +418,11 @@ function preload() {
         /*19*/{name: 'Up Command', png: command_up_img, command: 'up', class: 'Command'},
         /*20*/{name: 'Right Command', png: command_right_img, command: 'right', class: 'Command'},
         /*21*/{name: 'Down Command', png: command_down_img, command: 'down', class: 'Command'},
-        /*22*/{name: 'Left Command', png: command_left_img, command: 'left', class: 'Command'}
+        /*22*/{name: 'Left Command', png: command_left_img, command: 'left', class: 'Command'},
+        /*23*/{name: 'Interact Command', png: command_interact_img, command: 'interact', class: 'Command'},
+        /*24*/{name: 'Hemp Seed', png: hemp_seed_img, plant_num: 45, class: 'Seed'},
+        /*25*/{name: 'Hemp Flower', png: hemp_img, price: 20, hunger: -2, hunger_timer: 100, seed_num: 24, class: 'Eat'},
+        /*26*/{name: 'Restart Command', png: command_restart_img, command: 'restart', class: 'Command'}
     ];
 }
 
@@ -485,7 +504,7 @@ function showCredits(){
     textFont(player_2);
     textAlign(CENTER, CENTER);
     text('Credits', canvasWidth/2 + 120, 20);
-    text('Christian Rodriguez - Lead programmer \n David Kozdra - Art and Music \n Patrick Mayer - Helped Christian with UI \n Christian “Sealand” Rodriguez - Music', (canvasWidth/2)+120, 80);
+    text('Christian Rodriguez - Lead programmer \n David Kozdra - Code Art and sound \n Patrick Mayer - UI programming \n Christian “Sealand” Rodriguez - Music', (canvasWidth/2)+120, 80);
     pop()
 }
 
@@ -1022,45 +1041,45 @@ function draw() {
 }
 
 
-function addItem(item_obj_num, amount) {
-    for (let i = 0; i < 8; i++) {
-        if (player.inv[i] != 0) { // stack items
-            if (player.inv[i].name == all_items[item_obj_num].name) {
-                player.inv[i].amount += amount;
+function addItem(to, item_obj_num, amount) {
+    for (let i = 0; i < to.inv.length; i++) {
+        if (to.inv[i] != 0) { // stack items
+            if (to.inv[i].name == all_items[item_obj_num].name) {
+                to.inv[i].amount += amount;
                 return;
             }
         }
     }
-    if (player.inv[player.hand] == 0) { // air
-        player.inv[player.hand] = new_item_from_num(item_obj_num, amount);
+    if (to.inv[to.hand] == 0) { // air
+        to.inv[to.hand] = new_item_from_num(item_obj_num, amount);
         return;
     }
 
     for (let i = 0; i < 8; i++) {
-        if (player.inv[i] == 0) { // find space
-            player.inv[i] = new_item_from_num(item_obj_num, amount);
+        if (to.inv[i] == 0) { // find space
+            to.inv[i] = new_item_from_num(item_obj_num, amount);
             return;
         }
     }
 }
 
-function checkForSpace(item_obj_num){
+function checkForSpace(to, item_obj_num){
     var check = false;
-    for (let i = 0; i < 8; i++) {
-        if (player.inv[i] != 0) { // stack items
-            if (player.inv[i].name == all_items[item_obj_num].name) {
+    for (let i = 0; i < to.inv.length; i++) {
+        if (to.inv[i] != 0) { // stack items
+            if (to.inv[i].name == all_items[item_obj_num].name) {
                 check = true;
                 return check;
             }
         }
     }
-    if (player.inv[player.hand] == 0) { // air in hand
+    if (to.inv[to.hand] == 0) { // air in hand
         check = true;
         return check;
     }
 
     for (let i = 0; i < 8; i++) {
-        if (player.inv[i] == 0) { // find space
+        if (to.inv[i] == 0) { // find space
             check = true;
             return check;
         }
@@ -1138,8 +1157,8 @@ function takeInput() {
                 }
                 else if(player.talking.class == 'Chest'){
                     if(mouse_item != 0){
-                        if(checkForSpace(item_name_to_num(mouse_item.name))){
-                            addItem(item_name_to_num(mouse_item.name), mouse_item.amount);
+                        if(checkForSpace(player, item_name_to_num(mouse_item.name))){
+                            addItem(player, item_name_to_num(mouse_item.name), mouse_item.amount);
                             mouse_item = 0;
                         }
                         else{
@@ -1235,7 +1254,7 @@ function takeInput() {
                 else if (player.talking.class == 'Shop'){
                     if(player.talking.inv[current_reply].amount >= 1){
                         if(player.coins >= player.talking.inv[current_reply].price){    //check if you have the money
-                            addItem(item_name_to_num(player.talking.inv[current_reply].name), 1);
+                            addItem(player, item_name_to_num(player.talking.inv[current_reply].name), 1);
                             player.coins -= player.talking.inv[current_reply].price; //reduce money
                             player.talking.inv[current_reply].amount -= 1; //shop.inv -1 amount
                         }

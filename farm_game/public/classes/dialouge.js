@@ -40,8 +40,8 @@ class Dialouge {
                     this.done = true;
                     if(this.hand_num != -1 && inv[this.hand_num] != 0 && inv[this.hand_num].amount > 0){
                         if (this.amount >= inv[this.hand_num].amount){
-                            if(checkForSpace(item_name_to_num(inv[this.hand_num].name))){
-                                addItem(item_name_to_num(inv[this.hand_num].name), inv[this.hand_num].amount);
+                            if(checkForSpace(player, item_name_to_num(inv[this.hand_num].name))){
+                                addItem(player, item_name_to_num(inv[this.hand_num].name), inv[this.hand_num].amount);
                                 inv[this.hand_num].amount = 0;
                                 this.new_phrase = [];
                                 let phrase = "Sorry I dont have any more " + inv[this.hand_num].name;
@@ -53,8 +53,8 @@ class Dialouge {
                             }
                         }
                         else {
-                            if(checkForSpace(item_name_to_num(inv[this.hand_num].name))){
-                                addItem(item_name_to_num(inv[this.hand_num].name), this.amount);
+                            if(checkForSpace(player, item_name_to_num(inv[this.hand_num].name))){
+                                addItem(player, item_name_to_num(inv[this.hand_num].name), this.amount);
                                 inv[this.hand_num].amount -= this.amount;
                             }
                         }
