@@ -19,9 +19,6 @@ class MoveableEntity extends Entity {
         if(this.under_tile != 0){
             this.under_tile.render();
         }
-        if (this.under_tile.class == 'Plant') {
-            this.under_tile.grow(x,y);
-        }
         image(this.png[this.facing][0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); //[this.anim]
         pop();
     }

@@ -1,5 +1,5 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y,inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 3, amount: 6}, {num: 18, amount: 1}, {num: 19, amount: 1}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}]) {
+    constructor(name, png, x, y,inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 3, amount: 6}, {num: 18, amount: 1}, {num: 19, amount: 4}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
