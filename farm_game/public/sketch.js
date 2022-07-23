@@ -153,7 +153,7 @@ function render_ui() {
         levels[currentLevel_y][currentLevel_x].name_render();
     }
 
-    if (player.talking != undefined && player.talking != 0 && player.talking.class != 'Chest' && player.talking.class != 'Robot') {
+    if (player.talking != undefined && player.talking != 0 && player.talking.class != 'Chest' && player.talking.class != 'Robot' && player.talking.class != 'Backpack') {
         if (player.talking.class == 'NPC' ){
             player.talking.move_bool = false;
             player.talking.dialouge_render();
@@ -179,6 +179,9 @@ function render_ui() {
             if (player.talking.class == 'Chest'){
                 player.talking.chest_render();
             }
+            else if(player.talking.class == 'Backpack'){
+                player.talking.bag_render();
+            }
             else if(player.talking.class == 'Robot'){
                 player.talking.move_bool = false;
                 player.talking.render_pc();
@@ -195,11 +198,11 @@ function render_ui() {
                 player.inv[i].render(112 + (i * 64), canvasHeight - 64);
                 if (i == player.hand) {
                     push();
-                    fill(255)
+                    fill(255);
                     textSize(13);
                     textAlign(CENTER, CENTER);
                     text(player.inv[i].name, (9 * canvasWidth / 16), (canvasHeight - 80));
-                    pop()
+                    pop();
                 }
             }
         }
@@ -217,6 +220,20 @@ function render_ui() {
         text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
         if(mouse_item != 0){
             mouse_item.render(mouseX-32, mouseY-32);
+        }
+        if(player.money_anim > 0 && player.money_anim_amount > 0){
+            player.money_anim -= 3;
+            push()
+            textFont(player_2);
+            textSize(32.5);
+            fill(0, 255, 0, player.money_anim);
+            stroke(0, 0, 0, player.money_anim);
+            strokeWeight(2);
+            text('+' + player.money_anim_amount, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 125));
+            pop();
+        }
+        else{
+            player.money_anim_amount = 0;
         }
         if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).name == "cart_s") {
             push()
@@ -275,7 +292,7 @@ function mouseReleased() {
                 }
             }
         }
-        if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Chest'){
+        if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && (player.talking.class == 'Chest' || player.talking.class == 'Backpack' )){
             if(mouseY >= 189 && mouseY <= 457){
                 if(mouseX >= 184 && mouseX <= 552){
                     let currentX = min(player.talking.inv[0].length-1, round((mouseX-229)/90))

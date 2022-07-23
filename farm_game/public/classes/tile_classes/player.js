@@ -1,5 +1,5 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y,inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 31, amount: 3}, {num: 27, amount: 3}, {num: 19, amount: 4}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}]) {
+    constructor(name, png, x, y,inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 33, amount: 1}, {num: 27, amount: 3}, {num: 19, amount: 4}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
@@ -22,6 +22,8 @@ class Player extends MoveableEntity {
         this.ticks = 0;
         this.a = 0;
         this.done = false;
+        this.money_anim = 0;
+        this.money_anim_amount = 0;
         this.class = 'Player';
 
         //load
@@ -297,10 +299,31 @@ class Player extends MoveableEntity {
     }
 
     onInteract(x, y) {
-        if (this.touching.class == 'Plant' && this.touching.age == this.touching.png.length - 2) {
-            if(checkForSpace(this, levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize].eat_num)){
-                addItem(this, levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize].eat_num, 1 + levels[y][x].ladybugs);
+        if(this.inv[this.hand] != 0 && this.inv[this.hand].class == 'Backpack'){
+            this.talking = this.inv[this.hand];
+            return;
+        }
+        if (this.touching.class == 'Plant') {
+            if(this.touching.age == this.touching.png.length - 2){
+                if(checkForSpace(this, this.touching.eat_num)){
+                    addItem(this, this.touching.eat_num, 1 + levels[y][x].ladybugs);
+                    levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
+                }
+            }
+            else if(this.inv[this.hand].name == 'Shovel'){
                 levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
+            }
+        }
+        if (this.looking(x, y) != undefined && this.looking(x, y).name == 'cart_s') {
+            if (this.inv[this.hand].price != 0 && this.inv[this.hand] != 0) {
+                player.coins += this.inv[this.hand].price;
+                moneySound.play();
+                this.money_anim = 255;
+                this.money_anim_amount += this.inv[this.hand].price;
+                this.inv[this.hand].amount -= 1;
+                if (this.inv[this.hand].amount == 0) {
+                    this.inv[this.hand] = 0;
+                }
             }
         }
         if (this.inv[this.hand] != 0 && this.inv[this.hand].class == 'Placeable') {
@@ -341,20 +364,18 @@ class Player extends MoveableEntity {
                 }
             }
         }
-        if (this.looking(x, y) != undefined && this.looking(x, y).name == 'cart_s') {
-            if (this.inv[this.hand].price != 0 && this.inv[this.hand] != 0) {
-                player.coins += this.inv[this.hand].price;
-                moneySound.play();
-                this.inv[this.hand].amount -= 1;
-                if (this.inv[this.hand].amount == 0) {
-                    this.inv[this.hand] = 0;
-                }
-            }
-        }
         if (this.touching.name == 'grass') {
             if (this.inv[this.hand].name == 'Hoe') {
                 hoe_sound.play();
                 levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
+            }
+        }
+        else if (this.touching.name == 'sprinkler'){
+            if (this.inv[this.hand].name == 'Shovel'){
+                if(checkForSpace(this, 12)){
+                    addItem(this, 12, 1);
+                    levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
+                }
             }
         }
         else if (this.touching.name == 'plot') {
@@ -446,7 +467,7 @@ function takeInput() {
                         }
                     }
                 }
-                else if(player.talking.class == 'Chest'){
+                else if(player.talking.class == 'Chest' || player.talking.class == 'Backpack'){
                     if(mouse_item != 0){
                         if(checkForSpace(player, item_name_to_num(mouse_item.name))){
                             addItem(player, item_name_to_num(mouse_item.name), mouse_item.amount);

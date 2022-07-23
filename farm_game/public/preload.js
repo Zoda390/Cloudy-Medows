@@ -12,6 +12,7 @@ function preload() {
     sprinkler_img = loadImage('images/items/Sprinkler.png');
     veggy_oil_img = loadImage('images/items/veg_oil.png');
     shovel_img = loadImage('images/items/shovel.png');
+    backpack_img = loadImage('images/items/backPack.png');
 
     //Tile
     grass_tile_img = loadImage('images/tiles/Grass.png');
@@ -361,7 +362,7 @@ function preload() {
     /*41*/    { name: 'watermelon', png: watermelon_tile_imgs, border: true, collide: false, age: 0, eat_num: 17, waterneed: 2, growthTime: 4000, class: 'Plant'},
     /*42*/    { name: 'robot_tier3', png: robot_tile_imgs, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 60, class: 'Robot'},
     /*43*/    { name: 'Fruis', png: [cart_straw_tile_img], inv: [{num: 7, amount: 3}, {num: 15, amount: 3}, {num: 17, amount: 3}], class: 'Shop' },
-    /*44*/    { name: 'Fruit Seeds', png: [cart_straw_tile_img], inv: [{num: 7, amount: 4}, {num: 15, amount: 2}, {num: 17, amount: 1}], class: 'Shop' },
+    /*44*/    { name: 'Fruit Seeds', png: [cart_straw_tile_img], inv: [{num: 8, amount: 4}, {num: 14, amount: 2}, {num: 16, amount: 1}], class: 'Shop' },
     /*45*/    { name: 'hemp', png: hemp_tile_imgs, border: true, collide: false, age: 0, eat_num: 25, waterneed: 2, growthTime: 2000, class: 'Plant'},
     /*46*/    { name: 'robot_tier1', png: robot_1_tile_imgs, inv: [0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 100, class: 'Robot'},
     /*47*/    { name: 'robot_tier2', png: robot_2_tile_imgs, inv: [0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 80, class: 'Robot'},
@@ -408,7 +409,8 @@ function preload() {
         /*29*/{name: 'Add to Chest Command', png: command_chest1_img, command: 'add_to_chest', class: 'Command'},
         /*30*/{name: 'Add from Chest Command', png: command_chest2_img, command: 'add_from_chest', class: 'Command'},
         /*31*/{name: 'Veggy Oil', png: veggy_oil_img, price: 7, class: 'Item'},
-        /*32*/{name: 'Shovel', png: shovel_img, class: 'Tool'}
+        /*32*/{name: 'Shovel', png: shovel_img, class: 'Tool'},
+        /*33*/{name: 'Backpack', png: backpack_img, inv: [0, { num: 23, amount: 2}, { num: 26, amount: 1}, { num: 29, amount: 1}, { num: 30, amount: 1}, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], class: 'Backpack'}
     ];
 }
 

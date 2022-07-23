@@ -45,10 +45,25 @@ class MoveableEntity extends Entity {
     }
 
     onInteract(x, y) {
-        if (this.under_tile.class == 'Plant' && this.under_tile.age == this.under_tile.png.length - 2) {
-            if(checkForSpace(this, this.under_tile.eat_num)){
-                addItem(this, this.under_tile.eat_num, 1 + levels[y][x].ladybugs);
+        if (this.under_tile.class == 'Plant') {
+            if(this.under_tile.age == this.under_tile.png.length - 2){
+                if(checkForSpace(this, this.under_tile.eat_num)){
+                    addItem(this, this.under_tile.eat_num, 1 + levels[y][x].ladybugs);
+                    this.under_tile = new_tile_from_num(3, this.under_tile.pos.x, this.under_tile.pos.y);
+                }
+            }
+            else if(this.inv[this.hand].name == 'Shovel'){
                 this.under_tile = new_tile_from_num(3, this.under_tile.pos.x, this.under_tile.pos.y);
+            }
+        }
+        if (this.looking(x, y) != undefined && this.looking(x, y).name == 'cart_s') {
+            if (this.inv[this.hand].price != 0 && this.inv[this.hand] != 0) {
+                player.coins += this.inv[this.hand].price;
+                moneySound.play();
+                this.inv[this.hand].amount -= 1;
+                if (this.inv[this.hand].amount == 0) {
+                    this.inv[this.hand] = 0;
+                }
             }
         }
         if (this.inv[this.hand] != 0 && this.inv[this.hand].class == 'Placeable') {
@@ -88,20 +103,18 @@ class MoveableEntity extends Entity {
                 }
             }
         }
-        if (this.looking(x, y) != undefined && this.looking(x, y).name == 'cart_s') {
-            if (this.inv[this.hand].price != 0 && this.inv[this.hand] != 0) {
-                player.coins += this.inv[this.hand].price;
-                moneySound.play();
-                this.inv[this.hand].amount -= 1;
-                if (this.inv[this.hand].amount == 0) {
-                    this.inv[this.hand] = 0;
-                }
-            }
-        }
         if (this.under_tile.name == 'grass') {
             if (this.inv[this.hand].name == 'Hoe') {
                 hoe_sound.play();
                 this.under_tile = new_tile_from_num(3, this.under_tile.pos.x, this.under_tile.pos.y);
+            }
+        }
+        else if (this.under_tile.name == 'sprinkler'){
+            if (this.inv[this.hand].name == 'Shovel'){
+                if(checkForSpace(this, 12)){
+                    addItem(this, 12, 1);
+                    this.under_tile = new_tile_from_num(2, this.under_tile.pos.x, this.under_tile.pos.y);
+                }
             }
         }
         else if (this.under_tile.name == 'plot') {
@@ -124,7 +137,7 @@ class MoveableEntity extends Entity {
                 }
             }
         }
-        else if (this.touching.name == 'Veggie_Press') {
+        else if (this.under_tile.name == 'Veggie_Press') {
             if (this.inv[this.hand].class == 'Eat') {
                 if(checkForSpace(this, 31)){
                     this.inv[this.hand].amount -= 1;

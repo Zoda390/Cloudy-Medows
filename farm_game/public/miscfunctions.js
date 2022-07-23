@@ -203,6 +203,9 @@ function new_item_from_num(num, amount) {
         else if(all_items[num].class == 'Command'){
             return new Command(all_items[num].name, amount, all_items[num].png, all_items[num].command);
         }
+        else if(all_items[num].class == 'Backpack'){
+            return new Backpack(all_items[num].name, amount, all_items[num].png, all_items[num].inv);
+        }
     }
     else {
         console.error('item created from ' + num + ' doesnt exist');
