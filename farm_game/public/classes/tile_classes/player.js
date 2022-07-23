@@ -1,5 +1,5 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y,inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 31, amount: 3}, {num: 28, amount: 3}, {num: 19, amount: 4}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}]) {
+    constructor(name, png, x, y,inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 31, amount: 3}, {num: 27, amount: 3}, {num: 19, amount: 4}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
@@ -392,6 +392,238 @@ class Player extends MoveableEntity {
             if(checkForSpace(this, 4)){
                 addItem(this, 4, 1);
                 levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
+            }
+        }
+    }
+}
+
+//keys
+var move_right_button = 68;//d
+var move_left_button = 65; //a
+var move_up_button = 87;   //w
+var move_down_button = 83; //s
+var interact_button = 69;  //e
+var eat_button = 81;       //q
+var pause_button = 27;     //esc
+function takeInput() {
+    if (title_screen) {
+        if (keyIsDown(interact_button)) {
+            title_screen = false;
+        }
+    }
+    else if(paused){
+        if(keyIsDown(pause_button)){
+            if (millis() - lastMili > 200) {
+                paused = false;
+                lastMili = millis();
+            }
+        }
+    }
+    else if(player.talking != 0){
+        if(keyIsDown(pause_button)){
+            if (millis() - lastMili > 200) {
+                paused = true;
+                lastMili = millis();
+            }
+        }
+        if (keyIsDown(eat_button)) {
+            if (millis() - lastMili > 200) {
+                if(player.talking.class == 'NPC'){
+                    player.talking.move_bool = true;
+                    player.talking.current_dialouge = 0;
+                    for(let i = 0; i < player.talking.dialouges.length; i++){
+                        player.talking.dialouges[i].done = false;
+                        player.talking.dialouges[i].phrase = [];
+                        if(player.talking.dialouges[i].new_phrase != -1){
+                            player.talking.dialouges[i].phrase2 = player.talking.dialouges[i].new_phrase;
+                            player.talking.dialouges[i].new_phrase = -1;
+                        }
+                        if(player.talking.dialouges[i].new_replies != -1){
+                            for(let j = 0; j < player.talking.dialouges[i].new_replies.length; j++){
+                                player.talking.dialouges[i].replies[j] = player.talking.dialouges[i].new_replies[j];
+                            }
+                            player.talking.dialouges[i].new_replies = -1;
+                        }
+                    }
+                }
+                else if(player.talking.class == 'Chest'){
+                    if(mouse_item != 0){
+                        if(checkForSpace(player, item_name_to_num(mouse_item.name))){
+                            addItem(player, item_name_to_num(mouse_item.name), mouse_item.amount);
+                            mouse_item = 0;
+                        }
+                        else{
+                            let dropped = false;
+                            for (let i = 0; i < player.talking.inv.length; i++) {
+                                for(let j = 0; j < player.talking.inv[i].length; j++){
+                                    if (player.talking.inv[i][j] != 0) { // stack items
+                                        if (player.talking.inv[i][j].name == mouse_item.name) {
+                                            player.talking.inv[i][j].amount += mouse_item.amount;
+                                            dropped = true;
+                                        }
+                                    }
+                                }
+                            }
+                            for (let i = 0; i < player.talking.inv.length; i++) {
+                                for(let j = 0; j < player.talking.inv[i].length; j++){
+                                    if (player.inv[i] == 0) { // empty space
+                                        player.talking.inv[i][j] = mouse_item;
+                                        dropped = true;
+                                    }
+                                }
+                            }
+                            if(!dropped){
+                                return;
+                            }
+                        }
+                    }
+                }
+                else if (player.talking.class == 'Robot'){
+                    player.talking.fuel_timer = player.talking.max_fuel_timer;
+                    player.talking.move_bool = true;
+                }
+                player.oldlooking_name = player.talking.name;
+                player.talking = 0;
+                current_reply = 0;
+                lastMili = millis();
+                player.lasteatMili = millis();
+            }
+        }
+        if (keyIsDown(move_up_button)){
+            if ((millis() - lastMili > 200) && player.talking.class != 'Chest') {
+                current_reply -= 1;
+                if (current_reply < 0){
+                    current_reply = 0;
+                }
+                lastMili = millis();
+            }
+        }
+        if (keyIsDown(move_down_button)){
+            if (millis() - lastMili > 200) {
+                current_reply += 1;
+                if (player.talking.class == 'NPC'){
+                    if (current_reply > player.talking.dialouges[player.talking.current_dialouge].replies.length-1){
+                        current_reply = player.talking.dialouges[player.talking.current_dialouge].replies.length-1;
+                    }
+                }
+                else if (player.talking.class == 'Shop'){
+                    if (current_reply > player.talking.inv.length-1){
+                        current_reply = player.talking.inv.length-1;
+                    }
+                }
+                lastMili = millis();
+            }
+        }
+        if (keyIsDown(interact_button)){
+            if (millis() - lastMili > 200) {
+                if (player.talking.class == 'NPC'){
+                    if(player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num == -1){
+                        player.talking.move_bool = true;
+                        player.talking.current_dialouge = 0;
+                        for(let i = 0; i < player.talking.dialouges.length; i++){
+                            player.talking.dialouges[i].done = false;
+                            player.talking.dialouges[i].phrase = [];
+                            if(player.talking.dialouges[i].new_phrase != -1){
+                                player.talking.dialouges[i].phrase2 = player.talking.dialouges[i].new_phrase;
+                                player.talking.dialouges[i].new_phrase = -1;
+                            }
+                            if(player.talking.dialouges[i].new_replies != -1){
+                                for(let j = 0; j < player.talking.dialouges[i].new_replies.length; j++){
+                                    player.talking.dialouges[i].replies[j] = player.talking.dialouges[i].new_replies[j];
+                                }
+                                player.talking.dialouges[i].new_replies = -1;
+                            }
+                        }
+                        player.oldlooking_name = player.talking.name;
+                        player.talking = 0;
+                        current_reply = 0;
+                        player.lastinteractMili = millis();
+                    }
+                    else{
+                        player.talking.current_dialouge = player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num;
+                    }
+                }
+                else if (player.talking.class == 'Shop'){
+                    if(player.talking.inv[current_reply].amount >= 1){
+                        if(player.coins >= player.talking.inv[current_reply].price){    //check if you have the money
+                            addItem(player, item_name_to_num(player.talking.inv[current_reply].name), 1);
+                            player.coins -= player.talking.inv[current_reply].price; //reduce money
+                            player.talking.inv[current_reply].amount -= 1; //shop.inv -1 amount
+                        }
+                    }
+                }
+                lastMili = millis();
+            }
+            
+        }
+        if (keyIsDown(80)) { //p
+            if (millis() - lastMili > 100) {
+                console.log(player);
+                console.log(player.touching);
+                console.log(player.looking(currentLevel_x, currentLevel_y));
+                console.log(all_tiles)
+                lastMili = millis();
+            }
+        }
+    }
+    else {
+        if(keyIsDown(pause_button)){
+            if (millis() - lastMili > 200) {
+                paused = true;
+                lastMili = millis();
+            }
+        }
+        //basic movement  
+        player.move();
+        if (keyIsDown(eat_button)) {
+            player.eat();
+        }
+        if (keyIsDown(interact_button)) {
+        
+            player.interactCall();
+        }
+        /*
+        if(keyIsDown(48)){
+          player.hand = 9;
+        }
+        */
+        //mc style hotbar
+        if (keyIsDown(49)) {
+            player.hand = 0;
+        }
+        if (keyIsDown(50)) {
+            player.hand = 1;
+        }
+        if (keyIsDown(51)) {
+            player.hand = 2;
+        }
+        if (keyIsDown(52)) {
+            player.hand = 3;
+        }
+        if (keyIsDown(53)) {
+            player.hand = 4;
+        }
+        if (keyIsDown(54)) {
+            player.hand = 5;
+        }
+        if (keyIsDown(55)) {
+            player.hand = 6;
+        }
+        if (keyIsDown(56)) {
+            player.hand = 7;
+        }
+
+        /*
+        if(keyIsDown(57)){
+          player.hand = 8;
+        }
+        */
+        if (keyIsDown(80)) { //p
+            if (millis() - lastMili > 100) {
+                console.log(player);
+                console.log(player.touching);
+                console.log(player.looking(currentLevel_x, currentLevel_y));
+                lastMili = millis();
             }
         }
     }
