@@ -50,6 +50,13 @@ class Dialouge {
                                 }
                                 this.new_replies = [];
                                 this.new_replies[0] = {phrase: 'Oh ok', dialouge_num: -1};
+                            }else{
+                                // no space in inventory 
+                                // /checkForSpace 
+                                
+                                /*
+                                    icon flash
+                                */
                             }
                         }
                         else {

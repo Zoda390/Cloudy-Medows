@@ -96,7 +96,7 @@ function addItem(to, item_obj_num, amount) {
         }
     }
 }
-
+//checkForSpace icon here 
 function checkForSpace(to, item_obj_num){
     var check = false;
     for (let i = 0; i < to.inv.length; i++) {

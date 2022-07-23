@@ -367,7 +367,8 @@ function preload() {
     /*45*/    { name: 'hemp', png: hemp_tile_imgs, border: true, collide: false, age: 0, eat_num: 25, waterneed: 2, growthTime: 2000, class: 'Plant'},
     /*46*/    { name: 'Robot1', png: robot_1_tile_imgs, inv: [0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 100, class: 'Robot'},
     /*47*/    { name: 'Robot2', png: robot_2_tile_imgs, inv: [0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 80, class: 'Robot'},
-    /*48*/    { name: 'Veggie_Press', png: [veggy_press_tile_img], border: true, collide: false, age: -1, class: 'Tile' }
+    /*48*/    { name: 'Veggie_Press', png: [veggy_press_tile_img], border: true, collide: false, age: -1, class: 'Tile' },
+    /*49*/    { name: 'Bees', png: bee_img, inv:[0], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 50, class: 'GridMoveEntity' }
 ];
     /*
     class       obj
