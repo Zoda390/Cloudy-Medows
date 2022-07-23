@@ -6,6 +6,8 @@ class Robot extends GridMoveEntity{
         this.max_fuel = 190;
         this.fuel_timer = moving_timer;
         this.max_fuel_timer = this.fuel_timer;
+        this.day_pause = false;
+        this.day_paused = 0;
     }
 
     render() {
@@ -26,6 +28,9 @@ class Robot extends GridMoveEntity{
     }
 
     render_pc(){
+        robotPlayButton.show();
+        robotPauseButton.show();
+        robotBoomButton.show();
         push()
         stroke(149, 108, 65);
         strokeWeight(5);
@@ -97,7 +102,7 @@ class Robot extends GridMoveEntity{
         }
         if(this.fuel_timer <= 0 && this.fuel < this.max_fuel - 10){ //change 10 when adding efficentcy
             let fueled = false;
-            if(this.name == 'robot_tier1'){
+            if(this.name == 'Robot1'){
                 for (let i = 0; i < this.inv.length; i++){
                     if(this.inv[i].name == 'Veggy Oil' && this.fuel < this.max_fuel - 10){
                         this.fuel += 10;
@@ -109,13 +114,13 @@ class Robot extends GridMoveEntity{
                     }
                 }
             }
-            else if(this.name == 'robot_tier2'){
+            else if(this.name == 'Robot2'){
                 if(this.under_tile.name == 'sprinkler'){
                     this.fuel += 10;
                     fueled = true;
                 }
             }
-            else if(this.name == 'robot_tier3'){
+            else if(this.name == 'Robot3'){
                 if(time <= 100){
                     this.fuel += 10;
                     fueled = true;
@@ -124,6 +129,10 @@ class Robot extends GridMoveEntity{
             if (fueled){
                 this.fuel_timer = this.max_fuel_timer;
             }
+        }
+        if(this.day_pause == true && days > this.day_paused){
+            this.move_bool = true;
+            this.day_pause = false;
         }
         if (this.moving_timer <= 0 && this.move_bool && this.fuel > 0) {
             if(this.instructions[this.current_instruction] == 0 || this.instructions[this.current_instruction].command == undefined){
@@ -258,6 +267,11 @@ class Robot extends GridMoveEntity{
                         }
                     }
                 }
+            }
+            else if (this.instructions[this.current_instruction].command == '1day_pause'){
+                this.day_pause = true;
+                this.day_paused = days;
+                this.move_bool = false;
             }
             this.fuel-=1;
             this.current_instruction += 1;

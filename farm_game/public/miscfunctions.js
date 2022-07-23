@@ -9,10 +9,6 @@ function start(){
     title_screen = false;
     paused = false;
 }
-function flipPaused(){
-    paused = !paused;
-    creditsOn = false;
-}
 
 function showOptions(){
     push()
@@ -62,10 +58,6 @@ function showPaused(){
     pop()
 }
 
-function flipCredits(){
-    creditsOn = !creditsOn;
-    paused = false;
-}
 function showCredits(){
     push()
     stroke(149, 108, 65);

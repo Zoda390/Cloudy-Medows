@@ -36,6 +36,7 @@ var optionsButton;
 var creditsButton;
 var creditsOn = false;
 var current_reply = 0;
+var temp_move_bool = true;
 
 function draw() {
     musicplayer.update()

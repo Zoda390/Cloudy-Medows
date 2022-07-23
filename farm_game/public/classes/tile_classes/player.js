@@ -47,7 +47,9 @@ class Player extends MoveableEntity {
         this.save()
         if(this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0){
             if(this.oldlooking_name != this.looking(currentLevel_x, currentLevel_y).name && ((this.looking(currentLevel_x, currentLevel_y).class == 'NPC' || this.looking(currentLevel_x, currentLevel_y).class == 'Shop' || this.looking(currentLevel_x, currentLevel_y).class == 'Chest' || this.looking(currentLevel_x, currentLevel_y).class == 'Robot'))){
+                temp_move_bool = this.looking(currentLevel_x, currentLevel_y).move_bool;
                 this.talking = this.looking(currentLevel_x, currentLevel_y);
+                this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name
             }
         }
         if (this.hunger_counter >= 45) {
@@ -328,23 +330,12 @@ class Player extends MoveableEntity {
         }
         if (this.inv[this.hand] != 0 && this.inv[this.hand].class == 'Placeable') {
             if (tile_name_to_num(this.touching.name) == (this.inv[this.hand].tile_need_num-1) || this.inv[this.hand].tile_need_num == 0) {
-                if(this.inv[this.hand].name == 'Robot_tier1' || this.inv[this.hand].name == 'Robot_tier2' || this.inv[this.hand].name == 'Robot_tier3'){
+                if(this.inv[this.hand].name == 'Robot1' || this.inv[this.hand].name == 'Robot2' || this.inv[this.hand].name == 'Robot3'){
                     if(this.looking(x, y) != undefined && this.looking(x, y).collide == false){
                         let temp = this.looking(x, y);
                         this.touching = this.tileTouching(x, y);
                         if (this.touching != 0) {
-                            if(this.facing == 0){
-                                levels[y][x].map[(this.touching.pos.y / tileSize) - 1][this.touching.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.touching.pos.x, this.touching.pos.y - 32);
-                            }
-                            else if(this.facing == 1){
-                                levels[y][x].map[(this.touching.pos.y / tileSize)][(this.touching.pos.x / tileSize) + 1] = new_tile_from_num(this.inv[this.hand].tile_num, this.touching.pos.x + 32, this.touching.pos.y);
-                            }
-                            else if(this.facing == 2){
-                                levels[y][x].map[(this.touching.pos.y / tileSize) + 1][this.touching.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.touching.pos.x, this.touching.pos.y + 32);
-                            }
-                            else if(this.facing == 3){
-                                levels[y][x].map[(this.touching.pos.y / tileSize)][(this.touching.pos.x / tileSize) - 1] = new_tile_from_num(this.inv[this.hand].tile_num, this.touching.pos.x - 32, this.touching.pos.y);
-                            }
+                            levels[currentLevel_y][currentLevel_x].map[(player.looking(currentLevel_x, currentLevel_y).pos.y / tileSize)][player.looking(currentLevel_x, currentLevel_y).pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.looking(currentLevel_x, currentLevel_y).pos.x, this.looking(currentLevel_x, currentLevel_y).pos.y);
                         }
                         this.looking(x, y).under_tile = temp;
                     }
@@ -501,7 +492,10 @@ function takeInput() {
                 }
                 else if (player.talking.class == 'Robot'){
                     player.talking.fuel_timer = player.talking.max_fuel_timer;
-                    player.talking.move_bool = true;
+                    player.talking.move_bool = temp_move_bool;
+                    robotPlayButton.hide();
+                    robotPauseButton.hide();
+                    robotBoomButton.hide();
                 }
                 player.oldlooking_name = player.talking.name;
                 player.talking = 0;
@@ -582,7 +576,7 @@ function takeInput() {
                 console.log(player);
                 console.log(player.touching);
                 console.log(player.looking(currentLevel_x, currentLevel_y));
-                console.log(all_tiles)
+                console.log(temp_move_bool)
                 lastMili = millis();
             }
         }
@@ -644,6 +638,7 @@ function takeInput() {
                 console.log(player);
                 console.log(player.touching);
                 console.log(player.looking(currentLevel_x, currentLevel_y));
+                console.log(temp_move_bool)
                 lastMili = millis();
             }
         }

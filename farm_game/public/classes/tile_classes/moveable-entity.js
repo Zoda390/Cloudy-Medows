@@ -68,22 +68,11 @@ class MoveableEntity extends Entity {
         }
         if (this.inv[this.hand] != 0 && this.inv[this.hand].class == 'Placeable') {
             if (tile_name_to_num(this.under_tile.name) == (this.inv[this.hand].tile_need_num-1) || this.inv[this.hand].tile_need_num == 0) {
-                if(this.inv[this.hand].name == 'Robot_tier1' || this.inv[this.hand].name == 'Robot_tier2' || this.inv[this.hand].name == 'Robot_tier3'){
+                if(this.inv[this.hand].name == 'Robot1' || this.inv[this.hand].name == 'Robot2' || this.inv[this.hand].name == 'Robot3'){
                     if(this.looking(x, y) != undefined && this.looking(x, y).collide == false){
                         let temp = this.looking(x, y);
                         if (this.under_tile != 0) {
-                            if(this.facing == 0){
-                                levels[y][x].map[(this.under_tile.pos.y / tileSize) - 1][this.under_tile.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.under_tile.pos.x, this.under_tile.pos.y - 32);
-                            }
-                            else if(this.facing == 1){
-                                levels[y][x].map[(this.under_tile.pos.y / tileSize)][(this.under_tile.pos.x / tileSize) + 1] = new_tile_from_num(this.inv[this.hand].tile_num, this.under_tile.pos.x + 32, this.under_tile.pos.y);
-                            }
-                            else if(this.facing == 2){
-                                levels[y][x].map[(this.under_tile.pos.y / tileSize) + 1][this.under_tile.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.under_tile.pos.x, this.under_tile.pos.y + 32);
-                            }
-                            else if(this.facing == 3){
-                                levels[y][x].map[(this.under_tile.pos.y / tileSize)][(this.under_tile.pos.x / tileSize) - 1] = new_tile_from_num(this.inv[this.hand].tile_num, this.under_tile.pos.x - 32, this.under_tile.pos.y);
-                            }
+                            levels[currentLevel_y][currentLevel_x].map[(player.looking(currentLevel_x, currentLevel_y).pos.y / tileSize)][player.looking(currentLevel_x, currentLevel_y).pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.looking(currentLevel_x, currentLevel_y).pos.x, this.looking(currentLevel_x, currentLevel_y).pos.y);
                         }
                         this.looking(x, y).under_tile = temp;
                     }

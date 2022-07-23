@@ -170,6 +170,7 @@ function preload() {
     command_restart_img = loadImage('images/items/floppy_restart.png');
     command_chest1_img = loadImage('images/items/Floppy_addChestt.png');
     command_chest2_img = loadImage('images/items/floppy_removechest.png');
+    command_pause_img = loadImage('images/items/Floppy_Pause.png');
 
     //Ui
     player_2 = loadFont('pixelFont.ttf');
@@ -360,12 +361,12 @@ function preload() {
     /*39*/    { name: 'bush', png: [bush_img], border: false, collide: true, age: -1, class: 'Tile' },
     /*40*/    { name: 'chest', png: chest_img, inv: [0, { num: 23, amount: 2}, { num: 26, amount: 1}, { num: 29, amount: 1}, { num: 30, amount: 1}, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], facing: 2, under_tile_num: 1, class: 'Chest'},
     /*41*/    { name: 'watermelon', png: watermelon_tile_imgs, border: true, collide: false, age: 0, eat_num: 17, waterneed: 2, growthTime: 4000, class: 'Plant'},
-    /*42*/    { name: 'robot_tier3', png: robot_tile_imgs, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 60, class: 'Robot'},
+    /*42*/    { name: 'Robot3', png: robot_tile_imgs, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 60, class: 'Robot'},
     /*43*/    { name: 'Fruis', png: [cart_straw_tile_img], inv: [{num: 7, amount: 3}, {num: 15, amount: 3}, {num: 17, amount: 3}], class: 'Shop' },
     /*44*/    { name: 'Fruit Seeds', png: [cart_straw_tile_img], inv: [{num: 8, amount: 4}, {num: 14, amount: 2}, {num: 16, amount: 1}], class: 'Shop' },
     /*45*/    { name: 'hemp', png: hemp_tile_imgs, border: true, collide: false, age: 0, eat_num: 25, waterneed: 2, growthTime: 2000, class: 'Plant'},
-    /*46*/    { name: 'robot_tier1', png: robot_1_tile_imgs, inv: [0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 100, class: 'Robot'},
-    /*47*/    { name: 'robot_tier2', png: robot_2_tile_imgs, inv: [0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 80, class: 'Robot'},
+    /*46*/    { name: 'Robot1', png: robot_1_tile_imgs, inv: [0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 100, class: 'Robot'},
+    /*47*/    { name: 'Robot2', png: robot_2_tile_imgs, inv: [0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 80, class: 'Robot'},
     /*48*/    { name: 'Veggie_Press', png: [veggy_press_tile_img], border: true, collide: false, age: -1, class: 'Tile' }
 ];
     /*
@@ -395,7 +396,7 @@ function preload() {
         /*15*/{name: 'Tomato', png: tomato_img, price: 3, hunger: 1, hunger_timer: 1800, seed_num: 14, class: 'Eat'},
         /*16*/{name: 'Watermelon Seed', png: watermelon_seed_bag_img, plant_num: 41, class: 'Seed'},
         /*17*/{name: 'Watermelon', png: watermelon_img, price: 8, hunger: 2, hunger_timer: 2000, seed_num: 16, class: 'Eat'},
-        /*18*/{name: 'Robot_tier3', png: robot_img, price: 80, tile_num: 42, tile_need_num: 0, class: 'Placeable'},
+        /*18*/{name: 'Robot3', png: robot_img, price: 80, tile_num: 42, tile_need_num: 0, class: 'Placeable'},
         /*19*/{name: 'Up Command', png: command_up_img, command: 'up', class: 'Command'},
         /*20*/{name: 'Right Command', png: command_right_img, command: 'right', class: 'Command'},
         /*21*/{name: 'Down Command', png: command_down_img, command: 'down', class: 'Command'},
@@ -404,13 +405,14 @@ function preload() {
         /*24*/{name: 'Hemp Seed', png: hemp_seed_img, plant_num: 45, class: 'Seed'},
         /*25*/{name: 'Hemp Flower', png: hemp_img, price: 20, hunger: -2, hunger_timer: 100, seed_num: 24, class: 'Eat'},
         /*26*/{name: 'Restart Command', png: command_restart_img, command: 'restart', class: 'Command'},
-        /*27*/{name: 'Robot_tier1', png: robot_1_img, price: 60, tile_num: 46, tile_need_num: 0, class: 'Placeable'},
-        /*28*/{name: 'Robot_tier2', png: robot_water_img, price: 70, tile_num: 47, tile_need_num: 0, class: 'Placeable'},
+        /*27*/{name: 'Robot1', png: robot_1_img, price: 60, tile_num: 46, tile_need_num: 0, class: 'Placeable'},
+        /*28*/{name: 'Robot2', png: robot_water_img, price: 70, tile_num: 47, tile_need_num: 0, class: 'Placeable'},
         /*29*/{name: 'Add to Chest Command', png: command_chest1_img, command: 'add_to_chest', class: 'Command'},
         /*30*/{name: 'Add from Chest Command', png: command_chest2_img, command: 'add_from_chest', class: 'Command'},
         /*31*/{name: 'Veggy Oil', png: veggy_oil_img, price: 7, class: 'Item'},
         /*32*/{name: 'Shovel', png: shovel_img, class: 'Tool'},
-        /*33*/{name: 'Backpack', png: backpack_img, inv: [0, { num: 23, amount: 2}, { num: 26, amount: 1}, { num: 29, amount: 1}, { num: 30, amount: 1}, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], class: 'Backpack'}
+        /*33*/{name: 'Backpack', png: backpack_img, inv: [0, { num: 23, amount: 2}, { num: 26, amount: 1}, { num: 29, amount: 1}, { num: 30, amount: 1}, 0, 0, 0, 0, 0, 0, { num: 34, amount: 2}], class: 'Backpack'},
+        /*34*/{name: '1 Day Pause Command', png: command_pause_img, command: '1day_pause', class: 'Command'}
     ];
 }
 
@@ -431,17 +433,62 @@ function setup() {
     
     optionsButton = createButton('Options');
     optionsButton.position(canvasWidth/2-250/2, canvasHeight/2+160);
-    optionsButton.mousePressed(flipPaused);
+    optionsButton.mousePressed(() => {
+        paused = !paused;
+        creditsOn = false;
+    });
     optionsButton.style('width', '250px');
     optionsButton.style('background','url()');
     optionsButton.style("font-family","pixelFont");
 
     creditsButton = createButton('Credits');
     creditsButton.position(canvasWidth/2-250/2, canvasHeight/2+200);
-    creditsButton.mousePressed(flipCredits);
+    creditsButton.mousePressed(() => {
+        creditsOn = !creditsOn;
+        paused = false;
+    });
     creditsButton.style('width', '250px');
     creditsButton.style('background','url()');
     creditsButton.style("font-family","pixelFont");
+
+    robotPlayButton = createButton('Play');
+    robotPlayButton.position(((11*canvasWidth)/16) - 55, canvasHeight/8 - 5);
+    robotPlayButton.mousePressed(() => {
+        temp_move_bool = true;
+    });
+    robotPlayButton.style("font-family","pixelFont");
+    robotPlayButton.style('background-color','rgb(100, 100, 100)');
+    robotPlayButton.style('color','rgb(0, 255, 0)');
+    robotPlayButton.hide();
+
+    robotPauseButton = createButton('Pause');
+    robotPauseButton.position(((11*canvasWidth)/16) + 19, canvasHeight/8 - 5);
+    robotPauseButton.mousePressed(() => {
+        temp_move_bool = false;
+    });
+    robotPauseButton.style("font-family","pixelFont");
+    robotPauseButton.style('background-color','rgb(100, 100, 100)');
+    robotPauseButton.style('color','rgb(0, 0, 255)');
+    robotPauseButton.hide();
+
+    robotBoomButton = createButton('Boom');
+    robotBoomButton.position(((14*canvasWidth)/16) - 30, canvasHeight/8 - 5);
+    robotBoomButton.mousePressed(() => {
+        if(checkForSpace(player, item_name_to_num(player.looking(currentLevel_x, currentLevel_y).name))){
+            addItem(player, item_name_to_num(player.looking(currentLevel_x, currentLevel_y).name), 1);
+            if (player.touching != 0) {
+                levels[currentLevel_y][currentLevel_x].map[(player.looking(currentLevel_x, currentLevel_y).pos.y / tileSize)][player.looking(currentLevel_x, currentLevel_y).pos.x / tileSize] = player.looking(currentLevel_x, currentLevel_y).under_tile;
+            }
+            robotPlayButton.hide();
+            robotPauseButton.hide();
+            robotBoomButton.hide();
+            player.talking = 0;
+        }
+    });
+    robotBoomButton.style("font-family","pixelFont");
+    robotBoomButton.style('background-color','rgb(100, 100, 100)');
+    robotBoomButton.style('color','rgb(255, 0, 0)');
+    robotBoomButton.hide();
 
     musicSlider = createSlider(0, 1, 1, 0.01);
     musicSlider.position((canvasWidth/2)-10, (canvasHeight/2)-85);
