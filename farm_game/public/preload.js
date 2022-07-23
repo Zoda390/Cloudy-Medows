@@ -283,6 +283,7 @@ function preload() {
 
     //bees
     bee_img = loadImage("images/tiles/Bees.gif");
+    bee_imgs = [[bee_img], [bee_img], [bee_img], [bee_img]];
 
     //sounds
     hoe_sound = new Sound('audio/Hoe.wav');
@@ -310,11 +311,11 @@ function preload() {
 
     /*
     class           obj
-    Tile            { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'Tile' }
+    Tile            { name: 'name', png: [png_img], border: true, collide: false, age: -1, class: 'Tile' }
     Shop            { name: 'name', png: png_img, inv: [], class: 'Shop'}
     Plant           { name: 'name', png: png_img, border: true, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }  2000 growthTime is about 1 day
     Entity          { name: 'name', png: png_img, border: true, collide: false, age: -1, inv: [0, {num: 1, amount: 1}], hand: 0, under_tile_num: 0, class: 'Entity' }
-    FreeMoveEntity  { name: 'name', png: png_img, border: true, collide: false, age: -1, class: 'FreeMoveEntity' }
+    FreeMoveEntity  { name: 'name', png: png_img, inv:[0, {num: 1, amount: 1}], under_tile_num: 0, instructions: [], moving_timer: 0, class: 'FreeMoveEntity' }
     MoveableEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, moving_timer: 0, class: 'MoveableEntity' }
     GridMoveEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'GridMoveEntity' }
     NPC             { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'NPC' }
@@ -368,7 +369,8 @@ function preload() {
     /*46*/    { name: 'Robot1', png: robot_1_tile_imgs, inv: [0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 100, class: 'Robot'},
     /*47*/    { name: 'Robot2', png: robot_2_tile_imgs, inv: [0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 80, class: 'Robot'},
     /*48*/    { name: 'Veggie_Press', png: [veggy_press_tile_img], border: true, collide: false, age: -1, class: 'Tile' },
-    /*49*/    { name: 'Bees', png: bee_img, inv:[0], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 50, class: 'GridMoveEntity' }
+    /*49*/    { name: 'Bees', png: bee_imgs, inv:[0], under_tile_num: 0, instructions: [], moving_timer: 50, class: 'FreeMoveEntity' },
+    /*50*/    { name: 'Flower_Done', png: [flower_tile_img2], border: true, collide: false, age: 0, class: 'Tile'}
 ];
     /*
     class       obj
@@ -412,7 +414,7 @@ function preload() {
         /*30*/{name: 'Add from Chest Command', png: command_chest2_img, command: 'add_from_chest', class: 'Command'},
         /*31*/{name: 'Veggy Oil', png: veggy_oil_img, price: 7, class: 'Item'},
         /*32*/{name: 'Shovel', png: shovel_img, class: 'Tool'},
-        /*33*/{name: 'Backpack', png: backpack_img, inv: [0, { num: 23, amount: 2}, { num: 26, amount: 1}, { num: 29, amount: 1}, { num: 30, amount: 1}, 0, 0, 0, 0, 0, 0, { num: 34, amount: 2}], class: 'Backpack'},
+        /*33*/{name: 'Backpack', png: backpack_img, inv: [0, { num: 23, amount: 2}, { num: 26, amount: 1}, { num: 29, amount: 1}, { num: 30, amount: 1}, {num: 27, amount: 3}, {num: 19, amount: 4}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}, 0, { num: 34, amount: 2}], class: 'Backpack'},
         /*34*/{name: '1 Day Pause Command', png: command_pause_img, command: '1day_pause', class: 'Command'}
     ];
 }

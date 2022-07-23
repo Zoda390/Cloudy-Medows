@@ -97,11 +97,10 @@ function draw() {
         }
         
         if (!paused){
-
             if (millis() - lastTimeMili > 300) { //300 for 2 min 1 day, 150 for 1 min 1 day
                 if (timephase == 0) {
                     if (player.touching.name == 'bed') {
-                        time += 5;
+                        time += 3;
                     }
                     else {
                         time += 1;
@@ -109,18 +108,20 @@ function draw() {
                 }
                 if (timephase == 1) {
                     if (player.touching.name == 'bed') {
-                        time -= 5;
+                        time -= 3;
                     }
                     else {
                         time -= 1;
                     }
                 }
                 if (time >= 200) {
+                    time = 200;
                     timephase = 1;
                     days += 1;
                     newDayChime.play();
                 }
                 if (time <= 0) {
+                    time = 0;
                     timephase = 0;
                     for (let y = 0; y < levels.length; y++) {
                         for (let x = 0; x < levels[y].length; x++) {
@@ -274,92 +275,100 @@ function render_ui() {
 
 function mouseReleased() {
     if(!title_screen){
-        if(mouseY >= canvasHeight - 64 && mouseY <= canvasHeight){
-            if(mouseX >= 113 && mouseX <= 622){
-                let currentX = min(player.inv.length-1, round((mouseX-113-32)/64))
-                if(mouse_item == 0 || player.inv[currentX] == 0){
-                    let temp = mouse_item;
-                    mouse_item = player.inv[currentX]
-                    player.inv[currentX] = temp;
-                }
-                else if(player.inv[currentX].name == mouse_item.name){
-                    player.inv[currentX].amount += mouse_item.amount;
-                    mouse_item = 0;
-                }
-                else{
-                    let temp = mouse_item;
-                    mouse_item = player.inv[currentX]
-                    player.inv[currentX] = temp;
-                }
+        if(mouseButton == LEFT){
+            if(keyIsDown(1)){ //Change 1 to shift
+                console.log('Shift + Click')
             }
-        }
-        if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && (player.talking.class == 'Chest' || player.talking.class == 'Backpack' )){
-            if(mouseY >= 189 && mouseY <= 457){
-                if(mouseX >= 184 && mouseX <= 552){
-                    let currentX = min(player.talking.inv[0].length-1, round((mouseX-229)/90))
-                    let currentY = min(player.talking.inv.length-1, round((mouseY-234)/90))
-                    if(mouse_item == 0 || player.talking.inv[currentY][currentX] == 0){
+            if(mouseY >= canvasHeight - 64 && mouseY <= canvasHeight){
+                if(mouseX >= 113 && mouseX <= 622){
+                    let currentX = min(player.inv.length-1, round((mouseX-113-32)/64))
+                    if(mouse_item == 0 || player.inv[currentX] == 0){
                         let temp = mouse_item;
-                        mouse_item = player.talking.inv[currentY][currentX]
-                        player.talking.inv[currentY][currentX] = temp;
+                        mouse_item = player.inv[currentX]
+                        player.inv[currentX] = temp;
                     }
-                    else if(player.talking.inv[currentY][currentX].name == mouse_item.name){
-                        player.talking.inv[currentY][currentX].amount += mouse_item.amount;
+                    else if(player.inv[currentX].name == mouse_item.name){
+                        player.inv[currentX].amount += mouse_item.amount;
                         mouse_item = 0;
                     }
                     else{
                         let temp = mouse_item;
-                        mouse_item = player.talking.inv[currentY][currentX]
-                        player.talking.inv[currentY][currentX] = temp;
+                        mouse_item = player.inv[currentX]
+                        player.inv[currentX] = temp;
                     }
                 }
             }
-        }
-        if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Robot'){
-            if(mouseY >= 78 && mouseY <= (ceil(player.talking.instructions.length/6)*86)+78){
-                if(mouseX >= 152 && mouseX <= 682){
-                    let currentX = (min(player.talking.instructions.length/6, round((mouseY - 78-(86/2))/86))*6) + min(5, round((mouseX - 152-45)/90))
-                    if(mouse_item == 0){
-                        mouse_item = player.talking.instructions[currentX];
-                        player.talking.instructions[currentX] = 0;
-                    }
-                    else if(player.talking.instructions[currentX] == 0){
-                        player.talking.instructions[currentX] = new_item_from_num(item_name_to_num(mouse_item.name), 1);
-                        mouse_item.amount -= 1;
-                        if(mouse_item.amount == 0){
-                        mouse_item = 0;
+            if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && (player.talking.class == 'Chest' || player.talking.class == 'Backpack' )){
+                if(mouseY >= 189 && mouseY <= 457){
+                    if(mouseX >= 184 && mouseX <= 552){
+                        let currentX = min(player.talking.inv[0].length-1, round((mouseX-229)/90))
+                        let currentY = min(player.talking.inv.length-1, round((mouseY-234)/90))
+                        if(mouse_item == 0 || player.talking.inv[currentY][currentX] == 0){
+                            let temp = mouse_item;
+                            mouse_item = player.talking.inv[currentY][currentX]
+                            player.talking.inv[currentY][currentX] = temp;
+                        }
+                        else if(player.talking.inv[currentY][currentX].name == mouse_item.name){
+                            player.talking.inv[currentY][currentX].amount += mouse_item.amount;
+                            mouse_item = 0;
+                        }
+                        else{
+                            let temp = mouse_item;
+                            mouse_item = player.talking.inv[currentY][currentX]
+                            player.talking.inv[currentY][currentX] = temp;
                         }
                     }
-                    else if (player.talking.instructions[currentX].name == mouse_item.name){
-                        mouse_item.amount += 1;
-                        player.talking.instructions[currentX] = 0;
+                }
+            }
+            if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Robot'){
+                if(mouseY >= 78 && mouseY <= (ceil(player.talking.instructions.length/6)*86)+78){
+                    if(mouseX >= 152 && mouseX <= 682){
+                        let currentX = (min(player.talking.instructions.length/6, round((mouseY - 78-(86/2))/86))*6) + min(5, round((mouseX - 152-45)/90))
+                        if(mouse_item == 0){
+                            mouse_item = player.talking.instructions[currentX];
+                            player.talking.instructions[currentX] = 0;
+                        }
+                        else if(player.talking.instructions[currentX] == 0){
+                            player.talking.instructions[currentX] = new_item_from_num(item_name_to_num(mouse_item.name), 1);
+                            mouse_item.amount -= 1;
+                            if(mouse_item.amount == 0){
+                            mouse_item = 0;
+                            }
+                        }
+                        else if (player.talking.instructions[currentX].name == mouse_item.name){
+                            mouse_item.amount += 1;
+                            player.talking.instructions[currentX] = 0;
+                        }
+                        else{
+                            let temp = mouse_item;
+                            mouse_item = player.talking.instructions[currentX];
+                            player.talking.instructions[currentX] = temp;
+                        }
                     }
-                    else{
-                        let temp = mouse_item;
-                        mouse_item = player.talking.instructions[currentX];
-                        player.talking.instructions[currentX] = temp;
+                }
+                if(mouseY >= 435 && mouseY <= 500){
+                    if(mouseX >= 70 && mouseX <= 678){
+                        let currentX = min(player.talking.inv.length-1, round((mouseX-70-45)/90))
+                        if(mouse_item == 0 || player.talking.inv[currentX] == 0){
+                            let temp = mouse_item;
+                            mouse_item = player.talking.inv[currentX]
+                            player.talking.inv[currentX] = temp;
+                        }
+                        else if(player.talking.inv[currentX].name == mouse_item.name){
+                            player.talking.inv[currentX].amount += mouse_item.amount;
+                            mouse_item = 0;
+                        }
+                        else{
+                            let temp = mouse_item;
+                            mouse_item = player.talking.inv[currentX]
+                            player.talking.inv[currentX] = temp;
+                        }
                     }
                 }
             }
-            if(mouseY >= 435 && mouseY <= 500){
-                if(mouseX >= 70 && mouseX <= 678){
-                    let currentX = min(player.talking.inv.length-1, round((mouseX-70-45)/90))
-                    if(mouse_item == 0 || player.talking.inv[currentX] == 0){
-                        let temp = mouse_item;
-                        mouse_item = player.talking.inv[currentX]
-                        player.talking.inv[currentX] = temp;
-                    }
-                    else if(player.talking.inv[currentX].name == mouse_item.name){
-                        player.talking.inv[currentX].amount += mouse_item.amount;
-                        mouse_item = 0;
-                    }
-                    else{
-                        let temp = mouse_item;
-                        mouse_item = player.talking.inv[currentX]
-                        player.talking.inv[currentX] = temp;
-                    }
-                }
-            }
+        }
+        if(mouseButton == RIGHT){
+            console.log('Right Click');
         }
     }
   }

@@ -139,12 +139,13 @@ class Level {
                 if (this.map[i][j].class == 'Robot') {
                     this.map[i][j].move(x,y);
                 }
+                if (this.map[i][j].class == 'FreeMoveEntity'){
+                    this.map[i][j].randomMove(x,y);
+                }
                 if (this.map[i][j].name == 'flower') {
-                    if (this.map[i][j].age == 2 && round(random(0,3)) == 2) {
-                        let temp = this.map[i][j];
-                        console.log("bees");
+                    if (this.map[i][j].age == 1 && round(random(0,3)) == 2) {
                         this.map[i][j] = new_tile_from_num(49, (j * tileSize), (i * tileSize));
-                        this.map[i][j].under_tile = temp;
+                        this.map[i][j].under_tile = new_tile_from_num(50, (j * tileSize), (i * tileSize));
                     }
                 }
             }
@@ -175,7 +176,11 @@ class Level {
                             this.map[i][j] = new_tile_from_num(2, (j * tileSize), (i * tileSize));
                         }
                     }
-                    
+                    if (this.map[i][j].name == 'Flower_Done'){
+                        if (this.map[i][j].age >= 5) {
+                            this.map[i][j] = new_tile_from_num(2, (j * tileSize), (i * tileSize));
+                        }
+                    }
                 }
             }
         }

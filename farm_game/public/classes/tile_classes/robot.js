@@ -97,8 +97,8 @@ class Robot extends GridMoveEntity{
         this.moving_timer -= 1;
         this.fuel_timer -= 1;
         if(player.touching.name == 'bed'){
-            this.moving_timer -= 1;
-            this.fuel_timer -= 1;
+            this.moving_timer -= 2;
+            this.fuel_timer -= 2;
         }
         if(this.fuel_timer <= 0 && this.fuel < this.max_fuel - 10){ //change 10 when adding efficentcy
             let fueled = false;

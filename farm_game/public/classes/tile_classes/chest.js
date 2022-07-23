@@ -19,7 +19,7 @@ class Chest extends Entity{
         text(this.name, (canvasWidth / 4) + 10, (canvasHeight/4) + 10);
         textSize(13);
         strokeWeight(2);
-        text('Q to leave', ((2*canvasWidth) / 4) + 45, (canvasHeight/4) + 10);
+        text( String.fromCharCode(eat_button) + ' to leave', ((2*canvasWidth) / 4) + 45, (canvasHeight/4) + 10);
         stroke(255, 255, 0);
         strokeWeight(5);
         fill(149, 108, 65);

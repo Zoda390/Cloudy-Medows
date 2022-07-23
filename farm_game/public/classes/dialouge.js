@@ -31,7 +31,7 @@ class Dialouge {
         text('Replies:', (canvasWidth / 2) - 10, canvasHeight - 140);
         textSize(13);
         strokeWeight(2);
-        text('Q to leave', ((3*canvasWidth) / 4) + 10, canvasHeight - 140);
+        text(String.fromCharCode(eat_button) + ' to leave', ((3*canvasWidth) / 4) + 10, canvasHeight - 140);
         if (this.done == false){
             for(let i = 0; i < this.phrase2.length; i++){
                 this.phrase[i] = this.phrase2[i];

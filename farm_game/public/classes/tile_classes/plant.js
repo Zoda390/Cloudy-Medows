@@ -28,7 +28,7 @@ class Plant extends Tile {
     grow(x, y) {
         this.growTimer++;
         if (player.touching.name == 'bed') {
-            this.growTimer++;
+            this.growTimer += 2;
         }
         if (this.growTimer >= this.growthTime) {
             let water_found = 0;

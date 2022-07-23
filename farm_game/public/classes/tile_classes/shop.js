@@ -33,7 +33,7 @@ class Shop extends Entity {
         text(this.name, (canvasWidth / 20) + 10, canvasHeight - 140);
         textSize(13);
         strokeWeight(2);
-        text('Q to leave', ((3*canvasWidth) / 4) + 10, canvasHeight - 140);
+        text(String.fromCharCode(eat_button) + ' to leave', ((3*canvasWidth) / 4) + 10, canvasHeight - 140);
         text('Item,             cost,    quantity in store', (canvasWidth / 20) + 42, canvasHeight - 115);
         for(let i = 0; i < this.inv.length; i++){
             if(this.inv[i].amount <= 0){
