@@ -22,6 +22,7 @@ var lastTimeMili = 0;
 var lastHungerMili = 0;
 var days = 0;
 var title_screen = true;
+var save_anim = 0;
 var all_tiles = [];
 var all_items = [];
 var Dialouge_JSON = 0;
@@ -275,6 +276,13 @@ function render_ui() {
 
             tint(255, player.inv_warn_anim);
             image(inv_warn_img, 55, (canvasHeight - 64) - mod);
+            pop()
+        }
+        if(save_anim > 0){
+            save_anim -= 1;
+            push()
+            tint(255, save_anim);
+            image(save_img, canvasWidth - 128 + 5, canvasHeight - (128));
             pop()
         }
         if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).name == "cart_s") {

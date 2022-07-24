@@ -7,7 +7,7 @@ class Player extends MoveableEntity {
         this.lastFoodnum = 2;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = 0;
-        this.coins = 0;
+        this.coins = 100;
         this.hp = 100;
         this.dead = false;
         this.deaths = 0;
@@ -306,6 +306,7 @@ class Player extends MoveableEntity {
         if (millis() - this.lasteatMili > 100) {
             if (this.hunger < maxHunger) {  // player only eats when hungry
                 if (this.inv[this.hand].class == 'Eat' && checkForSpace(this, this.inv[this.hand].seed_num)) {
+                    EatSound.play();
                     this.hunger += this.inv[this.hand].hunger;
                     if (this.hunger > maxHunger) {
                         this.hunger = maxHunger;
@@ -368,7 +369,7 @@ class Player extends MoveableEntity {
             }
         }
         if (this.inv[this.hand] != 0 && this.inv[this.hand].class == 'Placeable') {
-            if (tile_name_to_num(this.touching.name) == (this.inv[this.hand].tile_need_num-1) || this.inv[this.hand].tile_need_num == 0) {
+            if (tile_name_to_num(this.touching.name) == this.inv[this.hand].tile_need_num || this.inv[this.hand].tile_need_num == 0) {
                 if(this.inv[this.hand].name == 'Robot1' || this.inv[this.hand].name == 'Robot2' || this.inv[this.hand].name == 'Robot3'){
                     if(this.looking(x, y) != undefined && this.looking(x, y).collide == false){
                         let temp = this.looking(x, y);
@@ -486,6 +487,7 @@ function takeInput() {
                     player.talking.current_dialouge = 0;
                     for(let i = 0; i < player.talking.dialouges.length; i++){
                         player.talking.dialouges[i].done = false;
+                        player.talking.dialouges[i].text_i = 0;
                         player.talking.dialouges[i].phrase = [];
                         if(player.talking.dialouges[i].new_phrase != -1){
                             player.talking.dialouges[i].phrase2 = player.talking.dialouges[i].new_phrase;
@@ -580,6 +582,7 @@ function takeInput() {
                         player.talking.current_dialouge = 0;
                         for(let i = 0; i < player.talking.dialouges.length; i++){
                             player.talking.dialouges[i].done = false;
+                            player.talking.dialouges[i].text_i = 0;
                             player.talking.dialouges[i].phrase = [];
                             if(player.talking.dialouges[i].new_phrase != -1){
                                 player.talking.dialouges[i].phrase2 = player.talking.dialouges[i].new_phrase;

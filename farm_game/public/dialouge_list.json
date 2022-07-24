@@ -13,8 +13,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "Did you know you can turn junk and seeds into compost, right here in this bucket?",
@@ -29,8 +28,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "Here I have some Junk in my pockets",
@@ -41,8 +39,7 @@
         }
       ],
       "hand_num": 0, 
-      "amount": 3,
-      "textSpeed": 10
+      "amount": 3
     }
   ],
   "Rick": [
@@ -59,8 +56,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "Do you want some strawberries?",
@@ -75,8 +71,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "Here you go.",
@@ -87,8 +82,7 @@
         }
       ],
       "hand_num": 0,
-      "amount": 2,
-      "textSpeed": 10
+      "amount": 2
     }
   ],
   "Meb": [
@@ -105,8 +99,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "How are you today?",
@@ -125,8 +118,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     }
   ],
   "Mario": [
@@ -143,8 +135,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "I may be the local plumber, but I don't take crap from nobody",
@@ -163,8 +154,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "Thanks, have a sprinkler",
@@ -175,8 +165,7 @@
         }
       ],
       "hand_num": 0, 
-      "amount": 1,
-      "textSpeed": 10
+      "amount": 1
     }
   ],
   "Garry": [
@@ -189,8 +178,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     }
   ],
   "Mira": [
@@ -207,8 +195,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "How are you today?",
@@ -227,8 +214,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     }
   ],
   "OldManJ": [
@@ -245,8 +231,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "How are you today?",
@@ -265,8 +250,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     }
   ],
   "Brandon": [
@@ -283,8 +267,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "How are you today?",
@@ -303,8 +286,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     }
   ],
   "Brent": [
@@ -321,8 +303,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "How are you today?",
@@ -341,8 +322,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     }
   ],
   "Blind_Pette": [
@@ -359,8 +339,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "How are you today?",
@@ -379,8 +358,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     }
   ],
   "James": [
@@ -397,8 +375,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "How are you today?",
@@ -417,8 +394,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     }
   ],
   "Liam": [
@@ -435,8 +411,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     },
     {
       "phrase": "How are you today?",
@@ -455,8 +430,7 @@
         }
       ],
       "hand_num": -1, 
-      "amount": 0,
-      "textSpeed": 10
+      "amount": 0
     }
   ]
 }

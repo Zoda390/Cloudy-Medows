@@ -17,6 +17,7 @@ function preload() {
     //Tile
     grass_tile_img = loadImage('images/tiles/Grass.png');
     plot_tile_img = loadImage('images/tiles/Plot.png');
+    plot_wet_tile_img = loadImage('images/tiles/wet_Plot.png');
     wall_tile_img = loadImage('images/tiles/Wood.png');
     concrete_tile_img = loadImage('images/tiles/Concrete_1.png');
     dirt_tile_img = loadImage('images/tiles/dirt.png');
@@ -169,9 +170,16 @@ function preload() {
     //Vinny
     vinny_tile_up_img = loadImage('images/npc/cowboy_rick_back.png');
     vinny_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
-    vinny_tile_down_img = loadImage('images/npc/Guy.png');
+    vinny_tile_down_img = loadImage('images/npc/vinny.png');
     vinny_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
-    vinny_tile_imgs = [[guy_tile_up_img], [guy_tile_right_img], [guy_tile_down_img], [guy_tile_left_img]];
+    vinny_tile_imgs = [[vinny_tile_up_img], [vinny_tile_right_img], [vinny_tile_down_img], [vinny_tile_left_img]];
+
+    //Christian
+    christian_tile_up_img = loadImage('images/npc/cowboy_rick_back.png');
+    christian_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    christian_down_img = loadImage('images/npc/christian.png');
+    christian_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    christian_tile_imgs = [[christian_tile_up_img], [christian_tile_right_img], [christian_down_img], [christian_left_img]];
 
     //robot
     battery_low_img = loadImage('images/ui/batteryIcon.png');
@@ -223,6 +231,7 @@ function preload() {
     fx_img = loadImage('images/ui/fx.png');
     skull_img = loadImage('images/ui/dealth_icon(128x128).png');
     inv_warn_img = loadImage('images/ui/warning_sign_icon.png');
+    save_img = loadImage('images/ui/Save-icon.gif');
 
     //Player
     up_move_img_1 = loadImage('images/player/Back_Move.png');
@@ -303,7 +312,6 @@ function preload() {
     watermelon_tile_imgs = [letuce_tile_img, watermelon_tile_2_img, watermelon_tile_3_img, watermelon_tile_4_img];
 
     //hemp
-    
     hemp_img = loadImage("images/items/hemp.png");
     hemp_tile_1_img = loadImage("images/tiles/hemp_1.png");
     hemp_tile_3_img = loadImage("images/tiles/hemp_3.png");
@@ -334,7 +342,7 @@ function preload() {
     moneySound = new Sound(['audio/money.wav','audio/Money1.wav','audio/Money2.wav','audio/Money3.wav','audio/Money4.wav']);
     EatSound = new Sound(['audio/Eat1.wav','audio/Eat2.wav']);
     ErrorSound = new Sound(['audio/error.wav']);
-    PlantingSound= new Sound(['audio/Planting.wav','audio/planted.wav']);
+    PlantingSound = new Sound(['audio/Planting.wav','audio/planted.wav']);
 
     background_img = loadImage('images/Skyline.gif');
     fore_1_img = loadImage('images/foreground/fore1.png');
@@ -348,6 +356,7 @@ function preload() {
     fore_red_building_img = loadImage('images/foreground/Red_building_low.png');
     fore_red_grown_building_img = loadImage('images/foreground/red_building_low2.png');
     fore_gray_building_img = loadImage('images/foreground/building_gray.png');
+    fore_street_img = loadImage('images/foreground/street.png')
 
     /*
     class           obj
@@ -453,7 +462,8 @@ function preload() {
     /*89*/command_pause_img,
     /*90*/[fore_1_img, fore_2_img, fore_4_img, fore_6_img, fore_empty_img],
     /*91*/[fore_cloud_2_img],
-    /*92*/[fore_building_img, fore_red_building_img, fore_red_grown_building_img, fore_gray_building_img]
+    /*92*/[fore_building_img, fore_red_building_img, fore_red_grown_building_img, fore_gray_building_img, fore_street_img],
+    /*93*/[plot_wet_tile_img]
 ];
    
     all_tiles = [
@@ -556,7 +566,7 @@ function preload() {
         /*30*/{name: 'Add from Chest Command', png: 85, command: 'add_from_chest', class: 'Command'},
         /*31*/{name: 'Veggy Oil', png: 86, price: 7, class: 'Item'},
         /*32*/{name: 'Shovel', png: 87, class: 'Tool'},
-        /*33*/{name: 'Backpack', png: 88, inv: [0, { num: 23, amount: 2}, { num: 26, amount: 4}, { num: 29, amount: 1}, { num: 30, amount: 1}, {num: 18, amount: 1}, {num: 27, amount: 1}, {num: 28, amount: 1}, {num: 21, amount: 999}, {num: 22, amount: 4}, 0, { num: 34, amount: 2}], class: 'Backpack'},
+        /*33*/{name: 'Backpack', png: 88, inv: [{ num: 19, amount: 8}, { num: 23, amount: 4}, { num: 26, amount: 4}, { num: 29, amount: 1}, { num: 30, amount: 1}, {num: 18, amount: 1}, {num: 27, amount: 1}, {num: 28, amount: 1}, {num: 21, amount: 8}, {num: 22, amount: 8}, { num: 19, amount: 8}, { num: 34, amount: 4}], class: 'Backpack'},
         /*34*/{name: '1 Day Pause Command', png: 89, command: '1day_pause', class: 'Command'}
     ];
 
@@ -1094,4 +1104,5 @@ function newWorld(){
     days = 0;
     current_reply = 0;
     temp_move_bool = true;
+    save_anim = 0;
 }

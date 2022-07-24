@@ -2,11 +2,15 @@
 class Sound {
     constructor(srcarray) {
         this.src = srcarray;
+        this.var = 0;
     }
     play() {
         this.sound = document.createElement("audio")
         this.sound.setAttribute("class","soundfx");
-        this.sound.src = this.src[round(random(0,this.src.length-1))];
+        this.var = round(random(0,this.src.length-1))
+        console.log(this.src.length);
+        console.log(this.var);
+        this.sound.src = this.src[this.var];
         this.sound.setAttribute("preload", "none");
         this.sound.setAttribute("controls", "none");
         this.sound.style.display = "none";

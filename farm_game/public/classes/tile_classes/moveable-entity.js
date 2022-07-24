@@ -63,7 +63,7 @@ class MoveableEntity extends Entity {
             }
         }
         if (this.inv[this.hand] != 0 && this.inv[this.hand].class == 'Placeable') {
-            if (tile_name_to_num(this.under_tile.name) == (this.inv[this.hand].tile_need_num-1) || this.inv[this.hand].tile_need_num == 0) {
+            if (tile_name_to_num(this.under_tile.name) == this.inv[this.hand].tile_need_num || this.inv[this.hand].tile_need_num == 0) {
                 if(this.inv[this.hand].name == 'Robot1' || this.inv[this.hand].name == 'Robot2' || this.inv[this.hand].name == 'Robot3'){
                     if(this.looking(x, y) != undefined && this.looking(x, y).collide == false){
                         let temp = this.looking(x, y);

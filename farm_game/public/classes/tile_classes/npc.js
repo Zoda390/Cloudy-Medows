@@ -3,7 +3,7 @@ class NPC extends GridMoveEntity {
     constructor(name, png, x, y, inv = [], hand = 0, facing = 3, under_tile_num, instructions = [], moving_timer) {
         super(name, png, x, y, inv, hand, facing, under_tile_num, instructions, moving_timer);
         this.class = 'NPC';
-        this.dialouges = Dialouge_JSON[this.name];
+        this.dialouges = JSON.parse(JSON.stringify(Dialouge_JSON[this.name]));
         for(let i = 0; i < this.dialouges.length; i++){
             this.dialouges[i] = new Dialouge(this.dialouges[i].phrase, this.dialouges[i].replies, this.dialouges[i].hand_num, this.dialouges[i].amount);
         }
@@ -25,8 +25,10 @@ class NPC extends GridMoveEntity {
         this.instructions = obj.instructions;
         this.current_instruction = obj.current_instruction;
         this.move_bool = obj.move_bool;
-        for(let i = 0; i < this.dialouges.length; i++){
-            this.dialouges[i] = new Dialouge(obj.dialouges[i].phrase, obj.dialouges[i].replies, obj.dialouges[i].hand_num, obj.dialouges[i].amount);
+        for(let i = 0; i < obj.dialouges.length; i++){
+            this.dialouges[i].phrase2 = obj.dialouges[i].phrase2;
+            this.dialouges[i].replies = obj.dialouges[i].replies;
+            this.dialouges[i].amount = obj.dialouges[i].amount;
         }
         for(let i = 0; i < obj.inv.length; i++){
             if(obj.inv[i] != 0 && this.inv[i] != 0){

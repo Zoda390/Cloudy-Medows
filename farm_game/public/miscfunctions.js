@@ -1,6 +1,3 @@
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 function start(){
     startButton.hide();
@@ -142,6 +139,7 @@ function checkForSpace(to, item_obj_num){
     }
     if(!check){
         player.inv_warn_anim = 255;
+        ErrorSound.play();
     }
     return check;
 }
@@ -230,6 +228,7 @@ function new_item_from_num(num, amount) {
 }
 
 function saveAll(){
+    save_anim = 255;
     if(player.talking == 0){
         player.save()
     }
