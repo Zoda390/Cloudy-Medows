@@ -6,8 +6,26 @@ function start(){
     startButton.hide();
     optionsButton.hide();
     creditsButton.hide();
+    clearButton.hide();
     title_screen = false;
     paused = false;
+    levels[currentLevel_y][currentLevel_x].level_name_popup = true;
+}
+
+/*
+button types   
+wasd and <- up v -> down
+12345678
+
+interact 
+eat secoundary interact 
+
+inventory quick move 
+
+*/
+function ChangeText(button,key){
+   // button.getattribute.text(key)
+
 }
 
 function showOptions(){
@@ -16,19 +34,22 @@ function showOptions(){
     strokeWeight(5);
     fill(187, 132, 75);
     rectMode(CENTER);
-    rect(((4*canvasWidth)/5)-10, canvasHeight/2, 300, canvasHeight);
+    rect(((4*canvasWidth)/5)+50, canvasHeight/2, 300, canvasHeight);
     fill(255);
     stroke(0);
     strokeWeight(2);
     textFont(player_2);
     textAlign(CENTER, CENTER);
     textSize(30);
-    text('Options', ((4*canvasWidth)/5)-10, 30);
+    text('Options', ((4*canvasWidth)/5)+40, 30);
     musicSlider.show();
     fxSlider.show();
     musicSlider.position(((4*canvasWidth)/5)-30, (canvasHeight/6)-25);
     fxSlider.position(((4*canvasWidth)/5)-30, (canvasHeight/6)+15);
 
+
+    clearButton.show();
+    //deleate data button
     image(music_note_img, ((4*canvasWidth)/5)-80, (canvasHeight/6)-50);
     image(fx_img, ((4*canvasWidth)/5)-80, (canvasHeight/6)-10);
     pop()
@@ -50,6 +71,7 @@ function showPaused(){
     text('Paused', canvasWidth/2, (canvasHeight/5)-20);
     musicSlider.show();
     fxSlider.show();
+    QuitButton.show();
     musicSlider.position((canvasWidth/2)-10, (canvasHeight/5)+25);
     fxSlider.position((canvasWidth/2)-10, (canvasHeight/5)+65);
 
@@ -118,7 +140,7 @@ function checkForSpace(to, item_obj_num){
             return check;
         }
     }
-    if(!check && (player.talking == 0 || player.talking.class == 'NPC' || player.talking.class == 'Shop')){
+    if(!check){
         player.inv_warn_anim = 255;
     }
     return check;
@@ -135,7 +157,7 @@ function item_name_to_num(item_name) {
 function tile_name_to_num(tile_name) {
     for (let i = 0; i < all_tiles.length; i++) {
         if (tile_name == all_tiles[i].name) {
-            return i;
+            return i+1;
         }
     }
 }
@@ -206,3 +228,64 @@ function new_item_from_num(num, amount) {
         console.error('item created from ' + num + ' doesnt exist');
     }
 }
+
+function saveAll(){
+    if(player.talking == 0){
+        player.save()
+    }
+    localData.set('current_lvlX', currentLevel_x);
+    localData.set('current_lvlY', currentLevel_y);
+    localData.set('Day_and_time', {days: days, time: time});
+    for(let i = 0; i < levels.length; i++){
+        for(let j = 0; j < levels[i].length; j++){
+            for(let y = 0; y < levels[i][j].map.length; y++){
+                for(let x = 0; x < levels[i][j].map[y].length; x++){
+                    if (levels[i][j].map[y][x] != 0){
+                        levels[i][j].map[y][x].getReadyForSave();
+                    }
+                }
+            }
+            localData.set(levels[i][j].name, levels[i][j]);
+        }
+    }
+}
+
+function loadAll(){
+    if(localData.get('player') != null ){
+        console.log(localData.get('player'));
+        player.load(localData.get('player'));
+    }
+    if(localData.get('current_lvlX') != null){
+        currentLevel_x = localData.get('current_lvlX');
+    }
+    if(localData.get('current_lvlY') != null){
+        currentLevel_y = localData.get('current_lvlY');
+    }
+    if(localData.get('Day_and_time') != null){
+        days = localData.get('Day_and_time').days;
+    }
+    for(let i = 0; i < levels.length; i++){
+        for(let j = 0; j < levels[i].length; j++){
+            if(levels[i][j] != 0){
+                loadLevel(levels[i][j]);
+            }
+        }
+    }
+}
+
+function loadLevel(level){
+    if(localData.get(level.name) != null){
+        let newLvl = localData.get(level.name)
+        level.lights = [];
+        level.ladybugs = newLvl.ladybugs;
+        for(let i = 0; i < newLvl.map.length; i++){
+            for(let j = 0; j < newLvl.map[i].length; j++){
+                if(newLvl.map[i][j] != 0 && level.map[i][j] != 0){
+                    level.map[i][j] = new_tile_from_num(tile_name_to_num(newLvl.map[i][j].name), newLvl.map[i][j].pos.x, newLvl.map[i][j].pos.y);
+                    level.map[i][j].load(newLvl.map[i][j]);
+                }
+            }
+        }
+    }
+}
+

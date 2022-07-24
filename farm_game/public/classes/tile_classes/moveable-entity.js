@@ -11,15 +11,11 @@ class MoveableEntity extends Entity {
 
     render() {
         push();
-        if (this.border == true) {
-            noFill();
-            rect(this.pos.x, this.pos.y, tileSize, tileSize);
-        }
         imageMode(CENTER);
         if(this.under_tile != 0){
             this.under_tile.render();
         }
-        image(this.png[this.facing][0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); //[this.anim]
+        image(all_imgs[this.png][this.facing][0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); // [0] => [this.anim] if we ever get more frames
         pop();
     }
 
@@ -46,7 +42,7 @@ class MoveableEntity extends Entity {
 
     onInteract(x, y) {
         if (this.under_tile.class == 'Plant') {
-            if(this.under_tile.age == this.under_tile.png.length - 2){
+            if(this.under_tile.age == all_imgs[this.under_tile.png].length - 2){
                 if(checkForSpace(this, this.under_tile.eat_num)){
                     addItem(this, this.under_tile.eat_num, 1 + levels[y][x].ladybugs);
                     this.under_tile = new_tile_from_num(3, this.under_tile.pos.x, this.under_tile.pos.y);
@@ -141,6 +137,34 @@ class MoveableEntity extends Entity {
             if(checkForSpace(this, 4)){
                 addItem(this, 4, 1);
                 this.under_tile = new_tile_from_num(3, this.under_tile.pos.x, this.under_tile.pos.y);
+            }
+        }
+    }
+
+    load(obj){
+        this.age = obj.age;
+        this.hand = obj.hand;
+        this.under_tile = new_tile_from_num(tile_name_to_num(obj.under_tile.name), obj.under_tile.pos.x, obj.under_tile.pos.y);
+        this.under_tile.load(obj.under_tile);
+        this.anim = obj.anim;
+        this.facing = obj.facing;
+        this.moving_timer = obj.moving_timer;
+        this.max_moving_timer = this.moving_timer;
+        for(let i = 0; i < obj.inv.length; i++){
+            if(obj.inv[i] != 0 && this.inv[i] != 0){
+                this.inv[i] = new_item_from_num(item_name_to_num(obj.inv[i].name), obj.inv[i].amount);
+                if(this.inv[i].class == 'Backpack'){
+                    this.inv[i].load(obj.inv[i])
+                }
+            }
+            else if (obj.inv[i] != 0 && this.inv[i] == 0){
+                this.inv[i] = new_item_from_num(item_name_to_num(obj.inv[i].name), obj.inv[i].amount);
+                if(this.inv[i].class == 'Backpack'){
+                    this.inv[i].load(obj.inv[i])
+                }
+            }
+            else if (obj.inv[i] == 0 && this.inv[i] != 0){
+                this.inv[i] = 0;
             }
         }
     }

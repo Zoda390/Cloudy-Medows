@@ -9,7 +9,7 @@ class Item {
 
 	render(x, y) {
 		push();
-		image(this.png, x, y);
+		image(all_imgs[this.png], x, y);
 		fill(255);
 		let amountS = str(this.amount)
 		textSize(20 - ((amountS.length-1)*8));
@@ -18,6 +18,18 @@ class Item {
 		stroke(0)
 		strokeWeight(1);
 		text(this.amount, x + 51, y + 51 + (amountS.length*2));
+
+		if(mouseX >= x && mouseX <= x+64 && mouseY >= y && mouseY <= y+64){
+			fill(0);
+			amountS = str(this.name)
+			rectMode(CENTER)
+			rect(x+32,y-7,((amountS.length)*((amountS.length > 5) ? 6:5)),7);
+			textSize(5);
+			textFont(player_2);
+			fill(255);
+			text(this.name, x+32, y-7);
+		}
+
 		pop();
 	}
 }
@@ -105,4 +117,20 @@ class Backpack extends Item {
         }
         pop()
     }
+
+	load(obj){
+		for(let i = 0; i < obj.inv.length; i++){
+			for(let j = 0; j < obj.inv[i].length; j++){
+				if(obj.inv[i][j] != 0 && this.inv[i][j] != 0){
+					this.inv[i][j] = new_item_from_num(item_name_to_num(obj.inv[i][j].name), obj.inv[i][j].amount);
+				}
+				else if (obj.inv[i][j] != 0 && this.inv[i][j] == 0){
+					this.inv[i][j] = new_item_from_num(item_name_to_num(obj.inv[i][j].name), obj.inv[i][j].amount);
+				}
+				else if (obj.inv[i][j] == 0 && this.inv[i][j] != 0){
+					this.inv[i][j] = 0;
+				}
+			}
+		}
+	}
 }

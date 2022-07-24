@@ -1,13 +1,13 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y,inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 33, amount: 1}, { num: 11, amount: 10}, 0, 0, 0, 0]) {
+    constructor(name, png, x, y, inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 33, amount: 1}, { num: 11, amount: 10}, 0, 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
-        this.hunger = maxHunger-5;
+        this.hunger = maxHunger;
         this.lastFoodnum = 2;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = 0;
-        this.coins = 0;
+        this.coins = 9999999;
         this.hp = 100;
         this.dead = false;
         this.deaths = 0;
@@ -26,26 +26,56 @@ class Player extends MoveableEntity {
         this.money_anim_amount = 0;
         this.inv_warn_anim = 0;
         this.class = 'Player';
-
-        //load
-        if(localData.get('coins') != null ){
-            this.coins = localData.get('coins')
-        }
-
-        
-        if(localData.get('inv') != null){
-            
-        }
-
     }
+
+    load(obj){
+        this.pos.x = obj.pos.x;
+        this.pos.y = obj.pos.y;
+        this.facing = obj.facing;
+        this.transphase = obj.transphase;
+        this.ticks = obj.ticks;
+        this.a = obj.a;
+        this.done = obj.done;
+        this.money_anim = obj.money_anim;
+        this.money_anim_amount = obj.money_anim_amount;
+        this.inv_warn_anim = obj.inv_warn_anim;
+        this.quests = [];
+        this.current_quest = obj.current_quest;
+        this.hunger = obj.hunger;
+        this.lastFoodnum = obj.lastFoodnum;
+        this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
+        this.hunger_counter = obj.hunger_counter;
+        this.coins = obj.coins;
+        this.hp = obj.hp;
+        this.dead = obj.dead;
+        this.deaths = obj.deaths;
+        this.op = obj.op;
+        this.touching = 0;
+        this.oldlooking_name = obj.oldlooking_name;
+        for(let i = 0; i < obj.inv.length; i++){
+            if(obj.inv[i] != 0 && this.inv[i] != 0){
+                this.inv[i] = new_item_from_num(item_name_to_num(obj.inv[i].name), obj.inv[i].amount);
+                if(this.inv[i].class == 'Backpack'){
+                    this.inv[i].load(obj.inv[i])
+                }
+            }
+            else if (obj.inv[i] != 0 && this.inv[i] == 0){
+                this.inv[i] = new_item_from_num(item_name_to_num(obj.inv[i].name), obj.inv[i].amount);
+                if(this.inv[i].class == 'Backpack'){
+                    this.inv[i].load(obj.inv[i])
+                }
+            }
+            else if (obj.inv[i] == 0 && this.inv[i] != 0){
+                this.inv[i] = 0;
+            }
+        }
+    }
+
     save(){
-        localData.set('coins',this.coins);   
-        //localData.set('inv',this.inv);    
+        localData.set('player', this);
     }
 
     render() {
-
-        this.save()
         if(this.looking(currentLevel_x, currentLevel_y) != undefined && this.looking(currentLevel_x, currentLevel_y) != 0){
             if(this.oldlooking_name != this.looking(currentLevel_x, currentLevel_y).name && ((this.looking(currentLevel_x, currentLevel_y).class == 'NPC' || this.looking(currentLevel_x, currentLevel_y).class == 'Shop' || this.looking(currentLevel_x, currentLevel_y).class == 'Chest' || this.looking(currentLevel_x, currentLevel_y).class == 'Robot'))){
                 temp_move_bool = this.looking(currentLevel_x, currentLevel_y).move_bool;
@@ -76,6 +106,7 @@ class Player extends MoveableEntity {
             this.hp -= 10;
             if(this.hp < 0){
                 this.hp = 0;
+                
             }
             tint(255, 0, 0, 100);
             image(player_imgs[this.facing][this.anim], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
@@ -90,6 +121,11 @@ class Player extends MoveableEntity {
             //turn player death screen on
             if(!this.done){
                 push();
+                
+                robotPlayButton.hide();
+                robotPauseButton.hide();
+                robotBoomButton.hide();
+
                 fill(10, this.a);
                 rect(0, 0, canvasWidth, canvasHeight);
                 tint(255, this.a);
@@ -311,7 +347,7 @@ class Player extends MoveableEntity {
             return;
         }
         if (this.touching.class == 'Plant') {
-            if(this.touching.age == this.touching.png.length - 2){
+            if(this.touching.age == all_imgs[this.touching.png].length - 2){
                 if(checkForSpace(this, this.touching.eat_num)){
                     addItem(this, this.touching.eat_num, 1 + levels[y][x].ladybugs);
                     levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
@@ -322,12 +358,16 @@ class Player extends MoveableEntity {
             }
         }
         if (this.looking(x, y) != undefined && this.looking(x, y).name == 'cart_s') {
+            var current_amount = 1
             if (this.inv[this.hand].price != 0 && this.inv[this.hand] != 0) {
-                player.coins += this.inv[this.hand].price;
+                if(keyIsDown(special_key)){
+                    current_amount = this.inv[this.hand].amount;
+                }
+                player.coins += this.inv[this.hand].price * current_amount;
                 moneySound.play();
                 this.money_anim = 255;
-                this.money_anim_amount += this.inv[this.hand].price;
-                this.inv[this.hand].amount -= 1;
+                this.money_anim_amount += this.inv[this.hand].price*current_amount;
+                this.inv[this.hand].amount -= current_amount;
                 if (this.inv[this.hand].amount == 0) {
                     this.inv[this.hand] = 0;
                 }
@@ -423,6 +463,7 @@ var move_down_button = 83; //s
 var interact_button = 69;  //e
 var eat_button = 81;       //q
 var pause_button = 27;     //esc
+var special_key = 16;
 function takeInput() {
     if (title_screen) {
         if (keyIsDown(interact_button)) {

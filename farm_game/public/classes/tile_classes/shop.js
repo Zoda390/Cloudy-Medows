@@ -9,13 +9,9 @@ class Shop extends Entity {
 
     render() {
         push()
-        if (this.border == true) {
-            noFill();
-            rect(this.pos.x, this.pos.y, tileSize, tileSize);
-        }
         imageMode(CENTER);
         this.under_tile.render()
-        image(this.png[this.variant], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        image(all_imgs[this.png][this.variant], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
         pop()
     }
 
@@ -53,7 +49,7 @@ class Shop extends Entity {
             else{
                 stroke(0);
             }
-            image(this.inv[i].png, (canvasWidth / 20) + 10, (canvasHeight - 100) + (i * 32), 32, 32);
+            image(all_imgs[this.inv[i].png], (canvasWidth / 20) + 10, (canvasHeight - 100) + (i * 32), 32, 32);
             text(this.inv[i].name, (canvasWidth / 20) + 42, (canvasHeight - 100) + (i * 32) + 8);
             text(this.inv[i].price, (canvasWidth / 20) + 282, (canvasHeight - 100) + (i * 32) + 8);
             text(this.inv[i].amount, (canvasWidth / 20) + 442, (canvasHeight - 100) + (i * 32) + 8);
@@ -67,6 +63,32 @@ class Shop extends Entity {
                 this.inv[i].amount += round(random(0, 3));
             }
             
+        }
+    }
+
+    load(obj){
+        this.age = obj.age;
+        this.hand = obj.hand;
+        this.under_tile = new_tile_from_num(tile_name_to_num(obj.under_tile.name), obj.under_tile.pos.x, obj.under_tile.pos.y);
+        this.under_tile.load(obj.under_tile);
+        for(let i = 0; i < obj.inv.length; i++){
+            if(obj.inv[i] != 0 && this.inv[i] != 0){
+                this.inv[i] = new_item_from_num(item_name_to_num(obj.inv[i].name), obj.inv[i].amount);
+                this.inv[i].price = obj.inv[i].price;
+                if(this.inv[i].class == 'Backpack'){
+                    this.inv[i].load(obj.inv[i])
+                }
+            }
+            else if (obj.inv[i] != 0 && this.inv[i] == 0){
+                this.inv[i] = new_item_from_num(item_name_to_num(obj.inv[i].name), obj.inv[i].amount);
+                this.inv[i].price = obj.inv[i].price;
+                if(this.inv[i].class == 'Backpack'){
+                    this.inv[i].load(obj.inv[i])
+                }
+            }
+            else if (obj.inv[i] == 0 && this.inv[i] != 0){
+                this.inv[i] = 0;
+            }
         }
     }
 }

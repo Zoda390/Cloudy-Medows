@@ -2,20 +2,20 @@ class Foreground {
     constructor(type, x, y){
         this.type = type;
         if(this.type == 1){ // Front of the building
-            this.png = [fore_1_img, fore_2_img, fore_4_img, fore_6_img, fore_empty_img];
+            this.png = 90;
         }
         if(this.type == 2){ // Clouds
-            this.png = [fore_cloud_2_img];
+            this.png = 91;
         }
         if(this.type == 3){ // buildings
-            this.png = [fore_building_img, fore_red_building_img, fore_red_grown_building_img, fore_gray_building_img];
+            this.png = 92;
         }
-        this.variant = round(random(0, this.png.length-1));
+        this.variant = round(random(0, all_imgs[this.png].length-1));
         this.pos = createVector(x, y);
     }
 
     render(){
-        image(this.png[this.variant], this.pos.x, this.pos.y);
+        image(all_imgs[this.png][this.variant], this.pos.x, this.pos.y);
     }
 }
 class Level {

@@ -16,7 +16,6 @@ class Dialouge {
     }
 
     async render(name, inv){
-        push();
         stroke(149, 108, 65);
         strokeWeight(5);
         fill(187, 132, 75);
@@ -50,8 +49,6 @@ class Dialouge {
                                 }
                                 this.new_replies = [];
                                 this.new_replies[0] = {phrase: 'Oh ok', dialouge_num: -1};
-                            }else{
-                                // no space in inventory 
                             }
                         }
                         else {
@@ -62,6 +59,7 @@ class Dialouge {
                         }
                     }
                 }
+                
                 await sleep(this.textSpeed);
             }
         }
@@ -94,6 +92,5 @@ class Dialouge {
                 }
             }
         }
-        pop();
     }
 }

@@ -17,8 +17,8 @@ class Plant extends Tile {
             rect(this.pos.x, this.pos.y, tileSize, tileSize);
         }
         imageMode(CENTER);
-        image(all_tiles[3 - 1].png[0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
-        image(this.png[this.age], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        image(all_imgs[2][0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        image(all_imgs[this.png][this.age], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
         if(this.age == this.png.length - 2){
             image(done_dot, this.pos.x + (tileSize/2), this.pos.y - (tileSize/4));
         }

@@ -1,12 +1,12 @@
 
 class Sound {
-    constructor(src) {
-        this.src = src;
+    constructor(srcarray) {
+        this.src = srcarray;
     }
     play() {
         this.sound = document.createElement("audio")
         this.sound.setAttribute("class","soundfx");
-        this.sound.src = this.src;
+        this.sound.src = this.src[round(random(0,this.src.length-1))];
         this.sound.setAttribute("preload", "none");
         this.sound.setAttribute("controls", "none");
         this.sound.style.display = "none";
@@ -28,7 +28,7 @@ class MusicPlayer {
         this.player = document.createElement("audio");
         this.tracks = tracks;
         
-        this.currentTrack = 0;
+        this.currentTrack = round(random(0,this.tracks.length-1));
         this.player.src = tracks[this.currentTrack];
         //this.player.setAttribute("preload", "auto");
         this.player.setAttribute("controls", "none");
@@ -55,13 +55,8 @@ class MusicPlayer {
         this.player.volume = musicSlider.value();
         //console.log(this.player.currentTime + " Not " + (this.player.duration - 0.1) + " Track " + this.currentTrack);
         if( this.player.currentTime >= this.player.duration - 0.1){ //check if done
-         //   console.log(this.player.currentTime + " DONE " + this.player.duration)
-            this.currentTrack++; // go to the next track
-            
-            if(this.currentTrack >=  this.tracks.length-1){
-                this.currentTrack = 0; // all tracks playied
-            }
-            this.player.src = this.tracks[this.currentTrack];
+
+            this.player.src = this.tracks[round(random(0,this.tracks.length))];
             this.play()
         }
 

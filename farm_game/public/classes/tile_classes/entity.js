@@ -16,13 +16,9 @@ class Entity extends Tile {
         }
         this.class = "Entity";
     }
-
+    
     render() {
         push();
-        if (this.border == true) {
-            noFill();
-            rect(this.pos.x + tileSize / 2, this.pos.y + tileSize / 2, tileSize, tileSize);
-        }
         imageMode(CENTER);
         if(this.under_tile != 0){
             this.under_tile.render();
@@ -31,17 +27,41 @@ class Entity extends Tile {
             this.under_tile.grow(x,y);
         }*/
         if(paused){
-            this.png.pause();
+            all_imgs[this.png].pause();
         }
         else{
-            this.png.play();
+            all_imgs[this.png].play();
         }
         
-        image(this.png, this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        image(all_imgs[this.png], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
         pop();
     }
 
     tileTouching(x, y) {
         return levels[y][x].map[this.pos.y / tileSize][this.pos.x / tileSize]
+    }
+
+    load(obj){
+        this.age = obj.age;
+        this.hand = obj.hand;
+        this.under_tile = new_tile_from_num(tile_name_to_num(obj.under_tile.name), obj.under_tile.pos.x, obj.under_tile.pos.y);
+        this.under_tile.load(obj.under_tile);
+        for(let i = 0; i < obj.inv.length; i++){
+            if(obj.inv[i] != 0 && this.inv[i] != 0){
+                this.inv[i] = new_item_from_num(item_name_to_num(obj.inv[i].name), obj.inv[i].amount);
+                if(this.inv[i].class == 'Backpack'){
+                    this.inv[i].load(obj.inv[i])
+                }
+            }
+            else if (obj.inv[i] != 0 && this.inv[i] == 0){
+                this.inv[i] = new_item_from_num(item_name_to_num(obj.inv[i].name), obj.inv[i].amount);
+                if(this.inv[i].class == 'Backpack'){
+                    this.inv[i].load(obj.inv[i])
+                }
+            }
+            else if (obj.inv[i] == 0 && this.inv[i] != 0){
+                this.inv[i] = 0;
+            }
+        }
     }
 }

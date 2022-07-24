@@ -4,8 +4,8 @@ class GridMoveEntity extends MoveableEntity{
         super(name, png, x, y, inv, hand, facing, under_tile_num, moving_timer);
         this.instructions = JSON.parse(JSON.stringify(instructions));
         this.current_instruction = 0;
-        this.class = 'GridMoveEntity';
         this.move_bool = true;
+        this.class = 'GridMoveEntity';
     }
 
     move(x, y) {
@@ -116,10 +116,41 @@ class GridMoveEntity extends MoveableEntity{
             }
 
             this.anim += 1;
-            if (this.anim > this.png[this.facing].length) {
+            if (this.anim > all_imgs[this.png][this.facing].length) {
                 this.anim = 0;
             }
             this.moving_timer = this.max_moving_timer;
+        }
+    }
+
+    load(obj){
+        this.age = obj.age;
+        this.hand = obj.hand;
+        this.under_tile = new_tile_from_num(tile_name_to_num(obj.under_tile.name), obj.under_tile.pos.x, obj.under_tile.pos.y);
+        this.under_tile.load(obj.under_tile);
+        this.anim = obj.anim;
+        this.facing = obj.facing;
+        this.moving_timer = obj.moving_timer;
+        this.max_moving_timer = this.moving_timer;
+        this.instructions = obj.instructions;
+        this.current_instruction = obj.current_instruction;
+        this.move_bool = obj.move_bool;
+        for(let i = 0; i < obj.inv.length; i++){
+            if(obj.inv[i] != 0 && this.inv[i] != 0){
+                this.inv[i] = new_item_from_num(item_name_to_num(obj.inv[i].name), obj.inv[i].amount);
+                if(this.inv[i].class == 'Backpack'){
+                    this.inv[i].load(obj.inv[i])
+                }
+            }
+            else if (obj.inv[i] != 0 && this.inv[i] == 0){
+                this.inv[i] = new_item_from_num(item_name_to_num(obj.inv[i].name), obj.inv[i].amount);
+                if(this.inv[i].class == 'Backpack'){
+                    this.inv[i].load(obj.inv[i])
+                }
+            }
+            else if (obj.inv[i] == 0 && this.inv[i] != 0){
+                this.inv[i] = 0;
+            }
         }
     }
 }

@@ -33,4 +33,24 @@ class Chest extends Entity{
         }
         pop()
     }
+
+    load(obj){
+        this.age = obj.age;
+        this.hand = obj.hand;
+        this.under_tile = new_tile_from_num(tile_name_to_num(obj.under_tile.name), obj.under_tile.pos.x, obj.under_tile.pos.y);
+        this.under_tile.load(obj.under_tile);
+        for(let i = 0; i < obj.inv.length; i++){
+			for(let j = 0; j < obj.inv[i].length; j++){
+				if(obj.inv[i][j] != 0 && this.inv[i][j] != 0){
+					this.inv[i][j] = new_item_from_num(item_name_to_num(obj.inv[i][j].name), obj.inv[i][j].amount);
+				}
+				else if (obj.inv[i][j] != 0 && this.inv[i][j] == 0){
+					this.inv[i][j] = new_item_from_num(item_name_to_num(obj.inv[i][j].name), obj.inv[i][j].amount);
+				}
+				else if (obj.inv[i][j] == 0 && this.inv[i][j] != 0){
+					this.inv[i][j] = 0;
+				}
+			}
+		}
+    }
 }

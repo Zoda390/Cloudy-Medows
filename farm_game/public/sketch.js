@@ -26,11 +26,11 @@ var all_tiles = [];
 var all_items = [];
 var Dialouge_JSON = 0;
 var paused = false;
-var musicSlider = 0;
-var fxSlider = 0;
 var mouse_item = 0;
 var localData = localDataStorage( 'passphrase.life' )
 var musicplayer = {};
+var musicSlider;
+var fxSlider;
 var startButton;
 var optionsButton;
 var creditsButton;
@@ -70,10 +70,14 @@ function draw() {
         }
         if(creditsOn){
             showCredits();
+        }else{
+
+       
         }
     }
     else {
-
+        clearButton.hide()
+        QuitButton.hide()
         startButton.hide();
         optionsButton.hide();
         creditsButton.hide();
@@ -118,6 +122,7 @@ function draw() {
                     time = 200;
                     timephase = 1;
                     days += 1;
+                    saveAll()
                     newDayChime.play();
                 }
                 if (time <= 0) {
@@ -159,6 +164,7 @@ function render_ui() {
         if (player.talking.class == 'NPC' ){
             player.talking.move_bool = false;
             player.talking.dialouge_render();
+            noStroke();
         }
         else if (player.talking.class == 'Shop'){
             player.talking.shop_render();
@@ -174,7 +180,20 @@ function render_ui() {
         fill(0);
         textAlign(LEFT, TOP);
         image(coin_img, canvasWidth - 140, (canvasHeight - 185));
-        text(player.coins, canvasWidth - 110, (canvasHeight - 182.5));
+        let amountS = str(player.coins)
+        if(player.coins > 9999999){
+            let amountS = str(round(player.coins/1000000) + 'B')
+            textSize(32.5 - ((amountS.length-4)*3));
+            text(round(player.coins/1000000) + 'B', (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5) + ((amountS.length-4)*2.8));
+        }
+        else if(player.coins > 9999){
+            textSize(32.5 - ((amountS.length-4)*3));
+            text(player.coins, canvasWidth - 110, (canvasHeight - 182.5) - ((amountS.length-4)*3));
+        }
+        else{
+            textSize(32.5);
+            text(player.coins, canvasWidth - 110, (canvasHeight - 182.5));
+        }
     }
     else{
         if(player.talking != undefined && player.talking != 0){
@@ -191,23 +210,7 @@ function render_ui() {
         }
         image(inv_img, (canvasWidth / 2) - (512 / 2), canvasHeight - 64);
         image(inv_hand_img, (canvasWidth / 2) - (512 / 2) + (64 * player.hand), canvasHeight - 64);
-        
-        for (let i = 0; i < 8; i++) {
-            if (player.inv[i] == undefined) {
-                player.inv[i] = 0;
-            }
-            if (player.inv[i] != 0) {
-                player.inv[i].render(112 + (i * 64), canvasHeight - 64);
-                if (i == player.hand) {
-                    push();
-                    fill(255);
-                    textSize(13);
-                    textAlign(CENTER, CENTER);
-                    text(player.inv[i].name, (9 * canvasWidth / 16), (canvasHeight - 80));
-                    pop();
-                }
-            }
-        }
+
         for (let i = 0; i < maxHunger; i++) {
             image(hunger_e, (canvasWidth / 2) - (512 / 2) + (30 * i), (canvasHeight - 100));
         }
@@ -219,7 +222,21 @@ function render_ui() {
         fill(0);
         textAlign(LEFT, TOP);
         image(coin_img, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 95));
-        text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
+
+        let amountS = str(player.coins)
+        if(player.coins > 9999999){
+            let amountS = str(round(player.coins/1000000) + 'B')
+            textSize(32.5 - ((amountS.length-4)*3));
+            text(round(player.coins/1000000) + 'B', (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5) + ((amountS.length-4)*2.8));
+        }
+        else if(player.coins > 9999){
+            textSize(32.5 - ((amountS.length-4)*3));
+            text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5) + ((amountS.length-4)*2.8));
+        }
+        else{
+            textSize(32.5);
+            text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
+        }
         if(mouse_item != 0){
             mouse_item.render(mouseX-32, mouseY-32);
         }
@@ -227,21 +244,40 @@ function render_ui() {
             player.money_anim -= 3;
             push()
             textFont(player_2);
-            textSize(32.5);
             fill(0, 255, 0, player.money_anim);
             stroke(0, 0, 0, player.money_anim);
             strokeWeight(2);
-            text('+' + player.money_anim_amount, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 125));
+            
+            let amountS = str(player.money_anim_amount)
+            if(player.money_anim_amount > 9999999){
+                let amountS = str(round(player.money_anim_amount/1000000) + 'B')
+                textSize(32.5 - ((amountS.length-4)*3));
+                text(round(player.money_anim_amount/1000000) + 'B', (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5) + ((amountS.length-4)*2.8));
+            }
+            else if(player.money_anim_amount > 9999){
+                textSize(32.5 - ((amountS.length-4)*3));
+                text('+' + player.money_anim_amount, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 125) - ((amountS.length-4)*3));
+            }
+            else{
+                textSize(32.5);
+                text('+' + player.money_anim_amount, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 125));
+            }
             pop();
         }
         else{
             player.money_anim_amount = 0;
         }
         if(player.inv_warn_anim > 0){
+            var mod = (player.talking!=0 ? 0: 132)
             player.inv_warn_anim -= 3;
             push()
+            
+            console.log("full")
+            textSize(20);
+            text("Full",inv_warn_img, 55, (canvasHeight + 64))
+
             tint(255, player.inv_warn_anim);
-            image(inv_warn_img, 55, canvasHeight - 64);
+            image(inv_warn_img, 55, (canvasHeight - 64) - mod);
             pop()
         }
         if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).name == "cart_s") {
@@ -270,6 +306,23 @@ function render_ui() {
             pop()
     
         }
+
+        for (let i = 0; i < 8; i++) {
+            if (player.inv[i] == undefined) {
+                player.inv[i] = 0;
+            }
+            if (player.inv[i] != 0) {
+                player.inv[i].render(112 + (i * 64), canvasHeight - 64);
+                if (i == player.hand) {
+                    push();
+                    fill(255);
+                    textSize(13);
+                    textAlign(CENTER, CENTER);
+                    text(player.inv[i].name, (9 * canvasWidth / 16), (canvasHeight - 80));
+                    pop();
+                }
+            }
+        }
     }
     if(paused){
         showPaused();
@@ -277,13 +330,14 @@ function render_ui() {
     else{
         musicSlider.hide();
         fxSlider.hide();
+        QuitButton.hide()
     }
 }
 
 function mouseReleased() {
     if(!title_screen){
         if(mouseButton == LEFT){
-            if(keyIsDown(16)){ //16 == shift
+            if(keyIsDown(special_key)){ //16 == shift
                 if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && (player.talking.class == 'Chest' || player.talking.class == 'Backpack' )){
                     if(mouseY >= canvasHeight - 64 && mouseY <= canvasHeight){
                         if(mouseX >= 113 && mouseX <= 622){
@@ -395,6 +449,31 @@ function mouseReleased() {
                     }
                 }
                 if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Robot'){
+                    if(mouseY >= 78 && mouseY <= (ceil(player.talking.instructions.length/6)*86)+78){
+                        if(mouseX >= 152 && mouseX <= 682){
+                            let currentX = (min(player.talking.instructions.length/6, round((mouseY - 78-(86/2))/86))*6) + min(5, round((mouseX - 152-45)/90))
+                            if(mouse_item == 0){
+                                mouse_item = player.talking.instructions[currentX];
+                                player.talking.instructions[currentX] = 0;
+                            }
+                            else if(player.talking.instructions[currentX] == 0){
+                                player.talking.instructions[currentX] = new_item_from_num(item_name_to_num(mouse_item.name), 1);
+                                mouse_item.amount -= 1;
+                                if(mouse_item.amount == 0){
+                                mouse_item = 0;
+                                }
+                            }
+                            else if (player.talking.instructions[currentX].name == mouse_item.name){
+                                mouse_item.amount += 1;
+                                player.talking.instructions[currentX] = 0;
+                            }
+                            else{
+                                let temp = mouse_item;
+                                mouse_item = player.talking.instructions[currentX];
+                                player.talking.instructions[currentX] = temp;
+                            }
+                        }
+                    }
                     if(mouseY >= 435 && mouseY <= 500){
                         if(mouseX >= 70 && mouseX <= 678){
                             let currentX = min(player.talking.inv.length-1, round((mouseX-70-45)/90))
@@ -460,31 +539,6 @@ function mouseReleased() {
                 }
             }
             if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking != 0 && player.looking(currentLevel_x, currentLevel_y).class == 'Robot'){
-                if(mouseY >= 78 && mouseY <= (ceil(player.talking.instructions.length/6)*86)+78){
-                    if(mouseX >= 152 && mouseX <= 682){
-                        let currentX = (min(player.talking.instructions.length/6, round((mouseY - 78-(86/2))/86))*6) + min(5, round((mouseX - 152-45)/90))
-                        if(mouse_item == 0){
-                            mouse_item = player.talking.instructions[currentX];
-                            player.talking.instructions[currentX] = 0;
-                        }
-                        else if(player.talking.instructions[currentX] == 0){
-                            player.talking.instructions[currentX] = new_item_from_num(item_name_to_num(mouse_item.name), 1);
-                            mouse_item.amount -= 1;
-                            if(mouse_item.amount == 0){
-                            mouse_item = 0;
-                            }
-                        }
-                        else if (player.talking.instructions[currentX].name == mouse_item.name){
-                            mouse_item.amount += 1;
-                            player.talking.instructions[currentX] = 0;
-                        }
-                        else{
-                            let temp = mouse_item;
-                            mouse_item = player.talking.instructions[currentX];
-                            player.talking.instructions[currentX] = temp;
-                        }
-                    }
-                }
                 if(mouseY >= 435 && mouseY <= 500){
                     if(mouseX >= 70 && mouseX <= 678){
                         let currentX = min(player.talking.inv.length-1, round((mouseX-70-45)/90))

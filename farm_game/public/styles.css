@@ -3,10 +3,6 @@
     src: url('pixelFont.ttf');
 }
 
-.button-image-element:hover {
-    background: url('ButtonSelected.png');
-}
-
 .but{
     background-color: black;
 

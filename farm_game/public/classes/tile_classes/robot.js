@@ -12,10 +12,6 @@ class Robot extends GridMoveEntity{
 
     render() {
         push();
-        if (this.border == true) {
-            noFill();
-            rect(this.pos.x, this.pos.y, tileSize, tileSize);
-        }
         imageMode(CENTER);
         if(this.under_tile != 0){
             this.under_tile.render();
@@ -23,7 +19,7 @@ class Robot extends GridMoveEntity{
         if(this.fuel < 10){
             image(battery_low_img, this.pos.x + tileSize - 5, this.pos.y + tileSize/4)
         }
-        image(this.png[this.facing][0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); //[this.anim]
+        image(all_imgs[this.png][this.facing][0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); //[this.anim]
         pop();
     }
 
@@ -283,10 +279,60 @@ class Robot extends GridMoveEntity{
                 this.current_instruction = 0;
             }
             this.anim += 1;
-            if (this.anim > this.png[this.facing].length) {
+            if (this.anim > all_imgs[this.png][this.facing].length) {
                 this.anim = 0;
             }
             this.moving_timer = this.max_moving_timer;
+        }
+    }
+
+    load(obj){
+        this.age = obj.age;
+        this.hand = obj.hand;
+        this.under_tile = new_tile_from_num(tile_name_to_num(obj.under_tile.name), obj.under_tile.pos.x, obj.under_tile.pos.y);
+        this.under_tile.load(obj.under_tile);
+        this.anim = obj.anim;
+        this.facing = obj.facing;
+        this.moving_timer = obj.moving_timer;
+        this.max_moving_timer = this.moving_timer;
+        this.current_instruction = obj.current_instruction;
+        this.move_bool = obj.move_bool;
+        this.fuel = obj.fuel;
+        this.day_pause = obj.day_pause;
+        this.day_paused = obj.day_paused;
+        for(let i = 0; i < obj.instructions.length; i++){
+            if(obj.instructions[i] != 0 && this.instructions[i] != 0){
+                this.instructions[i] = new_item_from_num(item_name_to_num(obj.instructions[i].name), obj.instructions[i].amount);
+                if(this.instructions[i].class == 'Backpack'){
+                    this.instructions[i].load(obj.instructions[i])
+                }
+            }
+            else if (obj.instructions[i] != 0 && this.instructions[i] == 0){
+                this.instructions[i] = new_item_from_num(item_name_to_num(obj.instructions[i].name), obj.instructions[i].amount);
+                if(this.instructions[i].class == 'Backpack'){
+                    this.instructions[i].load(obj.instructions[i])
+                }
+            }
+            else if (obj.instructions[i] == 0 && this.instructions[i] != 0){
+                this.instructions[i] = 0;
+            }
+        }
+        for(let i = 0; i < obj.inv.length; i++){
+            if(obj.inv[i] != 0 && this.inv[i] != 0){
+                this.inv[i] = new_item_from_num(item_name_to_num(obj.inv[i].name), obj.inv[i].amount);
+                if(this.inv[i].class == 'Backpack'){
+                    this.inv[i].load(obj.inv[i])
+                }
+            }
+            else if (obj.inv[i] != 0 && this.inv[i] == 0){
+                this.inv[i] = new_item_from_num(item_name_to_num(obj.inv[i].name), obj.inv[i].amount);
+                if(this.inv[i].class == 'Backpack'){
+                    this.inv[i].load(obj.inv[i])
+                }
+            }
+            else if (obj.inv[i] == 0 && this.inv[i] != 0){
+                this.inv[i] = 0;
+            }
         }
     }
 }
