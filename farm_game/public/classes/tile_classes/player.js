@@ -32,13 +32,6 @@ class Player extends MoveableEntity {
         this.pos.x = obj.pos.x;
         this.pos.y = obj.pos.y;
         this.facing = obj.facing;
-        this.transphase = obj.transphase;
-        this.ticks = obj.ticks;
-        this.a = obj.a;
-        this.done = obj.done;
-        this.money_anim = obj.money_anim;
-        this.money_anim_amount = obj.money_anim_amount;
-        this.inv_warn_anim = obj.inv_warn_anim;
         this.quests = [];
         this.current_quest = obj.current_quest;
         this.hunger = obj.hunger;
@@ -47,9 +40,10 @@ class Player extends MoveableEntity {
         this.hunger_counter = obj.hunger_counter;
         this.coins = obj.coins;
         this.hp = obj.hp;
-        this.dead = obj.dead;
+        if (this.hp < 30){
+            this.hp = 30;
+        }
         this.deaths = obj.deaths;
-        this.op = obj.op;
         this.touching = 0;
         this.oldlooking_name = obj.oldlooking_name;
         for(let i = 0; i < obj.inv.length; i++){

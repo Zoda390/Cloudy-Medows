@@ -1,7 +1,7 @@
 function preload() {
 
 
-    musicplayer = new MusicPlayer(['audio/Main_theme.wav','audio/calm_dings.mp3','audio/empty_burst.mp3','audio/Main_theme.mp3'])
+    musicplayer = new MusicPlayer(['audio/Main_theme.wav','audio/calm_dings.mp3','audio/empty_burst.mp3','audio/Main_theme.mp3','audio/Silence.wav','audio/Ambiance.wav'])
 
     //Items
     fullcourse_img = loadImage('images/items/FullCourse.png');
@@ -330,8 +330,11 @@ function preload() {
     main_theme_old = new Sound(['audio/Main_theme.wav']);
     empty_burst = new Sound(['audio/empty_burst.mp3']);
     calm_dings = new Sound(['audio/calm_dings.mp3']);
-    hit_sound = new Sound(['audio/hit2.wav']);
-    moneySound = new Sound(['audio/money.wav']);
+    hit_sound = new Sound(['audio/hit2.wav','audio/Hurt1.wav','audio/Hurt2.wav','audio/Hurt3.wav','audio/Hurt4.wav']);
+    moneySound = new Sound(['audio/money.wav','audio/Money1.wav','audio/Money2.wav','audio/Money3.wav','audio/Money4.wav']);
+    EatSound = new Sound(['audio/Eat1.wav','audio/Eat2.wav']);
+    ErrorSound = new Sound(['audio/error.wav']);
+    PlantingSound= new Sound(['audio/Planting.wav','audio/planted.wav']);
 
     background_img = loadImage('images/Skyline.gif');
     fore_1_img = loadImage('images/foreground/fore1.png');

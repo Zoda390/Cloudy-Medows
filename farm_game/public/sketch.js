@@ -237,9 +237,6 @@ function render_ui() {
             textSize(32.5);
             text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
         }
-        if(mouse_item != 0){
-            mouse_item.render(mouseX-32, mouseY-32);
-        }
         if(player.money_anim > 0 && player.money_anim_amount > 0){
             player.money_anim -= 3;
             push()
@@ -322,6 +319,9 @@ function render_ui() {
                     pop();
                 }
             }
+        }
+        if(mouse_item != 0){
+            mouse_item.render(mouseX-32, mouseY-32);
         }
     }
     if(paused){

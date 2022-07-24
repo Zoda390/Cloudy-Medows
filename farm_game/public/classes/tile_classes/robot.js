@@ -294,7 +294,6 @@ class Robot extends GridMoveEntity{
         this.anim = obj.anim;
         this.facing = obj.facing;
         this.moving_timer = obj.moving_timer;
-        this.max_moving_timer = this.moving_timer;
         this.current_instruction = obj.current_instruction;
         this.move_bool = obj.move_bool;
         this.fuel = obj.fuel;

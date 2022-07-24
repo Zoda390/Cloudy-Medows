@@ -149,7 +149,6 @@ class MoveableEntity extends Entity {
         this.anim = obj.anim;
         this.facing = obj.facing;
         this.moving_timer = obj.moving_timer;
-        this.max_moving_timer = this.moving_timer;
         for(let i = 0; i < obj.inv.length; i++){
             if(obj.inv[i] != 0 && this.inv[i] != 0){
                 this.inv[i] = new_item_from_num(item_name_to_num(obj.inv[i].name), obj.inv[i].amount);
