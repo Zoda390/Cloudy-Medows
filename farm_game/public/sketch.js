@@ -22,6 +22,8 @@ var lastTimeMili = 0;
 var lastHungerMili = 0;
 var days = 0;
 var title_screen = true;
+var dificulty_screen = false;
+var dificulty = 0;
 var save_anim = 0;
 var all_tiles = [];
 var all_items = [];
@@ -35,6 +37,9 @@ var fxSlider;
 var startButton;
 var optionsButton;
 var creditsButton;
+var dif0button;
+var dif1button;
+var dif2button;
 var creditsOn = false;
 var current_reply = 0;
 var temp_move_bool = true;
@@ -44,37 +49,10 @@ function draw() {
 
     takeInput();
     if (title_screen) {
-        background(135, 206, 235);
-        push()
-        for (let i = 0; i < clouds.length; i++) {
-            clouds[i].update(clouds[i].vel)
-            clouds[i].render()
-        }
-        imageMode(CENTER);
-        image(title_screen_img, canvasWidth / 2, (canvasHeight / 2) - 40);
-        
-        textFont(player_2);
-        fill('black');
-        textAlign(CENTER, CENTER);
-        textSize(13);
-        
-        startButton.show();
-        
-        pop();
-
-        if(paused){
-            showOptions();
-        }
-        else{
-            musicSlider.hide();
-            fxSlider.hide();
-        }
-        if(creditsOn){
-            showCredits();
-        }else{
-
-       
-        }
+        showTitle();
+    }
+    else if (dificulty_screen){
+        showDificulty();
     }
     else {
         clearButton.hide()
@@ -159,6 +137,18 @@ function render_ui() {
 
     if(levels[currentLevel_y][currentLevel_x].level_name_popup){
         levels[currentLevel_y][currentLevel_x].name_render();
+    }
+
+    if(player.inv_warn_anim > 0){
+        let mod = ((player.talking.class == 'NPC') ? 182: 0)
+        player.inv_warn_anim -= 3;
+        push()
+        textSize(10);
+        fill(255, 0, 0, player.inv_warn_anim);
+        text("Full", 55 + 16, canvasHeight - mod - 10)
+        tint(255, player.inv_warn_anim);
+        image(inv_warn_img, 55, (canvasHeight - 64) - mod);
+        pop()
     }
 
     if (player.talking != undefined && player.talking != 0 && player.talking.class != 'Chest' && player.talking.class != 'Robot' && player.talking.class != 'Backpack') {
@@ -265,19 +255,6 @@ function render_ui() {
         else{
             player.money_anim_amount = 0;
         }
-        if(player.inv_warn_anim > 0){
-            var mod = (player.talking!=0 ? 0: 132)
-            player.inv_warn_anim -= 3;
-            push()
-            
-            console.log("full")
-            textSize(20);
-            text("Full",inv_warn_img, 55, (canvasHeight + 64))
-
-            tint(255, player.inv_warn_anim);
-            image(inv_warn_img, 55, (canvasHeight - 64) - mod);
-            pop()
-        }
         if(save_anim > 0){
             save_anim -= 1;
             push()
@@ -285,7 +262,7 @@ function render_ui() {
             image(save_img, canvasWidth - 128 + 5, canvasHeight - (128));
             pop()
         }
-        if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).name == "cart_s") {
+        if (player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).name == "cart_s" && player.talking == 0) {
             push()
             stroke(0)
             stroke(149, 108, 65);

@@ -158,6 +158,7 @@ class Player extends MoveableEntity {
                             this.deaths += 1;
                             this.transphase = 2;
                             this.ticks = 0;
+                            this.deathConsequence(dificulty)
                         }
                         text('Respawn in ' + floor((600-this.ticks)/60), canvasWidth/2, (3*canvasHeight)/4);
                     }
@@ -178,7 +179,31 @@ class Player extends MoveableEntity {
         }
     }
 
-    
+    deathConsequence(dif){
+        if(dif == 0){
+            this.coins -= ceil(this.coins * 0.1);
+        }
+        else if(dif == 1){
+            this.coins -= ceil(this.coins * 0.1);
+            for(let i = 0; i < this.inv.length; i++){
+                if(this.inv[i].class == 'Eat'){
+                    let random = round(0, this.inv[i].amount-2);
+                    console.log(random);
+                    if (random > 0){
+                        this.inv[i].amount -= random;
+                        if(checkForSpace(this, 4)){
+                            addItem(this, 4, random);
+                        }
+                    }
+                }
+            }
+        }
+        else if(dif == 2){
+            title_screen = true;
+            localStorage.clear();
+            newWorld();
+        }
+    }
 
     move() {
         if(!this.dead){
@@ -607,6 +632,7 @@ function takeInput() {
                 else if (player.talking.class == 'Shop'){
                     if(player.talking.inv[current_reply].amount >= 1){
                         if(player.coins >= player.talking.inv[current_reply].price && checkForSpace(player, item_name_to_num(player.talking.inv[current_reply].name))){    //check if you have the money
+                            moneySound.play()
                             addItem(player, item_name_to_num(player.talking.inv[current_reply].name), 1);
                             player.coins -= player.talking.inv[current_reply].price; //reduce money
                             player.talking.inv[current_reply].amount -= 1; //shop.inv -1 amount

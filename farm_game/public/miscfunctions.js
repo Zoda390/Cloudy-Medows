@@ -5,6 +5,9 @@ function start(){
     creditsButton.hide();
     clearButton.hide();
     title_screen = false;
+    if(localData.get('Day_curLvl_Dif') == null){
+        dificulty_screen = true;
+    }
     paused = false;
     levels[currentLevel_y][currentLevel_x].level_name_popup = true;
 }
@@ -23,6 +26,71 @@ inventory quick move
 function ChangeText(button,key){
    // button.getattribute.text(key)
 
+}
+
+function showTitle(){
+    push()
+    background(135, 206, 235);
+    for (let i = 0; i < clouds.length; i++) {
+        clouds[i].update(clouds[i].vel)
+        clouds[i].render()
+    }
+    imageMode(CENTER);
+    image(title_screen_img, canvasWidth / 2, (canvasHeight / 2) - 40);
+    
+    textFont(player_2);
+    fill('black');
+    textAlign(CENTER, CENTER);
+    textSize(13);
+    
+    startButton.show();
+    optionsButton.show();
+    creditsButton.show();
+    
+    pop();
+
+    if(paused){
+        showOptions();
+    }
+    else{
+        musicSlider.hide();
+        fxSlider.hide();
+        clearButton.hide();
+    }
+    if(creditsOn){
+        showCredits();
+    }else{
+
+    }
+}
+
+function showDificulty(){
+    push();
+    background(135, 206, 235);
+    musicSlider.hide();
+    fxSlider.hide();
+    clearButton.hide();
+    for (let i = 0; i < clouds.length; i++) {
+        clouds[i].update(clouds[i].vel)
+        clouds[i].render()
+    }
+    stroke(149, 108, 65);
+    strokeWeight(5);
+    fill(187, 132, 75);
+    rect((canvasWidth/2)-220, (canvasWidth/2)-300, 440, 100)
+    textFont(player_2);
+    fill('black');
+    textAlign(CENTER, CENTER);
+    textSize(20);
+    stroke(255);
+    strokeWeight(3);
+    text('Select Your Dificulty', (canvasWidth/2)-10, (canvasWidth/2)-250);
+
+    dif0button.show()
+    dif1button.show()
+    dif2button.show()
+
+    pop();
 }
 
 function showOptions(){
@@ -232,9 +300,8 @@ function saveAll(){
     if(player.talking == 0){
         player.save()
     }
-    localData.set('current_lvlX', currentLevel_x);
-    localData.set('current_lvlY', currentLevel_y);
-    localData.set('Day_and_time', {days: days, time: time});
+    localData.set('Day_curLvl_Dif', {days: days, currentLevel_x: currentLevel_x, currentLevel_y: currentLevel_y, dificulty: dificulty});
+    localData.set('Options', {musicVolume: musicSlider.value(), fxVolume: fxSlider.value()});
     for(let i = 0; i < levels.length; i++){
         for(let j = 0; j < levels[i].length; j++){
             for(let y = 0; y < levels[i][j].map.length; y++){
@@ -254,14 +321,11 @@ function loadAll(){
         console.log(localData.get('player'));
         player.load(localData.get('player'));
     }
-    if(localData.get('current_lvlX') != null){
-        currentLevel_x = localData.get('current_lvlX');
-    }
-    if(localData.get('current_lvlY') != null){
-        currentLevel_y = localData.get('current_lvlY');
-    }
-    if(localData.get('Day_and_time') != null){
-        days = localData.get('Day_and_time').days;
+    if(localData.get('Day_curLvl_Dif') != null){
+        days = localData.get('Day_curLvl_Dif').days;
+        currentLevel_x = localData.get('Day_curLvl_Dif').currentLevel_x;
+        currentLevel_y = localData.get('Day_curLvl_Dif').currentLevel_y;
+        dificulty = localData.get('Day_curLvl_Dif').dificulty;
     }
     for(let i = 0; i < levels.length; i++){
         for(let j = 0; j < levels[i].length; j++){

@@ -8,8 +8,6 @@ class Sound {
         this.sound = document.createElement("audio")
         this.sound.setAttribute("class","soundfx");
         this.var = round(random(0,this.src.length-1))
-        console.log(this.src.length);
-        console.log(this.var);
         this.sound.src = this.src[this.var];
         this.sound.setAttribute("preload", "none");
         this.sound.setAttribute("controls", "none");
