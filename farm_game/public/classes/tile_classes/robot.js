@@ -31,6 +31,14 @@ class Robot extends GridMoveEntity{
         robotPlayButton.show();
         robotPauseButton.show();
         robotBoomButton.show();
+        if(temp_move_bool){
+            robotPlayButton.style('background-color','rgb(255, 255, 255)');
+            robotPauseButton.style('background-color','rgb(50, 50, 50)');
+        }
+        else{
+            robotPauseButton.style('background-color','rgb(255, 255, 255)');
+            robotPlayButton.style('background-color','rgb(50, 50, 50)');
+        }
         push()
         stroke(149, 108, 65);
         strokeWeight(5);
@@ -172,7 +180,6 @@ class Robot extends GridMoveEntity{
                     temp.under_tile = levels[y][x].map[this.pos.y / tileSize][(this.pos.x / tileSize) + 1];
                     levels[y][x].map[this.pos.y / tileSize][(this.pos.x / tileSize) + 1] = temp;
                     this.pos.x += tileSize;
-                    
                 }
             }
             else if (this.instructions[this.current_instruction].command == 'down') {
@@ -191,7 +198,6 @@ class Robot extends GridMoveEntity{
                     temp.under_tile = levels[y][x].map[(this.pos.y / tileSize) + 1][this.pos.x / tileSize];
                     levels[y][x].map[(this.pos.y / tileSize) + 1][this.pos.x / tileSize] = temp;
                     this.pos.y += tileSize;
-                    
                 }
             }
             else if (this.instructions[this.current_instruction].command == 'left') {
@@ -210,7 +216,6 @@ class Robot extends GridMoveEntity{
                     temp.under_tile = levels[y][x].map[this.pos.y / tileSize][(this.pos.x / tileSize) - 1];
                     levels[y][x].map[this.pos.y / tileSize][(this.pos.x / tileSize) - 1] = temp;
                     this.pos.x -= tileSize;
-                    
                 }
             }
             else if (this.instructions[this.current_instruction].command == 'interact'){
@@ -220,10 +225,9 @@ class Robot extends GridMoveEntity{
                     }
                 }
                 this.onInteract(x, y);
-                
             }
             else if (this.instructions[this.current_instruction].command == 'restart'){
-                this.current_instruction = 0;
+                this.current_instruction = -1;
             }
             else if (this.instructions[this.current_instruction].command == 'add_to_chest'){
                 for(let i = 0; i < this.inv.length; i++){

@@ -3,7 +3,7 @@ class Player extends MoveableEntity {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
-        this.hunger = maxHunger;
+        this.hunger = maxHunger-5;
         this.lastFoodnum = 2;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = 0;
@@ -24,6 +24,7 @@ class Player extends MoveableEntity {
         this.done = false;
         this.money_anim = 0;
         this.money_anim_amount = 0;
+        this.inv_warn_anim = 0;
         this.class = 'Player';
 
         //load
@@ -88,7 +89,7 @@ class Player extends MoveableEntity {
         if (this.hp <= 0) { // Player Death
             //turn player death screen on
             if(!this.done){
-                push()
+                push();
                 fill(10, this.a);
                 rect(0, 0, canvasWidth, canvasHeight);
                 tint(255, this.a);
@@ -99,7 +100,7 @@ class Player extends MoveableEntity {
                 textAlign(CENTER, CENTER);
                 textFont(player_2);
                 text('YOU DIED', canvasWidth/2, canvasHeight/4);
-                pop();
+                textSize(20);
                 if(!paused){
                     if(this.transphase == 0){
                         if(this.ticks == 0){
@@ -112,6 +113,7 @@ class Player extends MoveableEntity {
                             this.ticks = 0;
                         }
                         this.a += 5;
+                        text('Respawn in 9', canvasWidth/2, (3*canvasHeight)/4);
                     }
                     if(this.transphase == 1){
                         if(this.ticks >= 600){
@@ -127,6 +129,7 @@ class Player extends MoveableEntity {
                             this.transphase = 2;
                             this.ticks = 0;
                         }
+                        text('Respawn in ' + floor((600-this.ticks)/60), canvasWidth/2, (3*canvasHeight)/4);
                     }
                     if(this.transphase == 2){
                         this.a -= 5;
@@ -135,10 +138,12 @@ class Player extends MoveableEntity {
                             this.ticks = 0;
                             this.hp = 100;
                         }
+                        text('Respawn in 0', canvasWidth/2, (3*canvasHeight)/4);
                     }
                     
                     this.ticks += 1;
                 }
+                pop();
             }
         }
     }
@@ -270,7 +275,7 @@ class Player extends MoveableEntity {
     eat() {
         if (millis() - this.lasteatMili > 100) {
             if (this.hunger < maxHunger) {  // player only eats when hungry
-                if (this.inv[this.hand].class == 'Eat') {
+                if (this.inv[this.hand].class == 'Eat' && checkForSpace(this, this.inv[this.hand].seed_num)) {
                     this.hunger += this.inv[this.hand].hunger;
                     if (this.hunger > maxHunger) {
                         this.hunger = maxHunger;
@@ -338,6 +343,7 @@ class Player extends MoveableEntity {
                             levels[currentLevel_y][currentLevel_x].map[(player.looking(currentLevel_x, currentLevel_y).pos.y / tileSize)][player.looking(currentLevel_x, currentLevel_y).pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.looking(currentLevel_x, currentLevel_y).pos.x, this.looking(currentLevel_x, currentLevel_y).pos.y);
                         }
                         this.looking(x, y).under_tile = temp;
+                        this.looking(x, y).move_bool = false;
                     }
                     else{
                         return;
@@ -468,9 +474,10 @@ function takeInput() {
                             let dropped = false;
                             for (let i = 0; i < player.talking.inv.length; i++) {
                                 for(let j = 0; j < player.talking.inv[i].length; j++){
-                                    if (player.talking.inv[i][j] != 0) { // stack items
+                                    if (player.talking.inv[i][j] != 0 && mouse_item != 0) { // stack items
                                         if (player.talking.inv[i][j].name == mouse_item.name) {
                                             player.talking.inv[i][j].amount += mouse_item.amount;
+                                            mouse_item = 0;
                                             dropped = true;
                                         }
                                     }
@@ -478,8 +485,9 @@ function takeInput() {
                             }
                             for (let i = 0; i < player.talking.inv.length; i++) {
                                 for(let j = 0; j < player.talking.inv[i].length; j++){
-                                    if (player.inv[i] == 0) { // empty space
-                                        player.talking.inv[i][j] = mouse_item;
+                                    if (player.talking.inv[i][j] == 0 && mouse_item != 0) { // empty space
+                                        player.talking.inv[i][j] = new_item_from_num(item_name_to_num(mouse_item.name), mouse_item.amount);
+                                        mouse_item = 0;
                                         dropped = true;
                                     }
                                 }
@@ -560,7 +568,7 @@ function takeInput() {
                 }
                 else if (player.talking.class == 'Shop'){
                     if(player.talking.inv[current_reply].amount >= 1){
-                        if(player.coins >= player.talking.inv[current_reply].price){    //check if you have the money
+                        if(player.coins >= player.talking.inv[current_reply].price && checkForSpace(player, item_name_to_num(player.talking.inv[current_reply].name))){    //check if you have the money
                             addItem(player, item_name_to_num(player.talking.inv[current_reply].name), 1);
                             player.coins -= player.talking.inv[current_reply].price; //reduce money
                             player.talking.inv[current_reply].amount -= 1; //shop.inv -1 amount

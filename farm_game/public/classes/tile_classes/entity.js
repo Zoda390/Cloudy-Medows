@@ -21,7 +21,7 @@ class Entity extends Tile {
         push();
         if (this.border == true) {
             noFill();
-            rect(this.pos.x - tileSize / 2, this.pos.y - tileSize / 2, tileSize, tileSize);
+            rect(this.pos.x + tileSize / 2, this.pos.y + tileSize / 2, tileSize, tileSize);
         }
         imageMode(CENTER);
         if(this.under_tile != 0){

@@ -7,7 +7,7 @@ class Sound {
         this.sound = document.createElement("audio")
         this.sound.setAttribute("class","soundfx");
         this.sound.src = this.src;
-        this.sound.setAttribute("preload", "auto");
+        this.sound.setAttribute("preload", "none");
         this.sound.setAttribute("controls", "none");
         this.sound.style.display = "none";
         document.body.appendChild(this.sound);
@@ -32,6 +32,7 @@ class MusicPlayer {
         this.player.src = tracks[this.currentTrack];
         //this.player.setAttribute("preload", "auto");
         this.player.setAttribute("controls", "none");
+        this.player.setAttribute("preload", "none");
         this.player.style.display = "none";
         this.volume = this.player.volume;
 

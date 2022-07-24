@@ -96,7 +96,7 @@ function addItem(to, item_obj_num, amount) {
         }
     }
 }
-//checkForSpace icon here 
+
 function checkForSpace(to, item_obj_num){
     var check = false;
     for (let i = 0; i < to.inv.length; i++) {
@@ -117,6 +117,9 @@ function checkForSpace(to, item_obj_num){
             check = true;
             return check;
         }
+    }
+    if(!check && (player.talking == 0 || player.talking.class == 'NPC' || player.talking.class == 'Shop')){
+        player.inv_warn_anim = 255;
     }
     return check;
 }

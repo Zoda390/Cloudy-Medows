@@ -135,6 +135,44 @@ function preload() {
     brent_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
     brent_tile_imgs = [[brent_tile_up_img], [brent_tile_right_img], [brent_tile_down_img], [brent_tile_left_img]];
 
+    //Chef
+    chef_tile_img = loadImage('images/npc/chef.png');
+
+    //Guy
+    guy_tile_up_img = loadImage('images/npc/cowboy_rick_back.png');
+    guy_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    guy_tile_down_img = loadImage('images/npc/Guy.png');
+    guy_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    guy_tile_imgs = [[guy_tile_up_img], [guy_tile_right_img], [guy_tile_down_img], [guy_tile_left_img]];
+
+    //Ishmil
+    ishmil_tile_up_img = loadImage('images/npc/cowboy_rick_back.png');
+    ishmil_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    ishmil_tile_down_img = loadImage('images/npc/Ishmil.png');
+    ishmil_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    ishmil_tile_imgs = [[ishmil_tile_up_img], [ishmil_tile_right_img], [ishmil_tile_down_img], [ishmil_tile_left_img]];
+
+    //Kenny
+    kenny_tile_up_img = loadImage('images/npc/cowboy_rick_back.png');
+    kenny_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    kenny_tile_down_img = loadImage('images/npc/kenny.png');
+    kenny_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    kenny_tile_imgs = [[kenny_tile_up_img], [kenny_tile_right_img], [kenny_tile_down_img], [kenny_tile_left_img]];
+
+    //Super Tina
+    tina_tile_up_img = loadImage('images/npc/cowboy_rick_back.png');
+    tina_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    tina_tile_down_img = loadImage('images/npc/supertina.png');
+    tina_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    tina_tile_imgs = [[tina_tile_up_img], [tina_tile_right_img], [tina_tile_down_img], [tina_tile_left_img]];
+
+    //Vinny
+    vinny_tile_up_img = loadImage('images/npc/cowboy_rick_back.png');
+    vinny_tile_right_img = loadImage('images/npc/cowboy_rick_right.png');
+    vinny_tile_down_img = loadImage('images/npc/Guy.png');
+    vinny_tile_left_img = loadImage('images/npc/cowboy_rick_left.png');
+    vinny_tile_imgs = [[guy_tile_up_img], [guy_tile_right_img], [guy_tile_down_img], [guy_tile_left_img]];
+
     //robot
     battery_low_img = loadImage('images/ui/batteryIcon.png');
 
@@ -145,7 +183,6 @@ function preload() {
     robot_tile_left_img = loadImage('images/npc/robot_left.png');
     robot_tile_imgs = [[robot_tile_up_img], [robot_tile_right_img], [robot_tile_down_img], [robot_tile_left_img]];
 
-    
     robot_1_img = loadImage('images/items/robot2.png');
     robot_1_tile_up_img = loadImage('images/npc/robot2_back.png');
     robot_1_tile_right_img = loadImage('images/npc/robot2_right.png');
@@ -153,7 +190,6 @@ function preload() {
     robot_1_tile_left_img = loadImage('images/npc/robot2_left.png');
     robot_1_tile_imgs = [[robot_1_tile_up_img], [robot_1_tile_right_img], [robot_1_tile_down_img], [robot_1_tile_left_img]];
 
-    
     robot_water_img = loadImage('images/items/robot_water.png');
     robot_water_tile_up_img = loadImage('images/npc/robot_water_back.png');
     robot_water_tile_right_img = loadImage('images/npc/robot_water_right.png');
@@ -186,6 +222,7 @@ function preload() {
     music_note_img = loadImage('images/ui/Music_Note.png');
     fx_img = loadImage('images/ui/fx.png');
     skull_img = loadImage('images/ui/dealth_icon(128x128).png');
+    inv_warn_img = loadImage('images/ui/warning_sign_icon.png');
 
     //Player
     up_move_img_1 = loadImage('images/player/Back_Move.png');
@@ -370,7 +407,13 @@ function preload() {
     /*47*/    { name: 'Robot2', png: robot_2_tile_imgs, inv: [0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 80, class: 'Robot'},
     /*48*/    { name: 'Veggie_Press', png: [veggy_press_tile_img], border: true, collide: false, age: -1, class: 'Tile' },
     /*49*/    { name: 'Bees', png: bee_imgs, inv:[0], under_tile_num: 0, instructions: [], moving_timer: 50, class: 'FreeMoveEntity' },
-    /*50*/    { name: 'Flower_Done', png: [flower_tile_img2], border: true, collide: false, age: 0, class: 'Tile'}
+    /*50*/    { name: 'Flower_Done', png: [flower_tile_img2], border: true, collide: false, age: 0, class: 'Tile'},
+    /*51*/    { name: 'Guy', png: guy_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 100, class: 'NPC'},
+    /*52*/    { name: 'Ishmil', png: ishmil_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*53*/    { name: 'Kenny', png: kenny_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*54*/    { name: 'Super Tina', png: tina_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*55*/    { name: 'Vinny', png: vinny_tile_imgs, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 100, class: 'NPC' },
+    /*56*/    { name: 'Chef', png: [chef_tile_img], inv: [{num: 13, amount: 1}], class: 'Shop' }
 ];
     /*
     class       obj
@@ -414,15 +457,19 @@ function preload() {
         /*30*/{name: 'Add from Chest Command', png: command_chest2_img, command: 'add_from_chest', class: 'Command'},
         /*31*/{name: 'Veggy Oil', png: veggy_oil_img, price: 7, class: 'Item'},
         /*32*/{name: 'Shovel', png: shovel_img, class: 'Tool'},
-        /*33*/{name: 'Backpack', png: backpack_img, inv: [0, { num: 23, amount: 2}, { num: 26, amount: 1}, { num: 29, amount: 1}, { num: 30, amount: 1}, {num: 27, amount: 3}, {num: 19, amount: 4}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}, 0, { num: 34, amount: 2}], class: 'Backpack'},
+        /*33*/{name: 'Backpack', png: backpack_img, inv: [0, { num: 23, amount: 2}, { num: 26, amount: 4}, { num: 29, amount: 1}, { num: 30, amount: 1}, {num: 18, amount: 1}, {num: 27, amount: 1}, {num: 28, amount: 1}, {num: 21, amount: 999}, {num: 22, amount: 4}, 0, { num: 34, amount: 2}], class: 'Backpack'},
         /*34*/{name: '1 Day Pause Command', png: command_pause_img, command: '1day_pause', class: 'Command'}
     ];
+
 }
 
 function setup() {
     createCanvas(canvasWidth, canvasHeight);
     for (let i = 0; i < cloudCount; i++) {
         clouds[i] = new Cloud()
+    }
+    for (let element of document.getElementsByClassName("p5Canvas")) {
+        element.addEventListener("contextmenu", (e) => e.preventDefault());
     }
     
     player = new Player('player1', player_imgs, (5 * tileSize), (5 * tileSize));
@@ -489,7 +536,7 @@ function setup() {
         }
     });
     robotBoomButton.style("font-family","pixelFont");
-    robotBoomButton.style('background-color','rgb(100, 100, 100)');
+    robotBoomButton.style('background-color','rgb(50, 50, 50)');
     robotBoomButton.style('color','rgb(255, 0, 0)');
     robotBoomButton.hide();
 
