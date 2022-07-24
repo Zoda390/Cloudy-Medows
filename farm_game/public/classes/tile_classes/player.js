@@ -7,7 +7,7 @@ class Player extends MoveableEntity {
         this.lastFoodnum = 2;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = 0;
-        this.coins = 9999999;
+        this.coins = 0;
         this.hp = 100;
         this.dead = false;
         this.deaths = 0;
