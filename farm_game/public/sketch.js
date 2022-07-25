@@ -177,20 +177,22 @@ function render_ui() {
         textSize(32.5);
         fill(0);
         textAlign(LEFT, TOP);
-        image(coin_img, canvasWidth - 130, (canvasHeight - 185));
         let amountS = str(player.coins)
         if(player.coins > 9999999){
             let amountS = str(round(player.coins/1000000) + 'B')
+            image(coin_img, canvasWidth - 130  - (amountS.length > 3 ? ((amountS.length-3)*20):0), (canvasHeight - 185));
             textSize(30 - ((amountS.length-4)*3));
-            text(round(player.coins/1000000) + 'B', (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5) + ((amountS.length-4)*2.8));
+            text(round(player.coins/1000000) + 'B', (canvasWidth / 2) + (512 / 2) - 64  - (amountS.length > 3 ? ((amountS.length-3)*20):0), (canvasHeight - 182.5) + ((amountS.length-4)*2.8));
         }
         else if(player.coins > 9999){
+            image(coin_img, canvasWidth - 130 - (amountS.length-3)*20, (canvasHeight - 185));
             textSize(30 - ((amountS.length-4)*3));
-            text(player.coins, canvasWidth - 110, (canvasHeight - 182.5) - ((amountS.length-4)*3));
+            text(player.coins, canvasWidth - 110 - (amountS.length-3)*20, (canvasHeight - 182.5) - ((amountS.length-4)*3));
         }
         else{
+            image(coin_img, canvasWidth - 130 - (amountS.length > 3 ? ((amountS.length-3)*25):0), (canvasHeight - 185));
             textSize(30);
-            text(player.coins, canvasWidth - 100, (canvasHeight - 182.5));
+            text(player.coins, canvasWidth - 100 - (amountS.length > 3 ? ((amountS.length-3)*25):0), (canvasHeight - 182.5));
         }
     }
     else{
@@ -219,21 +221,23 @@ function render_ui() {
         textSize(32.5);
         fill(0);
         textAlign(LEFT, TOP);
-        image(coin_img, (canvasWidth / 2) + (512 / 2) - 100, (canvasHeight - 95));
-
+        
         let amountS = str(player.coins)
         if(player.coins > 9999999){
             let amountS = str(round(player.coins/1000000) + 'B')
+            image(coin_img, (canvasWidth / 2) + (512 / 2) - 130 - (amountS.length > 3 ? ((amountS.length-3)*20):0), (canvasHeight - 95));
             textSize(32.5 - ((amountS.length-4)*3));
-            text(round(player.coins/1000000) + 'B', (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5) + ((amountS.length-4)*2.8));
+            text(round(player.coins/1000000) + 'B', (canvasWidth / 2) + (512 / 2) - 94 - (amountS.length > 3 ? ((amountS.length-3)*20):0), (canvasHeight - 92.5) + ((amountS.length-4)*2.8));
         }
         else if(player.coins > 9999){
+            image(coin_img, (canvasWidth / 2) + (512 / 2) - 130 - (amountS.length-3)*20, (canvasHeight - 95));
             textSize(32.5 - ((amountS.length-4)*3));
-            text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5) + ((amountS.length-4)*2.8));
+            text(player.coins, (canvasWidth / 2) + (512 / 2) - 94 - (amountS.length-3)*20, (canvasHeight - 92.5) + ((amountS.length-4)*2.8));
         }
         else{
+            image(coin_img, (canvasWidth / 2) + (512 / 2) - 130 - (amountS.length > 3 ? ((amountS.length-3)*25):0), (canvasHeight - 95));
             textSize(32.5);
-            text(player.coins, (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5));
+            text(player.coins, (canvasWidth / 2) + (512 / 2) - 94 - (amountS.length > 3 ? ((amountS.length-3)*25):0), (canvasHeight - 92.5));
         }
         if(player.money_anim > 0 && player.money_anim_amount > 0){
             player.money_anim -= 3;

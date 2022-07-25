@@ -23,8 +23,8 @@ class Item {
 			fill(0);
 			amountS = str(this.name)
 			rectMode(CENTER)
-			rect(x+32,y-7,((amountS.length)*((amountS.length > 5) ? 6:5)),7);
-			textSize(5);
+			rect(x+32,y-7,((amountS.length)*((amountS.length > 5) ? 8:6)),7);
+			textSize(8);
 			textFont(player_2);
 			fill(255);
 			text(this.name, x+32, y-7);

@@ -3,6 +3,8 @@ class Player extends MoveableEntity {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
+        this.show_quests = false;
+        this.questsDone = 0;
         this.hunger = maxHunger;
         this.lastFoodnum = 2;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
@@ -35,6 +37,9 @@ class Player extends MoveableEntity {
         this.quests = [];
         this.current_quest = obj.current_quest;
         this.hunger = obj.hunger;
+        if(this.hunger < 0){
+            this.hunger = 0;
+        }
         this.lastFoodnum = obj.lastFoodnum;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = obj.hunger_counter;
@@ -89,6 +94,9 @@ class Player extends MoveableEntity {
         }
         if (this.hunger_timer <= 0) {
             this.hunger -= 1;
+            if(this.hunger < 0){
+                this.hunger = 0;
+            }
             this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         }
         push();
@@ -100,7 +108,6 @@ class Player extends MoveableEntity {
             this.hp -= 10;
             if(this.hp < 0){
                 this.hp = 0;
-                
             }
             tint(255, 0, 0, 100);
             image(player_imgs[this.facing][this.anim], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
@@ -473,6 +480,10 @@ class Player extends MoveableEntity {
             }
         }
     }
+
+    quests_render(){
+        
+    }
 }
 
 var Controls_Interact_button_key = 'e';
@@ -547,7 +558,7 @@ function takeInput() {
     }
     else if(player.talking != 0){
         if(keyIsDown(pause_button)){
-            if (millis() - lastMili > 200) {
+            if (millis() - lastMili > 200 && !player.dead) {
                 paused = true;
                 lastMili = millis();
             }
@@ -702,7 +713,7 @@ function takeInput() {
     }
     else {
         if(keyIsDown(pause_button)){
-            if (millis() - lastMili > 200) {
+            if (millis() - lastMili > 200 && !player.dead) {
                 paused = true;
                 lastMili = millis();
             }
@@ -758,6 +769,35 @@ function takeInput() {
                 console.log(player.touching);
                 console.log(player.looking(currentLevel_x, currentLevel_y));
                 console.log(temp_move_bool)
+                lastMili = millis();
+            }
+        }
+        if (keyIsDown(90)){
+            if(millis() - lastMili > 100){
+                if(player.facing == 0){
+                    console.log(levels[currentLevel_y-1][currentLevel_x])
+                    if(levels[currentLevel_y-1][currentLevel_x] != null){
+                        currentLevel_y -= 1;
+                    }
+                }
+                else if(player.facing == 1){
+                    console.log(levels[currentLevel_y][currentLevel_x+1])
+                    if(levels[currentLevel_y][currentLevel_x+1] != null){
+                        currentLevel_x += 1;
+                    }
+                }
+                else if(player.facing == 2){
+                    console.log(levels[currentLevel_y+1][currentLevel_x])
+                    if(levels[currentLevel_y+1][currentLevel_x] != null){
+                        currentLevel_y += 1;
+                    }
+                }
+                else if(player.facing == 3){
+                    console.log(levels[currentLevel_y][currentLevel_x-1])
+                    if(levels[currentLevel_y][currentLevel_x-1] != null){
+                        currentLevel_x -= 1;
+                    }
+                }
                 lastMili = millis();
             }
         }

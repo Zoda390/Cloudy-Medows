@@ -181,7 +181,7 @@ function showOptions(){
     Controls_Right_button.show();
     Controls_Special_button.show();
     if(control_set != 0){
-        fill(255); //try yellow with david
+        fill(255, 255, 0);
         rect(((4*canvasWidth)/5)+97, ((canvasHeight/2)-127) + (25*(control_set-1)), 90, 20);
     }
     textSize(15);
@@ -394,14 +394,16 @@ function saveAll(){
     localData.set('Options', {musicVolume: musicSlider.value(), fxVolume: fxSlider.value()});
     for(let i = 0; i < levels.length; i++){
         for(let j = 0; j < levels[i].length; j++){
-            for(let y = 0; y < levels[i][j].map.length; y++){
-                for(let x = 0; x < levels[i][j].map[y].length; x++){
-                    if (levels[i][j].map[y][x] != 0){
-                        levels[i][j].map[y][x].getReadyForSave();
+            if(levels[i][j] != 0){
+                for(let y = 0; y < levels[i][j].map.length; y++){
+                    for(let x = 0; x < levels[i][j].map[y].length; x++){
+                        if (levels[i][j].map[y][x] != 0){
+                            levels[i][j].map[y][x].getReadyForSave();
+                        }
                     }
                 }
+                localData.set(levels[i][j].name, levels[i][j]);
             }
-            localData.set(levels[i][j].name, levels[i][j]);
         }
     }
 }

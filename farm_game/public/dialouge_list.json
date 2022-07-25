@@ -1,11 +1,15 @@
 {
   "Deb": [
     {
-      "phrase": "hi, im Deb.",
+      "phrase": "hi, im Deb. I make the compost around these parts with my sister,Did you know you can turn junk and seeds into compost, right here in this bucket?",
       "replies": [
         {
-          "phrase": "Hi Deb",
+          "phrase": "No I didn't know that",
           "dialouge_num": 1
+        },
+        {
+          "phrase": "Do you need any help",
+          "dialouge_num": 3
         },
         {
           "phrase": "Bye",
@@ -16,10 +20,10 @@
       "amount": 0
     },
     {
-      "phrase": "Did you know you can turn junk and seeds into compost, right here in this bucket?",
+      "phrase": "Placing compost on dirt helps create a grass tile which has rich soil ready for your hoe",
       "replies": [
         {
-          "phrase": "Yeah",
+          "phrase": "Neeto I sure wish I had some compost",
           "dialouge_num": 2
         },
         {
@@ -31,25 +35,49 @@
       "amount": 0
     },
     {
-      "phrase": "Here I have some Junk in my pockets",
+      "phrase": "Here I have some Junk in my pockets put it in the compost pile ;)",
       "replies": [
         {
           "phrase": "Thanks",
           "dialouge_num": -1
+        },
+        {
+          "phrase": "Do you need any help",
+          "dialouge_num": 3
         }
       ],
       "hand_num": 0, 
       "amount": 3
+    }, 
+    {
+      "phrase": "Oh yea get me some junk and I can help the other farmers grow some serious veg",
+      "replies": [
+        {
+          "phrase": "I can get you 20 junk for 50 coins",
+          "dialouge_num": 4
+        },
+        {
+          "phrase": "I don't think I can do that just yet",
+          "dialouge_num": 3
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
     }
   ],
   "Rick": [
     {
-      "phrase": "hi, im Rick.",
+      "phrase": "howdy buddy, I'm Rick but people round here call me cowboy Rick",
       "replies": [
         {
-          "phrase": "Hi Rick",
+          "phrase": "Hi Rick ... I mean cowboy Rick ",
           "dialouge_num": 1
         },
+        {
+          "phrase": "What do you know about the land lord how do we keep cloudy going",
+          "dialouge_num": 3
+        }
+        ,
         {
           "phrase": "Bye",
           "dialouge_num": -1
@@ -62,7 +90,7 @@
       "phrase": "Do you want some strawberries?",
       "replies": [
         {
-          "phrase": "Yeah",
+          "phrase": "Yes Please",
           "dialouge_num": 2
         },
         {
@@ -74,7 +102,7 @@
       "amount": 0
     },
     {
-      "phrase": "Here you go.",
+      "phrase": "Here you go. be sure to water them",
       "replies": [
         {
           "phrase": "Thanks",
@@ -83,6 +111,25 @@
       ],
       "hand_num": 0,
       "amount": 2
+    },
+    {
+      "phrase": "Cloudy is a simple place we try to make food for ourselfs and whatever else we sell, that man knows we aint got the abillity to make that kind of money",
+      "replies": [
+        {
+          "phrase": "So should we just give up?",
+          "dialouge_num": 4
+        },
+        {
+          "phrase": "Well let me know if I can help",
+          "dialouge_num": 4
+        },
+        {
+          "phrase": "Dang",
+          "dialouge_num": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
     }
   ],
   "Meb": [
@@ -100,33 +147,14 @@
       ],
       "hand_num": -1, 
       "amount": 0
-    },
-    {
-      "phrase": "How are you today?",
-      "replies": [
-        {
-          "phrase": "Good",
-          "dialouge_num": -1
-        },
-        {
-          "phrase": "Bad",
-          "dialouge_num": -1
-        },
-        {
-          "phrase": "Bye",
-          "dialouge_num": -1
-        }
-      ],
-      "hand_num": -1, 
-      "amount": 0
     }
   ],
   "Mario": [
     {
-      "phrase": "hi, im Mario",
+      "phrase": "hi, its Mario thats me",
       "replies": [
         {
-          "phrase": "Hi Mario",
+          "phrase": "Hi Mario, ",
           "dialouge_num": 1
         },
         {
@@ -270,7 +298,7 @@
       "amount": 0
     },
     {
-      "phrase": "How are you today?",
+      "phrase": "",
       "replies": [
         {
           "phrase": "Good",
@@ -291,11 +319,15 @@
   ],
   "Brent": [
     {
-      "phrase": "hi, im Brent",
+      "phrase": "Oh geez man oh gosh so many coins what if we lose cloudy meadows ",
       "replies": [
         {
-          "phrase": "Hi Brent",
+          "phrase": "Hey man hows it going",
           "dialouge_num": 1
+        },
+        {
+          "phrase": "anything I can do to help?",
+          "dialouge_num": 3
         },
         {
           "phrase": "Bye",
@@ -306,18 +338,89 @@
       "amount": 0
     },
     {
-      "phrase": "How are you today?",
+      "phrase": "How does it look bad bad bad oh geez man what am I gonna do?",
       "replies": [
         {
-          "phrase": "Good",
+          "phrase": "You worried about MR.C?",
+          "dialouge_num": 2
+        },
+        {
+          "phrase": "I'm gonna let you cool off",
+          "dialouge_num": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "Yea man I am full on freaking out ",
+      "replies": [
+        {
+          "phrase": "any way I can help?",
+          "dialouge_num": 3
+        },
+        {
+          "phrase": "I don't know where that is ",
           "dialouge_num": -1
         },
         {
-          "phrase": "Bad",
+          "phrase": "I don't know where that is ",
           "dialouge_num": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "Go to poly park and tell my mom that I might need a place to stay",
+      "replies": [
+        {
+          "phrase": "You Got it Brent !",
+          "dialouge_num": 4
         },
         {
-          "phrase": "Bye",
+          "phrase": "I don't know where that is ",
+          "dialouge_num": 5
+        },
+        {
+          "phrase": "I can't help right now sorry",
+          "dialouge_num": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "Thanks my mom will know what to do she is my super hero",
+      "replies": [
+        {
+          "phrase": "You Got it Brent !",
+          "dialouge_num": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "You might want to take the air ship head left for awhile you can't miss it",
+      "replies": [
+        {
+          "phrase": "Ok",
+          "dialouge_num": 6
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "So do you think you can help me?",
+      "replies": [
+        {
+          "phrase": "You Got it Brent !",
+          "dialouge_num": 4
+        },
+        {
+          "phrase": "I can't help right now sorry",
           "dialouge_num": -1
         }
       ],
@@ -378,14 +481,34 @@
       "amount": 0
     },
     {
-      "phrase": "How are you today?",
+      "phrase": "The red cart on the bottom is where we put anything we want to sell",
       "replies": [
         {
-          "phrase": "Good",
+          "phrase": "Tell me more about the market please",
+          "dialouge_num": 2
+        },
+        {
+          "phrase": "I already know that James",
           "dialouge_num": -1
         },
         {
-          "phrase": "Bad",
+          "phrase": "Bye",
+          "dialouge_num": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+
+    {
+      "phrase": "Their are carts for vegatables fruits and insects, but they run out of stock but they fill back up every day or so",
+      "replies": [
+        {
+          "phrase": "Thanks that was super helpful james",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "I already know that James",
           "dialouge_num": -1
         },
         {
@@ -402,7 +525,7 @@
       "phrase": "hi, im Liam",
       "replies": [
         {
-          "phrase": "Hi Liam",
+          "phrase": "Hi Liam anything I can do to help?",
           "dialouge_num": 1
         },
         {
@@ -414,18 +537,48 @@
       "amount": 0
     },
     {
-      "phrase": "How are you today?",
+      "phrase": "I love James can you give him this love letter for me",
       "replies": [
         {
-          "phrase": "Good",
+          "phrase": "Yea I can do that",
+          "dialouge_num": 2
+        },
+        {
+          "phrase": "What do I look like your love letter collector, I have other things to do",
           "dialouge_num": -1
         },
         {
-          "phrase": "Bad",
+          "phrase": "No sorry I can't do that right now",
+          "dialouge_num": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "I love James thanks",
+      "replies": [
+        {
+          "phrase": ":)",
           "dialouge_num": -1
         },
         {
-          "phrase": "Bye",
+          "phrase": "Where is James?",
+          "dialouge_num": 3
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "James likes to hang out in the market bloude hair hot bod can't miss him",
+      "replies": [
+        {
+          "phrase": ":)",
+          "dialouge_num": -1
+        },
+        {
+          "phrase": "um ok",
           "dialouge_num": -1
         }
       ],
