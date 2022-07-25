@@ -86,6 +86,57 @@ function showDificulty(){
     strokeWeight(3);
     text('Select Your Dificulty', (canvasWidth/2)-10, (canvasWidth/2)-250);
 
+    fill(100, 255, 100);
+    stroke(0, 200, 0);
+    strokeWeight(5);
+    rect((canvasWidth/4)-90-13, (canvasWidth/2)-150-13, 170, 290);
+    fill(0, 255, 0);
+    stroke(0);
+    strokeWeight(3);
+    textSize(20);
+    text('Easy', (canvasWidth/4)-90-13+(170/2), (canvasWidth/2)-150-13+20);
+    textSize(14);
+    text('Money Loss', (canvasWidth/4)-90-13+(170/2), (canvasWidth/2)-150-13+70);
+    text('Food Rot', (canvasWidth/4)-90-13+(170/2), (canvasWidth/2)-150-13+140);
+    text('Perma Death', (canvasWidth/4)-90-13+(170/2), (canvasWidth/2)-150-13+210);
+    image(check_img, (canvasWidth/4)-90-13+(170/2)-8, (canvasWidth/2)-150-13+90)
+    image(x_img, (canvasWidth/4)-90-13+(170/2)-8, (canvasWidth/2)-150-13+160)
+    image(x_img, (canvasWidth/4)-90-13+(170/2)-8, (canvasWidth/2)-150-13+230)
+
+    fill(100, 100, 255);
+    stroke(0, 0, 200);
+    strokeWeight(5);
+    rect(((2*canvasWidth)/4)-90-13, (canvasWidth/2)-150-13, 170, 290);
+    fill(0, 0, 255);
+    stroke(0);
+    strokeWeight(3);
+    textSize(20);
+    text('Medium', ((2*canvasWidth)/4)-90-13+(170/2), (canvasWidth/2)-150-13+20);
+    textSize(14);
+    text('Money Loss', ((2*canvasWidth)/4)-90-13+(170/2), (canvasWidth/2)-150-13+70);
+    text('Food Rot', ((2*canvasWidth)/4)-90-13+(170/2), (canvasWidth/2)-150-13+140);
+    text('Perma Death', ((2*canvasWidth)/4)-90-13+(170/2), (canvasWidth/2)-150-13+210);
+    image(check_img, ((2*canvasWidth)/4)-90-13+(170/2)-8, (canvasWidth/2)-150-13+90)
+    image(check_img, ((2*canvasWidth)/4)-90-13+(170/2)-8, (canvasWidth/2)-150-13+160)
+    image(x_img, ((2*canvasWidth)/4)-90-13+(170/2)-8, (canvasWidth/2)-150-13+230)
+
+    fill(255, 100, 100);
+    stroke(200, 0, 0);
+    strokeWeight(5);
+    rect(((3*canvasWidth)/4)-90-13, (canvasWidth/2)-150-13, 170, 290);
+    fill(255, 0, 0);
+    stroke(0);
+    strokeWeight(3);
+    textSize(20);
+    text('Hard', ((3*canvasWidth)/4)-90-13+(170/2), (canvasWidth/2)-150-13+20);
+    textSize(14);
+    text('Money Loss', ((3*canvasWidth)/4)-90-13+(170/2), (canvasWidth/2)-150-13+70);
+    text('Food Rot', ((3*canvasWidth)/4)-90-13+(170/2), (canvasWidth/2)-150-13+140);
+    text('Perma Death', ((3*canvasWidth)/4)-90-13+(170/2), (canvasWidth/2)-150-13+210);
+    image(x_img, ((3*canvasWidth)/4)-90-13+(170/2)-8, (canvasWidth/2)-150-13+90)
+    image(x_img, ((3*canvasWidth)/4)-90-13+(170/2)-8, (canvasWidth/2)-150-13+160)
+    image(check_img, ((3*canvasWidth)/4)-90-13+(170/2)-8, (canvasWidth/2)-150-13+230)
+
     dif0button.show()
     dif1button.show()
     dif2button.show()

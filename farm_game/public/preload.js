@@ -230,6 +230,8 @@ function preload() {
     skull_img = loadImage('images/ui/dealth_icon(128x128).png');
     inv_warn_img = loadImage('images/ui/warning_sign_icon.png');
     save_img = loadImage('images/ui/Save-icon.gif');
+    check_img = loadImage('images/ui/checkmark.png');
+    x_img = loadImage('images/ui/x.png');
 
     //Player
     up_move_img_1 = loadImage('images/player/Back_Move.png');
@@ -695,16 +697,11 @@ function setup() {
     });
     QuitButton.hide();
 
-    dif0button = createButton('Easy You will loose a little money on death');
+    dif0button = createButton('');
     dif0button.position((canvasWidth/4)-90, (canvasWidth/2)-150);
     dif0button.style('width','180px');
     dif0button.style('height','300px');
-    dif0button.style('background','rgb(0, 255, 0)');
-    dif0button.style('background','rgb(0, 255, 0)');
-    dif0button.style('color','rgb(0, 0, 0)');
-    dif0button.style("font-family","pixelFont");
-    dif0button.style('font-size','120%');
-    dif0button.style('word-spacing','30px');
+    dif0button.style('background','url()');
     dif0button.mousePressed(() => {
         dificulty = 0;
         console.log(dificulty);
@@ -715,15 +712,11 @@ function setup() {
     });
     dif0button.hide();
 
-    dif1button = createButton('Medium You will loose a some money on death, and some of your food will rot');
+    dif1button = createButton('');
     dif1button.position(((2*canvasWidth)/4)-90, (canvasWidth/2)-150);
     dif1button.style('width','180px');
     dif1button.style('height','300px');
-    dif1button.style('background','rgb(0, 0, 255)');
-    dif1button.style('color','rgb(0, 0, 0)');
-    dif1button.style("font-family","pixelFont");
-    dif1button.style('font-size','120%');
-    dif1button.style('word-spacing','-5px');
+    dif1button.style('background','url()');
     dif1button.mousePressed(() => {
         dificulty = 1;
         console.log(dificulty);
@@ -734,15 +727,11 @@ function setup() {
     });
     dif1button.hide();
 
-    dif2button = createButton('Hard You will loose your world on death');
+    dif2button = createButton('');
     dif2button.position(((3*canvasWidth)/4)-90, (canvasWidth/2)-150);
     dif2button.style('width','180px');
     dif2button.style('height','300px');
-    dif2button.style('background','rgb(255, 0, 0)');
-    dif2button.style('color','rgb(0, 0, 0)');
-    dif2button.style("font-family","pixelFont");
-    dif2button.style('font-size','120%');
-    dif2button.style('word-spacing','30px');
+    dif2button.style('background','url()');
     dif2button.mousePressed(() => {
         dificulty = 2;
         console.log(dificulty);
