@@ -40,6 +40,13 @@ var creditsButton;
 var dif0button;
 var dif1button;
 var dif2button;
+var Controls_Interact_button;
+var Controls_Eat_button;
+var Controls_Up_button;
+var Controls_Down_button;
+var Controls_Left_button;
+var Controls_Right_button;
+var Controls_Special_button;
 var creditsOn = false;
 var current_reply = 0;
 var temp_move_bool = true;
@@ -170,20 +177,20 @@ function render_ui() {
         textSize(32.5);
         fill(0);
         textAlign(LEFT, TOP);
-        image(coin_img, canvasWidth - 140, (canvasHeight - 185));
+        image(coin_img, canvasWidth - 130, (canvasHeight - 185));
         let amountS = str(player.coins)
         if(player.coins > 9999999){
             let amountS = str(round(player.coins/1000000) + 'B')
-            textSize(32.5 - ((amountS.length-4)*3));
+            textSize(30 - ((amountS.length-4)*3));
             text(round(player.coins/1000000) + 'B', (canvasWidth / 2) + (512 / 2) - 64, (canvasHeight - 92.5) + ((amountS.length-4)*2.8));
         }
         else if(player.coins > 9999){
-            textSize(32.5 - ((amountS.length-4)*3));
+            textSize(30 - ((amountS.length-4)*3));
             text(player.coins, canvasWidth - 110, (canvasHeight - 182.5) - ((amountS.length-4)*3));
         }
         else{
-            textSize(32.5);
-            text(player.coins, canvasWidth - 110, (canvasHeight - 182.5));
+            textSize(30);
+            text(player.coins, canvasWidth - 100, (canvasHeight - 182.5));
         }
     }
     else{

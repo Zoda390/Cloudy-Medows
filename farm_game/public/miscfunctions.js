@@ -4,6 +4,13 @@ function start(){
     optionsButton.hide();
     creditsButton.hide();
     clearButton.hide();
+    Controls_Interact_button.hide();
+    Controls_Eat_button.hide();
+    Controls_Up_button.hide();
+    Controls_Down_button.hide();
+    Controls_Left_button.hide();
+    Controls_Right_button.hide();
+    Controls_Special_button.hide();
     title_screen = false;
     if(localData.get('Day_curLvl_Dif') == null){
         dificulty_screen = true;
@@ -23,10 +30,7 @@ eat secoundary interact
 inventory quick move 
 
 */
-function ChangeText(button,key){
-   // button.getattribute.text(key)
 
-}
 
 function showTitle(){
     push()
@@ -56,6 +60,13 @@ function showTitle(){
         musicSlider.hide();
         fxSlider.hide();
         clearButton.hide();
+        Controls_Interact_button.hide();
+        Controls_Eat_button.hide();
+        Controls_Up_button.hide();
+        Controls_Down_button.hide();
+        Controls_Left_button.hide();
+        Controls_Right_button.hide();
+        Controls_Special_button.hide();
     }
     if(creditsOn){
         showCredits();
@@ -162,7 +173,34 @@ function showOptions(){
     fxSlider.show();
     musicSlider.position(((4*canvasWidth)/5)-30, (canvasHeight/6)-25);
     fxSlider.position(((4*canvasWidth)/5)-30, (canvasHeight/6)+15);
+    Controls_Interact_button.show();
+    Controls_Eat_button.show();
+    Controls_Up_button.show();
+    Controls_Down_button.show();
+    Controls_Left_button.show();
+    Controls_Right_button.show();
+    Controls_Special_button.show();
+    if(control_set != 0){
+        fill(255); //try yellow with david
+        rect(((4*canvasWidth)/5)+97, ((canvasHeight/2)-127) + (25*(control_set-1)), 90, 20);
+    }
+    textSize(15);
+    fill(0);
+    noStroke();
+    text('Interact:', ((4*canvasWidth)/5)-12, canvasHeight/2-127);
+    text('Eat:', ((4*canvasWidth)/5)-12, canvasHeight/2-102);
+    text('Up:', ((4*canvasWidth)/5)-12, canvasHeight/2-77);
+    text('Left:', ((4*canvasWidth)/5)-12, canvasHeight/2-52);
+    text('Down:', ((4*canvasWidth)/5)-12, canvasHeight/2-27);
+    text('Right:', ((4*canvasWidth)/5)-12, canvasHeight/2-2);
+    text('Special:', ((4*canvasWidth)/5)-12, canvasHeight/2+23);
 
+    let button_key_array = [Controls_Interact_button_key, Controls_Eat_button_key, Controls_Up_button_key, Controls_Left_button_key, Controls_Down_button_key, Controls_Right_button_key, Controls_Special_button_key]
+    for(let i = 0; i < button_key_array.length; i++){
+        textSize(15 - (button_key_array[i].length > 5 ? ((button_key_array[i].length-5) * 1.5):0));
+        text(button_key_array[i], ((4*canvasWidth)/5)+97, (canvasHeight/2-127) + (i*25));
+    }
+    
 
     clearButton.show();
     //deleate data button
@@ -208,6 +246,7 @@ function showCredits(){
     strokeWeight(2);
     textFont(player_2);
     textAlign(CENTER, CENTER);
+    textSize(12);
     text('Credits', canvasWidth/2 + 120, 20);
     text('Christian Rodriguez - Lead programmer \n David Kozdra - Code Art and sound \n Patrick Mayer - UI programming \n Christian “Sealand” Rodriguez - Music', (canvasWidth/2)+120, 80);
     pop()

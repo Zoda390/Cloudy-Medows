@@ -475,6 +475,14 @@ class Player extends MoveableEntity {
     }
 }
 
+var Controls_Interact_button_key = 'e';
+var Controls_Eat_button_key = 'q';
+var Controls_Up_button_key = 'w';
+var Controls_Down_button_key = 's';
+var Controls_Left_button_key = 'a';
+var Controls_Right_button_key = 'd';
+var Controls_Special_button_key = 'Shift';
+
 //keys
 var move_right_button = 68;//d
 var move_left_button = 65; //a
@@ -484,10 +492,49 @@ var interact_button = 69;  //e
 var eat_button = 81;       //q
 var pause_button = 27;     //esc
 var special_key = 16;
+var control_set = 0;
+var lastKey = '!';
 function takeInput() {
     if (title_screen) {
-        if (keyIsDown(interact_button)) {
-            title_screen = false;
+        if(control_set == 1 && key != lastKey){
+            interact_button = keyCode;
+            Controls_Interact_button_key = key;
+            control_set = 0;
+        }
+        else if (control_set == 2 && key != lastKey){
+            eat_button = keyCode;
+            Controls_Eat_button_key = key;
+            control_set = 0;
+        }
+        else if (control_set == 3 && key != lastKey){
+            move_up_button = keyCode;
+            Controls_Up_button_key = key;
+            control_set = 0;
+        }
+        else if (control_set == 4 && key != lastKey){
+            move_left_button = keyCode;
+            Controls_Left_button_key = key;
+            control_set = 0;
+        }
+        else if (control_set == 5 && key != lastKey){
+            move_down_button = keyCode;
+            Controls_Down_button_key = key;
+            control_set = 0;
+        }
+        else if (control_set == 6 && key != lastKey){
+            move_right_button = keyCode;
+            Controls_Right_button_key = key;
+            control_set = 0;
+        }
+        else if (control_set == 7 && key != lastKey){
+            special_key = keyCode;
+            Controls_Special_button_key = key;
+            control_set = 0;
+        }
+        else if (control_set == 0){
+            if (keyIsDown(interact_button) && !showOptions) {
+                title_screen = false;
+            }
         }
     }
     else if(paused){

@@ -671,16 +671,6 @@ function setup() {
 
     clearButton.hide();
 
-    Controls_Interact = createButton(interact_button);
-    Controls_Interact.position(canvasWidth/2-250/2, canvasHeight/2+120);
-    Controls_Interact.mousePressed();
-    Controls_Interact.style('width', '250px');
-    Controls_Interact.style('background','url()');
-    Controls_Interact.style("font-family","pixelFont");
-    Controls_Interact.style("border","none");
-    Controls_Interact.hide()
-
-    
     QuitButton = createButton('Quit');
     QuitButton.position((canvasWidth/2)-125, (canvasWidth/2)+95);
     QuitButton.style('width', '250px');
@@ -741,6 +731,118 @@ function setup() {
         dif2button.hide()
     });
     dif2button.hide();
+
+    Controls_Interact_button = createButton('');
+    Controls_Interact_button.position(((4*canvasWidth)/5)+70, canvasHeight/2-120);
+    Controls_Interact_button.mousePressed(() => {
+        if(control_set == 0){
+            control_set = 1;
+            key = Controls_Interact_button_key;
+            lastKey = key;
+        }
+    });
+    Controls_Interact_button.style('width', '90px');
+    Controls_Interact_button.style('height', '20px');
+    Controls_Interact_button.style('background','url()');
+    Controls_Interact_button.style("font-family","pixelFont");
+    //Controls_Interact.style("border","none");
+    Controls_Interact_button.hide();
+
+    Controls_Eat_button = createButton('');
+    Controls_Eat_button.position(((4*canvasWidth)/5)+70, canvasHeight/2-95);
+    Controls_Eat_button.mousePressed(() => {
+        if(control_set == 0){
+            control_set = 2;
+            key = Controls_Eat_button_key;
+            lastKey = key;
+        }
+    });
+    Controls_Eat_button.style('width', '90px');
+    Controls_Eat_button.style('height', '20px');
+    Controls_Eat_button.style('background','url()');
+    Controls_Eat_button.style("font-family","pixelFont");
+    //Controls_Eat.style("border","none");
+    Controls_Eat_button.hide();
+
+    Controls_Up_button = createButton('');
+    Controls_Up_button.position(((4*canvasWidth)/5)+70, canvasHeight/2-70);
+    Controls_Up_button.mousePressed(() => {
+        if(control_set == 0){
+            control_set = 3;
+            key = Controls_Up_button_key;
+            lastKey = key;
+        }
+    });
+    Controls_Up_button.style('width', '90px');
+    Controls_Up_button.style('height', '20px');
+    Controls_Up_button.style('background','url()');
+    Controls_Up_button.style("font-family","pixelFont");
+    //Controls_Up.style("border","none");
+    Controls_Up_button.hide();
+
+    Controls_Left_button = createButton('');
+    Controls_Left_button.position(((4*canvasWidth)/5)+70, canvasHeight/2-45);
+    Controls_Left_button.mousePressed(() => {
+        if(control_set == 0){
+            control_set = 4;
+            key = Controls_Left_button_key;
+            lastKey = key;
+        }
+    });
+    Controls_Left_button.style('width', '90px');
+    Controls_Left_button.style('height', '20px');
+    Controls_Left_button.style('background','url()');
+    Controls_Left_button.style("font-family","pixelFont");
+    //Controls_Left.style("border","none");
+    Controls_Left_button.hide();
+
+    Controls_Down_button = createButton('');
+    Controls_Down_button.position(((4*canvasWidth)/5)+70, canvasHeight/2-20);
+    Controls_Down_button.mousePressed(() => {
+        if(control_set == 0){
+            control_set = 5;
+            key = Controls_Down_button_key;
+            lastKey = key;
+        }
+    });
+    Controls_Down_button.style('width', '90px');
+    Controls_Down_button.style('height', '20px');
+    Controls_Down_button.style('background','url()');
+    Controls_Down_button.style("font-family","pixelFont");
+    //Controls_Down.style("border","none");
+    Controls_Down_button.hide();
+
+    Controls_Right_button = createButton('');
+    Controls_Right_button.position(((4*canvasWidth)/5)+70, canvasHeight/2+5);
+    Controls_Right_button.mousePressed(() => {
+        if(control_set == 0){
+            control_set = 6;
+            key = Controls_Right_button_key;
+            lastKey = key;
+        }
+    });
+    Controls_Right_button.style('width', '90px');
+    Controls_Right_button.style('height', '20px');
+    Controls_Right_button.style('background','url()');
+    Controls_Right_button.style("font-family","pixelFont");
+    //Controls_Right.style("border","none");
+    Controls_Right_button.hide();
+
+    Controls_Special_button = createButton('');
+    Controls_Special_button.position(((4*canvasWidth)/5)+70, canvasHeight/2 + 30);
+    Controls_Special_button.mousePressed(() => {
+        if(control_set == 0){
+            control_set = 7;
+            key = Controls_Special_button_key;
+            lastKey = key;
+        }
+    });
+    Controls_Special_button.style('width', '90px');
+    Controls_Special_button.style('height', '20px');
+    Controls_Special_button.style('background','url()');
+    Controls_Special_button.style("font-family","pixelFont");
+    //Controls_Special.style("border","none");
+    Controls_Special_button.hide();
 
     newWorld();
     loadAll();
