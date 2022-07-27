@@ -25,7 +25,7 @@ class Tile {
         if (this.name == 'compost_tile') {
             image(all_imgs[3][0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); //dirt under
         }
-        if (this.name == 'hori_fence' || this.name == 'vert_fence' || this.name == 'top_right_corner_fence') {
+        if (this.name == 'hori_fence' || this.name == 'vert_fence' || this.name == 'top_right_corner_fence' || this.name == 'bottom_right_corner_fence' || this.name == 'top_left_corner_fence' || this.name == 'bottom_left_corner_fence') {
             image(all_imgs[94][0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); //park grass under
         }
         image(all_imgs[this.png][this.variant], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));

@@ -90,6 +90,7 @@ function showDificulty(){
     stroke(149, 108, 65);
     strokeWeight(5);
     fill(187, 132, 75);
+    image(dif_background_img, 0, 0)
     rect((canvasWidth/2)-220, (canvasWidth/2)-300, 440, 100)
     textFont(player_2);
     fill('black');
