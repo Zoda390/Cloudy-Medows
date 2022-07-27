@@ -37,9 +37,9 @@ class MusicPlayer {
         this.player.setAttribute("preload", "none");
         this.player.style.display = "none";
         this.volume = this.player.volume;
-
+        
         document.body.appendChild(this.player);
-        this.player.play();
+        
 
         
     }

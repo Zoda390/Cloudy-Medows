@@ -519,7 +519,7 @@ function preload() {
     /*37*/    { name: 'Liam', png: 36, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: ['up', 'up', 'down', 'down'], moving_timer: 100, class: 'NPC' },
     /*38*/    { name: 'Meb', png: 37, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 100, class: 'NPC' },
     /*39*/    { name: 'bush', png: 38, border: false, collide: true, age: -1, class: 'Tile' },
-    /*40*/    { name: 'chest', png: 39, inv: [0, { num: 23, amount: 2}, { num: 26, amount: 1}, { num: 29, amount: 1}, { num: 30, amount: 1}, 0, 0, 0, 0, 0, 0, { num: 4, amount: 2}], facing: 2, under_tile_num: 1, class: 'Chest'},
+    /*40*/    { name: 'chest', png: 39, inv: [0, { num: 23, amount: 2}, { num: 26, amount: 1}, { num: 29, amount: 1}, { num: 30, amount: 1}, 0, 0, 0, 0, 0, 0, { num: 4, amount: 20}], facing: 2, under_tile_num: 1, class: 'Chest'},
     /*41*/    { name: 'watermelon', png: 40, border: true, collide: false, age: 0, eat_num: 17, waterneed: 2, growthTime: 4000, class: 'Plant'},
     /*42*/    { name: 'Robot3', png: 41, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 60, class: 'Robot'},
     /*43*/    { name: 'Fruis', png: 42, inv: [{num: 7, amount: 3}, {num: 15, amount: 3}, {num: 17, amount: 3}], class: 'Shop' },
@@ -673,15 +673,23 @@ function setup() {
 
     musicSlider = createSlider(0, 1, ((localData.get('Options') != null ? localData.get('Options').musicVolume:0.01)), 0.01);
     musicSlider.position((canvasWidth/2)-10, (canvasHeight/2)-85);
+    musicSlider.input(saveOptions)
     musicSlider.hide();
     fxSlider = createSlider(0, 1, ((localData.get('Options') != null ? localData.get('Options').fxVolume:1)), 0.01);
     fxSlider.position((canvasWidth/2)-10, (canvasHeight/2)-5);
+    fxSlider.input(saveOptions)
     fxSlider.hide();
+
+    questSlider = createSlider(0, 1, 0, 1);
+    questSlider.position((canvasWidth/2)+(3*22), canvasHeight/8)
+    questSlider._rotate(90);
+    questSlider.size((65*6)+45);
+    questSlider.hide();
 
     clearButton = createButton('Clear Data');
     clearButton.position((canvasWidth/2)+150, (canvasHeight/2)+200);
     clearButton.mousePressed(() => {
-        localStorage.clear();
+        deleteWorld();
         newWorld();
     });
     clearButton.style('width', '200px');
@@ -703,6 +711,7 @@ function setup() {
         optionsButton.show()
         clearButton.hide();
         QuitButton.hide();
+        saveAll();
     });
     QuitButton.hide();
 
@@ -859,6 +868,22 @@ function setup() {
     Controls_Special_button.style("font-family","pixelFont");
     //Controls_Special.style("border","none");
     Controls_Special_button.hide();
+
+    Controls_Quest_button = createButton('');
+    Controls_Quest_button.position(((4*canvasWidth)/5)+70, canvasHeight/2 + 55);
+    Controls_Quest_button.mousePressed(() => {
+        if(control_set == 0){
+            control_set = 8;
+            key = Controls_Quest_button_key;
+            lastKey = key;
+        }
+    });
+    Controls_Quest_button.style('width', '90px');
+    Controls_Quest_button.style('height', '20px');
+    Controls_Quest_button.style('background','url()');
+    Controls_Quest_button.style("font-family","pixelFont");
+    //Controls_Quest.style("border","none");
+    Controls_Quest_button.hide();
 
     newWorld();
     loadAll();

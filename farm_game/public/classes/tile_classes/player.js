@@ -34,7 +34,11 @@ class Player extends MoveableEntity {
         this.pos.x = obj.pos.x;
         this.pos.y = obj.pos.y;
         this.facing = obj.facing;
-        this.quests = [];
+        for(let i = 0; i < obj.quests.length; i++){
+            this.quests[i] = new Quest(obj.quests[i].og_name, obj.quests[i].goals, obj.quests[i].days, (obj.quests[i].reward_item == 0 ? 0 : {num: item_name_to_num(obj.quests[i].reward_item.name), amount: obj.quests[i].reward_item.amount}), obj.quests[i].reward_coins);
+            console.log(obj.quests[i].done)
+            this.quests[i].load(obj.quests[i]);
+        }
         this.current_quest = obj.current_quest;
         this.hunger = obj.hunger;
         if(this.hunger < 0){
@@ -395,6 +399,13 @@ class Player extends MoveableEntity {
                 this.money_anim = 255;
                 this.money_anim_amount += this.inv[this.hand].price*current_amount;
                 this.inv[this.hand].amount -= current_amount;
+                if(this.quests[this.current_quest].goals[this.quests[this.current_quest].current_Goal] != undefined){
+                    if(this.quests[this.current_quest].goals[this.quests[this.current_quest].current_Goal].class == 'SellGoal'){
+                        if(this.quests[this.current_quest].goals[this.quests[this.current_quest].current_Goal].item_name == this.inv[this.hand].name){
+                            this.quests[this.current_quest].goals[this.quests[this.current_quest].current_Goal].amount -= current_amount;
+                        }
+                    }
+                }
                 if (this.inv[this.hand].amount == 0) {
                     this.inv[this.hand] = 0;
                 }
@@ -482,7 +493,7 @@ class Player extends MoveableEntity {
     }
 
     quests_render(){
-        
+
     }
 }
 
@@ -493,6 +504,7 @@ var Controls_Down_button_key = 's';
 var Controls_Left_button_key = 'a';
 var Controls_Right_button_key = 'd';
 var Controls_Special_button_key = 'Shift';
+var Controls_Quest_button_key = 'P';
 
 //keys
 var move_right_button = 68;//d
@@ -503,6 +515,7 @@ var interact_button = 69;  //e
 var eat_button = 81;       //q
 var pause_button = 27;     //esc
 var special_key = 16;
+var quest_key = 80;
 var control_set = 0;
 var lastKey = '!';
 function takeInput() {
@@ -511,36 +524,49 @@ function takeInput() {
             interact_button = keyCode;
             Controls_Interact_button_key = key;
             control_set = 0;
+            saveOptions();
         }
         else if (control_set == 2 && key != lastKey){
             eat_button = keyCode;
             Controls_Eat_button_key = key;
             control_set = 0;
+            saveOptions();
         }
         else if (control_set == 3 && key != lastKey){
             move_up_button = keyCode;
             Controls_Up_button_key = key;
             control_set = 0;
+            saveOptions();
         }
         else if (control_set == 4 && key != lastKey){
             move_left_button = keyCode;
             Controls_Left_button_key = key;
             control_set = 0;
+            saveOptions();
         }
         else if (control_set == 5 && key != lastKey){
             move_down_button = keyCode;
             Controls_Down_button_key = key;
             control_set = 0;
+            saveOptions();
         }
         else if (control_set == 6 && key != lastKey){
             move_right_button = keyCode;
             Controls_Right_button_key = key;
             control_set = 0;
+            saveOptions();
         }
         else if (control_set == 7 && key != lastKey){
             special_key = keyCode;
             Controls_Special_button_key = key;
             control_set = 0;
+            saveOptions();
+        }
+        else if (control_set == 8 && key != lastKey){
+            quest_key = keyCode;
+            Controls_Quest_button_key = key;
+            control_set = 0;
+            saveOptions();
         }
         else if (control_set == 0){
             if (keyIsDown(interact_button) && !showOptions) {
@@ -660,6 +686,16 @@ function takeInput() {
         if (keyIsDown(interact_button)){
             if (millis() - lastMili > 200) {
                 if (player.talking.class == 'NPC'){
+                    if(player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].quest != -1){
+                        player.quests.push(player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].quest);
+                        player.current_quest = player.quests.length - 1;
+                        player.talking.dialouges[player.talking.current_dialouge].new_phrase = [];
+                        let phrase = "You already helped me with this.";
+                        for(let i = 0; i < phrase.length; i++){
+                            player.talking.dialouges[player.talking.current_dialouge].new_phrase[i] = phrase[i];
+                        }
+                        player.talking.dialouges[player.talking.current_dialouge].new_replies = [{phrase: 'Oh ok', dialouge_num: -1, quest: -1}];
+                    }
                     if(player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num == -1){
                         player.talking.move_bool = true;
                         player.talking.current_dialouge = 0;
@@ -701,7 +737,7 @@ function takeInput() {
             }
             
         }
-        if (keyIsDown(80)) { //p
+        if (keyIsDown(quest_key)) { //p
             if (millis() - lastMili > 100) {
                 console.log(player);
                 console.log(player.touching);
@@ -711,51 +747,53 @@ function takeInput() {
             }
         }
     }
-    else {
-        if(keyIsDown(pause_button)){
-            if (millis() - lastMili > 200 && !player.dead) {
-                paused = true;
-                lastMili = millis();
+    else{
+        if(!player.show_quests){
+            if(keyIsDown(pause_button)){
+                if (millis() - lastMili > 200 && !player.dead) {
+                    paused = true;
+                    lastMili = millis();
+                }
             }
-        }
-        //basic movement  
-        player.move();
-        if (keyIsDown(eat_button)) {
-            player.eat();
-        }
-        if (keyIsDown(interact_button)) {
-        
-            player.interactCall();
-        }
-        /*
-        if(keyIsDown(48)){
-          player.hand = 9;
-        }
-        */
-        //mc style hotbar
-        if (keyIsDown(49)) {
-            player.hand = 0;
-        }
-        if (keyIsDown(50)) {
-            player.hand = 1;
-        }
-        if (keyIsDown(51)) {
-            player.hand = 2;
-        }
-        if (keyIsDown(52)) {
-            player.hand = 3;
-        }
-        if (keyIsDown(53)) {
-            player.hand = 4;
-        }
-        if (keyIsDown(54)) {
-            player.hand = 5;
-        }
-        if (keyIsDown(55)) {
-            player.hand = 6;
-        }
-        if (keyIsDown(56)) {
-            player.hand = 7;
+            //basic movement  
+            player.move();
+            if (keyIsDown(eat_button)) {
+                player.eat();
+            }
+            if (keyIsDown(interact_button)) {
+            
+                player.interactCall();
+            }
+            /*
+            if(keyIsDown(48)){
+              player.hand = 9;
+            }
+            */
+            //mc style hotbar
+            if (keyIsDown(49)) {
+                player.hand = 0;
+            }
+            if (keyIsDown(50)) {
+                player.hand = 1;
+            }
+            if (keyIsDown(51)) {
+                player.hand = 2;
+            }
+            if (keyIsDown(52)) {
+                player.hand = 3;
+            }
+            if (keyIsDown(53)) {
+                player.hand = 4;
+            }
+            if (keyIsDown(54)) {
+                player.hand = 5;
+            }
+            if (keyIsDown(55)) {
+                player.hand = 6;
+            }
+            if (keyIsDown(56)) {
+                player.hand = 7;
+            }
         }
 
         /*
@@ -763,8 +801,9 @@ function takeInput() {
           player.hand = 8;
         }
         */
-        if (keyIsDown(80)) { //p
+        if (keyIsDown(quest_key)) { //p
             if (millis() - lastMili > 100) {
+                player.show_quests = !player.show_quests;
                 console.log(player);
                 console.log(player.touching);
                 console.log(player.looking(currentLevel_x, currentLevel_y));
@@ -772,8 +811,8 @@ function takeInput() {
                 lastMili = millis();
             }
         }
-        if (keyIsDown(90)){
-            if(millis() - lastMili > 100){
+        if (keyIsDown(90)){  //z
+            if(millis() - lastMili > 200){
                 if(player.facing == 0){
                     console.log(levels[currentLevel_y-1][currentLevel_x])
                     if(levels[currentLevel_y-1][currentLevel_x] != null){

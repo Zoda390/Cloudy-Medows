@@ -11,6 +11,7 @@ function start(){
     Controls_Left_button.hide();
     Controls_Right_button.hide();
     Controls_Special_button.hide();
+    Controls_Quest_button.hide();
     title_screen = false;
     if(localData.get('Day_curLvl_Dif') == null){
         dificulty_screen = true;
@@ -67,6 +68,7 @@ function showTitle(){
         Controls_Left_button.hide();
         Controls_Right_button.hide();
         Controls_Special_button.hide();
+        Controls_Quest_button.hide();
     }
     if(creditsOn){
         showCredits();
@@ -180,6 +182,7 @@ function showOptions(){
     Controls_Left_button.show();
     Controls_Right_button.show();
     Controls_Special_button.show();
+    Controls_Quest_button.show();;
     if(control_set != 0){
         fill(255, 255, 0);
         rect(((4*canvasWidth)/5)+97, ((canvasHeight/2)-127) + (25*(control_set-1)), 90, 20);
@@ -194,8 +197,9 @@ function showOptions(){
     text('Down:', ((4*canvasWidth)/5)-12, canvasHeight/2-27);
     text('Right:', ((4*canvasWidth)/5)-12, canvasHeight/2-2);
     text('Special:', ((4*canvasWidth)/5)-12, canvasHeight/2+23);
+    text('Quest:', ((4*canvasWidth)/5)-12, canvasHeight/2+48);
 
-    let button_key_array = [Controls_Interact_button_key, Controls_Eat_button_key, Controls_Up_button_key, Controls_Left_button_key, Controls_Down_button_key, Controls_Right_button_key, Controls_Special_button_key]
+    let button_key_array = [Controls_Interact_button_key, Controls_Eat_button_key, Controls_Up_button_key, Controls_Left_button_key, Controls_Down_button_key, Controls_Right_button_key, Controls_Special_button_key, Controls_Quest_button_key];
     for(let i = 0; i < button_key_array.length; i++){
         textSize(15 - (button_key_array[i].length > 5 ? ((button_key_array[i].length-5) * 1.5):0));
         text(button_key_array[i], ((4*canvasWidth)/5)+97, (canvasHeight/2-127) + (i*25));
@@ -250,6 +254,39 @@ function showCredits(){
     text('Credits', canvasWidth/2 + 120, 20);
     text('Christian Rodriguez - Lead programmer \n David Kozdra - Code Art and sound \n Patrick Mayer - UI programming \n Christian “Sealand” Rodriguez - Music', (canvasWidth/2)+120, 80);
     pop()
+}
+
+function showQuests(){
+    let width = 10*22;
+    for(let i = questSlider.value(); i < (player.quests.length > 6 ? 6 + questSlider.value(): player.quests.length); i++){
+        width = max(width, (player.quests[i].name.length*17)+10);
+        if(!player.quests[i].done){
+            width = max(width, (player.quests[i].goals[player.quests[i].current_Goal].name.length*12)+10);
+        }
+    }
+    push()
+    stroke(149, 108, 65);
+    strokeWeight(5);
+    fill(187, 132, 75);
+    rect((canvasWidth/2) - (width/2), canvasHeight/8, width, (65*6)+35);
+    textFont(player_2);
+    textSize(20);
+    fill(255);
+    stroke(0);
+    strokeWeight(4);
+    text('All Quests', (canvasWidth/2) - (width/2)+7, (canvasHeight/8)+7)
+    pop()
+    questSlider.show()
+    questSlider.position((canvasWidth/2)+(width/2)-190, (canvasHeight/8)+220);
+    questSlider.attribute('max', player.quests.length-6);
+    for(let i = questSlider.value(); i < (player.quests.length > 6 ? 6 + questSlider.value(): player.quests.length); i++){
+        if(player.current_quest == i){
+            player.quests[i].render((canvasWidth/2) - (width/2)+5, (canvasHeight/8)+35+((i-questSlider.value())*65), 'yellow', width-10);
+        }
+        else{
+            player.quests[i].render((canvasWidth/2) - (width/2)+5, (canvasHeight/8)+35+((i-questSlider.value())*65), 0, width-10);
+        }
+    }
 }
 
 function addItem(to, item_obj_num, amount) {
@@ -391,7 +428,6 @@ function saveAll(){
         player.save()
     }
     localData.set('Day_curLvl_Dif', {days: days, currentLevel_x: currentLevel_x, currentLevel_y: currentLevel_y, dificulty: dificulty});
-    localData.set('Options', {musicVolume: musicSlider.value(), fxVolume: fxSlider.value()});
     for(let i = 0; i < levels.length; i++){
         for(let j = 0; j < levels[i].length; j++){
             if(levels[i][j] != 0){
@@ -408,6 +444,29 @@ function saveAll(){
     }
 }
 
+function saveOptions(){
+    localData.set('Options', {musicVolume: musicSlider.value(), fxVolume: fxSlider.value()});
+    localData.set('Controls', {
+        Controls_Interact_button_key: Controls_Interact_button_key,
+        Controls_Eat_button_key: Controls_Eat_button_key,
+        Controls_Up_button_key: Controls_Up_button_key,
+        Controls_Down_button_key: Controls_Down_button_key,
+        Controls_Left_button_key: Controls_Left_button_key,
+        Controls_Right_button_key: Controls_Right_button_key,
+        Controls_Special_button_key: Controls_Special_button_key,
+        Controls_Quest_button_key: Controls_Quest_button_key,
+        move_right_button: move_right_button,
+        move_left_button: move_left_button,
+        move_up_button: move_up_button,
+        move_down_button: move_down_button,
+        interact_button: interact_button,
+        eat_button: eat_button,
+        pause_button: pause_button,
+        special_key: special_key,
+        quest_key: quest_key
+    })
+}
+
 function loadAll(){
     if(localData.get('player') != null ){
         console.log(localData.get('player'));
@@ -418,6 +477,25 @@ function loadAll(){
         currentLevel_x = localData.get('Day_curLvl_Dif').currentLevel_x;
         currentLevel_y = localData.get('Day_curLvl_Dif').currentLevel_y;
         dificulty = localData.get('Day_curLvl_Dif').dificulty;
+    }
+    if(localData.get('Controls') != null){
+        Controls_Interact_button_key = localData.get('Controls').Controls_Interact_button_key
+        Controls_Eat_button_key = localData.get('Controls').Controls_Eat_button_key
+        Controls_Up_button_key = localData.get('Controls').Controls_Up_button_key
+        Controls_Down_button_key = localData.get('Controls').Controls_Down_button_key
+        Controls_Left_button_key = localData.get('Controls').Controls_Left_button_key
+        Controls_Right_button_key = localData.get('Controls').Controls_Right_button_key
+        Controls_Special_button_key = localData.get('Controls').Controls_Special_button_key
+        Controls_Quest_button_key = localData.get('Controls').Controls_Quest_button_key
+        move_right_button = localData.get('Controls').move_right_button
+        move_left_button = localData.get('Controls').move_left_button
+        move_up_button = localData.get('Controls').move_up_button
+        move_down_button = localData.get('Controls').move_down_button
+        interact_button = localData.get('Controls').interact_button
+        eat_button = localData.get('Controls').eat_button
+        pause_button = localData.get('Controls').pause_button
+        special_key = localData.get('Controls').special_key
+        quest_key = localData.get('Controls').quest_key
     }
     for(let i = 0; i < levels.length; i++){
         for(let j = 0; j < levels[i].length; j++){
@@ -444,3 +522,14 @@ function loadLevel(level){
     }
 }
 
+function deleteWorld(){
+    localData.remove('player');
+    localData.remove('Day_curLvl_Dif');
+    for(let i = 0; i < levels.length; i++){
+        for(let j = 0; j < levels[i].length; j++){
+            if(levels[i][j] != 0){
+                localData.remove(levels[i][j].name);
+            }
+        }
+    }
+}

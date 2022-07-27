@@ -8,6 +8,11 @@ class Dialouge {
         this.phrase = [];
         this.new_phrase = -1;
         this.replies = replies;
+        for(let i = 0; i < this.replies.length; i++){
+            if(this.replies[i].quest != -1){
+                this.replies[i].quest = new Quest(this.replies[i].quest.name, this.replies[i].quest.goals, this.replies[i].quest.days, this.replies[i].quest.reward_item, this.replies[i].quest.reward_coins);
+            }
+        }
         this.new_replies = -1;
         this.hand_num = hand_num;
         this.amount = amount;
@@ -46,6 +51,7 @@ class Dialouge {
                 this.done = true;
                 if(this.hand_num != -1 && inv[this.hand_num] != 0 && inv[this.hand_num].amount > 0){
                     if (this.amount >= inv[this.hand_num].amount){
+                        console.log(inv[this.hand_num].amount);
                         if(checkForSpace(player, item_name_to_num(inv[this.hand_num].name))){
                             addItem(player, item_name_to_num(inv[this.hand_num].name), inv[this.hand_num].amount);
                             inv[this.hand_num].amount = 0;
@@ -55,7 +61,7 @@ class Dialouge {
                                 this.new_phrase[i] = phrase[i];
                             }
                             this.new_replies = [];
-                            this.new_replies[0] = {phrase: 'Oh ok', dialouge_num: -1};
+                            this.new_replies[0] = {phrase: 'Oh ok', dialouge_num: -1, quest: -1};
                         }
                     }
                     else {
@@ -71,7 +77,9 @@ class Dialouge {
             text(this.phrase2.join(''), (canvasWidth / 20) + 10, canvasHeight - 115, (canvasWidth / 2) - (canvasWidth / 20) - 20);
         }
         for (let i = 0; i < this.replies.length; i++){
+            textSize(13 - (this.replies[i].phrase.length > 24 ? (2*log(this.replies[i].phrase.length-24)):0))
             if(current_reply == i){
+                console.log(this.replies[i].phrase.length + ' ' + (13 - (this.replies[i].phrase.length > 24 ? (2*log(this.replies[i].phrase.length-24)):0)))
                 stroke(255, 255, 0);
                 if (this.replies[i].phrase == '1'){
                     text('>' + this.replies[i].phrase + ' ' + inv[this.hand_num].price, (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);

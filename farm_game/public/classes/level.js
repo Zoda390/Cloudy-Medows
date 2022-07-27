@@ -89,14 +89,14 @@ class Level {
             stroke(149, 108, 65);
             strokeWeight(5);
             fill(187, 132, 75);
-            rect(5, this.y, (this.name.length*17)+6, 50);
+            rect(2, this.y, (this.name.length*17)+6, 50);
             textFont(player_2);
             textSize(15);
             fill(255);
             stroke(0);
             strokeWeight(4);
             textAlign(CENTER, CENTER);
-            text(this.name, (((this.name.length*17)+6)/2)+5, this.y+25);
+            text(this.name, (((this.name.length*17)+6)/2)+2, this.y+25);
             pop();
 
         }

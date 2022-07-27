@@ -5,15 +5,18 @@
       "replies": [
         {
           "phrase": "No I didn't know that",
-          "dialouge_num": 1
+          "dialouge_num": 1,
+          "quest": -1
         },
         {
           "phrase": "Do you need any help",
-          "dialouge_num": 3
+          "dialouge_num": 3,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -24,11 +27,13 @@
       "replies": [
         {
           "phrase": "Neeto I sure wish I had some compost",
-          "dialouge_num": 2
+          "dialouge_num": 2,
+          "quest": -1
         },
         {
           "phrase": "No",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -39,11 +44,13 @@
       "replies": [
         {
           "phrase": "Thanks",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "Do you need any help",
-          "dialouge_num": 3
+          "dialouge_num": 3,
+          "quest": -1
         }
       ],
       "hand_num": 0, 
@@ -54,11 +61,30 @@
       "replies": [
         {
           "phrase": "I can get you 20 junk for 50 coins",
-          "dialouge_num": 4
+          "dialouge_num": 4,
+          "quest": -1
         },
         {
           "phrase": "I don't think I can do that just yet",
-          "dialouge_num": 3
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "Great you have 6 days",
+      "replies": [
+        {
+          "phrase": "Ok",
+          "dialouge_num": -1,
+          "quest": {"name": "Junk for Meb", "goals": [{"class": "TalkingGoal", "npc_name": "Deb", "item_name": "Junk", "amount": 20}], "days": 6, "reward_item": 0, "reward_coins": 50}
+        },
+        {
+          "phrase": "bye",
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -71,16 +97,19 @@
       "replies": [
         {
           "phrase": "Hi Rick ... I mean cowboy Rick ",
-          "dialouge_num": 1
+          "dialouge_num": 1,
+          "quest": -1
         },
         {
           "phrase": "What do you know about the land lord how do we keep cloudy going",
-          "dialouge_num": 3
+          "dialouge_num": 3,
+          "quest": -1
         }
         ,
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -91,11 +120,13 @@
       "replies": [
         {
           "phrase": "Yes Please",
-          "dialouge_num": 2
+          "dialouge_num": 2,
+          "quest": -1
         },
         {
           "phrase": "No, thanks",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -106,7 +137,8 @@
       "replies": [
         {
           "phrase": "Thanks",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": 0,
@@ -117,18 +149,38 @@
       "replies": [
         {
           "phrase": "So should we just give up?",
-          "dialouge_num": 4
+          "dialouge_num": 4,
+          "quest": -1
         },
         {
           "phrase": "Well let me know if I can help",
-          "dialouge_num": 4
+          "dialouge_num": 4,
+          "quest": -1
         },
         {
           "phrase": "Dang",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "I'll tell you what, if you fill my farm with strawberries I'll give you all the money I got on me",
+      "replies": [
+        {
+          "phrase": "You got it",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "bye",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
       "amount": 0
     }
   ],
@@ -138,11 +190,25 @@
       "replies": [
         {
           "phrase": "Hi Meb",
-          "dialouge_num": 1
+          "dialouge_num": 1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "hi...",
+      "replies": [
+        {
+          "phrase": "bye",
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -155,11 +221,13 @@
       "replies": [
         {
           "phrase": "Hi Mario, ",
-          "dialouge_num": 1
+          "dialouge_num": 1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -170,15 +238,18 @@
       "replies": [
         {
           "phrase": "Good for you",
-          "dialouge_num": 2
+          "dialouge_num": 2,
+          "quest": -1
         },
         {
           "phrase": "Isn't that your job?",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -189,7 +260,8 @@
       "replies": [
         {
           "phrase": "Thank you",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": 0, 
@@ -202,7 +274,8 @@
       "replies": [
         {
           "phrase": "Oh, ok bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -215,11 +288,13 @@
       "replies": [
         {
           "phrase": "Hi Mira",
-          "dialouge_num": 1
+          "dialouge_num": 1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -230,15 +305,18 @@
       "replies": [
         {
           "phrase": "Good",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "Bad",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -251,11 +329,13 @@
       "replies": [
         {
           "phrase": "Hi OldManJ",
-          "dialouge_num": 1
+          "dialouge_num": 1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -266,15 +346,18 @@
       "replies": [
         {
           "phrase": "Good",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "Bad",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -287,11 +370,13 @@
       "replies": [
         {
           "phrase": "Hi Brandon",
-          "dialouge_num": 1
+          "dialouge_num": 1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -302,15 +387,18 @@
       "replies": [
         {
           "phrase": "Good",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "Bad",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -323,15 +411,18 @@
       "replies": [
         {
           "phrase": "Hey man hows it going",
-          "dialouge_num": 1
+          "dialouge_num": 1,
+          "quest": -1
         },
         {
           "phrase": "anything I can do to help?",
-          "dialouge_num": 3
+          "dialouge_num": 3,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -342,11 +433,13 @@
       "replies": [
         {
           "phrase": "You worried about MR.C?",
-          "dialouge_num": 2
+          "dialouge_num": 2,
+          "quest": -1
         },
         {
           "phrase": "I'm gonna let you cool off",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -357,15 +450,18 @@
       "replies": [
         {
           "phrase": "any way I can help?",
-          "dialouge_num": 3
+          "dialouge_num": 3,
+          "quest": -1
         },
         {
           "phrase": "I don't know where that is ",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "I don't know where that is ",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -376,15 +472,18 @@
       "replies": [
         {
           "phrase": "You Got it Brent !",
-          "dialouge_num": 4
+          "dialouge_num": 4,
+          "quest": -1
         },
         {
           "phrase": "I don't know where that is ",
-          "dialouge_num": 5
+          "dialouge_num": 5,
+          "quest": -1
         },
         {
           "phrase": "I can't help right now sorry",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -395,7 +494,8 @@
       "replies": [
         {
           "phrase": "You Got it Brent !",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -406,7 +506,8 @@
       "replies": [
         {
           "phrase": "Ok",
-          "dialouge_num": 6
+          "dialouge_num": 6,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -417,11 +518,13 @@
       "replies": [
         {
           "phrase": "You Got it Brent !",
-          "dialouge_num": 4
+          "dialouge_num": 4,
+          "quest": -1
         },
         {
           "phrase": "I can't help right now sorry",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -434,11 +537,13 @@
       "replies": [
         {
           "phrase": "Hi Blind_Pette",
-          "dialouge_num": 1
+          "dialouge_num": 1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -449,15 +554,18 @@
       "replies": [
         {
           "phrase": "Good",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "Bad",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -470,11 +578,13 @@
       "replies": [
         {
           "phrase": "Hi James",
-          "dialouge_num": 1
+          "dialouge_num": 1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -485,15 +595,18 @@
       "replies": [
         {
           "phrase": "Tell me more about the market please",
-          "dialouge_num": 2
+          "dialouge_num": 2,
+          "quest": -1
         },
         {
           "phrase": "I already know that James",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -505,15 +618,18 @@
       "replies": [
         {
           "phrase": "Thanks that was super helpful james",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "I already know that James",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -526,11 +642,13 @@
       "replies": [
         {
           "phrase": "Hi Liam anything I can do to help?",
-          "dialouge_num": 1
+          "dialouge_num": 1,
+          "quest": -1
         },
         {
           "phrase": "Bye",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -541,15 +659,18 @@
       "replies": [
         {
           "phrase": "Yea I can do that",
-          "dialouge_num": 2
+          "dialouge_num": 2,
+          "quest": -1
         },
         {
           "phrase": "What do I look like your love letter collector, I have other things to do",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "No sorry I can't do that right now",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -560,11 +681,13 @@
       "replies": [
         {
           "phrase": ":)",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "Where is James?",
-          "dialouge_num": 3
+          "dialouge_num": 3,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -575,11 +698,13 @@
       "replies": [
         {
           "phrase": ":)",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         },
         {
           "phrase": "um ok",
-          "dialouge_num": -1
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
