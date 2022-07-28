@@ -157,9 +157,9 @@ class Player extends MoveableEntity {
                         text('Respawn in 9', canvasWidth/2, (3*canvasHeight)/4);
                     }
                     if(this.transphase == 1){
-                        if(this.ticks >= 600){
+                        if(this.ticks >= 600){                                         
                             currentLevel_y = 1;
-                            currentLevel_x = 1;
+                            currentLevel_x = 4;
                             this.dead = false;
                             this.pos.x = (5 * tileSize);
                             this.pos.y = (5 * tileSize);
@@ -399,12 +399,14 @@ class Player extends MoveableEntity {
                 this.money_anim = 255;
                 this.money_anim_amount += this.inv[this.hand].price*current_amount;
                 this.inv[this.hand].amount -= current_amount;
+                if(this.quests != undefined && this.quests.length > 0){
                 if(this.quests[this.current_quest].goals[this.quests[this.current_quest].current_Goal] != undefined){
                     if(this.quests[this.current_quest].goals[this.quests[this.current_quest].current_Goal].class == 'SellGoal'){
                         if(this.quests[this.current_quest].goals[this.quests[this.current_quest].current_Goal].item_name == this.inv[this.hand].name){
                             this.quests[this.current_quest].goals[this.quests[this.current_quest].current_Goal].amount -= current_amount;
                         }
                     }
+                }
                 }
                 if (this.inv[this.hand].amount == 0) {
                     this.inv[this.hand] = 0;

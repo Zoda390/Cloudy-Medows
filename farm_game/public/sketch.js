@@ -158,9 +158,10 @@ function render_ui() {
         let mod = ((player.talking.class == 'NPC') ? 182: 0)
         player.inv_warn_anim -= 3;
         push()
+        textFont(player_2);
         textSize(10);
         fill(255, 0, 0, player.inv_warn_anim);
-        text("Full", 55 + 16, canvasHeight - mod - 10)
+        text("Full", 67, canvasHeight - mod - 10)
         tint(255, player.inv_warn_anim);
         image(inv_warn_img, 55, (canvasHeight - 64) - mod);
         pop()

@@ -80,7 +80,7 @@ class Dialouge {
             textSize(13 - (this.replies[i].phrase.length > 24 ? (2*log(this.replies[i].phrase.length-24)):0))
             if(current_reply == i){
                 console.log(this.replies[i].phrase.length + ' ' + (13 - (this.replies[i].phrase.length > 24 ? (2*log(this.replies[i].phrase.length-24)):0)))
-                stroke(255, 255, 0);
+                stroke(255, 0, 0);
                 if (this.replies[i].phrase == '1'){
                     text('>' + this.replies[i].phrase + ' ' + inv[this.hand_num].price, (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
                 }

@@ -251,9 +251,9 @@ function showCredits(){
     strokeWeight(2);
     textFont(player_2);
     textAlign(CENTER, CENTER);
-    textSize(12);
+    textSize(11);
     text('Credits', canvasWidth/2 + 120, 20);
-    text('Christian Rodriguez - Lead programmer \n David Kozdra - Code Art and sound \n Patrick Mayer - UI programming \n Christian “Sealand” Rodriguez - Music', (canvasWidth/2)+120, 80);
+    text('Christian Rodriguez - Lead programmer \n David Kozdra - Code Art and sound \n Patrick Mayer - UI programming \n Christian “Sealand” Rodriguez - Music \n and thanks to our play testers', (canvasWidth/2)+120, 80);
     pop()
 }
 
@@ -334,7 +334,7 @@ function checkForSpace(to, item_obj_num){
         }
     }
     if(!check){
-        player.inv_warn_anim = 255;
+        to.inv_warn_anim = 255;
         ErrorSound.play();
     }
     return check;

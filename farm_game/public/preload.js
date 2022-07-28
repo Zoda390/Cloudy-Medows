@@ -56,9 +56,9 @@ function preload() {
     fence_corner3_tiler_img = loadImage('images/tiles/Fense_corner3.png');
     fence_corner4_tiler_img = loadImage('images/tiles/Fense_corner4.png');
     park_path_tile_img = loadImage('images/tiles/SideWalk_Path.png');
-    park_path_tile_vert_img = loadImage('images/tiles/SideWalk_Path_vert.png');
-    park_path_tile_cross_img = loadImage('images/tiles/SideWalk_Path_cross.png');
-    park_path_tile_t_img = loadImage('images/tiles/SideWalk_Path_t.png');
+    park_path_tile_vert_img = loadImage('images/tiles/SideWalk_vert.png');
+    park_path_tile_cross_img = loadImage('images/tiles/SideWalk_Path.png');
+    park_path_tile_t_img = loadImage('images/tiles/SideWalk_Path.png');
     tree_bottom_tile_img = loadImage('images/tiles/tree_bottom.png');
     tree_top_tile_img = loadImage('images/tiles/tree_top.png');
 
@@ -196,7 +196,7 @@ function preload() {
 
     //robot
     battery_low_img = loadImage('images/ui/batteryIcon.png');
-
+    inv_full_img = loadImage('images/ui/inventory_full_warn.png');
     robot_img = loadImage('images/items/robot.png');
     robot_tile_up_img = loadImage('images/npc/robot_back.png');
     robot_tile_right_img = loadImage('images/npc/robot_right.png');
@@ -710,8 +710,8 @@ function setup() {
     questSlider.size((65*6)+45);
     questSlider.hide();
 
-    clearButton = createButton('Clear Data');
-    clearButton.position((canvasWidth/2)+150, (canvasHeight/2)+200);
+    clearButton = createButton('Clear Save Data');
+    clearButton.position((canvasWidth/2)+165, (canvasHeight/2)+200);
     clearButton.mousePressed(() => {
         deleteWorld();
         newWorld();
@@ -722,7 +722,7 @@ function setup() {
 
     clearButton.hide();
 
-    QuitButton = createButton('Quit');
+    QuitButton = createButton('Save and Quit');
     QuitButton.position((canvasWidth/2)-125, (canvasWidth/2)+95);
     QuitButton.style('width', '250px');
     QuitButton.style('background','url()');
@@ -1348,7 +1348,7 @@ function newWorld(){
     ]
     );
     //Park
-    level11 = new Level('Par2', [
+    level11 = new Level('Park2', [
         [57, 57, 57, 57, 57, 57, 57, 57, 62, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 59], 
         [57, 57, 57, 57, 57, 57, 57, 57, 62, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 59], 
         [57, 57, 57, 57, 57, 57, 57, 57, 62, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 59], 
@@ -1694,7 +1694,7 @@ function newWorld(){
     ];
 
     currentLevel_y = 1;
-    currentLevel_x = 2;
+    currentLevel_x = 4;
     time = 0;
     timephase = 0;
     days = 0;
