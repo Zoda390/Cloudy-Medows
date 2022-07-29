@@ -1,6 +1,6 @@
 class Shop extends Entity {
-	constructor(name, png, x, y, inv) {
-		super(name, png, x, y, -1, inv, 0, 1);
+	constructor(name, png, x, y, inv, under_tile) {
+		super(name, png, x, y, -1, inv, 0, under_tile);
         for(let i = 0; i < this.inv.length; i++){
             this.inv[i].price += round(random(0, 3));
         }
@@ -11,7 +11,12 @@ class Shop extends Entity {
         push()
         imageMode(CENTER);
         this.under_tile.render()
-        image(all_imgs[this.png][this.variant], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        if(this.name == 'Hotdog Stand'){
+            image(all_imgs[this.png][this.variant], this.pos.x + (tileSize / 2)-9, this.pos.y + (tileSize / 2));
+        }
+        else{
+            image(all_imgs[this.png][this.variant], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
+        }
         pop()
     }
 

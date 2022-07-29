@@ -1,6 +1,6 @@
 class Plant extends Tile {
-    constructor(name, png, x, y, border, collide, eat_num, waterneeded, growthTime) {
-        super(name, png, x, y, border, collide, 0);
+    constructor(name, png, x, y, collide, eat_num, waterneeded, growthTime) {
+        super(name, png, x, y, collide, 0);
         this.eat_num = eat_num;
         this.waterneeded = waterneeded;
         this.watermet = false;

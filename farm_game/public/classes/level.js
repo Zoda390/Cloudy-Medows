@@ -39,6 +39,7 @@ class Level {
                         map[i][j] = new_tile_from_num(map[i][j], j * tileSize, i * tileSize);
                     } else {
                         this.map[i][j] = 0;
+                        console.error('Tile doesnt exist');
                     }
                     if (this.map[i][j].name == 'lamppost') {
                         append(this.lights, new Light(this.map[i][j].pos.x, this.map[i][j].pos.y, (tileSize * 6), 255, 255, 255));

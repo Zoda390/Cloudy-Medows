@@ -13,7 +13,7 @@ var canvasHeight = 19 * tileSize;
 var player;
 var levels = [];
 var currentLevel_y = 1;
-var currentLevel_x = 2;
+var currentLevel_x = 4;
 var lastMili = 0;
 var maxHunger = 6;
 var time = 0;
@@ -43,6 +43,10 @@ var dif2button;
 var creditsOn = false;
 var current_reply = 0;
 var temp_move_bool = true;
+var clear_anim = false;
+var clear_movephase = 0;
+var clear_ticks = 0;
+var clear_y = canvasHeight;
 
 function draw() {
     musicplayer.update()
@@ -62,6 +66,10 @@ function draw() {
         showDificulty();
     }
     else {
+        clear_anim = false;
+        clear_movephase = 0;
+        clear_ticks = 0;
+        clear_y = canvasHeight;
         clearButton.hide()
         QuitButton.hide()
         startButton.hide();
@@ -148,6 +156,11 @@ function render_ui() {
     text('days', canvasWidth - 39, 30);
     textSize(15);
     text(days, canvasWidth - 40, 50);
+    if(days == 69){
+        
+        text("nice !", canvasWidth - 40, 60);
+    }
+
     pop();
 
     if(levels[currentLevel_y][currentLevel_x].level_name_popup){
@@ -179,6 +192,9 @@ function render_ui() {
         }
         else if (player.talking.class == 'Shop'){
             player.talking.shop_render();
+        }
+        else if (player.talking.class == 'AirBallon'){
+            player.talking.tp_render();
         }
         for (let i = 0; i < maxHunger; i++) {
             image(hunger_e, (canvasWidth / 20) + (30 * i), (canvasHeight - 185));
@@ -346,6 +362,14 @@ function render_ui() {
         musicSlider.hide();
         fxSlider.hide();
         QuitButton.hide()
+        Controls_Interact_button.hide();
+        Controls_Eat_button.hide();
+        Controls_Up_button.hide();
+        Controls_Down_button.hide();
+        Controls_Left_button.hide();
+        Controls_Right_button.hide();
+        Controls_Special_button.hide();
+        Controls_Quest_button.hide();
     }
 }
 

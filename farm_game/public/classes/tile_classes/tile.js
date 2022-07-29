@@ -1,9 +1,8 @@
 class Tile {
-    constructor(name, png, x, y, border, collide, age) {
+    constructor(name, png, x, y, collide, age) {
         this.name = name;
         this.png = png;
         this.pos = createVector(x, y);
-        this.border = border;
         this.collide = collide;
         this.age = age;
         this.variant = round(random(0, all_imgs[this.png].length-1));
@@ -13,7 +12,7 @@ class Tile {
     render() {
         push()
         imageMode(CENTER);
-        if (this.name == 'bed' || this.name == 'lamppost' || this.name == 'compost_bucket' || this.name == 'cart_s' || this.name == "bush" || this.name == 'Veggie_Press') {
+        if (this.name == 'bed' || this.name == 'lamppost' || this.name == 'compost_bucket' || this.name == 'cart_s' || this.name == "bush" || this.name == 'Veggie_Press' || this.name == 'table' || this.name == 'grinder') {
             image(all_imgs[0][0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); //concrete under
         }
         if (this.name == 'sprinkler' || this.name == 'Flower_Done'){

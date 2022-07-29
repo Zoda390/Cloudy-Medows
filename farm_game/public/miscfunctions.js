@@ -69,11 +69,14 @@ function showTitle(){
         Controls_Right_button.hide();
         Controls_Special_button.hide();
         Controls_Quest_button.hide();
+
     }
     if(creditsOn){
         showCredits();
-    }else{
-
+    }
+    else{}
+    if(clear_anim){
+        clear_data_render();
     }
 }
 
@@ -171,7 +174,7 @@ function showOptions(){
     textFont(player_2);
     textAlign(CENTER, CENTER);
     textSize(30);
-    text('Options', ((4*canvasWidth)/5)+40, 30);
+    text('Option', ((4*canvasWidth)/5)+40, 30);
     musicSlider.show();
     fxSlider.show();
     musicSlider.position(((4*canvasWidth)/5)-30, (canvasHeight/6)-25);
@@ -184,6 +187,14 @@ function showOptions(){
     Controls_Right_button.show();
     Controls_Special_button.show();
     Controls_Quest_button.show();;
+    Controls_Interact_button.position(((4*canvasWidth)/5)+70, canvasHeight/2-120);
+    Controls_Eat_button.position(((4*canvasWidth)/5)+70, canvasHeight/2-95);
+    Controls_Up_button.position(((4*canvasWidth)/5)+70, canvasHeight/2-70);
+    Controls_Left_button.position(((4*canvasWidth)/5)+70, canvasHeight/2-45);
+    Controls_Down_button.position(((4*canvasWidth)/5)+70, canvasHeight/2-20);
+    Controls_Right_button.position(((4*canvasWidth)/5)+70, canvasHeight/2+5);
+    Controls_Special_button.position(((4*canvasWidth)/5)+70, canvasHeight/2 + 30);
+    Controls_Quest_button.position(((4*canvasWidth)/5)+70, canvasHeight/2 + 55);
     if(control_set != 0){
         fill(255, 255, 0);
         rect(((4*canvasWidth)/5)+97, ((canvasHeight/2)-127) + (25*(control_set-1)), 90, 20);
@@ -236,6 +247,46 @@ function showPaused(){
 
     image(music_note_img, (canvasWidth/2)-65, (canvasHeight/5));
     image(fx_img, (canvasWidth/2)-65, (canvasHeight/5)+40);
+
+    Controls_Interact_button.show();
+    Controls_Eat_button.show();
+    Controls_Up_button.show();
+    Controls_Down_button.show();
+    Controls_Left_button.show();
+    Controls_Right_button.show();
+    Controls_Special_button.show();
+    Controls_Quest_button.show();;
+    Controls_Interact_button.position(((2*canvasWidth)/5)+102, canvasHeight/2-95);
+    Controls_Eat_button.position(((2*canvasWidth)/5)+102, canvasHeight/2-70);
+    Controls_Up_button.position(((2*canvasWidth)/5)+102, canvasHeight/2-45);
+    Controls_Left_button.position(((2*canvasWidth)/5)+102, canvasHeight/2-20);
+    Controls_Down_button.position(((2*canvasWidth)/5)+102, canvasHeight/2+5);
+    Controls_Right_button.position(((2*canvasWidth)/5)+102, canvasHeight/2+30);
+    Controls_Special_button.position(((2*canvasWidth)/5)+102, canvasHeight/2+55);
+    Controls_Quest_button.position(((2*canvasWidth)/5)+102, canvasHeight/2 + 80);
+    
+    if(control_set != 0){
+        fill(255, 255, 0);
+        rect(((2*canvasWidth)/5)+129, ((canvasHeight/2)-102) + (25*(control_set-1)), 90, 20);
+    }
+    textSize(15);
+    fill(0);
+    noStroke();
+    text('Interact:', ((2*canvasWidth)/5)+20, canvasHeight/2-102);
+    text('Eat:', ((2*canvasWidth)/5)+20, canvasHeight/2-77);
+    text('Up:', ((2*canvasWidth)/5)+20, canvasHeight/2-52);
+    text('Left:', ((2*canvasWidth)/5)+20, canvasHeight/2-27);
+    text('Down:', ((2*canvasWidth)/5)+20, canvasHeight/2-2);
+    text('Right:', ((2*canvasWidth)/5)+20, canvasHeight/2+23);
+    text('Special:', ((2*canvasWidth)/5)+20, canvasHeight/2+48);
+    text('Quest:', ((2*canvasWidth)/5)+20, canvasHeight/2+73);
+
+    let button_key_array = [Controls_Interact_button_key, Controls_Eat_button_key, Controls_Up_button_key, Controls_Left_button_key, Controls_Down_button_key, Controls_Right_button_key, Controls_Special_button_key, Controls_Quest_button_key];
+    for(let i = 0; i < button_key_array.length; i++){
+        textSize(15 - (button_key_array[i].length > 5 ? ((button_key_array[i].length-5) * 1.5):0));
+        text(button_key_array[i], ((2*canvasWidth)/5)+129, (canvasHeight/2-102) + (i*25));
+    }
+
     pop()
 }
 
@@ -253,7 +304,7 @@ function showCredits(){
     textAlign(CENTER, CENTER);
     textSize(11);
     text('Credits', canvasWidth/2 + 120, 20);
-    text('Christian Rodriguez - Lead programmer \n David Kozdra - Code Art and sound \n Patrick Mayer - UI programming \n Christian “Sealand” Rodriguez - Music \n and thanks to our play testers', (canvasWidth/2)+120, 80);
+    text('Christian Rodriguez - Lead programmer \n David Kozdra - Code Art and sound \n Patrick Mayer - UI programming \n Christian “Sealand” Rodriguez - Music \n Ethan Davis - Dialogue and Testing \n and thanks to our play testers Ethan Davis', (canvasWidth/2)+120, 80);
     pop()
 }
 
@@ -288,6 +339,44 @@ function showQuests(){
             player.quests[i].render((canvasWidth/2) - (width/2)+5, (canvasHeight/8)+35+((i-questSlider.value())*65), 0, width-10);
         }
     }
+}
+
+function clear_data_render() {
+    if(clear_movephase == 0){
+        if(clear_ticks >= 50){
+            clear_movephase = 1;
+            clear_ticks = 0;
+        }
+        clear_y -= 1;
+    }
+    if(clear_movephase == 1){
+        if(clear_ticks >= 70){
+            clear_movephase = 2;
+            clear_ticks = 0;
+        }
+    }
+    if(clear_movephase == 2){
+        clear_y += 1;
+        if(clear_ticks >= 50){
+            clear_anim = false;
+            clear_ticks = 0;
+            clear_movephase = 0;
+        }
+    }
+    clear_ticks += 1;
+    push();
+    stroke(0, 50, 255);
+    strokeWeight(5);
+    fill(0, 140, 255);
+    rect(canvasWidth-(('Clearing Data'.length*17)+6), clear_y, ('Clearing Data'.length*17)+6, 50);
+    textFont(player_2);
+    textSize(15);
+    fill(255);
+    stroke(0);
+    strokeWeight(4);
+    textAlign(CENTER, CENTER);
+    text('Clearing Data', canvasWidth-((('Clearing Data'.length*17)+6)/2)+2, clear_y+25);
+    pop();
 }
 
 function addItem(to, item_obj_num, amount) {
@@ -359,13 +448,13 @@ function tile_name_to_num(tile_name) {
 function new_tile_from_num(num, x, y) {
     if (num-1 <= all_tiles.length) {
         if (all_tiles[num - 1].class == 'Tile') {
-            return new Tile(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].age);
+            return new Tile(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].collide, all_tiles[num - 1].age);
         }
         else if (all_tiles[num - 1].class == 'Shop') {
-            return new Shop(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv);
+            return new Shop(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].under_tile_num);
         }
         else if (all_tiles[num - 1].class == 'Plant') {
-            return new Plant(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].border, all_tiles[num - 1].collide, all_tiles[num - 1].eat_num, all_tiles[num - 1].waterneed, all_tiles[num - 1].growthTime);
+            return new Plant(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].collide, all_tiles[num - 1].eat_num, all_tiles[num - 1].waterneed, all_tiles[num - 1].growthTime);
         }
         else if (all_tiles[num - 1].class == 'Entity') {
             return new Entity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].age, all_tiles[num - 1].inv, all_tiles[num - 1].hand, all_tiles[num - 1].under_tile_num);
@@ -388,9 +477,12 @@ function new_tile_from_num(num, x, y) {
         else if (all_tiles[num - 1].class == 'Robot'){
             return new Robot(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].under_tile_num, all_tiles[num - 1].instructions, all_tiles[num - 1].moving_timer);
         }
+        else if (all_tiles[num - 1].class == 'AirBallon'){
+            return new AirBallon(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].under_tile_num);
+        }
     }
     else {
-        console.log('tile created from ' + num + ' doesnt exist');
+        console.error('tile created from ' + num + ' doesnt exist');
     }
 }
 

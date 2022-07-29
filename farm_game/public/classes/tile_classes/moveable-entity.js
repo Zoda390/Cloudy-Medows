@@ -64,13 +64,16 @@ class MoveableEntity extends Entity {
         }
         if (this.inv[this.hand] != 0 && this.inv[this.hand].class == 'Placeable') {
             if (tile_name_to_num(this.under_tile.name) == this.inv[this.hand].tile_need_num || this.inv[this.hand].tile_need_num == 0) {
-                if(this.inv[this.hand].name == 'Robot1' || this.inv[this.hand].name == 'Robot2' || this.inv[this.hand].name == 'Robot3'){
+                if(this.inv[this.hand].name == 'Robot1' || this.inv[this.hand].name == 'Robot2' || this.inv[this.hand].name == 'Robot3' || this.inv[this.hand].name == 'Chest'){
                     if(this.looking(x, y) != undefined && this.looking(x, y).collide == false){
                         let temp = this.looking(x, y);
                         if (this.under_tile != 0) {
                             levels[currentLevel_y][currentLevel_x].map[(player.looking(currentLevel_x, currentLevel_y).pos.y / tileSize)][player.looking(currentLevel_x, currentLevel_y).pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].tile_num, this.looking(currentLevel_x, currentLevel_y).pos.x, this.looking(currentLevel_x, currentLevel_y).pos.y);
                         }
                         this.looking(x, y).under_tile = temp;
+                        if(this.inv[this.hand].name != 'Chest'){
+                            this.looking(x, y).move_bool = false;
+                        }
                     }
                     else{
                         return;
