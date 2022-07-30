@@ -77,33 +77,43 @@ class Dialouge {
             text(this.phrase2.join(''), (canvasWidth / 20) + 10, canvasHeight - 115, (canvasWidth / 2) - (canvasWidth / 20) - 20);
         }
         stroke(0);
-        for (let i = 0; i < this.replies.length; i++){
-            textSize(13 - (this.replies[i].phrase.length > 24 ? (2*log(this.replies[i].phrase.length-24)):0))
-            if(current_reply == i){
-                console.log(this.replies[i].phrase.length + ' ' + (13 - (this.replies[i].phrase.length > 24 ? (2*log(this.replies[i].phrase.length-24)):0)))
-                fill(255, 255, 0);
-                if (this.replies[i].phrase == '1'){
-                    text('>' + this.replies[i].phrase + ' ' + inv[this.hand_num].price, (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
-                }
-                else if (this.replies[i].phrase == '2'){
-                    text('>' + this.replies[i].phrase + ' ' + (inv[this.hand_num].price*2), (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
+        let current_y = 0;
+        let new_line = 0;
+        if(current_reply < 1 || this.replies.length <= 6){
+            for (let i = 0; i < min(6-new_line, this.replies.length); i++){
+                if(current_reply == i){
+                    console.log(this.replies[i].phrase.length)
+                    fill(255, 255, 0);
+                    text('>' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + current_y, (canvasWidth / 2) - (canvasWidth / 20) - 10);
                 }
                 else{
-                    text('>' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
+                    fill(255);
+                    text('-' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + current_y, (canvasWidth / 2) - (canvasWidth / 20) - 10);
                 }
+                current_y += (this.replies[i].phrase.length > 22 ? 2:1)*17;
+                new_line += (this.replies[i].phrase.length > 22 ? 1:0)
             }
-            else{
-                fill(255);
-                if (this.replies[i].phrase == '1'){
-                    text('-' + this.replies[i].phrase + ' ' + inv[this.hand_num].price, (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
-                }
-                else if (this.replies[i].phrase == '2'){
-                    text('-' + this.replies[i].phrase + ' ' + (inv[this.hand_num].price*2), (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
+        }
+        else{
+            for (let i = current_reply-1; i < min(current_reply + 5 - new_line, this.replies.length); i++){
+                if(current_reply == i){
+                    console.log(this.replies[i].phrase.length)
+                    fill(255, 255, 0);
+                    text('>' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + current_y, (canvasWidth / 2) - (canvasWidth / 20) - 10);
                 }
                 else{
-                    text('-' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + (i*17), (canvasWidth / 2) - (canvasWidth / 20) - 10);
+                    fill(255);
+                    text('-' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + current_y, (canvasWidth / 2) - (canvasWidth / 20) - 10);
                 }
+                current_y += (this.replies[i].phrase.length > 22 ? 2:1)*17;
+                new_line += (this.replies[i].phrase.length > 22 ? 1:0)
             }
+        }
+        if(current_reply < this.replies.length - 5){
+            image(done_dot, (canvasWidth / 20) + 632, (canvasHeight - 90) + (2 * 32) + 8);
+        }
+        if(current_reply > 1 && this.replies.length > 6){
+            image(up_dot, (canvasWidth / 20) + 632, (canvasHeight - 120));
         }
         pop()
     }

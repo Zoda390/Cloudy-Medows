@@ -10,12 +10,36 @@ class Foreground {
         if(this.type == 3){ // buildings
             this.png = 92;
         }
+        if(this.type == 4){  // Front left
+            this.png = 131
+        }
+        if(this.type == 5){ // Front right
+            this.png = 132
+        }
+        if(this.type == 6){ // Front both
+            this.png = 133
+        }
+        this.dim = 0;
         this.variant = round(random(0, all_imgs[this.png].length-1));
         this.pos = createVector(x, y);
     }
 
     render(){
         image(all_imgs[this.png][this.variant], this.pos.x, this.pos.y);
+        if(this.type != 1 && this.type != 4 && this.type != 5 && this.type != 6){
+            push()
+            fill(255, 255*0.3)
+            noStroke();
+            rect(this.pos.x, this.pos.y, tileSize, tileSize);
+            pop()
+        }
+        if(this.dim != 0){
+            push()
+            fill(0, this.dim)
+            noStroke();
+            rect(this.pos.x, this.pos.y, tileSize, tileSize);
+            pop()
+        }
     }
 }
 class Level {
@@ -30,6 +54,13 @@ class Level {
         this.movephase = 0;
         this.ticks = 0;
         this.y = -50;
+        for(let i = 0; i < fore.length; i++){
+            for(let j = 0; j < fore[i].length; j++){
+                if(this.fore[i][j] != 0){
+                    this.fore[i][j] = new Foreground(fore[i][j], j * tileSize, i * tileSize);
+                }
+            }
+        }
         for (let i = 0; i < map.length; i++) {
             for (let j = 0; j < map[i].length; j++) {
                 if (map[i][j] == 0) {
@@ -47,13 +78,11 @@ class Level {
                     if (this.map[i][j].name == 'satilite') {
                         append(this.lights, new Light(this.map[i][j].pos.x, this.map[i][j].pos.y, (tileSize * 1), 255, 255, 0));
                     }
-                }
-            }
-        }
-        for(let i = 0; i < fore.length; i++){
-            for(let j = 0; j < fore[i].length; j++){
-                if(this.fore[i][j] != 0){
-                    this.fore[i][j] = new Foreground(fore[i][j], j * tileSize, i * tileSize);
+                    if (this.map[i][j].name == 'bridge'){
+                        if(this.fore[i+2][j] != undefined && this.fore[i+2][j].type != 1 && this.type != 4 && this.type != 5 && this.type != 6){
+                            this.fore[i+2][j].dim = 100;
+                        }
+                    }
                 }
             }
         }
@@ -154,6 +183,12 @@ class Level {
     }
 
     daily_update() {
+        if(days % 10 == 0){
+            level17.map[7][12] = new_tile_from_num(88, 12*tileSize, 7*tileSize)
+        }
+        else{
+            level17.map[7][12] = new_tile_from_num(57, 12*tileSize, 7*tileSize)
+        }
         for (let i = 0; i < this.map.length; i++) {
             for (let j = 0; j < this.map[i].length; j++) {
                 if(this.map[i][j].class == 'Shop'){

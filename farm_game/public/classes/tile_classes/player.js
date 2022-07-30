@@ -856,7 +856,7 @@ function takeInput() {
             }
             
         }
-        if (keyIsDown(quest_key)) { //p
+        if (keyIsDown(quest_key)) {
             if (millis() - lastMili > 100) {
                 console.log(player);
                 console.log(player.touching);
@@ -882,11 +882,6 @@ function takeInput() {
             if (keyIsDown(interact_button)) {
                 player.interactCall();
             }
-            /*
-            if(keyIsDown(48)){
-              player.hand = 9;
-            }
-            */
             //mc style hotbar
             if (keyIsDown(49)) {
                 player.hand = 0;
@@ -913,48 +908,13 @@ function takeInput() {
                 player.hand = 7;
             }
         }
-
-        /*
-        if(keyIsDown(57)){
-          player.hand = 8;
-        }
-        */
-        if (keyIsDown(quest_key)) { //p
+        if (keyIsDown(quest_key)) {
             if (millis() - lastMili > 100) {
                 player.show_quests = !player.show_quests;
                 console.log(player);
                 console.log(player.touching);
                 console.log(player.looking(currentLevel_x, currentLevel_y));
                 console.log(temp_move_bool)
-                lastMili = millis();
-            }
-        }
-        if (keyIsDown(90)){  //z
-            if(millis() - lastMili > 200){
-                if(player.facing == 0){
-                    console.log(levels[currentLevel_y-1][currentLevel_x])
-                    if(levels[currentLevel_y-1][currentLevel_x] != null){
-                        currentLevel_y -= 1;
-                    }
-                }
-                else if(player.facing == 1){
-                    console.log(levels[currentLevel_y][currentLevel_x+1])
-                    if(levels[currentLevel_y][currentLevel_x+1] != null){
-                        currentLevel_x += 1;
-                    }
-                }
-                else if(player.facing == 2){
-                    console.log(levels[currentLevel_y+1][currentLevel_x])
-                    if(levels[currentLevel_y+1][currentLevel_x] != null){
-                        currentLevel_y += 1;
-                    }
-                }
-                else if(player.facing == 3){
-                    console.log(levels[currentLevel_y][currentLevel_x-1])
-                    if(levels[currentLevel_y][currentLevel_x-1] != null){
-                        currentLevel_x -= 1;
-                    }
-                }
                 lastMili = millis();
             }
         }

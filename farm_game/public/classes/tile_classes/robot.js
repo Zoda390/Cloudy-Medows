@@ -11,13 +11,13 @@ class Robot extends GridMoveEntity{
     }
 
     capasity(){
-        if(this.name == "Robot1"){
-            return 4
-        }else if(this.name == "Robot2"){
-            return 6
-        }else{
-            return 7
+        var full = true;
+        for(let i = 0; i < this.inv.length; i++){
+            if(this.inv[i] == 0 ){
+               return full=false;
+            }
         }
+        return full;
     }
 
     render() {
@@ -29,7 +29,7 @@ class Robot extends GridMoveEntity{
         if(this.fuel < 10){
             image(battery_low_img, this.pos.x + tileSize - 5, this.pos.y + tileSize/4)
         }
-        if(this.inv.length == this.capasity()){
+        if(this.capasity()){
        
             image(inv_full_img, this.pos.x + tileSize - 5, this.pos.y + tileSize/2)
         }

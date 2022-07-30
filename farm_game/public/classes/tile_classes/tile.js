@@ -12,7 +12,7 @@ class Tile {
     render() {
         push()
         imageMode(CENTER);
-        if (this.name == 'bed' || this.name == 'lamppost' || this.name == 'compost_bucket' || this.name == 'cart_s' || this.name == "bush" || this.name == 'Veggie_Press' || this.name == 'table' || this.name == 'grinder') {
+        if (this.name == 'bed' || this.name == 'lamppost' || this.name == 'compost_bucket' || this.name == 'cart_s' || this.name == "bush" || this.name == 'Veggie_Press' || this.name == 'table' || this.name == 'grinder' || this.name == 'computer') {
             image(all_imgs[0][0], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2)); //concrete under
         }
         if (this.name == 'sprinkler' || this.name == 'Flower_Done'){

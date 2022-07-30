@@ -35,29 +35,62 @@ class Shop extends Entity {
         textSize(13);
         strokeWeight(2);
         text(String.fromCharCode(eat_button) + ' to leave', ((3*canvasWidth) / 4) + 10, canvasHeight - 140);
-        text('Item,             cost,    quantity in store', (canvasWidth / 20) + 42, canvasHeight - 115);
-        for(let i = 0; i < this.inv.length; i++){
-            if(this.inv[i].amount <= 0){
-                fill(0, 0, 255);
-            }
-            else{
-                if(player.coins >= this.inv[i].price){
-                    fill(0, 255, 0);
+        text('Item,                cost,   quantity in store', (canvasWidth / 20) + 42, canvasHeight - 115);
+        if(current_reply < 1 || this.inv.length <= 3){
+            for(let i = 0; i < min(this.inv.length, 3); i++){
+                if(this.inv[i].amount <= 0){
+                    fill(0, 0, 255);
                 }
                 else{
-                    fill(255, 0, 0)
+                    if(player.coins >= this.inv[i].price){
+                        fill(0, 255, 0);
+                    }
+                    else{
+                        fill(255, 0, 0)
+                    }
                 }
+                if(current_reply == i){
+                    stroke(255);
+                }
+                else{
+                    stroke(0);
+                }
+                image(all_imgs[this.inv[i].png], (canvasWidth / 20) + 10, (canvasHeight - 100) + (i * 32), 32, 32);
+                text(this.inv[i].name, (canvasWidth / 20) + 42, (canvasHeight - 100) + (i * 32) + 8);
+                text(this.inv[i].price, (canvasWidth / 20) + 332, (canvasHeight - 100) + (i * 32) + 8);
+                text(this.inv[i].amount, (canvasWidth / 20) + 492, (canvasHeight - 100) + (i * 32) + 8);
             }
-            if(current_reply == i){
-                stroke(255);
+        }
+        else{
+            for(let i = current_reply - 1; i < min(current_reply + 2, this.inv.length); i++){
+                if(this.inv[i].amount <= 0){
+                    fill(0, 0, 255);
+                }
+                else{
+                    if(player.coins >= this.inv[i].price){
+                        fill(0, 255, 0);
+                    }
+                    else{
+                        fill(255, 0, 0)
+                    }
+                }
+                if(current_reply == i){
+                    stroke(255);
+                }
+                else{
+                    stroke(0);
+                }
+                image(all_imgs[this.inv[i].png], (canvasWidth / 20) + 10, (canvasHeight - 100) + ((i-(current_reply)+1) * 32), 32, 32);
+                text(this.inv[i].name, (canvasWidth / 20) + 42, (canvasHeight - 100) + ((i-(current_reply)+1) * 32) + 8);
+                text(this.inv[i].price, (canvasWidth / 20) + 332, (canvasHeight - 100) + ((i-(current_reply)+1) * 32) + 8);
+                text(this.inv[i].amount, (canvasWidth / 20) + 492, (canvasHeight - 100) + ((i-(current_reply)+1) * 32) + 8);
             }
-            else{
-                stroke(0);
-            }
-            image(all_imgs[this.inv[i].png], (canvasWidth / 20) + 10, (canvasHeight - 100) + (i * 32), 32, 32);
-            text(this.inv[i].name, (canvasWidth / 20) + 42, (canvasHeight - 100) + (i * 32) + 8);
-            text(this.inv[i].price, (canvasWidth / 20) + 282, (canvasHeight - 100) + (i * 32) + 8);
-            text(this.inv[i].amount, (canvasWidth / 20) + 442, (canvasHeight - 100) + (i * 32) + 8);
+        }
+        if(current_reply < this.inv.length - 2){
+            image(done_dot, (canvasWidth / 20) + 512, (canvasHeight - 90) + (2 * 32) + 8);
+        }
+        if(current_reply > this.inv.length-3 && this.inv.length > 3){
+            image(up_dot, (canvasWidth / 20) + 512, (canvasHeight - 100));
         }
         pop()
     }

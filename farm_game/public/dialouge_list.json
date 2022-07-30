@@ -1072,5 +1072,210 @@
       "hand_num": -1,
       "amount": 0
     }
+  ],
+  "Super Tina": [
+    {
+      "phrase": "Hi, im SUPER Tina",
+      "replies": [
+        {
+          "phrase": "Hi, Tina",
+          "dialouge_num": 1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good.",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bad.",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    }
+  ],
+  "Guy": [
+    {
+      "phrase": "Hi, im guy",
+      "replies": [
+        {
+          "phrase": "Hi, guy",
+          "dialouge_num": 1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good.",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bad.",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    }
+  ],
+  "Vinny": [
+    {
+      "phrase": "Hi, im Vinny",
+      "replies": [
+        {
+          "phrase": "Hi, Vinny",
+          "dialouge_num": 1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good.",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bad.",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    }
+  ],
+  "Kenny": [
+    {
+      "phrase": "Hi, im Kenny",
+      "replies": [
+        {
+          "phrase": "Hi, Kenny",
+          "dialouge_num": 1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good.",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bad.",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    }
+  ],
+  "Ishmil": [
+    {
+      "phrase": "Hi, im Ishmil",
+      "replies": [
+        {
+          "phrase": "Hi, Ishmil",
+          "dialouge_num": 1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "How are you today?",
+      "replies": [
+        {
+          "phrase": "Good.",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bad.",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    }
   ]
 }

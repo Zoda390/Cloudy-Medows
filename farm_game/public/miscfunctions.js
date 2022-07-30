@@ -93,8 +93,11 @@ function showDificulty(){
     stroke(149, 108, 65);
     strokeWeight(5);
     fill(187, 132, 75);
-    image(dif_background_img, 0, 0)
-    rect((canvasWidth/2)-220, (canvasWidth/2)-300, 440, 100)
+    image(dif_background_img, -20, (canvasHeight/4));
+    image(dif_background_img, canvasWidth - 236, (canvasHeight/4));
+    image(dif_background_img, (canvasWidth/2)-(256/2), (canvasHeight/4));
+    image(dif_background_img, (canvasWidth/2)-(256/2), 10);
+    rect((canvasWidth/2)-220, (canvasWidth/2)-300, 440, 100);
     textFont(player_2);
     fill('black');
     textAlign(CENTER, CENTER);
@@ -365,9 +368,9 @@ function clear_data_render() {
     }
     clear_ticks += 1;
     push();
-    stroke(0, 50, 255);
+    fill(205, 255, 0);
     strokeWeight(5);
-    fill(0, 140, 255);
+    fill(255, 255, 0);
     rect(canvasWidth-(('Clearing Data'.length*17)+6), clear_y, ('Clearing Data'.length*17)+6, 50);
     textFont(player_2);
     textSize(15);
@@ -403,6 +406,10 @@ function addItem(to, item_obj_num, amount) {
 
 function checkForSpace(to, item_obj_num){
     var check = false;
+    if(item_obj_num == 0){
+        check = true;
+        return check;
+    }
     for (let i = 0; i < to.inv.length; i++) {
         if (to.inv[i] != 0) { // stack items
             if (to.inv[i].name == all_items[item_obj_num].name) {

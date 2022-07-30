@@ -387,7 +387,12 @@ function mouseReleased() {
                     }
                     if(mouseX >= (canvasWidth/2)-(width/2) && mouseX <= (canvasWidth/2)+(width/2)){
                         let currentX = min((player.quests.length > 5 ? 5:player.quests.length-1), round((mouseY-((canvasHeight/8)+30)-30)/60))+questSlider.value()
-                        player.current_quest = currentX;
+                        if(currentX == player.current_quest){
+                            player.current_quest = undefined;
+                        }
+                        else{
+                            player.current_quest = currentX;
+                        }
                         if(player.quests[player.current_quest].done){
                             if(player.quests[player.current_quest].reward_item != 0){
                                 if(checkForSpace(player, item_name_to_num(player.quests[player.current_quest].reward_item.name))){
@@ -412,7 +417,7 @@ function mouseReleased() {
                             if(mouseX >= 113 && mouseX <= 622){
                                 let currentX = min(player.inv.length-1, round((mouseX-113-32)/64))
                                 if(player.inv[currentX] != 0){
-                                    if(player.talking.class == 'Backpack' && player.inv[currentX].class != 'Backpack'){
+                                    if(player.talking.class == 'Chest' || (player.talking.class == 'Backpack' && player.inv[currentX].class != 'Backpack')){
                                         for (let i = 0; i < player.talking.inv.length; i++) {
                                             for(let j = 0; j < player.talking.inv[i].length; j++){
                                                 if (player.talking.inv[i][j] != 0 && player.inv[currentX] != 0) { // stack items
