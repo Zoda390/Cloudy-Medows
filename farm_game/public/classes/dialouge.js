@@ -109,7 +109,7 @@ class Dialouge {
                     text('-' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + current_y, (canvasWidth / 2) - (canvasWidth / 20) - 10);
                 }
                 current_y += (this.replies[i].phrase.length > 22 ? ceil(this.replies[i].phrase.length/22)+1:1)*17;
-                new_line += (this.replies[i].phrase.length > 22 ? ceil(this.replies[i].phrase.length/22):0)
+                new_line += (this.replies[i].phrase.length > 22 ? ceil(this.replies[i].phrase.length/22):0);
             }
         }
         if(current_reply < this.replies.length - 5){

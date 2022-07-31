@@ -2,7 +2,7 @@ class Shop extends Entity {
 	constructor(name, png, x, y, inv, under_tile) {
 		super(name, png, x, y, -1, inv, 0, under_tile);
         for(let i = 0; i < this.inv.length; i++){
-            this.inv[i].price += round(random(0, 3));
+            this.inv[i].price += random([1, 1, 2, 2, 2, 3, 3, 3]);
         }
         this.class = 'Shop';
 	}

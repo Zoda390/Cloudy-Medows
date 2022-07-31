@@ -700,7 +700,7 @@ function preload() {
     /*84*/    { name: 'Tile Shop', png: 123, inv: [{num: 36, amount: 3}, {num: 37, amount: 1}, {num: 38, amount: 0}], under_tile_num: 1, class: 'Shop' },
     /*85*/    { name: 'computer', png: 124, collide: false, age: -1, class: 'Tile'},
     /*86*/    { name: 'Tool Shop', png: 126, inv: [{num: 1, amount: 2}, {num: 32, amount: 2}], under_tile_num: 57, class: 'Shop'},
-    /*87*/    { name: 'Rob Botus', png: 127, inv: [{num: 19, amount: 4}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}, {num: 23, amount: 2}, {num: 29, amount: 4}, {num: 30, amount: 4}, {num: 26, amount: 4}, {num: 34, amount: 4}], under_tile_num: 57, class: 'Shop'},
+    /*87*/    { name: 'Rob Botus', png: 127, inv: [{num: 27, amount: 1}, {num: 28, amount: 1}, {num: 18, amount: 1}, {num: 19, amount: 4}, {num: 20, amount: 4}, {num: 21, amount: 4}, {num: 22, amount: 4}, {num: 23, amount: 2}, {num: 29, amount: 4}, {num: 30, amount: 4}, {num: 26, amount: 4}, {num: 34, amount: 4}], under_tile_num: 57, class: 'Shop'},
     /*88*/    { name: 'Jake', png: 128, inv: [{num: 25, amount: 3}, {num: 24, amount: 1}], under_tile_num: 57, class: 'Shop'},
     /*89*/    { name: 'Dog', png: 129, inv: [0], under_tile_num: 57, instructions: [], moving_timer: 80, class: 'FreeMoveEntity'},
     /*90*/    { name: 'Davod', png: 130, inv: [0], hand: 0, facing: 2, under_tile: 1, instructions: [], moving_timer: 100, class: 'NPC'},
@@ -751,11 +751,11 @@ function preload() {
         /*30*/{name: 'Add from Chest Command', png: 85, command: 'add_from_chest', class: 'Command'},
         /*31*/{name: 'Veggy Oil', png: 86, price: 7, class: 'Item'},
         /*32*/{name: 'Shovel', png: 87, class: 'Tool'},
-        /*33*/{name: 'Backpack', png: 88, inv: [{ num: 7, amount: 20}, { num: 23, amount: 4}, { num: 26, amount: 4}, { num: 29, amount: 1}, { num: 30, amount: 1}, {num: 18, amount: 1}, {num: 27, amount: 1}, {num: 28, amount: 1}, {num: 21, amount: 8}, {num: 22, amount: 8}, { num: 20, amount: 8}, { num: 34, amount: 4}], class: 'Backpack'},
+        /*33*/{name: 'Backpack', png: 88, inv: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], class: 'Backpack'},
         /*34*/{name: '1 Day Pause Command', png: 89, command: '1day_pause', class: 'Command'},
         /*35*/{name: 'Hotdog', png: 107, price: 20, hunger: 100, hunger_timer: 4000, seed_num: 0, class: 'Eat' },
         /*36*/{name: 'Chest', png: 120, price: 20, tile_num: 40, tile_need_num: 0, class: 'Placeable'},
-        /*37*/{name: 'Grinder', png: 121, price: 100, tile_num: 83, tile_need_num: 1, class: 'Placeable'},
+        /*37*/{name: 'Grinder', png: 121, price: 50, tile_num: 83, tile_need_num: 1, class: 'Placeable'},
         /*38*/{name: 'Veggy Press', png: 125, price: 130, tile_num: 48, tile_need_num: 1, class: 'Placeable'},
         /*39*/{name: 'Carrot', png: 136, price: 4, hunger: 1, hunger_timer: 2000, seed_num: 40, class: 'Eat' },
         /*40*/{name: 'Carrot Seed', png: 137, plant_num: 92, class: 'Seed'}
@@ -847,7 +847,7 @@ function setup() {
     musicSlider.position((canvasWidth/2)-10, (canvasHeight/2)-85);
     musicSlider.input(saveOptions)
     musicSlider.hide();
-    fxSlider = createSlider(0, 1, ((localData.get('Options') != null ? localData.get('Options').fxVolume:1)), 0.01);
+    fxSlider = createSlider(0, 1, ((localData.get('Options') != null ? localData.get('Options').fxVolume:0.5)), 0.01);
     fxSlider.position((canvasWidth/2)-10, (canvasHeight/2)-5);
     fxSlider.input(saveOptions)
     fxSlider.hide();
@@ -1114,7 +1114,7 @@ function newWorld(){
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], 
         [8, 8, 1, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 10, 1, 0, 0, 0], 
         [0, 0, 1, 6, 7, 1, 6, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0], 
-        [0, 0, 1, 6, 40, 1, 6, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0], 
+        [0, 0, 1, 6, 1, 1, 6, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0], 
         [0, 0, 1, 6, 6, 1, 6, 12, 1, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 1, 0, 0, 0], 
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0], 
         [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 8, 8], 
@@ -1716,7 +1716,7 @@ function newWorld(){
         [57, 57, 57, 57, 57, 62, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57], 
         [57, 57, 57, 57, 57, 62, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57], 
         [57, 57, 57, 57, 57, 62, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 62, 61, 61, 61], 
-        [57, 57, 57, 57, 57, 62, 57, 57, 57, 57, 57, 89, 57, 57, 57, 57, 57, 57, 57, 62, 57, 57, 57], 
+        [57, 57, 57, 57, 57, 62, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 62, 57, 57, 57], 
         [57, 57, 57, 57, 57, 62, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 62, 57, 57, 57], 
         [57, 57, 57, 57, 57, 62, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 62, 57, 57, 57], 
         [57, 57, 57, 57, 57, 62, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 57, 62, 57, 57, 57], 
@@ -1885,11 +1885,11 @@ function newWorld(){
         [72, 72, 72, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71], 
         [72, 72, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71], 
         [72, 72, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 1, 1, 71, 71, 71, 71, 71], 
-        [72, 72, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 1, 79, 71, 71, 71, 71, 71], 
+        [72, 72, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 78, 71, 71, 71, 1, 79, 71, 71, 71, 71, 71], 
         [72, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71], 
+        [72, 71, 71, 71, 71, 71, 71, 71, 78, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71], 
         [72, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71], 
-        [72, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71], 
-        [72, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71], 
+        [72, 71, 71, 71, 71, 71, 71, 71, 71, 71, 78, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71], 
         [72, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 53, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71], 
         [72, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71], 
         [72, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71], 

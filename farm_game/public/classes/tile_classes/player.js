@@ -1,7 +1,8 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y, inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 33, amount: 1}, { num: 40, amount: 200}, 0, 0, 0, 0]) {
+    constructor(name, png, x, y, inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 3, amount: 5}, 0, 0, 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
-        this.quests = [];
+        this.quests = [{name: "Talk to some people", "goals": [{class: "TalkingGoal", npc_name: "OldManJ", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Deb", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Meb",item_name: 0,amount: 0}, {"class": "TalkingGoal",npc_name: "Cowboy Rick",item_name: 0,amount: 0}], days: 0, reward_item: 0, reward_coins: 10},
+    {name: "Save Cloudy Meadows", "goals": [{class: "FundingGoal", amount: 1000}], days: 100, }];
         this.current_quest = 0;
         this.show_quests = false;
         this.questsDone = 0;
@@ -9,7 +10,7 @@ class Player extends MoveableEntity {
         this.lastFoodnum = 2;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = 0;
-        this.coins = 6000;
+        this.coins = 0;
         this.hp = 100;
         this.dead = false;
         this.deaths = 0;
@@ -411,7 +412,7 @@ class Player extends MoveableEntity {
                     if (this.inv[this.hand].amount == 0) {
                         this.inv[this.hand] = 0;
                     }
-                    addItem(this, seed_obj_num, round(random(1, 2)));
+                    addItem(this, seed_obj_num, random([1, 1, 1, 1, 2, 2, 2, 3]));
                     
                 }
             }
@@ -571,7 +572,7 @@ class Player extends MoveableEntity {
                 if(this.inv[this.hand].seed_num != 0){
                     if(checkForSpace(this, this.inv[this.hand].seed_num)){
                         this.inv[this.hand].amount -= 1;
-                        addItem(this, this.inv[this.hand].seed_num, round(random(2, 6)));
+                        addItem(this, this.inv[this.hand].seed_num, random([1, 2, 2, 2, 2, 3, 3, 4]));
                         if (this.inv[this.hand].amount == 0) {
                             this.inv[this.hand] = 0;
                         }

@@ -301,15 +301,27 @@
       "amount": 0
     },
     {
-      "phrase": "How are you today?",
+      "phrase": "I feel way over dressed",
       "replies": [
         {
-          "phrase": "Good.",
-          "dialouge_num": -1,
+          "phrase": "Why are you wearing that dress then?",
+          "dialouge_num": 2,
           "quest": -1
         },
         {
-          "phrase": "Could be better.",
+          "phrase": "I dont care.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    { 
+      "phrase": "Cause I rode that graceful air ballon over to the left",
+      "replies": [
+        {
+          "phrase": "Oh thats nice.",
           "dialouge_num": -1,
           "quest": -1
         },
@@ -318,14 +330,14 @@
           "dialouge_num": -1,
           "quest": -1
         }
-      ],
-      "hand_num": -1, 
-      "amount": 0
-    }
+    ],
+    "hand_num": -1,
+    "amount": 0
+  }
   ],
   "OldManJ": [
     {
-      "phrase": "Hey kiddo! Heard you're gonna try to save Cloudy Meadows by farming and helping folks out. I may not be able to help much at my old age, but I'm here if you need any advice!",
+      "phrase": "I Heard you're gonna try to save Cloudy Meadows by farming and helping folks out. I may not be able to help much at my old age, but I'm here if you need any advice!",
       "replies": [
         {
           "phrase": "Please help!",
@@ -361,32 +373,32 @@
         },
         {
           "phrase": "Watering.",
-          "dialouge_num": 4,
-          "quest": -1
-        },
-        {
-          "phrase": "Selling.",
           "dialouge_num": 5,
           "quest": -1
         },
         {
-          "phrase": "Compost.",
+          "phrase": "Selling.",
           "dialouge_num": 6,
           "quest": -1
         },
         {
-          "phrase": "Sleeping.",
+          "phrase": "Compost.",
           "dialouge_num": 7,
           "quest": -1
         },
         {
-          "phrase": "Quests.",
+          "phrase": "Sleeping.",
           "dialouge_num": 8,
           "quest": -1
         },
         {
-          "phrase": "Robots.",
+          "phrase": "Quests.",
           "dialouge_num": 9,
+          "quest": -1
+        },
+        {
+          "phrase": "Robots.",
+          "dialouge_num": 10,
           "quest": -1
         },
         {
