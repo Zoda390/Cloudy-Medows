@@ -93,7 +93,7 @@
   ],
   "Rick": [
     {
-      "phrase": "Howdy buddy, I'm Rick but people 'round here call me Cowboy Rick",
+      "phrase": "Howdy buddy, I'm Rick but people 'round here call me Cowboy Rick, I'm a strawberry farmer.",
       "replies": [
         {
           "phrase": "Hi Rick ... I mean Cowboy Rick ",
@@ -104,8 +104,12 @@
           "phrase": "What do you know about the land lord? How do we keep Cloudy going?",
           "dialouge_num": 3,
           "quest": -1
-        }
-        ,
+        },
+        {
+          "phrase": "Where are all your strawberries?",
+          "dialouge_num": 5,
+          "quest": -1
+        },
         {
           "phrase": "Bye Rick.",
           "dialouge_num": -1,
@@ -116,7 +120,7 @@
       "amount": 0
     },
     {
-      "phrase": "Do you want some strawberries?",
+      "phrase": "Do you want a few strawberries?",
       "replies": [
         {
           "phrase": "Yes Please!",
@@ -171,6 +175,45 @@
       "replies": [
         {
           "phrase": "You got it!",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "I only got a few left, I had to sell a bunch at the market just to do my part in paying for cloudy meadows",
+      "replies": [
+        {
+          "phrase": "Oh that sucks.",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Whats the market?",
+          "dialouge_num": 6,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "If you take the bridge above meb and deb you'll be at the market, a place to sell and buy most things you'll need.",
+      "replies": [
+        {
+          "phrase": "Oh thanks for the info.",
           "dialouge_num": -1,
           "quest": -1
         },
@@ -884,6 +927,11 @@
           "quest": -1
         },
         {
+          "phrase": "Robot Fuel",
+          "dialouge_num": 4,
+          "quest": -1
+        },
+        {
           "phrase": "Are they worth it?",
           "dialouge_num": 4,
           "quest": -1
@@ -913,7 +961,7 @@
       "amount": 0
     },
     {
-      "phrase": "Well you will need a robot of your own, I can give you one of my favorite robots if you can do a couple things for me, ill give you a lvl 1 robot",
+      "phrase": "Well you need a robot of your own, I can give you one of my favorite robots if you do a couple things for me, ill give you a lvl 1 robot.",
       "replies": [
         {
           "phrase": "You got a deal",
@@ -940,7 +988,7 @@
       "amount": 0
     },
     {
-      "phrase": "Robot levels",
+      "phrase": "Robots come in 3 levels, lvl 1 has the smallest inv and instruction space, then each level just adds space to both.",
       "replies": [
         {
           "phrase": "Wait one more thing",
@@ -957,7 +1005,7 @@
       "amount": 0
     },
     {
-      "phrase": "Are they worth it?",
+      "phrase": "Lvl1 recharges with Veggy Oil that you get from a press, Lvl2 recharges when standing on a sprinkler, Lvl3 runs off sunlight",
       "replies": [
         {
           "phrase": "Wait one more thing",
@@ -974,7 +1022,7 @@
       "amount": 0
     },
     {
-      "phrase": "What does the color of the floppy mean?",
+      "phrase": "Well can't you see my entire farm runs off of robots?",
       "replies": [
         {
           "phrase": "Wait one more thing",
@@ -991,7 +1039,7 @@
       "amount": 0
     },
     {
-      "phrase": "Whats the pc for?",
+      "phrase": "Red Floppys are for movement based commands, Blue Floppys are for item based commands, and Green Floppys are for logic based commands.",
       "replies": [
         {
           "phrase": "Wait one more thing",
@@ -1008,7 +1056,24 @@
       "amount": 0
     },
     {
-      "phrase": "How do I make them farm?",
+      "phrase": "The pc will program a few floppy disks into one golden floppy disk, all you gotta do is put a gold floppy in the pc and add what you want.",
+      "replies": [
+        {
+          "phrase": "Wait one more thing",
+          "dialouge_num": 1,
+          "quest": -1
+        },
+        {
+          "phrase": "Ok thanks",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "The easiest way to learn how to program them would be to just go look at my robots, They range from simple hoeing, to complex farming systems.",
       "replies": [
         {
           "phrase": "Wait one more thing",
@@ -1056,7 +1121,7 @@
   ],
   "Super Tina": [
     {
-      "phrase": "Hi, im SUPER Tina",
+      "phrase": "Hi, im SUUUUPER Tina",
       "replies": [
         {
           "phrase": "Hi, Tina",
