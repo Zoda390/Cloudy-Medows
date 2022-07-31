@@ -29,6 +29,12 @@ class Tile {
         }
         image(all_imgs[this.png][this.variant], this.pos.x + (tileSize / 2), this.pos.y + (tileSize / 2));
         pop()
+        if(paused){
+            all_imgs[this.png][this.variant].pause();
+        }
+        else{
+            all_imgs[this.png][this.variant].play();
+        }
     }
 
     getReadyForSave(){

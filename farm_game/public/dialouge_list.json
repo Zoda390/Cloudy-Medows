@@ -356,37 +356,37 @@
         },
         {
           "phrase": "Eating.",
-          "dialogue_num": 4,
+          "dialouge_num": 4,
           "quest": -1
         },
         {
           "phrase": "Watering.",
-          "dialogue_num": 4,
+          "dialouge_num": 4,
           "quest": -1
         },
         {
           "phrase": "Selling.",
-          "dialogue_num": 5,
+          "dialouge_num": 5,
           "quest": -1
         },
         {
           "phrase": "Compost.",
-          "dialogue_num": 6,
+          "dialouge_num": 6,
           "quest": -1
         },
         {
           "phrase": "Sleeping.",
-          "dialogue_num": 7,
+          "dialouge_num": 7,
           "quest": -1
         },
         {
           "phrase": "Quests.",
-          "dialogue_num": 8,
+          "dialouge_num": 8,
           "quest": -1
         },
         {
           "phrase": "Robots.",
-          "dialogue_num": 9,
+          "dialouge_num": 9,
           "quest": -1
         },
         {
@@ -403,135 +403,153 @@
       "replies": [
         {
           "phrase": "Thanks, can you help with something else?",
-          "dialogue_num": 1,
+          "dialouge_num": 1,
           "quest": -1
         },
         {
           "phrase": "Thank you, bye.",
-          "dialogue_num": -1,
+          "dialouge_num": -1,
           "quest": -1
         }
-      ]
+      ],
+      "hand_num": -1, 
+      "amount": 0
     },
     {
       "phrase": "Obviously you'll need seeds first, which you can get by either buying them or eating crops or a fancy grinder. Then you can take your hoe to a suitable piece of land and till it. After you do that just plant the seeds and wait, and you'll have healthy crops in no time!",
       "replies": [
         {
           "phrase": "Thanks, can you help with something else?",
-          "dialogue_num": 1,
+          "dialouge_num": 1,
           "quest": -1
         },
         {
           "phrase": "Thank you, bye.",
-          "dialogue_num": -1,
+          "dialouge_num": -1,
           "quest": -1
         }
-      ]
+      ],
+      "hand_num": -1, 
+      "amount": 0
     },
     {
       "phrase": "Press Q to eat food! You'll die if you go hungry, so make sure you've always got food on you if you can.",
       "replies": [
         {
           "phrase": "Thanks, can you help with something else?",
-          "dialogue_num": 1,
+          "dialouge_num": 1,
           "quest": -1
         },
         {
           "phrase": "Thank you, bye.",
-          "dialogue_num": -1,
+          "dialouge_num": -1,
           "quest": -1
         }
-      ]
+      ],
+      "hand_num": -1, 
+      "amount": 0
     },
     {
       "phrase": "Strawberries, Tomatoes, and Watermelons need water to grow properly. You can buy sprinklers from the market which will water the crops in a small circle around it. To place one, stand on grass and press E.",
       "replies": [
         {
           "phrase": "Thanks, can you help with something else?",
-          "dialogue_num": 1,
+          "dialouge_num": 1,
           "quest": -1
         },
         {
           "phrase": "Thank you, bye.",
-          "dialogue_num": -1,
+          "dialouge_num": -1,
           "quest": -1
         }
-      ]
+      ],
+      "hand_num": -1, 
+      "amount": 0
     },
     {
       "phrase": "Once you've grown some crops, take them to the cart at the market north from here to sell them. Be careful not to sell too much though; you've got to feed yourself too!",
       "replies": [
         {
           "phrase": "Thanks, can you help with something else?",
-          "dialogue_num": 1,
+          "dialouge_num": 1,
           "quest": -1
         },
         {
           "phrase": "Thank you, bye.",
-          "dialogue_num": -1,
+          "dialouge_num": -1,
           "quest": -1
         }
-      ]
+      ],
+      "hand_num": -1, 
+      "amount": 0
     },
     {
       "phrase": "If you don't farm on tilled land for too long, it'll go back to being simple dirt. You can make dirt patches useful again with compost, though! The Deb and Meb up there can help you learn more.",
       "replies": [
         {
           "phrase": "Thanks, can you help with something else?",
-          "dialogue_num": 1,
+          "dialouge_num": 1,
           "quest": -1
         },
         {
           "phrase": "Thank you, bye.",
-          "dialogue_num": -1,
+          "dialouge_num": -1,
           "quest": -1
         }
-      ]
+      ],
+      "hand_num": -1, 
+      "amount": 0
     },
     {
       "phrase": "If you need rest and want your crops to grow right now, you could always sleep in your bed. This will cause time to pass faster if you don't have anything else to do.",
       "replies": [
         {
           "phrase": "Thanks, can you help with something else?",
-          "dialogue_num": 1,
+          "dialouge_num": 1,
           "quest": -1
         },
         {
           "phrase": "Thank you, bye.",
-          "dialogue_num": -1,
+          "dialouge_num": -1,
           "quest": -1
         }
-      ]
+      ],
+      "hand_num": -1, 
+      "amount": 0
     },
     {
       "phrase": "The people of Cloudy could always use some help. Talk to people and see what they need, you may be rewarded quite well!",
       "replies": [
         {
           "phrase": "Thanks, can you help with something else?",
-          "dialogue_num": 1,
+          "dialouge_num": 1,
           "quest": -1
         },
         {
           "phrase": "Thank you, bye.",
-          "dialogue_num": -1,
+          "dialouge_num": -1,
           "quest": -1
         }
-      ]
+      ],
+      "hand_num": -1, 
+      "amount": 0
     },
     {
       "phrase": "I don't know much about farming robots, but I heard there is a big automated farm somewhere in the park. You can get there by airship.",
       "replies": [
         {
           "phrase": "Thanks, can you help with something else?",
-          "dialogue_num": 1,
+          "dialouge_num": 1,
           "quest": -1
         },
         {
           "phrase": "Thank you, bye.",
-          "dialogue_num": -1,
+          "dialouge_num": -1,
           "quest": -1
         }
-      ]
+      ],
+      "hand_num": -1, 
+      "amount": 0
     }
   ],
   "Brandon": [
@@ -1060,12 +1078,12 @@
       "replies": [
         {
           "phrase": "You got it!",
-          "dialogue_num": -1,
+          "dialouge_num": -1,
           "quest": {"name": "Free Robot", "goals": [{"class": "TalkingGoal", "npc_name": "Zoda", "item_name": "Strawberries", "amount": 20}], "days": 3, "reward_item": {"num": 27, "amount": 1}, "reward_coins": 0}
         },
         {
           "phrase": "Actually nevermind",
-          "dialogue_num": -1,
+          "dialouge_num": -1,
           "quest": -1
         }
       ],

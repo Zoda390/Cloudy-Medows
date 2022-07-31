@@ -12,7 +12,7 @@ class Item {
 		image(all_imgs[this.png], x, y);
 		fill(255);
 		let amountS = str(this.amount)
-		textSize(20 - ((amountS.length-1)*8));
+		textSize(20 - ((amountS.length-1)*7));
 		textAlign(CENTER, CENTER);
 		textFont(player_2);
 		stroke(0)

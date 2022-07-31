@@ -8,7 +8,9 @@ class FreeMoveEntity extends GridMoveEntity{
     }
 
     randomMove(x, y){
-        this.grow_timer -= 1;
+        if (this.name == 'bee'){
+            this.grow_timer -= 1;
+        }
         if(player.touching.name == 'bed'){
             this.grow_timer -= 2;
         }

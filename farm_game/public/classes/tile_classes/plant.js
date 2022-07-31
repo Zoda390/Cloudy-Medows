@@ -38,12 +38,23 @@ class Plant extends Tile {
                 if(levels[y][x].map[(this.pos.y/tileSize)+i][(this.pos.x/tileSize)+j].name == 'sprinkler'){
                     water_found += 1;
                 }
+                else if(levels[y][x].map[(this.pos.y/tileSize)+i][(this.pos.x/tileSize)+j].under_tile != undefined && levels[y][x].map[(this.pos.y/tileSize)+i][(this.pos.x/tileSize)+j].under_tile.name == 'sprinkler'){
+                    water_found += 1;
+                }
             }
         }
         this.watermet = (water_found >= this.waterneeded)
         if (this.growTimer >= this.growthTime) {
             if (this.watermet) {
                 this.age += 1;
+                if(this.age == all_imgs[this.png].length - 2){
+                    if(this.name == 'carrot'){
+                        let rand = random(0, 100);
+                        if(rand <= 0.1){
+                            levels[y][x].map[this.pos.y / tileSize][this.pos.x / tileSize] = new_tile_from_num(91, this.pos.x, this.pos.y);
+                        }
+                    }
+                }
                 if (this.age > all_imgs[this.png].length - 2 && this.deathAttempts > 0) {
                     this.age = all_imgs[this.png].length - 2;
                     this.deathAttempts -= 1;

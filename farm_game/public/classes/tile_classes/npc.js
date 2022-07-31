@@ -24,11 +24,17 @@ class NPC extends GridMoveEntity {
         this.moving_timer = obj.moving_timer;
         this.instructions = obj.instructions;
         this.current_instruction = obj.current_instruction;
-        this.move_bool = obj.move_bool;
+        
         for(let i = 0; i < obj.dialouges.length; i++){
             this.dialouges[i].phrase2 = obj.dialouges[i].phrase2;
-            this.dialouges[i].replies = obj.dialouges[i].replies;
             this.dialouges[i].amount = obj.dialouges[i].amount;
+            this.dialouges[i].replies = obj.dialouges[i].replies;
+            for(let j = 0; j < obj.dialouges[i].replies.length; j++){
+                if(obj.dialouges[i].replies[j].quest != -1){
+                    this.dialouges[i].replies[j].quest = new Quest(obj.dialouges[i].replies[j].quest.og_name, obj.dialouges[i].replies[j].quest.goals, obj.dialouges[i].replies[j].quest.days, (obj.dialouges[i].replies[j].quest.reward_item == 0 ? 0 : {num: item_name_to_num(obj.dialouges[i].replies[j].quest.reward_item.name), amount: obj.dialouges[i].replies[j].quest.reward_item.amount}), obj.dialouges[i].replies[j].quest.reward_coins);
+                    this.dialouges[i].replies[j].quest.load(obj.dialouges[i].replies[j].quest);
+                }
+            }
         }
         for(let i = 0; i < obj.inv.length; i++){
             if(obj.inv[i] != 0 && this.inv[i] != 0){

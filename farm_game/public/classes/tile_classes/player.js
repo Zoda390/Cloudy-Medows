@@ -1,5 +1,5 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y, inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 33, amount: 1}, { num: 11, amount: 10}, 0, 0, 0, 0]) {
+    constructor(name, png, x, y, inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 33, amount: 1}, { num: 40, amount: 200}, 0, 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [];
         this.current_quest = 0;
@@ -9,7 +9,7 @@ class Player extends MoveableEntity {
         this.lastFoodnum = 2;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = 0;
-        this.coins = 100;
+        this.coins = 6000;
         this.hp = 100;
         this.dead = false;
         this.deaths = 0;
@@ -35,7 +35,6 @@ class Player extends MoveableEntity {
         this.facing = obj.facing;
         for(let i = 0; i < obj.quests.length; i++){
             this.quests[i] = new Quest(obj.quests[i].og_name, obj.quests[i].goals, obj.quests[i].days, (obj.quests[i].reward_item == 0 ? 0 : {num: item_name_to_num(obj.quests[i].reward_item.name), amount: obj.quests[i].reward_item.amount}), obj.quests[i].reward_coins);
-            console.log(obj.quests[i].done)
             this.quests[i].load(obj.quests[i]);
         }
         this.current_quest = obj.current_quest;
@@ -241,6 +240,33 @@ class Player extends MoveableEntity {
                         levels[currentLevel_y][currentLevel_x].movephase = 0;
                         levels[currentLevel_y][currentLevel_x].ticks = 0;
                         currentLevel_x += 1;
+                        if(levels[currentLevel_y][currentLevel_x] == undefined){
+                            extraCount ++;
+                            levels[currentLevel_y][currentLevel_x] = new Level('Extra y:' + currentLevel_y + ' x:'+ (currentLevel_x-6), JSON.parse(JSON.stringify(extra_lvls.map)), JSON.parse(JSON.stringify(extra_lvls.fore)));
+                            levels[currentLevel_y][currentLevel_x].map[8][0] = new_tile_from_num(8, 0*tileSize, 8*tileSize);
+                            levels[currentLevel_y][currentLevel_x].map[8][1] = new_tile_from_num(8, 1*tileSize, 8*tileSize);
+                            let randBridge = floor(random(0,3));
+                            if(currentLevel_y == 0){
+                                randBridge = floor(random(1,3));
+                            }
+                            if(currentLevel_y == 2){
+                                randBridge = floor(random(0, 2));
+                            }
+                            if(randBridge == 0){
+                                levels[currentLevel_y][currentLevel_x].map[0][11] = new_tile_from_num(94, 11*tileSize, 0*tileSize);
+                                levels[currentLevel_y][currentLevel_x].map[1][11] = new_tile_from_num(9, 11*tileSize, 1*tileSize);
+                            }
+                            if(randBridge == 1){
+                                levels[currentLevel_y][currentLevel_x].map[8][22] = new_tile_from_num(93, 22*tileSize, 8*tileSize);
+                                levels[currentLevel_y][currentLevel_x].map[8][21] = new_tile_from_num(8, 21*tileSize, 8*tileSize);
+                            }
+                            if(randBridge == 2){
+                                levels[currentLevel_y][currentLevel_x].map[18][11] = new_tile_from_num(9, 11*tileSize, 18*tileSize);
+                                levels[currentLevel_y][currentLevel_x].map[17][11] = new_tile_from_num(9, 11*tileSize, 17*tileSize);
+                                levels[currentLevel_y][currentLevel_x].map[16][11] = new_tile_from_num(94, 11*tileSize, 16*tileSize);
+                                levels[currentLevel_y][currentLevel_x].map[15][11] = new_tile_from_num(9, 11*tileSize, 15*tileSize);
+                            }
+                        }
                         levels[currentLevel_y][currentLevel_x].level_name_popup = true;
                         this.pos.x = 0;
                     }
@@ -299,6 +325,16 @@ class Player extends MoveableEntity {
                         levels[currentLevel_y][currentLevel_x].movephase = 0;
                         levels[currentLevel_y][currentLevel_x].ticks = 0;
                         currentLevel_y -= 1;
+                        if(levels[currentLevel_y][currentLevel_x] == undefined){
+                            extraCount ++;
+                            levels[currentLevel_y][currentLevel_x] = new Level('Extra y:' + currentLevel_y + ' x:'+ (currentLevel_x-6), JSON.parse(JSON.stringify(extra_lvls.map)), JSON.parse(JSON.stringify(extra_lvls.fore)));
+                            levels[currentLevel_y][currentLevel_x].map[18][11] = new_tile_from_num(9, 11*tileSize, 18*tileSize);
+                            levels[currentLevel_y][currentLevel_x].map[17][11] = new_tile_from_num(9, 11*tileSize, 17*tileSize);
+                            levels[currentLevel_y][currentLevel_x].map[16][11] = new_tile_from_num(9, 11*tileSize, 16*tileSize);
+                            levels[currentLevel_y][currentLevel_x].map[15][11] = new_tile_from_num(9, 11*tileSize, 15*tileSize);
+                            levels[currentLevel_y][currentLevel_x].map[8][22] = new_tile_from_num(93, 22*tileSize, 8*tileSize);
+                            levels[currentLevel_y][currentLevel_x].map[8][21] = new_tile_from_num(8, 21*tileSize, 8*tileSize);
+                        }
                         levels[currentLevel_y][currentLevel_x].level_name_popup = true;
                         this.pos.y = canvasHeight - tileSize;
                     }
@@ -328,6 +364,14 @@ class Player extends MoveableEntity {
                         levels[currentLevel_y][currentLevel_x].movephase = 0;
                         levels[currentLevel_y][currentLevel_x].ticks = 0;
                         currentLevel_y += 1;
+                        if(levels[currentLevel_y][currentLevel_x] == undefined){
+                            extraCount ++;
+                            levels[currentLevel_y][currentLevel_x] = new Level('Extra y:' + currentLevel_y + ' x:'+ (currentLevel_x-6), JSON.parse(JSON.stringify(extra_lvls.map)), JSON.parse(JSON.stringify(extra_lvls.fore)));
+                            levels[currentLevel_y][currentLevel_x].map[0][11] = new_tile_from_num(9, 11*tileSize, 0*tileSize);
+                            levels[currentLevel_y][currentLevel_x].map[1][11] = new_tile_from_num(9, 11*tileSize, 1*tileSize);
+                            levels[currentLevel_y][currentLevel_x].map[8][22] = new_tile_from_num(93, 22*tileSize, 8*tileSize);
+                            levels[currentLevel_y][currentLevel_x].map[8][21] = new_tile_from_num(8, 21*tileSize, 8*tileSize);
+                        }
                         levels[currentLevel_y][currentLevel_x].level_name_popup = true;
                         this.pos.y = 0;
                     }
@@ -396,16 +440,28 @@ class Player extends MoveableEntity {
                 this.oldlooking_name = this.looking(currentLevel_x, currentLevel_y).name;
                 return;
             }
+            else if(this.looking(currentLevel_x, currentLevel_y).class == "PayToMoveEntity"){
+                if(this.coins >= this.looking(currentLevel_x, currentLevel_y).price){
+                    player.coins -= this.looking(currentLevel_x, currentLevel_y).price;
+                    this.touching = this.tileTouching(x, y);
+                    if (this.touching != 0) {
+                        levels[currentLevel_y][currentLevel_x].map[(player.looking(currentLevel_x, currentLevel_y).pos.y / tileSize)][player.looking(currentLevel_x, currentLevel_y).pos.x / tileSize] = this.looking(currentLevel_x, currentLevel_y).under_tile;
+                    }
+                    moneySound.play();
+                }
+            }
         }
         if (this.touching.class == 'Plant') {
             if(this.touching.age == all_imgs[this.touching.png].length - 2){
                 if(checkForSpace(this, this.touching.eat_num)){
-                    addItem(this, this.touching.eat_num, 1 + levels[y][x].ladybugs);
+                    addItem(this, this.touching.eat_num, 1 + round(random((levels[y][x].ladybugs > 4 ? 1:0), levels[y][x].ladybugs)));
                     levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
+                    PlantingSound.play()
                 }
             }
             else if(this.inv[this.hand].name == 'Shovel'){
                 levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(3, this.touching.pos.x, this.touching.pos.y);
+                shovelSound.play();
             }
         }
         if (this.looking(x, y) != undefined && this.looking(x, y).name == 'cart_s') {
@@ -474,6 +530,7 @@ class Player extends MoveableEntity {
                 if(checkForSpace(this, 12)){
                     addItem(this, 12, 1);
                     levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(2, this.touching.pos.x, this.touching.pos.y);
+                    shovelSound.play();
                 }
             }
         }
@@ -481,6 +538,7 @@ class Player extends MoveableEntity {
             if (this.inv[this.hand].class == 'Seed') {
                 levels[y][x].map[this.touching.pos.y / tileSize][this.touching.pos.x / tileSize] = new_tile_from_num(this.inv[this.hand].plant_num, this.touching.pos.x, this.touching.pos.y);
                 this.inv[this.hand].amount -= 1;
+                PlantingSound.play()
                 if (this.inv[this.hand].amount == 0) {
                     this.inv[this.hand] = 0;
                 }
@@ -777,24 +835,22 @@ function takeInput() {
                         }
                         player.talking.dialouges[player.talking.current_dialouge].new_replies = [{phrase: 'Oh ok', dialouge_num: -1, quest: -1}];
                     }
+                    player.talking.dialouges[player.talking.current_dialouge].done = false;
+                    player.talking.dialouges[player.talking.current_dialouge].text_i = -1;
+                    player.talking.dialouges[player.talking.current_dialouge].phrase = [];
+                    if(player.talking.dialouges[player.talking.current_dialouge].new_phrase != -1){
+                        player.talking.dialouges[player.talking.current_dialouge].phrase2 = player.talking.dialouges[player.talking.current_dialouge].new_phrase;
+                        player.talking.dialouges[player.talking.current_dialouge].new_phrase = -1;
+                    }
+                    if(player.talking.dialouges[player.talking.current_dialouge].new_replies != -1){
+                        for(let j = 0; j < player.talking.dialouges[player.talking.current_dialouge].new_replies.length; j++){
+                            player.talking.dialouges[player.talking.current_dialouge].replies[j] = player.talking.dialouges[player.talking.current_dialouge].new_replies[j];
+                        }
+                        player.talking.dialouges[player.talking.current_dialouge].new_replies = -1;
+                    }
                     if(player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num == -1){
                         player.talking.move_bool = true;
                         player.talking.current_dialouge = 0;
-                        for(let i = 0; i < player.talking.dialouges.length; i++){
-                            player.talking.dialouges[i].done = false;
-                            player.talking.dialouges[i].text_i = 0;
-                            player.talking.dialouges[i].phrase = [];
-                            if(player.talking.dialouges[i].new_phrase != -1){
-                                player.talking.dialouges[i].phrase2 = player.talking.dialouges[i].new_phrase;
-                                player.talking.dialouges[i].new_phrase = -1;
-                            }
-                            if(player.talking.dialouges[i].new_replies != -1){
-                                for(let j = 0; j < player.talking.dialouges[i].new_replies.length; j++){
-                                    player.talking.dialouges[i].replies[j] = player.talking.dialouges[i].new_replies[j];
-                                }
-                                player.talking.dialouges[i].new_replies = -1;
-                            }
-                        }
                         player.oldlooking_name = player.talking.name;
                         player.talking = 0;
                         current_reply = 0;

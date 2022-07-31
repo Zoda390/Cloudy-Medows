@@ -16,10 +16,11 @@ class Dialouge {
         this.new_replies = -1;
         this.hand_num = hand_num;
         this.amount = amount;
-        this.textWait = 2;
+        this.textWait = 1;
         this.maxTextWait = this.textWait;
-        this.text_i = 0;
+        this.text_i = -1;
         this.done = false;
+        this.noise = true;
     }
 
     render(name, inv){
@@ -47,6 +48,10 @@ class Dialouge {
             }
             this.phrase[this.text_i] = this.phrase2[this.text_i];
             text(this.phrase.join(''), (canvasWidth / 20) + 10, canvasHeight - 115, (canvasWidth / 2) - (canvasWidth / 20) - 20);
+            if(this.noise){
+                npc_talkingSound.play();
+            }
+            this.noise = !this.noise;
             if (this.text_i == this.phrase2.length - 1){
                 this.done = true;
                 if(this.hand_num != -1 && inv[this.hand_num] != 0 && inv[this.hand_num].amount > 0){
@@ -82,7 +87,6 @@ class Dialouge {
         if(current_reply < 1 || this.replies.length <= 6){
             for (let i = 0; i < min(6-new_line, this.replies.length); i++){
                 if(current_reply == i){
-                    console.log(this.replies[i].phrase.length)
                     fill(255, 255, 0);
                     text('>' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + current_y, (canvasWidth / 2) - (canvasWidth / 20) - 10);
                 }
@@ -90,14 +94,13 @@ class Dialouge {
                     fill(255);
                     text('-' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + current_y, (canvasWidth / 2) - (canvasWidth / 20) - 10);
                 }
-                current_y += (this.replies[i].phrase.length > 22 ? 2:1)*17;
-                new_line += (this.replies[i].phrase.length > 22 ? 1:0)
+                current_y += (this.replies[i].phrase.length > 22 ? floor(this.replies[i].phrase.length/22)+1:1)*17;
+                new_line += (this.replies[i].phrase.length > 22 ? floor(this.replies[i].phrase.length/22):0)
             }
         }
         else{
             for (let i = current_reply-1; i < min(current_reply + 5 - new_line, this.replies.length); i++){
                 if(current_reply == i){
-                    console.log(this.replies[i].phrase.length)
                     fill(255, 255, 0);
                     text('>' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + current_y, (canvasWidth / 2) - (canvasWidth / 20) - 10);
                 }
@@ -105,8 +108,8 @@ class Dialouge {
                     fill(255);
                     text('-' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + current_y, (canvasWidth / 2) - (canvasWidth / 20) - 10);
                 }
-                current_y += (this.replies[i].phrase.length > 22 ? 2:1)*17;
-                new_line += (this.replies[i].phrase.length > 22 ? 1:0)
+                current_y += (this.replies[i].phrase.length > 22 ? ceil(this.replies[i].phrase.length/22)+1:1)*17;
+                new_line += (this.replies[i].phrase.length > 22 ? ceil(this.replies[i].phrase.length/22):0)
             }
         }
         if(current_reply < this.replies.length - 5){

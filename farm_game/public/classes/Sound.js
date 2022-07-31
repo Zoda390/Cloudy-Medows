@@ -1,8 +1,9 @@
 
 class Sound {
-    constructor(srcarray) {
+    constructor(srcarray, volume) {
         this.src = srcarray;
         this.var = 0;
+        this.volume = volume;
     }
     play() {
         this.sound = document.createElement("audio")
@@ -13,7 +14,7 @@ class Sound {
         this.sound.setAttribute("controls", "none");
         this.sound.style.display = "none";
         document.body.appendChild(this.sound);
-        this.sound.volume = fxSlider.value();
+        this.sound.volume = fxSlider.value() * this.volume;
         this.sound.play();
     }
 
@@ -54,7 +55,7 @@ class MusicPlayer {
 
     update(){ 
         this.play();
-        this.player.volume = musicSlider.value();
+        this.player.volume = musicSlider.value() * 0.05;
         //console.log(this.player.src);
         //console.log(this.player.currentTime + " Not " + (this.player.duration - 0.1) + " Track " + this.currentTrack);
         if( this.player.currentTime >= this.player.duration - 0.1){ //check if done

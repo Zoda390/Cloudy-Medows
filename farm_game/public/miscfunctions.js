@@ -368,7 +368,7 @@ function clear_data_render() {
     }
     clear_ticks += 1;
     push();
-    fill(205, 255, 0);
+    stroke(0);
     strokeWeight(5);
     fill(255, 255, 0);
     rect(canvasWidth-(('Clearing Data'.length*17)+6), clear_y, ('Clearing Data'.length*17)+6, 50);
@@ -487,6 +487,12 @@ function new_tile_from_num(num, x, y) {
         else if (all_tiles[num - 1].class == 'AirBallon'){
             return new AirBallon(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].under_tile_num);
         }
+        else if (all_tiles[num-1].class == 'LightMoveEntity'){
+            return new LightMoveEntity(all_tiles[num - 1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].inv, all_tiles[num - 1].under_tile_num, all_tiles[num - 1].instructions, all_tiles[num - 1].moving_timer);
+        }
+        else if (all_tiles[num-1].class == 'PayToMoveEntity'){
+            return new PayToMoveEntity(all_tiles[num-1].name, all_tiles[num - 1].png, x, y, all_tiles[num - 1].age, all_tiles[num - 1].under_tile_num, all_tiles[num - 1].price)
+        }
     }
     else {
         console.error('tile created from ' + num + ' doesnt exist');
@@ -528,9 +534,10 @@ function saveAll(){
         player.save()
     }
     localData.set('Day_curLvl_Dif', {days: days, currentLevel_x: currentLevel_x, currentLevel_y: currentLevel_y, dificulty: dificulty});
+    let lvlLength = 0;
     for(let i = 0; i < levels.length; i++){
         for(let j = 0; j < levels[i].length; j++){
-            if(levels[i][j] != 0){
+            if(levels[i][j] != 0 && levels[i][j] != undefined){
                 for(let y = 0; y < levels[i][j].map.length; y++){
                     for(let x = 0; x < levels[i][j].map[y].length; x++){
                         if (levels[i][j].map[y][x] != 0){
@@ -539,9 +546,13 @@ function saveAll(){
                     }
                 }
                 localData.set(levels[i][j].name, levels[i][j]);
+                if(j > lvlLength){
+                    lvlLength = j
+                }
             }
         }
     }
+    localData.set('extralvlStuff', {extraCount: extraCount, lvlLength: lvlLength});
 }
 
 function saveOptions(){
@@ -569,7 +580,6 @@ function saveOptions(){
 
 function loadAll(){
     if(localData.get('player') != null ){
-        console.log(localData.get('player'));
         player.load(localData.get('player'));
     }
     if(localData.get('Day_curLvl_Dif') != null){
@@ -597,18 +607,63 @@ function loadAll(){
         special_key = localData.get('Controls').special_key
         quest_key = localData.get('Controls').quest_key
     }
-    for(let i = 0; i < levels.length; i++){
-        for(let j = 0; j < levels[i].length; j++){
-            if(levels[i][j] != 0){
-                loadLevel(levels[i][j]);
+    if(localData.get('extralvlStuff') != null){
+        extraCount = localData.get('extralvlStuff').extraCount
+        let lvlLength = localData.get('extralvlStuff').lvlLength;
+        for(let i = 0; i < levels.length; i++){
+            for(let j = 0; j < lvlLength+1; j++){
+                if(levels[i][j] != 0){
+                    loadLevel(levels[i][j], j, i);
+                }
+            }
+        }
+    }
+    else{
+        for(let i = 0; i < levels.length; i++){
+            for(let j = 0; j < levels[i].length; j++){
+                if(levels[i][j] != 0){
+                    loadLevel(levels[i][j]);
+                }
             }
         }
     }
 }
 
-function loadLevel(level){
-    if(localData.get(level.name) != null){
-        let newLvl = localData.get(level.name)
+function loadLevel(level, lvlx = 0, lvly = 0){
+    let newLvl = 0;
+    if(level === undefined){
+        newLvl = localData.get('Extra y:'+ lvly + ' x:' + (lvlx-6));
+        if(newLvl == undefined){
+            return;
+        }
+        let fore = JSON.parse(JSON.stringify(newLvl.fore));
+        for(let i = 0; i < fore.length; i++){
+            for(let j = 0; j < fore[i].length; j++){
+                if(fore[i][j] != 0){
+                    fore[i][j] = fore[i][j].type;
+                }
+            }
+        }
+        let map = JSON.parse(JSON.stringify(newLvl.map));
+        for(let i = 0; i < map.length; i++){
+            for(let j = 0; j < map[i].length; j++){
+                if(map[i][j] != 0){
+                    map[i][j] = tile_name_to_num(map[i][j].name);
+                }
+            }
+        }
+        levels[lvly][lvlx] = new Level(newLvl.name, map, fore);
+        level = levels[lvly][lvlx];
+        for(let i = 0; i < levels[lvly][lvlx].fore.length; i++){
+            for(let j = 0; j < levels[lvly][lvlx].fore[i].length; j++){
+                levels[lvly][lvlx].fore[i][j].variant = newLvl.fore[i][j].variant;
+            }
+        }
+    }else{
+        newLvl = localData.get(level.name)
+    }
+    if(newLvl != null){
+        console.log(newLvl)
         level.lights = [];
         level.ladybugs = newLvl.ladybugs;
         for(let i = 0; i < newLvl.map.length; i++){
@@ -616,6 +671,18 @@ function loadLevel(level){
                 if(newLvl.map[i][j] != 0 && level.map[i][j] != 0){
                     level.map[i][j] = new_tile_from_num(tile_name_to_num(newLvl.map[i][j].name), newLvl.map[i][j].pos.x, newLvl.map[i][j].pos.y);
                     level.map[i][j].load(newLvl.map[i][j]);
+                    if (newLvl.map[i][j].name == 'lamppost') {
+                        append(level.lights, new Light(level.map[i][j].pos.x, level.map[i][j].pos.y, (tileSize * 6), 255, 255, 255));
+                    }
+                    if (newLvl.map[i][j].name == 'satilite') {
+                        append(level.lights, new Light(level.map[i][j].pos.x, level.map[i][j].pos.y, (tileSize * 1)+5, 255, 255, 0));
+                    }
+                    if (newLvl.map[i][j].name == 'LightBug'){
+                        let light = new Light(level.map[i][j].pos.x, level.map[i][j].pos.y, (tileSize * 1)-5, 150, 255, 0);
+                        append(level.lights, light);
+                        level.map[i][j].light = light;
+                        level.map[i][j].lightI = level.lights.length - 1;
+                    }
                 }
             }
         }

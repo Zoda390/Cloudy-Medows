@@ -156,6 +156,9 @@ class Robot extends GridMoveEntity{
             this.day_pause = false;
         }
         if (this.moving_timer <= 0 && this.move_bool && this.fuel > 0) {
+            if(currentLevel_x == x && currentLevel_y == y){
+                robot_talkingSound.play();
+            }
             if(this.instructions[this.current_instruction] == 0 || this.instructions[this.current_instruction].command == undefined){
                 //if we need special stuff
             }
@@ -304,6 +307,7 @@ class Robot extends GridMoveEntity{
     }
 
     load(obj){
+        console.log(obj)
         this.age = obj.age;
         this.hand = obj.hand;
         this.under_tile = new_tile_from_num(tile_name_to_num(obj.under_tile.name), obj.under_tile.pos.x, obj.under_tile.pos.y);

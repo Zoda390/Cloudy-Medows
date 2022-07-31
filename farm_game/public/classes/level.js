@@ -76,12 +76,18 @@ class Level {
                         append(this.lights, new Light(this.map[i][j].pos.x, this.map[i][j].pos.y, (tileSize * 6), 255, 255, 255));
                     }
                     if (this.map[i][j].name == 'satilite') {
-                        append(this.lights, new Light(this.map[i][j].pos.x, this.map[i][j].pos.y, (tileSize * 1), 255, 255, 0));
+                        append(this.lights, new Light(this.map[i][j].pos.x, this.map[i][j].pos.y, (tileSize * 1)+5, 255, 255, 0));
                     }
                     if (this.map[i][j].name == 'bridge'){
                         if(this.fore[i+2][j] != undefined && this.fore[i+2][j].type != 1 && this.type != 4 && this.type != 5 && this.type != 6){
                             this.fore[i+2][j].dim = 100;
                         }
+                    }
+                    if (this.map[i][j].name == 'LightBug'){
+                        let light = new Light(this.map[i][j].pos.x, this.map[i][j].pos.y, (tileSize * 1)-5, 150, 255, 0);
+                        append(this.lights, light);
+                        this.map[i][j].light = light;
+                        this.map[i][j].lightI = this.lights.length - 1;
                     }
                 }
             }
@@ -170,6 +176,9 @@ class Level {
                     this.map[i][j].move(x,y);
                 }
                 if (this.map[i][j].class == 'FreeMoveEntity'){
+                    this.map[i][j].randomMove(x,y);
+                }
+                if (this.map[i][j].class == 'LightMoveEntity'){
                     this.map[i][j].randomMove(x,y);
                 }
                 if (this.map[i][j].name == 'flower') {

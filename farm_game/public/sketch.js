@@ -47,6 +47,7 @@ var clear_anim = false;
 var clear_movephase = 0;
 var clear_ticks = 0;
 var clear_y = canvasHeight;
+var extraCount = 0;
 
 function draw() {
     musicplayer.update()
@@ -82,7 +83,7 @@ function draw() {
         if (!paused){
             for (let y = 0; y < levels.length; y++) {
                 for (let x = 0; x < levels[y].length; x++) {
-                    if (levels[y][x] != 0) {
+                    if (levels[y][x] != 0 && levels[y][x] != undefined) {
                         levels[y][x].update(x, y);
                     }
                 }
@@ -332,7 +333,9 @@ function render_ui() {
                 text(player.inv[player.hand].price, player.looking(currentLevel_x, currentLevel_y).pos.x + (tileSize), player.looking(currentLevel_x, currentLevel_y).pos.y - (tileSize / 2));
             }
             pop()
-    
+        }
+        if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).class == "PayToMoveEntity" && player.talking == 0){
+            player.looking(currentLevel_x, currentLevel_y).price_render();
         }
         for (let i = 0; i < 8; i++) {
             if (player.inv[i] == undefined) {
@@ -393,7 +396,7 @@ function mouseReleased() {
                         else{
                             player.current_quest = currentX;
                         }
-                        if(player.quests[player.current_quest].done){
+                        if(player.quests[player.current_quest] != undefined && player.quests[player.current_quest].done){
                             if(player.quests[player.current_quest].reward_item != 0){
                                 if(checkForSpace(player, item_name_to_num(player.quests[player.current_quest].reward_item.name))){
                                     addItem(player, item_name_to_num(player.quests[player.current_quest].reward_item.name), player.quests[player.current_quest].reward_item.amount)
