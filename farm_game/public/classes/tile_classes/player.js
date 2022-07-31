@@ -1,8 +1,8 @@
 class Player extends MoveableEntity {
     constructor(name, png, x, y, inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 3, amount: 5}, 0, 0, 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
-        this.quests = [{name: "Talk to some people", "goals": [{class: "TalkingGoal", npc_name: "OldManJ", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Deb", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Meb",item_name: 0,amount: 0}, {"class": "TalkingGoal",npc_name: "Cowboy Rick",item_name: 0,amount: 0}], days: 0, reward_item: 0, reward_coins: 10},
-    {name: "Save Cloudy Meadows", "goals": [{class: "FundingGoal", amount: 1000}], days: 100, }];
+        this.quests = [new Quest("Talk to some people", [{class: "TalkingGoal", npc_name: "OldManJ", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Deb", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Meb",item_name: 0,amount: 0}, {"class": "TalkingGoal",npc_name: "Cowboy Rick",item_name: 0,amount: 0}], 0, 0, 10),
+    new Quest("Save Cloudy Meadows", [{class: "FundingGoal", amount: 1000}], 100, 0, 0)];
         this.current_quest = 0;
         this.show_quests = false;
         this.questsDone = 0;
@@ -477,7 +477,7 @@ class Player extends MoveableEntity {
                 this.money_anim_amount += this.inv[this.hand].price*current_amount;
                 this.inv[this.hand].amount -= current_amount;
                 if(this.quests != undefined && this.quests.length > 0){
-                if(this.quests[this.current_quest].goals[this.quests[this.current_quest].current_Goal] != undefined){
+                if(this.current_quest != undefined && this.quests[this.current_quest].goals[this.quests[this.current_quest].current_Goal] != undefined){
                     if(this.quests[this.current_quest].goals[this.quests[this.current_quest].current_Goal].class == 'SellGoal'){
                         if(this.quests[this.current_quest].goals[this.quests[this.current_quest].current_Goal].item_name == this.inv[this.hand].name){
                             this.quests[this.current_quest].goals[this.quests[this.current_quest].current_Goal].amount -= current_amount;
@@ -912,15 +912,6 @@ function takeInput() {
                 player.lastinteractMili = millis();
             }
             
-        }
-        if (keyIsDown(quest_key)) {
-            if (millis() - lastMili > 100) {
-                console.log(player);
-                console.log(player.touching);
-                console.log(player.looking(currentLevel_x, currentLevel_y));
-                console.log(temp_move_bool)
-                lastMili = millis();
-            }
         }
     }
     else{

@@ -307,7 +307,6 @@ class Robot extends GridMoveEntity{
     }
 
     load(obj){
-        console.log(obj)
         this.age = obj.age;
         this.hand = obj.hand;
         this.under_tile = new_tile_from_num(tile_name_to_num(obj.under_tile.name), obj.under_tile.pos.x, obj.under_tile.pos.y);

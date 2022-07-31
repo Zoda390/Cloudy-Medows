@@ -56,7 +56,6 @@ class Dialouge {
                 this.done = true;
                 if(this.hand_num != -1 && inv[this.hand_num] != 0 && inv[this.hand_num].amount > 0){
                     if (this.amount >= inv[this.hand_num].amount){
-                        console.log(inv[this.hand_num].amount);
                         if(checkForSpace(player, item_name_to_num(inv[this.hand_num].name))){
                             addItem(player, item_name_to_num(inv[this.hand_num].name), inv[this.hand_num].amount);
                             inv[this.hand_num].amount = 0;
@@ -84,7 +83,7 @@ class Dialouge {
         stroke(0);
         let current_y = 0;
         let new_line = 0;
-        if(current_reply < 1 || this.replies.length <= 6){
+        if(current_reply < 1 || this.replies.length <= 5){
             for (let i = 0; i < min(6-new_line, this.replies.length); i++){
                 if(current_reply == i){
                     fill(255, 255, 0);
@@ -99,7 +98,7 @@ class Dialouge {
             }
         }
         else{
-            for (let i = current_reply-1; i < min(current_reply + 5 - new_line, this.replies.length); i++){
+            for (let i = current_reply-1; i < min(current_reply + 6 - new_line, this.replies.length); i++){
                 if(current_reply == i){
                     fill(255, 255, 0);
                     text('>' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + current_y, (canvasWidth / 2) - (canvasWidth / 20) - 10);
@@ -108,7 +107,7 @@ class Dialouge {
                     fill(255);
                     text('-' + this.replies[i].phrase, (canvasWidth / 2) - 10, canvasHeight - 115 + current_y, (canvasWidth / 2) - (canvasWidth / 20) - 10);
                 }
-                current_y += (this.replies[i].phrase.length > 22 ? ceil(this.replies[i].phrase.length/22)+1:1)*17;
+                current_y += (this.replies[i].phrase.length > 22 ? ceil(this.replies[i].phrase.length/22):1)*17;
                 new_line += (this.replies[i].phrase.length > 22 ? ceil(this.replies[i].phrase.length/22):0);
             }
         }

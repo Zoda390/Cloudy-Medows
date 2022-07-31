@@ -1,10 +1,10 @@
 {
   "Deb": [
     {
-      "phrase": "Hi, I'm Deb. I make the compost around these parts with my sister. Did you know you can turn junk and seeds into compost, right here in this bucket?",
+      "phrase": "Hi, I'm Deb. I make the compost around these parts with my sister.",
       "replies": [
         {
-          "phrase": "No, I didn't know that!",
+          "phrase": "Whats with the bucket of worms?",
           "dialouge_num": 1,
           "quest": -1
         },
@@ -23,10 +23,10 @@
       "amount": 0
     },
     {
-      "phrase": "Placing compost on dirt helps create a grass tile which has rich soil ready for your hoe.",
+      "phrase": "You can turn junk and seeds into compost, right here in this bucket!",
       "replies": [
         {
-          "phrase": "Neato, I sure wish I had some compost!",
+          "phrase": "Neato, I sure wish I had some junk!",
           "dialouge_num": 2,
           "quest": -1
         },
@@ -203,10 +203,32 @@
       "amount": 0
     },
     {
-      "phrase": "Hi...",
+      "phrase": "Did you know placing compost on dirt helps create a grass tile which has rich soil ready for your hoe.",
       "replies": [
         {
+          "phrase": "Thats good.",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Why do the plots turn to dirt?",
+          "dialouge_num": 2,
+          "quest": -1
+        },
+        {
           "phrase": "Bye.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "Thats just what happens when you leave a plot open to the air for too long.",
+      "replies": [
+        {
+          "phrase": "Oh ok.",
           "dialouge_num": -1,
           "quest": -1
         }
@@ -276,6 +298,23 @@
           "phrase": "Oh, okay bye.",
           "dialouge_num": -1,
           "quest": -1
+        },
+        {
+          "phrase": "But why do you sleep so much?",
+          "dialouge_num": 1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1, 
+      "amount": 0
+    },
+    {
+      "phrase": "Cause I got nothing better to do since I dont know how to farm, so I just watch time pass me by, now leave me alone.",
+      "replies": [
+        {
+          "phrase": "Fine.",
+          "dialouge_num": -1,
+          "quest": -1
         }
       ],
       "hand_num": -1, 
@@ -337,7 +376,7 @@
   ],
   "OldManJ": [
     {
-      "phrase": "I Heard you're gonna try to save Cloudy Meadows by farming and helping folks out. I may not be able to help much at my old age, but I'm here if you need any advice!",
+      "phrase": "I Heard you're gonna try to save Cloudy Meadows. I may not be able to help much at my old age, but I'm here if you need any advice!",
       "replies": [
         {
           "phrase": "Please help!",
@@ -377,28 +416,8 @@
           "quest": -1
         },
         {
-          "phrase": "Selling.",
+          "phrase": "Robots?",
           "dialouge_num": 6,
-          "quest": -1
-        },
-        {
-          "phrase": "Compost.",
-          "dialouge_num": 7,
-          "quest": -1
-        },
-        {
-          "phrase": "Sleeping.",
-          "dialouge_num": 8,
-          "quest": -1
-        },
-        {
-          "phrase": "Quests.",
-          "dialouge_num": 9,
-          "quest": -1
-        },
-        {
-          "phrase": "Robots.",
-          "dialouge_num": 10,
           "quest": -1
         },
         {
@@ -428,7 +447,7 @@
       "amount": 0
     },
     {
-      "phrase": "Obviously you'll need seeds first, which you can get by either buying them or eating crops or a fancy grinder. Then you can take your hoe to a suitable piece of land and till it. After you do that just plant the seeds and wait, and you'll have healthy crops in no time!",
+      "phrase": "First seeds, you can get by buying them or eating crops. Then you grab a hoe to a patch of grass to till it. After you that plant the seeds and wait.",
       "replies": [
         {
           "phrase": "Thanks, can you help with something else?",
@@ -462,75 +481,7 @@
       "amount": 0
     },
     {
-      "phrase": "Strawberries, Tomatoes, and Watermelons need water to grow properly. You can buy sprinklers from the market which will water the crops in a small circle around it. To place one, stand on grass and press E.",
-      "replies": [
-        {
-          "phrase": "Thanks, can you help with something else?",
-          "dialouge_num": 1,
-          "quest": -1
-        },
-        {
-          "phrase": "Thank you, bye.",
-          "dialouge_num": -1,
-          "quest": -1
-        }
-      ],
-      "hand_num": -1, 
-      "amount": 0
-    },
-    {
-      "phrase": "Once you've grown some crops, take them to the cart at the market north from here to sell them. Be careful not to sell too much though; you've got to feed yourself too!",
-      "replies": [
-        {
-          "phrase": "Thanks, can you help with something else?",
-          "dialouge_num": 1,
-          "quest": -1
-        },
-        {
-          "phrase": "Thank you, bye.",
-          "dialouge_num": -1,
-          "quest": -1
-        }
-      ],
-      "hand_num": -1, 
-      "amount": 0
-    },
-    {
-      "phrase": "If you don't farm on tilled land for too long, it'll go back to being simple dirt. You can make dirt patches useful again with compost, though! The Deb and Meb up there can help you learn more.",
-      "replies": [
-        {
-          "phrase": "Thanks, can you help with something else?",
-          "dialouge_num": 1,
-          "quest": -1
-        },
-        {
-          "phrase": "Thank you, bye.",
-          "dialouge_num": -1,
-          "quest": -1
-        }
-      ],
-      "hand_num": -1, 
-      "amount": 0
-    },
-    {
-      "phrase": "If you need rest and want your crops to grow right now, you could always sleep in your bed. This will cause time to pass faster if you don't have anything else to do.",
-      "replies": [
-        {
-          "phrase": "Thanks, can you help with something else?",
-          "dialouge_num": 1,
-          "quest": -1
-        },
-        {
-          "phrase": "Thank you, bye.",
-          "dialouge_num": -1,
-          "quest": -1
-        }
-      ],
-      "hand_num": -1, 
-      "amount": 0
-    },
-    {
-      "phrase": "The people of Cloudy could always use some help. Talk to people and see what they need, you may be rewarded quite well!",
+      "phrase": "Strawberries, Tomatoes, and Watermelons need water to grow properly. You buy sprinklers in the market. then, stand on grass and press E.",
       "replies": [
         {
           "phrase": "Thanks, can you help with something else?",
@@ -583,10 +534,10 @@
       "amount": 0
     },
     {
-      "phrase": "Whatever",
+      "phrase": "I love lady bugs I have made so much more corn thanks to them, although they do leave after they eat all my grass.",
       "replies": [
         {
-          "phrase": "Cool...",
+          "phrase": "Nice to know.",
           "dialouge_num": -1,
           "quest": -1
         },
@@ -685,7 +636,7 @@
         {
           "phrase": "You Got it Brent!",
           "dialouge_num": -1,
-          "quest": -1
+          "quest": {"name": "Save Brent", "goals": [{"class": "TalkingGoal", "npc_name": "Super Tina", "item_name": 0, "amount": 0}], "days": 0, "reward_item": 0, "reward_coins": 0}
         }
       ],
       "hand_num": -1, 

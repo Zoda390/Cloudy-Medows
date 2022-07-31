@@ -663,7 +663,6 @@ function loadLevel(level, lvlx = 0, lvly = 0){
         newLvl = localData.get(level.name)
     }
     if(newLvl != null){
-        console.log(newLvl)
         level.lights = [];
         level.ladybugs = newLvl.ladybugs;
         for(let i = 0; i < newLvl.map.length; i++){
