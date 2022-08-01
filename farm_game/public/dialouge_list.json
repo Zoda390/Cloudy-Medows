@@ -4,7 +4,7 @@
       "phrase": "Hi, I'm Deb. I make the compost around these parts with my sister.",
       "replies": [
         {
-          "phrase": "Whats with the bucket of worms?",
+          "phrase": "What's with the bucket of worms?",
           "dialouge_num": 1,
           "quest": -1
         },
@@ -19,7 +19,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -36,7 +36,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -53,9 +53,9 @@
           "quest": -1
         }
       ],
-      "hand_num": 0, 
+      "hand_num": 0,
       "amount": 3
-    }, 
+    },
     {
       "phrase": "Sure, get me some junk and I can help the other farmers grow some serious vegetables!",
       "replies": [
@@ -70,7 +70,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -82,12 +82,12 @@
           "quest": {"name": "Junk for Meb", "goals": [{"class": "TalkingGoal", "npc_name": "Deb", "item_name": "Junk", "amount": 20}], "days": 6, "reward_item": 0, "reward_coins": 50}
         },
         {
-          "phrase": "Nevermind, bye.",
+          "phrase": "Never mind, bye.",
           "dialouge_num": -1,
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     }
   ],
@@ -101,7 +101,7 @@
           "quest": -1
         },
         {
-          "phrase": "What do you know about the land lord? How do we keep Cloudy going?",
+          "phrase": "What do you know about the landlord? How do we keep Cloudy going?",
           "dialouge_num": 3,
           "quest": -1
         },
@@ -116,7 +116,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -133,7 +133,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -149,42 +149,15 @@
       "amount": 2
     },
     {
-      "phrase": "Cloudy is a simple place. We try to make food for ourselves and sell anything else. That man knows we ain't got the ability to make that kind of money...",
+      "phrase": "Cloudy is a simple place. We try to farm and sell anything extra. That man knows we ain't got the ability to make that kind of money...",
       "replies": [
         {
-          "phrase": "So should we just give up?",
-          "dialouge_num": 4,
-          "quest": -1
-        },
-        {
-          "phrase": "Well, let me know if I can help.",
-          "dialouge_num": 4,
-          "quest": -1
-        },
-        {
-          "phrase": "Dang...",
+          "phrase": "I can do it ",
           "dialouge_num": -1,
           "quest": -1
         }
       ],
       "hand_num": -1,
-      "amount": 0
-    },
-    {
-      "phrase": "I'll tell you what, if you fill my farm with strawberries I'll give you all the money I got on me.",
-      "replies": [
-        {
-          "phrase": "You got it!",
-          "dialouge_num": -1,
-          "quest": -1
-        },
-        {
-          "phrase": "Bye.",
-          "dialouge_num": -1,
-          "quest": -1
-        }
-      ],
-      "hand_num": -1, 
       "amount": 0
     },
     {
@@ -197,7 +170,7 @@
         },
         {
           "phrase": "Whats the market?",
-          "dialouge_num": 6,
+          "dialouge_num": 5,
           "quest": -1
         },
         {
@@ -206,7 +179,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -223,7 +196,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     }
   ],
@@ -242,14 +215,14 @@
           "quest":  -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
       "phrase": "Did you know placing compost on dirt helps create a grass tile which has rich soil ready for your hoe.",
       "replies": [
         {
-          "phrase": "Thats good.",
+          "phrase": "That's good.",
           "dialouge_num": -1,
           "quest": -1
         },
@@ -264,7 +237,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -276,7 +249,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     }
   ],
@@ -295,7 +268,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -317,7 +290,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -329,7 +302,7 @@
           "quest": -1
         }
       ],
-      "hand_num": 0, 
+      "hand_num": 0,
       "amount": 1
     }
   ],
@@ -348,11 +321,11 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "Cause I got nothing better to do since I dont know how to farm, so I just watch time pass me by, now leave me alone.",
+      "phrase": "Cause I got nothing better to do since I don't know how to farm, so I just watch time pass me by, now leave me alone.",
       "replies": [
         {
           "phrase": "Fine.",
@@ -360,7 +333,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     }
   ],
@@ -379,7 +352,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -396,19 +369,53 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
-    { 
-      "phrase": "Cause I rode that graceful air ballon over to the left",
+    {
+      "phrase": "Cause I rode that graceful air balloon over to the left",
       "replies": [
         {
-          "phrase": "Oh thats nice.",
-          "dialouge_num": -1,
+          "phrase": "Oh that's nice.",
+          "dialouge_num": 3,
           "quest": -1
         },
         {
           "phrase": "Bye.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+    ],
+    "hand_num": -1,
+    "amount": 0
+  },
+  {
+      "phrase": "If you go try it, I'll give you a flower",
+      "replies": [
+        {
+          "phrase": "Will do.",
+          "dialouge_num": 4,
+          "quest": -1
+        },
+        {
+          "phrase": "No thanks.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+    ],
+    "hand_num": -1,
+    "amount": 0
+  },
+  {
+      "phrase": "Ok but you gotta do it today!",
+      "replies": [
+        {
+          "phrase": "Can do.",
+          "dialouge_num": -1,
+          "quest": {"name": "Ride the Air Ballon", "goals": [{"class": "LocationGoal", "level_name": "Poly Park: Air balloon landing"}], "days": 1, "reward_item": {"num": 11, "amount": 1}, "reward_coins": 0}
+        },
+        {
+          "phrase": "No thanks.",
           "dialouge_num": -1,
           "quest": -1
         }
@@ -432,7 +439,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -469,7 +476,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -486,7 +493,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -503,11 +510,11 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "Press Q to eat food! You'll die if you go hungry, so make sure you've always got food on you if you can.",
+      "phrase": "Press Q to eat food! You'll die if you go hungry, so make sure you've always got food on you.",
       "replies": [
         {
           "phrase": "Thanks, can you help with something else?",
@@ -520,11 +527,11 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "Strawberries, Tomatoes, and Watermelons need water to grow properly. You buy sprinklers in the market. then, stand on grass and press E.",
+      "phrase": "Strawberries, Tomatoes, and Watermelons need water to grow properly. You buy sprinklers in the market. Then, stand on grass and press E.",
       "replies": [
         {
           "phrase": "Thanks, can you help with something else?",
@@ -537,7 +544,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -554,7 +561,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     }
   ],
@@ -573,11 +580,11 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "I love lady bugs I have made so much more corn thanks to them, although they do leave after they eat all my grass.",
+      "phrase": "I love ladybugs I have made so much more corn thanks to them, although they do leave after they eat all my grass.",
       "replies": [
         {
           "phrase": "Nice to know.",
@@ -590,7 +597,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     }
   ],
@@ -614,7 +621,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -631,7 +638,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -648,7 +655,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -670,23 +677,23 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "Thanks, my mom will know what to do, she is my super hero.",
+      "phrase": "Thanks, my mom will know what to do, she is my superhero.",
       "replies": [
         {
           "phrase": "You Got it Brent!",
           "dialouge_num": -1,
-          "quest": {"name": "Save Brent", "goals": [{"class": "TalkingGoal", "npc_name": "Super Tina", "item_name": 0, "amount": 0}], "days": 0, "reward_item": 0, "reward_coins": 0}
+          "quest": {"name": "Save Brent", "goals": [{"class": "TalkingGoal", "npc_name": "Super Tina", "item_name": 0, "amount": 0}], "days": 0, "reward_item": {"num": 4, "amount": 5}, "reward_coins": 0}
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "You might want to take the air ship head left for awhile you can't miss it",
+      "phrase": "You might want to take the airship head left for awhile you can't miss it",
       "replies": [
         {
           "phrase": "Okay.",
@@ -694,7 +701,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -711,7 +718,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     }
   ],
@@ -730,20 +737,20 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "How are you today?",
+      "phrase": "Can you move the rock that sits at the market, I keep running into it",
       "replies": [
         {
-          "phrase": "Good.",
-          "dialouge_num": -1,
+          "phrase": "When I have enough money, Sure.",
+          "dialouge_num": 3,
           "quest": -1
         },
         {
-          "phrase": "Bad.",
-          "dialouge_num": -1,
+          "phrase": "Why is the rock there?",
+          "dialouge_num": 2,
           "quest": -1
         },
         {
@@ -752,7 +759,41 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "Idk how it got there but i've heard there are some really big grass plots over there",
+      "replies": [
+        {
+          "phrase": "Oh now I want to move it.",
+          "dialouge_num": 3,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "Okay take your time.",
+      "replies": [
+        {
+          "phrase": "Ok will do.",
+          "dialouge_num": -1,
+          "quest": {"name": "Move That Rock", "goals": [{"class": "OneTileCheck", "tile_name": "Bridge", "level_name": "Cloudy Meadows: Market", "x": 22, "y": 8}], "days": 0, "reward_item": 0, "reward_coins": 500}
+        },
+        {
+          "phrase": "No thanks.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
       "amount": 0
     }
   ],
@@ -771,7 +812,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -793,12 +834,12 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
-
+ 
     {
-      "phrase": "There are carts for vegatables fruits and insects, they run out of stock but they'll fill back up every day or so.",
+      "phrase": "There are carts for vegetables fruits and insects, they run out of stock but they'll fill back up every day or so.",
       "replies": [
         {
           "phrase": "Thanks, that was super helpful James.",
@@ -816,7 +857,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     }
   ],
@@ -835,7 +876,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -857,7 +898,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -865,7 +906,7 @@
       "replies": [
         {
           "phrase": ":)",
-          "dialouge_num": -1,
+          "dialouge_num": 4,
           "quest": -1
         },
         {
@@ -874,7 +915,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -882,7 +923,7 @@
       "replies": [
         {
           "phrase": ":)",
-          "dialouge_num": -1,
+          "dialouge_num": 4,
           "quest": -1
         },
         {
@@ -891,13 +932,25 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "Ok but please deliver it today.",
+      "replies": [
+        {
+          "phrase": "Will do.",
+          "dialouge_num": -1,
+          "quest": {"name": "Love letter Delivery", "goals": [{"class": "TalkingGoal", "npc_name": "James", "item_name": 0, "amount": 0}], "days": 1, "reward_item": {"num": 10, "amount": 1}, "reward_coins": 0}
+        }
+      ],
+      "hand_num": -1,
       "amount": 0
     }
   ],
   "Zoda": [
     {
-      "phrase": "Hi, im Zoda, id call myself a robot expert. Need to know anything?",
+      "phrase": "Hi, I’m Zoda, I’d call myself a robot expert. Need to know anything?",
       "replies": [
         {
           "phrase": "Yeah",
@@ -910,7 +963,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -942,7 +995,7 @@
           "quest": -1
         },
         {
-          "phrase": "Whats the pc for?",
+          "phrase": "What’s the pc for?",
           "dialouge_num": 6,
           "quest": -1
         },
@@ -957,11 +1010,11 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "Well you need a robot of your own, I can give you one of my favorite robots if you do a couple things for me, ill give you a lvl 1 robot.",
+      "phrase": "Well you need a robot of your own, I can give you one of my favorite robots if you do a couple things for me, I'll give you a lvl 1 robot.",
       "replies": [
         {
           "phrase": "You got a deal",
@@ -984,7 +1037,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -1001,11 +1054,11 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "Lvl1 recharges with Veggy Oil that you get from a press, Lvl2 recharges when standing on a sprinkler, Lvl3 runs off sunlight",
+      "phrase": "Lvl1 recharges with Veggie Oil that you get from a press, Lvl2 recharges when standing on a sprinkler, Lvl3 runs off sunlight",
       "replies": [
         {
           "phrase": "Wait one more thing",
@@ -1018,7 +1071,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -1035,7 +1088,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -1052,7 +1105,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -1069,7 +1122,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -1086,7 +1139,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -1098,7 +1151,7 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
@@ -1110,7 +1163,7 @@
           "quest": {"name": "Free Robot", "goals": [{"class": "TalkingGoal", "npc_name": "Zoda", "item_name": "Strawberries", "amount": 20}], "days": 3, "reward_item": {"num": 27, "amount": 1}, "reward_coins": 0}
         },
         {
-          "phrase": "Actually nevermind",
+          "phrase": "Actually never mind",
           "dialouge_num": -1,
           "quest": -1
         }
@@ -1124,8 +1177,13 @@
       "phrase": "Hi, im SUUUUPER Tina",
       "replies": [
         {
-          "phrase": "Hi, Tina",
+          "phrase": "Hi, Supper Tina",
           "dialouge_num": 1,
+          "quest": -1
+        },
+        {
+          "phrase": "Cloud meadows could use a super heros help right now",
+          "dialouge_num": 2,
           "quest": -1
         },
         {
@@ -1134,117 +1192,142 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "How are you today?",
+      "phrase": "Well, let me know if I can help you.",
       "replies": [
         {
-          "phrase": "Good.",
-          "dialouge_num": -1,
+          "phrase": "Actually yes I need help.",
+          "dialouge_num": 2,
           "quest": -1
         },
         {
-          "phrase": "Bad.",
-          "dialouge_num": -1,
-          "quest": -1
-        },
-        {
-          "phrase": "Bye.",
+          "phrase": "I don't need help right now super tina.",
           "dialouge_num": -1,
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "I’ve been told that ladybugs increase how much product your crops produce, but the effect doesn't cross bridges.",
+      "replies": [
+        {
+          "phrase": "Thanks for the info.",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "That wasn't helpful.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
       "amount": 0
     }
   ],
   "Guy": [
     {
-      "phrase": "Hi, im guy",
+      "phrase": "These here part sure are nice ",
       "replies": [
         {
-          "phrase": "Hi, guy",
+          "phrase": "Cool man",
           "dialouge_num": 1,
           "quest": -1
         },
         {
-          "phrase": "Bye",
+          "phrase": "yea whatever",
           "dialouge_num": -1,
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
+      "amount": 0
+    },    {
+      "phrase": "These here part sure are nice Buy all the seeds you want ",
+      "replies": [
+        {
+          "phrase": "Why can't I sell anything",
+          "dialouge_num": 2,
+          "quest": -1
+        },
+        {
+          "phrase": "yea whatever",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "How are you today?",
+      "phrase": "Well I guess I just have everything a GUY could need",
       "replies": [
         {
-          "phrase": "Good.",
-          "dialouge_num": -1,
-          "quest": -1
-        },
-        {
-          "phrase": "Bad.",
-          "dialouge_num": -1,
-          "quest": -1
-        },
-        {
-          "phrase": "Bye.",
+          "phrase": "yea whatever",
           "dialouge_num": -1,
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     }
   ],
   "Vinny": [
     {
-      "phrase": "Hi, im Vinny",
+      "phrase": "Mind your own business kid",
       "replies": [
         {
-          "phrase": "Hi, Vinny",
+          "phrase": "Hey man cool off",
           "dialouge_num": 1,
           "quest": -1
         },
         {
-          "phrase": "Bye",
+          "phrase": "You got it sir",
           "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "...Whats this?",
+          "dialouge_num": 2,
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "How are you today?",
+      "phrase": "Do you want to have an issue with me kid",
       "replies": [
         {
-          "phrase": "Good.",
-          "dialouge_num": -1,
-          "quest": -1
-        },
-        {
-          "phrase": "Bad.",
-          "dialouge_num": -1,
-          "quest": -1
-        },
-        {
-          "phrase": "Bye.",
+          "phrase": "No sir sorry sir",
           "dialouge_num": -1,
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "It’s my own personal market, now buy something or get lost!",
+      "replies": [
+        {
+          "phrase": "Ok ok ok",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
       "amount": 0
     }
   ],
   "Kenny": [
     {
-      "phrase": "Hi, im Kenny",
+      "phrase": "Hi, im Kenny I am just hanging in the swamp I don't live here",
       "replies": [
         {
           "phrase": "Hi, Kenny",
@@ -1257,38 +1340,137 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "How are you today?",
+      "phrase": "Fireflies make it really easy to see what is happening in the swamp",
       "replies": [
         {
-          "phrase": "Good.",
-          "dialouge_num": -1,
+          "phrase": "Oh that's what they are.",
+          "dialouge_num": 2,
           "quest": -1
         },
         {
-          "phrase": "Bad.",
-          "dialouge_num": -1,
-          "quest": -1
-        },
-        {
-          "phrase": "Bye.",
+          "phrase": "Oh ok bye .",
           "dialouge_num": -1,
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "Yep to be honest there is not much to do in the swamp, any reason your here?",
+      "replies": [
+        {
+          "phrase": "No not really",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "Oh ok bye .",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
       "amount": 0
     }
   ],
   "Ishmil": [
     {
-      "phrase": "Hi, im Ishmil",
+      "phrase": "Hi, I'm Ishmil",
       "replies": [
         {
           "phrase": "Hi, Ishmil",
+          "dialouge_num": 1,
+          "quest": -1
+        },
+        {
+          "phrase": "Geez man your naked?",
+          "dialouge_num": 1,
+          "quest": -1
+        },
+        {
+          "phrase": "ew bye ",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "Yea I don't like pants man their prisons for your body ",
+      "replies": [
+        {
+          "phrase": "That's cool",
+          "dialouge_num": 2,
+          "quest": -1
+        },
+        {
+          "phrase": "that's a bit weird but I can respect it",
+          "dialouge_num": 2,
+          "quest": -1
+        },
+        {
+          "phrase": "I can see your penis, yea no Bye.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "I only have one piece of clothing left I'll give it to you if you help me out",
+      "replies": [
+        {
+          "phrase": "Consider it done",
+          "dialouge_num": 2,
+          "quest": -1
+         
+        },
+        {
+          "phrase": "what do you need done",
+          "dialouge_num": 3,
+          "quest": -1
+        },
+        {
+          "phrase": "My mom always said not to talk to naked strangers bye",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "I really need a veggie press",
+      "replies": [
+        {
+          "phrase": "Consider it done",
+          "dialouge_num": -1,
+          "quest": {"name": "veggie press for Ishmil", "goals": [{"class": "TalkingGoal", "npc_name": "Ishmil", "item_name": "Veggie Press", "amount": 1}], "days": 10, "reward_item": {"num": 33, "amount": 1}, "reward_coins": 0}
+         
+        },
+        {
+          "phrase": "maybe another time",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    }
+  ],
+  "David": [
+    {
+      "phrase": "Hi, im David",
+      "replies": [
+        {
+          "phrase": "Hi, David",
           "dialouge_num": 1,
           "quest": -1
         },
@@ -1298,19 +1480,14 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
       "amount": 0
     },
     {
-      "phrase": "How are you today?",
+      "phrase": "If you look really closely you can see frogs jumping around, for some reason nobody ever steps on them",
       "replies": [
         {
-          "phrase": "Good.",
-          "dialouge_num": -1,
-          "quest": -1
-        },
-        {
-          "phrase": "Bad.",
+          "phrase": "Ouu.",
           "dialouge_num": -1,
           "quest": -1
         },
@@ -1320,8 +1497,144 @@
           "quest": -1
         }
       ],
-      "hand_num": -1, 
+      "hand_num": -1,
+      "amount": 0
+    }
+  ],
+  "Adam": [
+    {
+      "phrase": "I'm already late for my business appointment, I guess the restaurant to the left will do, they sell big plates of food",
+      "replies": [
+        {
+          "phrase": "A big plate of food sounds really good.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    }
+  ],
+  "Barry": [
+    {
+      "phrase": "Hi, I'm Barry",
+      "replies": [
+        {
+          "phrase": "Hi Barry.",
+          "dialouge_num": 1,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "I can't wait for the skate park to be done",
+      "replies": [
+        {
+          "phrase": "Me too.",
+          "dialouge_num": 2,
+          "quest": -1
+        },
+        {
+          "phrase": "Bye.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    },
+        {
+      "phrase": "Man I am hungry I have had like 8 hotdogs today",
+      "replies": [
+        {
+          "phrase": "Ew that can't be healthy",
+          "dialouge_num": 3,
+          "quest": -1
+        },
+        {
+          "phrase": "good luck with that.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    },
+        {
+      "phrase": "Yea thank god for socialized medicine ",
+      "replies": [
+        {
+          "phrase": "amen to that brother",
+          "dialouge_num": -1,
+          "quest": -1
+        },
+        {
+          "phrase": "There is no god :(.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    }
+  ],
+  "Mr.C": [
+    {
+      "phrase": "I'm gonna buy this place and make all the buildings even taller, so yall better move out my way!",
+      "replies": [
+        {
+          "phrase": "How much are you buying it for?",
+          "dialouge_num": 1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "It's gonna cost me 1,000$ and there is no way you people are gonna be able to make that much! Not even in 100 days.",
+      "replies": [
+        {
+          "phrase": "You'll see.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "I really don't even care you guys are losers",
+      "replies": [
+        {
+          "phrase": "Sure.",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "Y'all better start packing cause imma come wrecking",
+      "replies": [
+        {
+          "phrase": "*sigh*",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
       "amount": 0
     }
   ]
 }
+ 
+

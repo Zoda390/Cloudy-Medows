@@ -12,12 +12,16 @@ class Item {
 		image(all_imgs[this.png], x, y);
 		fill(255);
 		let amountS = str(this.amount)
-		textSize(20 - ((amountS.length-1)*7));
+		textSize(20 - ((amountS.length-1)*5));
+		if(amountS.length > 3){
+			amountS = (round(this.amount/100)/10)+'K';
+			textSize(20 - ((amountS.length-2)*4));
+		}
 		textAlign(CENTER, CENTER);
 		textFont(player_2);
 		stroke(0)
 		strokeWeight(1);
-		text(this.amount, x + 51, y + 51 + (amountS.length*2));
+		text(amountS, x + 51 - (amountS.length*2), y + 51 + (amountS.length));
 
 		if(mouseX >= x && mouseX <= x+64 && mouseY >= y && mouseY <= y+64){
 			fill(0);

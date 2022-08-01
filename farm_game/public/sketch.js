@@ -120,6 +120,15 @@ function draw() {
                     time = 200;
                     timephase = 1;
                     days += 1;
+                    if(days >= 100 && level5.map[9][2].name != 'Mr.C'){
+                        level5.map[9][2] = new_tile_from_num(98, 2*tileSize, 9*tileSize);
+                        if(player.quests[0].done){
+                            level5.map[9][2].current_dialouge = 2;
+                        }
+                        else{
+                            level5.map[9][2].current_dialouge = 3;
+                        }
+                    }
                     for(let i = 0; i < player.quests.length; i++){
                         if(player.quests[i] != undefined){
                             player.quests[i].daily_update();

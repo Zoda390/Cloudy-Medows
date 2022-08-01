@@ -1,8 +1,8 @@
 class Player extends MoveableEntity {
     constructor(name, png, x, y, inv = [{ num: 1, amount: 2 }, { num: 2, amount: 5 }, { num: 3, amount: 5}, 0, 0, 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
-        this.quests = [new Quest("Talk to some people", [{class: "TalkingGoal", npc_name: "OldManJ", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Deb", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Meb",item_name: 0,amount: 0}, {"class": "TalkingGoal",npc_name: "Cowboy Rick",item_name: 0,amount: 0}], 0, 0, 10),
-    new Quest("Save Cloudy Meadows", [{class: "FundingGoal", amount: 1000}], 100, 0, 0)];
+        this.quests = [new Quest("Save Cloudy Meadows", [{class: "TalkingGoal", npc_name: "Mr.C", item_name: 0, amount: 0}, {class: "FundingGoal", amount: 1000}], 100, 0, 0),
+        new Quest("Talk to some people", [{class: "TalkingGoal", npc_name: "OldManJ", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Deb", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Meb",item_name: 0,amount: 0}, {"class": "TalkingGoal",npc_name: "Rick",item_name: 0,amount: 0}], 0, 0, 10)];
         this.current_quest = 0;
         this.show_quests = false;
         this.questsDone = 0;
@@ -10,7 +10,7 @@ class Player extends MoveableEntity {
         this.lastFoodnum = 2;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = 0;
-        this.coins = 0;
+        this.coins = 1000;
         this.hp = 100;
         this.dead = false;
         this.deaths = 0;
@@ -142,6 +142,7 @@ class Player extends MoveableEntity {
             robotPlayButton.hide();
             robotPauseButton.hide();
             robotBoomButton.hide();
+            questSlider.hide();
 
             fill(10, this.a);
             rect(0, 0, canvasWidth, canvasHeight);
@@ -210,8 +211,7 @@ class Player extends MoveableEntity {
             this.coins -= ceil(this.coins * 0.1);
             for(let i = 0; i < this.inv.length; i++){
                 if(this.inv[i].class == 'Eat'){
-                    let random = round(0, this.inv[i].amount-2);
-                    console.log(random);
+                    let random = round(random(0, this.inv[i].amount-2));
                     if (random > 0){
                         this.inv[i].amount -= random;
                         if(checkForSpace(this, 4)){
@@ -231,7 +231,7 @@ class Player extends MoveableEntity {
     move() {
         if(!this.dead){
             if (keyIsDown(move_right_button)) {
-                if (millis() - this.lastmoveMili > 100) {
+                if (millis() - this.lastmoveMili > 130) {
                     this.facing = 1;
                     if (this.pos.x + tileSize >= canvasWidth) {
                         this.touching.collide = false;
@@ -287,7 +287,7 @@ class Player extends MoveableEntity {
                 }
             }
             if (keyIsDown(move_left_button)) {
-                if (millis() - this.lastmoveMili > 100) {
+                if (millis() - this.lastmoveMili > 130) {
                     this.facing = 3;
                     if (this.pos.x - tileSize < 0) {
                         this.touching.collide = false;
@@ -316,7 +316,7 @@ class Player extends MoveableEntity {
                 }
             }
             if (keyIsDown(move_up_button)) {
-                if (millis() - this.lastmoveMili > 100) {
+                if (millis() - this.lastmoveMili > 130) {
                     this.facing = 0;
                     if (this.pos.y - tileSize < 0) {
                         this.touching.collide = false;
@@ -355,7 +355,7 @@ class Player extends MoveableEntity {
                 }
             }
             if (keyIsDown(move_down_button)) {
-                if (millis() - this.lastmoveMili > 100) {
+                if (millis() - this.lastmoveMili > 130) {
                     this.facing = 2;
                     if (this.pos.y + tileSize >= canvasHeight) {
                         this.touching.collide = false;
@@ -748,6 +748,21 @@ function takeInput() {
                             }
                             player.talking.dialouges[i].new_replies = -1;
                         }
+                        if(player.talking.name == 'Mr.C'){
+                            if(days >= 99){
+                                player.talking.move_bool = false;
+                                if(player.quests[0].done){
+                                    player.talking.current_dialouge = 2;
+                                }
+                                else{
+                                    player.talking.current_dialouge = 3;
+                                }
+                            }
+                            else{
+                                player.show_quests = true;
+                                player.talking.move_bool = true;
+                            }
+                        }
                     }
                 }
                 else if(player.talking.class == 'Chest' || player.talking.class == 'Backpack'){
@@ -850,6 +865,22 @@ function takeInput() {
                         player.talking.dialouges[player.talking.current_dialouge].new_replies = -1;
                     }
                     if(player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num == -1){
+                        if(player.talking.name == 'Mr.C'){
+                            console.log(days)
+                            if(days >= 99){
+                                player.talking.move_bool = false;
+                                if(player.quests[0].done){
+                                    player.talking.current_dialouge = 2;
+                                }
+                                else{
+                                    player.talking.current_dialouge = 3;
+                                }
+                            }
+                            else{
+                                player.show_quests = true;
+                                player.talking.move_bool = true;
+                            }
+                        }
                         player.talking.move_bool = true;
                         player.talking.current_dialouge = 0;
                         player.oldlooking_name = player.talking.name;
@@ -858,6 +889,7 @@ function takeInput() {
                     }
                     else{
                         player.talking.current_dialouge = player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num;
+                        current_reply = 0;
                     }
                 }
                 else if (player.talking.class == 'Shop'){
@@ -959,10 +991,6 @@ function takeInput() {
         if (keyIsDown(quest_key)) {
             if (millis() - lastMili > 100) {
                 player.show_quests = !player.show_quests;
-                console.log(player);
-                console.log(player.touching);
-                console.log(player.looking(currentLevel_x, currentLevel_y));
-                console.log(temp_move_bool)
                 lastMili = millis();
             }
         }

@@ -307,7 +307,7 @@ function showCredits(){
     textAlign(CENTER, CENTER);
     textSize(11);
     text('Credits', canvasWidth/2 + 120, 20);
-    text('Christian Rodriguez - Lead programmer \n David Kozdra - Code Art and sound \n Patrick Mayer - UI programming \n Christian “Sealand” Rodriguez - Music \n Ethan Davis - Dialogue and Testing \n and thanks to our play testers Ethan Davis', (canvasWidth/2)+120, 80);
+    text('Christian Rodriguez - Lead programmer \n David Kozdra - Code Art and sound \n Patrick Mayer - Misc \n Christian “Sealand” Rodriguez - Music \n Ethan Davis - Dialogue and Testing \n and thanks to our play testers ', (canvasWidth/2)+120, 80);
     pop()
 }
 
@@ -330,6 +330,9 @@ function showQuests(){
     stroke(0);
     strokeWeight(4);
     text('All Quests', (canvasWidth/2) - (width/2)+7, (canvasHeight/8)+7)
+    
+    text(String.fromCharCode(quest_key)+ ' To leave', (canvasWidth/2) - (width/2)+370, (canvasHeight/8)+7)
+
     pop()
     questSlider.show()
     questSlider.position((canvasWidth/2)+(width/2)-190, (canvasHeight/8)+220);

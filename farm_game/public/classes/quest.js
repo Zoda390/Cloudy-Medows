@@ -54,6 +54,9 @@ class Quest {
                 else if (this.goals[i].class == 'HaveGoal'){
                     this.goals[i] = new HaveGoal(this.goals[i].item_name, this.goals[i].amount)
                 }
+                else if (this.goals[i].class == 'OneTileCheck'){
+                    this.goals[i] = new OneTileCheck(this.goals[i].tile_name, this.goals[i].x, this.goals[i].y, this.goals[i].level_name)
+                }
             }
         }
     }
@@ -247,7 +250,7 @@ class TalkingGoal extends Goal{  // Talk to _(npc_name)  and Give _(amount) _(it
     }
 
     update(){
-        if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.looking(currentLevel_x, currentLevel_y).name == this.npc_name){
+        if(player.looking(currentLevel_x, currentLevel_y) != undefined && player.talking.name === this.npc_name){
             if(this.item_name != 0){
                 for(let i = 0; i < player.inv.length; i++){
                     if(!this.done && player.inv[i].name == this.item_name && player.inv[i].amount >= this.amount){
@@ -259,6 +262,9 @@ class TalkingGoal extends Goal{  // Talk to _(npc_name)  and Give _(amount) _(it
                     }
                 }
             }
+            else if (!this.done){
+                this.done = true;
+            }
         }
     }
 }
@@ -266,7 +272,7 @@ class TalkingGoal extends Goal{  // Talk to _(npc_name)  and Give _(amount) _(it
 class FundingGoal extends Goal{  //Get _(amount) coins, take those coins
 
     constructor(amount){
-        super('Get ' + amount + ' coins')
+        super('Get ' + amount + ' more coins')
         this.amount = amount;
         this.class = 'FundingGoal';
     }
@@ -275,6 +281,12 @@ class FundingGoal extends Goal{  //Get _(amount) coins, take those coins
         if(player.coins >= this.amount){
             this.done = true;
             player.coins -= this.amount;
+        }
+        if(!this.done){
+            this.name = 'Get ' + (this.amount-player.coins) + ' more coins';
+        }
+        else{
+            this.name = 'Get ' + 0 + ' more coins';
         }
     }
 }
@@ -304,9 +316,14 @@ class SellGoal extends Goal{ // Sell _(amount) more of _(item)
     }
 
     update(){
-        this.name = 'Sell ' + this.amount + ' more of ' + this.item_name;
         if(this.amount == 0){
             this.done = true;
+        }
+        if(!this.done){
+            this.name = 'Sell ' + this.amount + ' more of ' + this.item_name;
+        }
+        else{
+            this.name = 'Sell ' + 0 + ' more of ' + this.item_name;
         }
     }
 }
@@ -323,6 +340,29 @@ class HaveGoal extends Goal{ // Have _(amount) of _(item_name)
         for(let i = 0; i < player.inv.length; i++){
             if(player.inv[i].name == this.item_name && player.inv[i].amount >= this.amount){
                 this.done = true;
+            }
+        }
+    }
+}
+
+class OneTileCheck extends Goal{
+    constructor(tile_name, x, y, level_name){
+        super('Make x:' + x + ' y:' + y + ' into ' + tile_name + ' at ' + level_name);
+        this.level_name = level_name;
+        this.tile_name = tile_name;
+        this.x = x;
+        this.y = y;
+        this.class = 'OneTileCheck';
+    }
+
+    update(){
+        for(let i = 0; i < levels.length; i++){
+            for(let j = 0; j < levels[i].length; j++){
+                if(this.level_name == levels[i][j].name){
+                    if(levels[i][j].map[this.y][this.x].name == this.tile_name){
+                        this.done = true;
+                    }
+                }
             }
         }
     }

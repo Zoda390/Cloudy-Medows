@@ -1,11 +1,4 @@
-//code from hive mind
 
-/*
-@file sound.js
-@author Patrick M.
-@date 2/19/2022
-@brief File that handles sound class
-*/
 
 class SoundEntity {
     constructor(src){

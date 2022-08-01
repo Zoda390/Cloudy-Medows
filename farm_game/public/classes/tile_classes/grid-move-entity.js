@@ -114,6 +114,9 @@ class GridMoveEntity extends MoveableEntity{
                     }
                 }
             }
+            else if (this.instructions[this.current_instruction] == 'disappear') {
+                levels[y][x].map[this.pos.y / tileSize][this.pos.x / tileSize] = this.under_tile;
+            }
 
             this.anim += 1;
             if (this.anim > all_imgs[this.png][this.facing].length) {

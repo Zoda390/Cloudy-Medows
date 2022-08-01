@@ -35,7 +35,7 @@ class MoveableEntity extends Entity {
                 case 3:
                     return levels[y][x].map[(this.touching.pos.y / tileSize)][(this.touching.pos.x / tileSize) - 1];
                 default:
-                    console.log("facing not understood");
+                    console.error("facing not understood");
             }
         }
     }

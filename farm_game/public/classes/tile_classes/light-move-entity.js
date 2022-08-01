@@ -21,6 +21,8 @@ class LightMoveEntity extends FreeMoveEntity{
                     levels[y-1][x].map[18][this.pos.x / tileSize] = temp;
                     levels[y][x].lights.splice(this.lightI, 1);
                     levels[y-1][x].lights.push(this.light);
+                    console.log(levels[y][x].lights.length + ' ' + levels[y-1][x].lights.length)
+                    this.lightI = levels[y-1][x].lights.length -1
                     this.pos.y = canvasHeight - tileSize;
                     this.light.pos.y = this.pos.y;
                     this.current_instruction += 1;
@@ -50,6 +52,8 @@ class LightMoveEntity extends FreeMoveEntity{
                     levels[y][x+1].map[this.pos.y / tileSize][0] = temp;
                     levels[y][x].lights.splice(this.lightI, 1);
                     levels[y][x+1].lights.push(this.light);
+                    console.log(levels[y][x].lights.length + ' ' + levels[y][x+1].lights.length)
+                    this.lightI = levels[y][x+1].lights.length -1
                     this.pos.x = 0;
                     this.light.pos.x = this.pos.x;
                     this.current_instruction += 1;
@@ -79,6 +83,8 @@ class LightMoveEntity extends FreeMoveEntity{
                     levels[y+1][x].map[0][this.pos.x / tileSize] = temp;
                     levels[y][x].lights.splice(this.lightI, 1);
                     levels[y+1][x].lights.push(this.light);
+                    console.log(levels[y][x].lights.length + ' ' + levels[y+1][x].lights.length)
+                    this.lightI = levels[y+1][x].lights.length -1
                     this.pos.y = 0;
                     this.light.pos.y = this.pos.y;
                     this.current_instruction += 1;
@@ -108,6 +114,8 @@ class LightMoveEntity extends FreeMoveEntity{
                     levels[y][x-1].map[this.pos.y / tileSize][22] = temp;
                     levels[y][x].lights.splice(this.lightI, 1);
                     levels[y][x-1].lights.push(this.light);
+                    console.log(levels[y][x].lights.length + ' ' + levels[y][x-1].lights.length)
+                    this.lightI = levels[y][x-1].lights.length -1
                     this.pos.x = canvasWidth - tileSize;
                     this.light.pos.x = this.pos.x;
                     this.current_instruction += 1;
