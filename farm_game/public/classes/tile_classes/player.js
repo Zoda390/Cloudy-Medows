@@ -865,6 +865,9 @@ function takeInput() {
                         player.talking.dialouges[player.talking.current_dialouge].new_replies = -1;
                     }
                     if(player.talking.dialouges[player.talking.current_dialouge].replies[current_reply].dialouge_num == -1){
+                        player.talking.move_bool = true;
+                        player.talking.current_dialouge = 0;
+                        player.oldlooking_name = player.talking.name;
                         if(player.talking.name == 'Mr.C'){
                             console.log(days)
                             if(days >= 99){
@@ -881,9 +884,6 @@ function takeInput() {
                                 player.talking.move_bool = true;
                             }
                         }
-                        player.talking.move_bool = true;
-                        player.talking.current_dialouge = 0;
-                        player.oldlooking_name = player.talking.name;
                         player.talking = 0;
                         current_reply = 0;
                     }
