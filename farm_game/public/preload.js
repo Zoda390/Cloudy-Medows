@@ -2679,7 +2679,7 @@ function newWorld(){
     currentLevel_x = 4;
     time = 0;
     timephase = 0;
-    days = 99;
+    days = 0;
     current_reply = 0;
     temp_move_bool = true;
     save_anim = 0;
