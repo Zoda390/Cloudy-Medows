@@ -178,7 +178,7 @@ function render_ui() {
     }
 
     if(player.inv_warn_anim > 0){
-        let mod = ((player.talking.class == 'NPC') ? 182: 0)
+        let mod = ((player.talking.class == 'NPC' || player.talking.class == 'Shop') ? 182: 0)
         player.inv_warn_anim -= 3;
         push()
         textFont(player_2);
