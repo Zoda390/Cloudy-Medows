@@ -677,7 +677,7 @@ function preload() {
     /*37*/    { name: 'Liam', png: 36, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: ['up', 'up', 'down', 'down'], moving_timer: 100, class: 'NPC' },
     /*38*/    { name: 'Meb', png: 37, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: [], moving_timer: 100, class: 'NPC' },
     /*39*/    { name: 'bush', png: 38, collide: true, age: -1, class: 'Tile' },
-    /*40*/    { name: 'chest', png: 39, inv: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], facing: 2, under_tile_num: 1, class: 'Chest'},
+    /*40*/    { name: 'Chest', png: 39, inv: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], facing: 2, under_tile_num: 1, class: 'Chest'},
     /*41*/    { name: 'watermelon', png: 40, collide: false, age: 0, eat_num: 17, waterneed: 2, growthTime: 4000, class: 'Plant'},
     /*42*/    { name: 'Robot3', png: 41, inv: [0, 0, 0, 0, 0, 0, 0], under_tile_num: 1, instructions: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], moving_timer: 60, class: 'Robot'},
     /*43*/    { name: 'Fruits', png: 42, inv: [{num: 7, amount: 3}, {num: 15, amount: 3}, {num: 17, amount: 3}], under_tile_num: 1, class: 'Shop' },

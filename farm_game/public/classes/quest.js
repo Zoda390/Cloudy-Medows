@@ -178,7 +178,6 @@ class Quest {
             if(this.goals[this.current_Goal] != undefined){
                 this.goals[this.current_Goal].update()
                 if(this.goals[this.current_Goal].done){
-                    console.log(this.goals[this.current_Goal].name + ' done');
                     this.current_Goal += 1;
                     if(this.current_Goal > this.goals.length-1 && !this.done){
                         this.done = true;

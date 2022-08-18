@@ -134,7 +134,7 @@ function draw() {
                             player.quests[i].daily_update();
                         }
                     }
-                    saveAll()
+                    saveAll();
                     newDayChime.play();
                 }
                 if (time <= 0) {

@@ -6,6 +6,10 @@ class Chest extends Entity{
     }
 
     chest_render(){
+        robotBoomButton.show();
+        robotBoomButton.style('background-color','rgb(187, 132, 75)');
+        robotBoomButton.style('color','rgb(255, 0, 0)');
+        robotBoomButton.position(canvasWidth/4 + canvasWidth/2 - 50, canvasHeight/4 - 5);
         push()
         stroke(149, 108, 65);
         strokeWeight(5);

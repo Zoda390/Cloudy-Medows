@@ -44,6 +44,9 @@ class Robot extends GridMoveEntity{
         robotPlayButton.show();
         robotPauseButton.show();
         robotBoomButton.show();
+        robotBoomButton.style('background-color','rgb(50, 50, 50)');
+        robotBoomButton.style('color','rgb(255, 0, 0)');
+        robotBoomButton.position(((14*canvasWidth)/16) - 30, canvasHeight/8 - 5);
         if(temp_move_bool){
             robotPlayButton.style('background-color','rgb(255, 255, 255)');
             robotPauseButton.style('background-color','rgb(50, 50, 50)');

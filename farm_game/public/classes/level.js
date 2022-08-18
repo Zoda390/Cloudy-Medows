@@ -216,9 +216,14 @@ class Level {
                         }
                     }
                     if (this.map[i][j].name == 'ladybug') {
-                        if (this.map[i][j].age >= 20) {
+                        if (this.map[i][j].age >= 10) {
                             this.ladybugs -= 1;
                             this.map[i][j] = new_tile_from_num(2, (j * tileSize), (i * tileSize));
+                        }
+                    }
+                    if (this.map[i][j].name == 'Bees') {
+                        if (this.map[i][j].age >= 10) {
+                            this.map[i][j] = this.map[i][j].under_tile;
                         }
                     }
                     if (this.map[i][j].name == 'Flower_Done'){

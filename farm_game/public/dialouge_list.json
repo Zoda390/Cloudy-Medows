@@ -986,22 +986,27 @@
         },
         {
           "phrase": "Are they worth it?",
-          "dialouge_num": 4,
-          "quest": -1
-        },
-        {
-          "phrase": "What does the color of the floppy mean?",
           "dialouge_num": 5,
           "quest": -1
         },
         {
-          "phrase": "What’s the pc for?",
+          "phrase": "What does the color of the floppy mean?",
           "dialouge_num": 6,
           "quest": -1
         },
         {
-          "phrase": "How do I make them farm?",
+          "phrase": "What’s the pc for?",
           "dialouge_num": 7,
+          "quest": -1
+        },
+        {
+          "phrase": "How do I make them farm?",
+          "dialouge_num": 8,
+          "quest": -1
+        },
+        {
+          "phrase": "My plants aren't growing.",
+          "dialouge_num": 11,
           "quest": -1
         },
         {
@@ -1018,12 +1023,12 @@
       "replies": [
         {
           "phrase": "You got a deal",
-          "dialouge_num": 9,
+          "dialouge_num": 10,
           "quest": -1
         },
         {
           "phrase": "WHA why is a lvl 1 your favorite?",
-          "dialouge_num": 8,
+          "dialouge_num": 9,
           "quest": -1
         },
         {
@@ -1164,6 +1169,23 @@
         },
         {
           "phrase": "Actually never mind",
+          "dialouge_num": -1,
+          "quest": -1
+        }
+      ],
+      "hand_num": -1,
+      "amount": 0
+    },
+    {
+      "phrase": "Sadly plants don't like it when something stands on them so they won't grow.",
+      "replies": [
+        {
+          "phrase": "Wait one more thing",
+          "dialouge_num": 1,
+          "quest": -1
+        },
+        {
+          "phrase": "Ok thanks",
           "dialouge_num": -1,
           "quest": -1
         }
@@ -1428,7 +1450,7 @@
       "replies": [
         {
           "phrase": "Consider it done",
-          "dialouge_num": 2,
+          "dialouge_num": 3,
           "quest": -1
          
         },

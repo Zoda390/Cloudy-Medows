@@ -1,7 +1,7 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y, inv = [{ num: 1, amount: 1 }, { num: 2, amount: 5 }, { num: 3, amount: 5}, {num: 4, amount: 50}, 0, 0, 0, 0]) {
+    constructor(name, png, x, y, inv = [{ num: 1, amount: 1 }, { num: 2, amount: 5 }, { num: 3, amount: 5}, {num: 10, amount: 1}, {num: 11, amount: 100}, 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
-        this.quests = [new Quest("Save Cloudy Meadows", [{class: "TalkingGoal", npc_name: "Mr.C", item_name: 0, amount: 0}, {class: "FundingGoal", amount: 1000}], 100, 0, 0),
+        this.quests = [new Quest("Save Cloudy Meadows", [{class: "TalkingGoal", npc_name: "Mr.C", item_name: 0, amount: 0}, {class: "FundingGoal", amount: 10000}], 100, 0, 0),
         new Quest("Talk to some people", [{class: "TalkingGoal", npc_name: "OldManJ", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Deb", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Meb",item_name: 0,amount: 0}, {"class": "TalkingGoal",npc_name: "Rick",item_name: 0,amount: 0}], 0, 0, 10)];
         this.current_quest = 0;
         this.show_quests = false;
@@ -10,7 +10,7 @@ class Player extends MoveableEntity {
         this.lastFoodnum = 2;
         this.hunger_timer = all_items[this.lastFoodnum].hunger_timer;
         this.hunger_counter = 0;
-        this.coins = 0;
+        this.coins = 100;
         this.hp = 100;
         this.dead = false;
         this.deaths = 0;
@@ -813,6 +813,7 @@ function takeInput() {
                             }
                         }
                     }
+                    robotBoomButton.hide();
                 }
                 else if (player.talking.class == 'Robot'){
                     player.talking.fuel_timer = player.talking.max_fuel_timer;
@@ -884,7 +885,6 @@ function takeInput() {
                         player.talking.current_dialouge = 0;
                         player.oldlooking_name = player.talking.name;
                         if(player.talking.name == 'Mr.C'){
-                            console.log(days)
                             if(days >= 99){
                                 player.talking.move_bool = false;
                                 if(player.quests[0].done){
