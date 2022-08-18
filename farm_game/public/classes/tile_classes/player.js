@@ -1,5 +1,5 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y, inv = [{ num: 1, amount: 1 }, { num: 2, amount: 5 }, { num: 3, amount: 5}, 0, 0, 0, 0, 0]) {
+    constructor(name, png, x, y, inv = [{ num: 1, amount: 1 }, { num: 2, amount: 5 }, { num: 3, amount: 5}, {num: 4, amount: 50}, 0, 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [new Quest("Save Cloudy Meadows", [{class: "TalkingGoal", npc_name: "Mr.C", item_name: 0, amount: 0}, {class: "FundingGoal", amount: 1000}], 100, 0, 0),
         new Quest("Talk to some people", [{class: "TalkingGoal", npc_name: "OldManJ", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Deb", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Meb",item_name: 0,amount: 0}, {"class": "TalkingGoal",npc_name: "Rick",item_name: 0,amount: 0}], 0, 0, 10)];
@@ -398,7 +398,7 @@ class Player extends MoveableEntity {
     eat() {
         if (millis() - this.lasteatMili > 100) {
             if (this.hunger < maxHunger) {  // player only eats when hungry
-                if (this.inv[this.hand].class == 'Eat' && checkForSpace(this, this.inv[this.hand].seed_num)) {
+                if(this.inv[this.hand].class == 'Eat' && this.inv[this.hand].amount == 1){
                     EatSound.play();
                     this.hunger += this.inv[this.hand].hunger;
                     if (this.hunger > maxHunger) {
@@ -413,7 +413,22 @@ class Player extends MoveableEntity {
                         this.inv[this.hand] = 0;
                     }
                     addItem(this, seed_obj_num, random([1, 1, 1, 1, 2, 2, 2, 3]));
-                    
+                }
+                else if (this.inv[this.hand].class == 'Eat' && (checkForSpace(this, this.inv[this.hand].seed_num))) {
+                    EatSound.play();
+                    this.hunger += this.inv[this.hand].hunger;
+                    if (this.hunger > maxHunger) {
+                        this.hunger = maxHunger;
+                    }
+                    this.inv[this.hand].amount -= 1;
+                    this.hunger_counter = 0;
+                    this.hunger_timer = this.inv[this.hand].hunger_timer;
+                    this.lastFoodnum = item_name_to_num(this.inv[this.hand].name);
+                    let seed_obj_num = this.inv[this.hand].seed_num;
+                    if (this.inv[this.hand].amount == 0) {
+                        this.inv[this.hand] = 0;
+                    }
+                    addItem(this, seed_obj_num, random([1, 1, 1, 1, 2, 2, 2, 3]));
                 }
             }
         }
