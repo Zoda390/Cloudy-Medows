@@ -585,7 +585,14 @@ class Player extends MoveableEntity {
         else if (this.touching.name == 'grinder'){
             if (this.inv[this.hand].class == 'Eat'){
                 if(this.inv[this.hand].seed_num != 0){
-                    if(checkForSpace(this, this.inv[this.hand].seed_num)){
+                    if(this.inv[this.hand].amount == 1){
+                        this.inv[this.hand].amount -= 1;
+                        addItem(this, this.inv[this.hand].seed_num, random([1, 2, 2, 2, 2, 3, 3, 4]));
+                        if (this.inv[this.hand].amount == 0) {
+                            this.inv[this.hand] = 0;
+                        }
+                    }
+                    else if(checkForSpace(this, this.inv[this.hand].seed_num)){
                         this.inv[this.hand].amount -= 1;
                         addItem(this, this.inv[this.hand].seed_num, random([1, 2, 2, 2, 2, 3, 3, 4]));
                         if (this.inv[this.hand].amount == 0) {
