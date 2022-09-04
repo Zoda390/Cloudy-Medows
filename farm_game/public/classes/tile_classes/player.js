@@ -1,5 +1,5 @@
 class Player extends MoveableEntity {
-    constructor(name, png, x, y, inv = [{ num: 1, amount: 1 }, { num: 2, amount: 5 }, { num: 3, amount: 5}, {num: 10, amount: 1}, {num: 11, amount: 100}, 0, 0, 0]) {
+    constructor(name, png, x, y, inv = [{ num: 1, amount: 1 }, { num: 2, amount: 5 }, { num: 3, amount: 5}, 0, 0, 0, 0, 0]) {
         super(name, png, x, y, inv, 0, 3, 0, 0);
         this.quests = [new Quest("Save Cloudy Meadows", [{class: "TalkingGoal", npc_name: "Mr.C", item_name: 0, amount: 0}, {class: "FundingGoal", amount: 10000}], 100, 0, 0),
         new Quest("Talk to some people", [{class: "TalkingGoal", npc_name: "OldManJ", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Deb", item_name: 0, amount: 0}, {class: "TalkingGoal", npc_name: "Meb",item_name: 0,amount: 0}, {"class": "TalkingGoal",npc_name: "Rick",item_name: 0,amount: 0}], 0, 0, 10)];
