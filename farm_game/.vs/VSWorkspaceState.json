@@ -3,9 +3,8 @@
     "",
     "\\public",
     "\\public\\classes",
-    "\\public\\classes\\tile_classes",
-    "\\public\\images\\npc"
+    "\\public\\classes\\tile_classes"
   ],
-  "SelectedNode": "\\public\\index.html",
+  "SelectedNode": "\\public\\classes\\tile_classes\\player.js",
   "PreviewInSolutionExplorer": false
 }
