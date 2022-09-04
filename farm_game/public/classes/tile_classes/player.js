@@ -211,11 +211,11 @@ class Player extends MoveableEntity {
             this.coins -= ceil(this.coins * 0.1);
             for(let i = 0; i < this.inv.length; i++){
                 if(this.inv[i].class == 'Eat'){
-                    let random = round(random(0, this.inv[i].amount-2));
-                    if (random > 0){
-                        this.inv[i].amount -= random;
+                    let rand_rot = round(random(0, this.inv[i].amount-2));
+                    if (rand_rot > 0){
+                        this.inv[i].amount -= rand_rot;
                         if(checkForSpace(this, 4)){
-                            addItem(this, 4, random);
+                            addItem(this, 4, rand_rot);
                         }
                     }
                 }
