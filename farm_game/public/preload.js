@@ -1,3 +1,5 @@
+//! Make art for pumpkin shop, only include if month is October
+
 function preload() {
     musicplayer = new MusicPlayer(['audio/Main_theme.wav','audio/calm_dings.mp3','audio/empty_burst.mp3','audio/Main_theme.mp3','audio/Silence.wav','audio/Ambiance.wav', 'audio/Ambiance.wav', 'audio/Ambiance.wav', 'audio/Silence.wav'])
 
@@ -408,6 +410,16 @@ function preload() {
     hemp_seed_img = loadImage("images/items/hemp_seeds.png");
     hemp_tile_imgs = [hemp_tile_1_img, hemp_tile_3_img, hemp_tile_4_img,hemp_tile_5_img,hemp_tile_6_img];
 
+    //pumpkins
+    pumpkin_img = loadImage("images/items/Pumpkin.png");
+    pumpkin_seed_img = loadImage("images/items/Pumpkin_seedBag.png");    
+    pumpkin_tile_1_img = loadImage("images/tiles/Pumpkin_1.png");
+    pumpkin_tile_2_img = loadImage("images/tiles/Pumpkin_2.png");
+    pumpkin_tile_3_img = loadImage("images/tiles/Pumpkin_3.png");
+    pumpkin_tile_4_img = loadImage("images/tiles/Pumpkin_4.png");
+    pumpkin_tile_5_img = loadImage("images/tiles/Pumpkin_5.png");
+    pumpkin_tile_6_img = loadImage("images/tiles/Pumpkin_Dead.png");
+    pumpkin_tile_imgs = [pumpkin_tile_1_img, pumpkin_tile_2_img, pumpkin_tile_3_img, pumpkin_tile_4_img, pumpkin_tile_5_img, pumpkin_tile_6_img];
 
     // ladybugs
     ladybug_bag_img = loadImage("images/items/Lady_Bug_bag.png");
@@ -480,17 +492,7 @@ function preload() {
 
     chat_icon = loadImage('images/ui/Chat_Icon.png');
 
-    /*
-    class           obj
-    Tile            { name: 'name', png: [png_img], collide: false, age: -1, class: 'Tile' }
-    Shop            { name: 'name', png: png_img, inv: [], class: 'Shop'}
-    Plant           { name: 'name', png: png_img, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }  2000 growthTime is about 1 day
-    Entity          { name: 'name', png: png_img, collide: false, age: -1, inv: [0, {num: 1, amount: 1}], hand: 0, under_tile_num: 0, class: 'Entity' }
-    FreeMoveEntity  { name: 'name', png: png_img, inv:[0, {num: 1, amount: 1}], under_tile_num: 0, instructions: [], moving_timer: 0, class: 'FreeMoveEntity' }
-    MoveableEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, moving_timer: 0, class: 'MoveableEntity' }
-    GridMoveEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'GridMoveEntity' }
-    NPC             { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'NPC' }
-    */
+    
    all_imgs = [
     /*0*/[concrete_tile_img, concrete_tile_2_img], 
     /*1*/[grass_tile_img], 
@@ -634,9 +636,23 @@ function preload() {
     /*139*/[rock_tile_img],
     /*140*/adam_tile_imgs,
     /*141*/barry_tile_imgs,
-    /*142*/mrC_tile_imgs
-];
-   
+    /*142*/mrC_tile_imgs,
+    /*143*/pumpkin_tile_imgs,
+    /*144*/pumpkin_img,
+    /*145*/pumpkin_seed_img
+    ];
+
+   /*
+    class           obj
+    Tile            { name: 'name', png: [png_img], collide: false, age: -1, class: 'Tile' }
+    Shop            { name: 'name', png: png_img, inv: [], class: 'Shop'}
+    Plant           { name: 'name', png: png_img, collide: false, age: 0, eat_num: 0, waterneed: 0, growthTime: 0, class: 'Plant' }  2000 growthTime is about 1 day
+    Entity          { name: 'name', png: png_img, collide: false, age: -1, inv: [0, {num: 1, amount: 1}], hand: 0, under_tile_num: 0, class: 'Entity' }
+    FreeMoveEntity  { name: 'name', png: png_img, inv:[0, {num: 1, amount: 1}], under_tile_num: 0, instructions: [], moving_timer: 0, class: 'FreeMoveEntity' }
+    MoveableEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, moving_timer: 0, class: 'MoveableEntity' }
+    GridMoveEntity  { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'GridMoveEntity' }
+    NPC             { name: 'name', png: png_img, inv: [0, {num: 1, amount: 1}], hand: 0, facing: 2, under_tile_num: 0, instructions: [], moving_timer: 0, class: 'NPC' }
+    */
     all_tiles = [
     /*1*/    { name: 'concrete', png: 0, collide: false, age: -1, class: 'Tile' },
     /*2*/    { name: 'grass', png: 1, collide: false, age: -1, class: 'Tile' },
@@ -735,8 +751,10 @@ function preload() {
     /*95*/    { name: 'park_grass_move', png: 139, age: -1, under_tile_num: 57, price: 420, class: 'PayToMoveEntity'},
     /*96*/    { name: 'Adam', png: 140, inv: [0], hand: 0, facing: 2, under_tile_num: 57, instructions: [], moving_timer: 100, class: 'NPC'},
     /*97*/    { name: 'Barry', png: 141, inv: [0], hand: 0, facing: 2, under_tile_num: 57, instructions: [], moving_timer: 100, class: 'NPC'},
-    /*98*/    { name: 'Mr.C', png: 142, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: ['down', 'down', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'disappear'], moving_timer: 10, class: 'NPC'}
-];
+    /*98*/    { name: 'Mr.C', png: 142, inv: [0], hand: 0, facing: 2, under_tile_num: 1, instructions: ['down', 'down', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'right', 'disappear'], moving_timer: 10, class: 'NPC'},
+    /*99*/    { name: 'Pumpkin', png: 143, collide: false, age: 0, eat_num: 41, waterneed: 0, growthTime: 3000, class: 'Plant' },
+    ];
+    
     /*
     class       obj
     Item        {name: 'name', png: png_img, price: 0, class: 'Item'}
@@ -786,7 +804,10 @@ function preload() {
         /*37*/{name: 'Grinder', png: 121, price: 50, tile_num: 83, tile_need_num: 1, class: 'Placeable'},
         /*38*/{name: 'Veggie Press', png: 125, price: 130, tile_num: 48, tile_need_num: 1, class: 'Placeable'},
         /*39*/{name: 'Carrot', png: 136, price: 4, hunger: 1, hunger_timer: 2000, seed_num: 40, class: 'Eat' },
-        /*40*/{name: 'Carrot Seed', png: 137, plant_num: 92, class: 'Seed'}
+        /*40*/{name: 'Carrot Seed', png: 137, plant_num: 92, class: 'Seed'},
+        /*41*/{name: 'Pumpkin', png: 144, price: 3, hunger: 3, hunger_timer: 2000, seed_num: 42, class: 'Eat'},
+        /*42*/{name: 'Pumpkin Seed', png: 145, plant_num: 99, class: 'Seed'}
+        
     ];
 
 }
